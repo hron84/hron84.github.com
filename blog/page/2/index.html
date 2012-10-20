@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hron's blog</title>
+  <meta name="author" content="Gábor Garami">
+
+  
+  <meta name="description" content="Na, ezt is kipr&oacute;b&aacute;ltam, yo. A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre: auth& &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hron84.github.com/blog/page/2/">
+  <link href="/favicon.png" rel="shortcut icon" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/code.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hron's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <div id="header"><!-- <hgroup>
+  <h1><a href="/">Hron's blog</a></h1>
+  
+    <h2>Who want to fly with doves loses the treasure down here</h2>
+  
+</hgroup> -->
+<a class="logo">&nbsp;</a>
+<div class="userbox">
+
+
+
+  
+  <form action="http://google.com/search" method="get" class="search">
+    <!-- <fieldset role="search"> -->
+      <input type="hidden" name="q" value="site:hron84.github.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    <!-- </fieldset> -->
+  </form>
+  
+  <div class="avatar"><a href="#" class="name">Hron's blog</a></div>
+  <ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+
+</div>
+</div>
+  <!-- <nav role="navigation"><ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+</nav> -->
+  <div id="main" class="site dashboard">
+    <div class="pagehead">
+      <nav rel="navigation">
+        <ul class="actions">
+             <li><a href="/">Kezdőlap</a></li>
+             <li><a href="/about/">Bemutatkozás</a></li>
+         </ul>
+      </nav>
+      
+    </div>
+
+    <div id="content" class="columns container">
+      <div class="blog-index first">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/google-authenticator-for-ssh/">Google Authenticator for SSH</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Na, ezt is kipr&oacute;b&aacute;ltam, yo.</p>
+
+<p>A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre:</p>
+
+<p>auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_tally2.so onerr=succeed
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_shells.so
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_nologin.so
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_env.so
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficient&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_google_authenticator.so</p>
+
+<p>K&eacute;ri az authentikator k&oacute;djat, enter, es bel&eacute;p. A Pubkey auth fel&uuml;lv&aacute;gja, ofc.</p>
+
+<p>Szerk: ja, &eacute;s kell neki a ChallengeResponseAuthentication yes</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/dr-otker/">Dr Ötker</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Tegnap tettem egy r&ouml;vid l&aacute;togat&aacute;st kedvenc Interspar-omban, &eacute;s vettem egy csom&oacute; acci&oacute;s gy&uuml;m&ouml;lcslevesport, t&eacute;len-ny&aacute;ron kiv&aacute;l&oacute; turmix van bel&ouml;l&uuml;k. Hogy-hogy nem, beker&uuml;lt a sorba egy s&aacute;rgabarackos tejberizs is - val&oacute;sz&iacute;n&uuml;leg mell&eacute;ny&uacute;ltam. Mindenesetre &aacute;rban nem volt nagy difi, belef&eacute;rt.</p>
+
+<p>Hogy ne vesszen pocs&eacute;kba, csak k&aacute;rba, gyorsan &ouml;sszedobtam r&aacute; valamit.</p>
+
+<p>&nbsp;- 1/2 doboz 0.5l-es SPAR vanili&aacute;s ital (egy kicsit sokat vettem bel&ouml;le a j&oacute;m&uacute;ltkor&#8230;)
+&nbsp;- 1 poh&aacute;r tej (ez eddig ugye f&eacute;l liter, ennyi folyad&eacute;k &aacute;ll a zacsin)
+&nbsp;- 1 zacsi tejberizs kezdem&eacute;ny (ez ugye most a s&aacute;rgabarackos)</p>
+
+<p>Tot&aacute;l a zacsi szerint j&aacute;rtam el, alapos felforral&aacute;s (megv&aacute;rtam, mig takar&eacute;kon elkezd kin&eacute;zni a faz&eacute;kb&oacute;l - ez csak el&eacute;g alapos&#8230;), 1 perces (alapos) kever&eacute;s,
+10 perc (alapos :-) ) fed&ouml;. Na itt &aacute;llunk most.</p>
+
+<p>Uhh, el is felejtettem friss&iacute;teni. Na, sz&oacute;val feledhetetlen volt, b&aacute;r legk&ouml;zelebb picit kevesebb vanili&aacute;s tejet &eacute;s egy picit t&ouml;bb sima tejet rakok bele.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/1-centes-bolt/">1 Centes bolt</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>R&eacute;gebb &oacute;ta itt van a sarokban, de most megint belepiszk&aacute;ltam, egy CentOS repo. Ilyesmik vannak benne, mint</p>
+
+<ul>
+<li>Viszonylag &uacute;j apache</li>
+<li>Ruby 1.8.7 (egy vicc, hogy a CentOS 5.6 is nagyon r&eacute;gi rubyt hoz)</li>
+<li>Egy rak&aacute;s gem</li>
+<li>Sun JDK/JRE 1.6</li>
+</ul>
+
+
+<p>Repo <a href="http://users.hanzo.hu/~hron/centos/">itt</a>, Yum konfig <a href="http://users.hanzo.hu/~hron/centos/hron.repo">erre</a>. A kulcs nem t&ouml;lt&ouml;dik le automat&aacute;n, tess&eacute;k leszedni &eacute;s a megfelel&ouml; helyre rakni.
+Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; az rpm-re:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg -a --export 51d11d3b &gt; x.asc
+</span><span class='line'>rpm --import x.asc</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/untitled/">Untitled</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>H&aacute;t, el&eacute;g cs&uacute;nya vihar volt itt d&eacute;lut&aacute;n. Mondjuk legal&aacute;bb v&eacute;gre eld&ouml;nt&ouml;tte mag&aacute;t az id&ouml;, mert m&aacute;r borzaszt&oacute; unalmas volt ez a se ide, se oda totoj&aacute;z&aacute;s.<p />Ellenben volt egy hatalmas villan&aacute;s, &eacute;s akkor&aacute;t d&ouml;rg&ouml;tt, hogy l&aacute;that&oacute;an megremegtek az ablakt&aacute;bl&aacute;k, &eacute;s az &ouml;sszes aut&oacute; riaszt&oacute;ja bekapcsolt.
+&Eacute;n meg csak reszkettem, mint egy f&eacute;l&eacute;nk kaktusz&#8230; Szerencs&eacute;re semmilyen komolyabb baj nem t&ouml;rt&eacute;nt.<p />(titkos <a href="http://www.google.hu/search?q=%22f%C3%A9l%C3%A9nk+kaktusz%22" target="_blank">keres&ouml;teszt&#8230;</a>)</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/mult-es-jovo/">Mult es jovo</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Valaki ezt irta be facebook-ra:</p>
+
+<blockquote class="posterous_medium_quote">
+Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat, a  j&ouml;vő pedig soha nem lesz pontosan olyan, amilyennek tervezed vagy  rem&eacute;led. F&aacute;jdalmad, f&eacute;lelmed &eacute;s d&uuml;h&ouml;d, sajn&aacute;lkoz&aacute;sod &eacute;s bűntudatod,  terveid &eacute;s s&oacute;v&aacute;rg&aacute;said csak a m&uacute;ltban vagy a j&ouml;vőben &eacute;lnek.
+
+
+</blockquote>
+
+
+<p>De mit tehet az ember, ha ugy erzi: szeretne visszamenni a multba, es megvaltoztatni dolgokat, amiket elrontott? Mi van akkor, ha ugy erzed: visszavonhatatlanul elrontottal valamit, es nagyon ki kene javitani?</p>
+
+<p>Nem tudom. Nekem szerencsere nagyon keves ilyen pont van, amit ki kene javitani, de sajnos van. Vannak dolgok, amiket nem ugy kellett volna megoldani, ahogy megoldottam. Azt hittem celravezeto, de nem volt az. Sokkal rosszabb volt, mintha csak hagytam volna, hogy a dolgok megtortenjenek. A fajdalom mindig ugyanakkora, ha valakit elveszitunk, ezen nem lehet kisebbiteni. El lehet takarni, el lehet nyomni, de a fajdalom a felszinre tor.</p>
+
+<p>Nagyon rossz a fajdalom, de meg rosszabb az onvad. Buvopatakkent bujik meg a lelkedben, es a legrosszabbkor tor a felszinre. Amikor nem is szamitasz ra. Persze, nincs sok eredmenye, ha az ember ostorozza magat multbeli hibaiert, am bizonyos hibakra (foleg, amelyek visszavonhatatlanok) nincs megoldas, nincs feloldozas. Meg ha senki sem hibaztat mar, meg ha mindenki el is felejtette, te magad meg mindig emlekszel a hibaidra.</p>
+
+<p>Es erre csak egy megoldas lehet: a felejtes. Feledni a hibakat, es tanulni beloluk: roppant nehez. De csak egyfelekepp lehet tuljutni a melypontokon: ha a jovot helyezed eloterbe. Nem lehet a multban elni. Csak&#8230; nehez a megbocsatas onmagadnak&#8230; masnak sokkal egyszerubb elnezni a hibait, mint a magadet. Ehhez szeretned kell onmagadat, azt, aki jelenleg vagy. Akkor is, ha az nem epp egy szeretheto figura. Foleg akkor.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/koponyeghu-elso-android-appom/">Koponyeg.hu - Elso android appom</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='p_embed p_image_embed'>
+<img alt="Emulator-5556" height="480" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/PByraI5lM3QChvcI9cCMTpW4ldkt4y6YA2LersWz52H5cfATxqpgEt7eJJjn/emulator-5556.png" width="320" />
+</div>
+
+
+<p>Eletem elso Androidos alkalmazasa, a koponyeg.hu -hoz biztosit klienst.</p>
+
+<p>Letoltes:
+<a><img src="http://qr-kod.hu/qr-kod.php?type=url&amp;size=L&amp;t=http%253A%252F%252Fusers.hanzo.hu%252F~hron%252FKoponyeg.apk" alt="qr-kod" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/jomunkasmedve-2-az-orzo/">Jómunkásmedve 2</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='p_embed p_image_embed'>
+<a href="http://getfile1.posterous.com/getfile/files.posterous.com/hron84/MOshuYUqYoNxgTrDfRXi9hoqT1HI0fN0RxnwYjcCq6c2xge6MnOW3pCIoLGq/2010-12-17_15.56.32.jpg.scaled.1000.jpg"><img alt="2010-12-17_15" height="667" src="http://getfile0.posterous.com/getfile/files.posterous.com/hron84/gAMZ483SiDACbO4XXOoEnHvcv9IC72XclYxhCQk3FHphbCZNtPZbmQBOULnB/2010-12-17_15.56.32.jpg.scaled.500.jpg" width="500" /></a>
+</div>
+
+
+<p>K&ouml;zk&iacute;v&aacute;natra</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/12/jomunkasmedve/">Jómunkásmedve</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='p_embed p_image_embed'>
+<a href="http://getfile6.posterous.com/getfile/files.posterous.com/hron84/9YoR7p1h9Bx5ST9jyJHULr8CWD9zAnskTp2U8DzNUV2hX6D2fGfEqEZXpIMA/2010-12-13_15.10.50.jpg.scaled.1000.jpg"><img alt="2010-12-13_15" height="375" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/BMOjBEFTGA1CgOPZTHLok9tbiTIyerFC8StmXZ8xDEj7WRIqFTb5lq0aDuaz/2010-12-13_15.10.50.jpg.scaled.500.jpg" width="500" /></a>
+</div>
+
+
+<p>&#8211;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/09/a-gondolkodo-medve/">A gondolkodó medve</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><div class='p_embed p_image_embed'>
+<a href="http://getfile9.posterous.com/getfile/files.posterous.com/hron84/Z327lO8WPdDKLUrpnXejxRVHyffeErnoZaRDdsjqeADzaycTqMUHigpECGhb/2010-09-16_08.12.29.jpg.scaled.1000.jpg"><img alt="2010-09-16_08" height="667" src="http://getfile8.posterous.com/getfile/files.posterous.com/hron84/vIC0UqCbjjqSngGdS0OdMN3xXo57MoRZhOdDrCM8D5m5ADWihfAsquRb05PK/2010-09-16_08.12.29.jpg.scaled.500.jpg" width="500" /></a>
+</div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/az-anya-tyukja/">Az anya tyúkja</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Egy <a href="http://www.hocipo.hu/index.php?option=com_content&amp;task=view&amp;id=2398" title="V&aacute;ncsa Istv&aacute;n - Szigor&uacute; &eacute;s s&oacute;s v&iacute;zben kocka">cikk</a> ihlet&eacute;s&eacute;re &eacute;n is kipr&oacute;b&aacute;lktam a Google fordit&oacute; m&uuml;v&eacute;szi hajlamait:</p>
+
+<blockquote>
+<span style="font-family: arial, sans-serif;"> </span>
+
+
+<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
+<div style=""><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>Az anya ty&uacute;k<p /></span><span style="background-color: #ffffff;">Teh&aacute;t mi k&ouml;vek!&nbsp;</span><span>ty&uacute;kany&oacute;, kenje
+</span><span style="background-color: #ffffff;">Lakott a szob&aacute;ban van?
+</span><span>Ah, de j&oacute; Uram, adj j&oacute;
+</span><span>F&ouml;lvitte ez a s&aacute;l dolog!<p /></span><span>K&ouml;r&uuml;l fel-le, fut&aacute;s
+</span><span style="background-color: #ffffff;">Vagy ak&aacute;r a szervezet emelkedett, a
+</span><span>, Kotkod&aacute;kol Eml&eacute;kezz
+</span><span>&Eacute;s nem &uuml;t a szob&aacute;ban.<p /></span><span>&#8220;Nem legyőzni, nem &uuml;t!
+</span><span>etetni, mint egy galamb
+</span><span>V&aacute;logat&aacute;s a kender,
+</span><span>A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.<p /></span><span>Azaz, ty&uacute;kany&oacute; vissza
+</span><span>Nos, ez becsl&eacute;sek szerint az olaj
+</span><span>Nem Iparkodj&eacute;k
+</span><span>Any&aacute;m csipkedte a toj&aacute;sokat.&nbsp;</span><span>-<p /></span><span style="background-color: #ffffff;">Morzsa kutya, hegyezi a f&uuml;led
+</span><span>Sz&oacute;lj hozz&aacute;m, Let
+</span><span>Egy &ouml;reg csel&eacute;d, vagy egy h&aacute;z,
+</span><span>Az eg&eacute;sz n&eacute;p, a szolg&aacute;ltat&aacute;sok<p /></span><span>Morzsa m&eacute;g mindig jobb
+</span><span>Nem kap csirk&eacute;t, bele&eacute;rtve a Get
+</span><span>Bar&aacute;ts&aacute;ga &eacute;lő csirk&eacute;k &#8220;&#8230;
+</span><span>Any&aacute;m egy dolog.<p /></span><span>(V&aacute;c, 1848. Febru&aacute;r).</span></span></div>
+<p />
+</div>
+&nbsp;
+
+
+</blockquote>
+
+
+<p><span style="font-family: arial, sans-serif;"> </span></p>
+
+<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
+<div><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>H&aacute;t iz&eacute;&#8230; itt azt&aacute;n t&eacute;nyleg mindenről sz&oacute; ker&uuml;l, m&eacute;g a nemr&eacute;g m&eacute;g aktu&aacute;lis olajfoltr&oacute;l is, sz&oacute;val azt mondhatjuk, hogy kedvenc keresőnk ford&iacute;t&oacute;szolg&aacute;ltat&aacute;sa nem csak műv&eacute;szi hajlamokat mutat, de emellett modern, &eacute;s a legjobb tud&aacute;s&aacute;t igyekszik beleszőni az &aacute;ltala teremtett művekbe. Emellett anti-feudalista (&#8221;</span></span><span style="line-height: 22px;">A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.&#8221;), erőszakellenes (&#8221;</span><span style="line-height: 22px;">Nem legyőzni, nem &uuml;t!&#8221;), &eacute;s furcs&aacute;n v&eacute;lekedik sz&uuml;lőj&eacute;ről (&#8221;</span><span style="line-height: 22px;">Any&aacute;m egy dolog.&#8221;</span><span style="line-height: 22px;">).</span></div>
+<p />
+<div><span style="line-height: 22px;">Feladat: mi lehet az alanti sorok eredetije? Annyit el&aacute;rulok, hogy szint&eacute;n egy versről van sz&oacute;, melynek azonban az &iacute;r&oacute;ja nem magyar. A v&aacute;lasz egy k&ouml;ltő &eacute;s egy versc&iacute;m.</span></div>
+<blockquote>
+<div><span style="line-height: 22px;"><span>Rose, egy fiatal f&eacute;rfit l&aacute;t
+</span><span style="background-color: #ffffff;">f&uuml;ves p&aacute;ly&aacute;n;
+</span><span style="background-color: #ffffff;">sz&eacute;p, m&eacute;g a f&eacute;ny a nap,
+</span><span style="background-color: #ffffff;">Ez szerkezet j&oacute;l
+</span><span style="background-color: #ffffff;">Azt akarom előtt.
+</span><span style="background-color: #ffffff;">Piros r&oacute;zsa,
+</span><span style="background-color: #ffffff;">A Wildflower R&eacute;t.
+</span></span></div>
+</blockquote>
+</div>
+
+
+<p>&nbsp;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar last">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/valamit-maskeppen/">Valamit másképpen</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/continous-deployment-vagy-affele/">Continous deployment, vagy afféle</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/qt-forditas-kezdoknek/">Qt fordítás kezdőknek</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/teszt-cikk/">Teszt cikk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/">A legjobb Git workflow - továbbfejlesztve</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/hron84">@hron84</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'hron84',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hron84", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/hron84" class="twitter-follow-button" data-show-count="false">Follow @hron84</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/hron84?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/hron84">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+
+  
+</aside>
+<div class="rule">&nbsp;</div>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div id="footer" class="clearfix">
+  <div class="site">
+    <div class="copy">
+      Copyright &copy; 2012 - Gábor Garami
+    </div>
+    <div class="powa">
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span><br/>
+      <span class="credit">Hosted by <a href="https://github.com/">GitHub Pages</a></span>
+    </div>
+  </div>
+</div>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hron84';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

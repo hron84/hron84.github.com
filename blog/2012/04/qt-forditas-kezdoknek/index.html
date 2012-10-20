@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Qt fordítás kezdőknek - Hron's blog</title>
+  <meta name="author" content="Gábor Garami">
+
+  
+  <meta name="description" content="Nasz&oacute;val, ez a cikk itten arr&oacute;l fog sz&oacute;lni, hogy hogyan ford&iacute;tsunk magunknak forr&aacute;sb&oacute;l Qt-t &uacute;gy, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/">
+  <link href="/favicon.png" rel="shortcut icon" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/code.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hron's blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <div id="header"><!-- <hgroup>
+  <h1><a href="/">Hron's blog</a></h1>
+  
+    <h2>Who want to fly with doves loses the treasure down here</h2>
+  
+</hgroup> -->
+<a class="logo">&nbsp;</a>
+<div class="userbox">
+
+
+
+  
+  <form action="http://google.com/search" method="get" class="search">
+    <!-- <fieldset role="search"> -->
+      <input type="hidden" name="q" value="site:hron84.github.com" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    <!-- </fieldset> -->
+  </form>
+  
+  <div class="avatar"><a href="#" class="name">Hron's blog</a></div>
+  <ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+
+</div>
+</div>
+  <!-- <nav role="navigation"><ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+</nav> -->
+  <div id="main" class="site dashboard">
+    <div class="pagehead">
+      <nav rel="navigation">
+        <ul class="actions">
+             <li><a href="/">Kezdőlap</a></li>
+             <li><a href="/about/">Bemutatkozás</a></li>
+         </ul>
+      </nav>
+      
+      <header>
+        <h1 class="entry-title">Qt fordítás kezdőknek</h1>
+        <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-20T15:59:00+02:00" class="pubdate" pubdate data-updated="true">2012. Apr. 20.</time></p>
+      </header>
+    
+    </div>
+
+    <div id="content" class="columns container">
+      <div class="first">
+<article class="hentry" role="article">
+  
+  <header>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Nasz&oacute;val, ez a cikk itten arr&oacute;l fog sz&oacute;lni, hogy hogyan ford&iacute;tsunk magunknak forr&aacute;sb&oacute;l Qt-t &uacute;gy, hogy az ne piszk&iacute;tsa &ouml;ssze a rendszer&uuml;nket.</p>
+
+<p>Hogy ez mi&eacute;rt is j&oacute;?</p>
+
+<ul>
+<li>A rendszer&uuml;nk r&eacute;gi Qt-t sz&aacute;ll&iacute;t, mi pedig egy &uacute;jhoz szeretn&eacute;nk fejleszteni</li>
+<li>A Qt nyelvi f&aacute;jlokba akarunk belet&uacute;rni</li>
+</ul>
+
+
+<p>Az első l&eacute;p&eacute;s a megfelelő git repo lekl&oacute;noz&aacute;sa. Ez &aacute;ltal&aacute;ban a git://gitorious.org/qt/qt.git, de haszn&aacute;lhatunk m&aacute;s kl&oacute;nokat is:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hron@laptop workspace $ git clone git://gitorious.org/qt/qt.git &amp;&amp; cd qt
+</span><span class='line'>hron@laptop qt (master) $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Egy p&aacute;r sz&oacute;t a promptr&oacute;l: az első k&eacute;t szekci&oacute; mindenkinek ismert kell hogy legyen, ugye felhaszn&aacute;l&oacute;n&eacute;v@g&eacute;pn&eacute;v illetve az aktu&aacute;lis mappa neve. A z&aacute;r&oacute;jeles r&eacute;sz tr&uuml;kk&ouml;sebb, ide az aktu&aacute;lis git <em>branch</em> neve ker&uuml;l, hogy egy&eacute;rtelmű legyen, hol dolgozunk. &Aacute;ltal&aacute;ban az alap&eacute;rtelmezett branch a <strong>master</strong> nevű, kl&oacute;noz&aacute;s ut&aacute;n teh&aacute;t ide jutunk.</p>
+
+<p>Ezut&aacute;n ki kell v&aacute;lasztani a megfelelő branchet (a master szinte percről-percre v&aacute;ltozik, azzal nem &eacute;rdemes foglalkozni). A lehetős&eacute;gek t&aacute;rh&aacute;z&aacute;t a &#8220;git branch -r&#8221; parancs mutatja meg, v&aacute;lasztani a &#8220;git checkout -b <em>branch</em> origin/<em>branch</em>&#8221; paranccsal tudunk. &Eacute;n most a 4.7-es branchet fogom előszedni:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hron@laptop qt (master) $ git checkout -b 4.7 origin/4.7
+</span><span class='line'>hron@laptop qt (4.7) $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ezut&aacute;n kezdődhet az &eacute;rdemi ford&iacute;t&aacute;s. A ford&iacute;t&aacute;s ugyan nem autoconf/automake alap&uacute;, a kezdeti l&eacute;p&eacute;st m&eacute;gis a configure script megfelelő param&eacute;terekkel t&ouml;rt&eacute;nő futtat&aacute;sa jelenti:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hron@laptop qt (4.7) $ ./configure -developer-build -opensource -confirm-license -nomake demos -nomake examples 
+</span><span class='line'>hron@laptop qt (4.7) $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A scriptnek van &#8211;help kapcsol&oacute;ja, mely ismerteti az &ouml;sszes haszn&aacute;lhat&oacute; kapcsol&oacute;t, &eacute;n az itt haszn&aacute;lt n&eacute;gyet emeln&eacute;m ki:</p>
+
+<ul>
+<li><strong>-developer-build</strong>: Arra utas&iacute;tja a ford&iacute;t&aacute;si rendszert, hogy ne a szok&aacute;sos /usr/lib/ jellegű &uacute;tvonalon keresse a libeket, hanem az aktu&aacute;lis k&ouml;nyvt&aacute;rban</li>
+<li><strong>-opensource</strong>: A ny&iacute;lt forr&aacute;s&uacute; verzi&oacute;t ford&iacute;tjuk</li>
+<li><strong>-confirm-license</strong>: Egy kis k&ouml;nnyebbs&eacute;g, nem kell interakt&iacute;van elfogadni a licencet. Scriptel&eacute;sn&eacute;l hasznos.</li>
+<li><strong>-nomake</strong>: A param&eacute;terk&eacute;nt megadott k&ouml;nyvt&aacute;rban levő cuccokat nem fogja leford&iacute;tani. Nagyj&aacute;b&oacute;l a fenti k&eacute;t k&ouml;nyvt&aacute;r eset&eacute;ben van &eacute;rtelme haszn&aacute;lni, a t&ouml;bbin&eacute;l funkcioveszt&eacute;st kapunk ha haszn&aacute;ljuk (az src k&ouml;nyvt&aacute;r kiz&aacute;r&aacute;s&aacute;val meg nem kapunk semmit :-) ).</li>
+</ul>
+
+
+<p>Ezut&aacute;n egy kis molyol&aacute;s k&ouml;vetkezik, lefordul a <em>qmake</em> eszk&ouml;z, mely a Qt projektek ford&iacute;t&aacute;s&aacute;&eacute;rt felelős, majd ha m&aacute;r ott van, le is futtat&oacute;dik az &ouml;sszes qt-s cuccon, legener&aacute;lva a sz&uuml;ks&eacute;ges <em>Makefile</em>-okat.</p>
+
+<p>Ezut&aacute;n a j&oacute;l ismert make parancs k&ouml;vetkezik, mely leforgatja a Qt forr&aacute;st.</p>
+
+<p>Ha a nyelvi f&aacute;jlok friss&iacute;t&eacute;s&eacute;n t&ouml;rj&uuml;k a fej&uuml;nket, akkor ezen a ponton van m&eacute;g egy teendőnk: ha eld&ouml;nt&ouml;tt&uuml;k mely nyelvi f&aacute;jlokkal akarunk dolgozni (a p&eacute;ld&aacute;ban ez a &#8216;hu&#8217; lesz), akkor az al&aacute;bbi parancsra van sz&uuml;ks&eacute;g&uuml;nk:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hron@laptop qt (4.7) $ make ts-hu
+</span><span class='line'>hron@laptop qt (4.7) $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>&Eacute;rtelemszerűen, ha a spanyol f&aacute;jlokkal akarunk dolgozni, akkor a param&eacute;ter <em>ts-es</em> lesz. Fontos tudni, hogy ez csak a m&aacute;r regisztr&aacute;lt nyelvekre van meg, &uacute;j nyelvn&eacute;l előbb l&eacute;tre kell hozni a megfelelő TS f&aacute;jlokat, lem&aacute;solva egy m&aacute;r l&eacute;tező f&aacute;jlt.</p>
+
+<p>Ezut&aacute;n neki lehet esni a friss&iacute;tett f&aacute;jloknak a <em>Linguist</em> nevű programmal, mely a bin/ k&ouml;nyvt&aacute;rban tal&aacute;lhat&oacute;.</p>
+
+<p>Tipp: ha csak 1-1 projekthez tartoz&oacute; f&aacute;jlt akarunk friss&iacute;teni, azt &iacute;gy tehetj&uuml;k meg:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>hron@laptop qt (4.7) $ make ts-designer-hu
+</span><span class='line'> hron@laptop qt (4.7) $</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A fenti parancsa&nbsp; translations/designer_hu.ts f&aacute;jlt friss&iacute;ti be.</p>
+
+<p><strong>Nagyon fontos</strong>: Ha beleny&uacute;lunk egy ts f&aacute;jlba, &eacute;s nem vagyunk az adott nyelv ford&iacute;t&oacute;i csapat&aacute;nak tagja, felt&eacute;tlen&uuml;l vegy&uuml;k fel a ford&iacute;t&oacute;(kk)al a kapcsolatot! Ha nem v&aacute;laszolnak, vagy nincs t&aacute;mpontunk hozz&aacute; hogy hol keress&uuml;k őket; Oswald Buddenhagen vezeti a Qt ford&iacute;t&aacute;s&aacute;t, őt mindig meg lehet tal&aacute;lni az irc.freenode.net IRC szerveren, &aacute;ltal&aacute;ban ossi nick alatt.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Gábor Garami</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-20T15:59:00+02:00" class="pubdate" pubdate data-updated="true">2012. Apr. 20.</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/" data-via="hron84" data-counturl="http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="small"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/teszt-cikk/" title="Previous Post: Teszt cikk">&laquo; Teszt cikk</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/06/continous-deployment-vagy-affele/" title="Next Post: Continous deployment, vagy afféle">Continous deployment, vagy afféle &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar last">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/09/valamit-maskeppen/">Valamit másképpen</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/continous-deployment-vagy-affele/">Continous deployment, vagy afféle</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/qt-forditas-kezdoknek/">Qt fordítás kezdőknek</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/teszt-cikk/">Teszt cikk</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/">A legjobb Git workflow - továbbfejlesztve</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/hron84">@hron84</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'hron84',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hron84", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/hron84" class="twitter-follow-button" data-show-count="false">Follow @hron84</a>
+  
+</section>
+
+
+<section>
+  <h1>On Delicious</h1>
+  <div id="delicious"></div>
+  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/hron84?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
+  <p><a href="http://delicious.com/hron84">My Delicious Bookmarks &raquo;</a></p>
+</section>
+
+
+
+
+  
+</aside>
+
+<div class="rule">&nbsp;</div>
+    </div>
+  </div>
+  <footer role="contentinfo"><div id="footer" class="clearfix">
+  <div class="site">
+    <div class="copy">
+      Copyright &copy; 2012 - Gábor Garami
+    </div>
+    <div class="powa">
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span><br/>
+      <span class="credit">Hosted by <a href="https://github.com/">GitHub Pages</a></span>
+    </div>
+  </div>
+</div>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hron84';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/';
+        var disqus_url = 'http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
