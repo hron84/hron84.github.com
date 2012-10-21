@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: travel | Hron's blog]]></title>
-  <link href="http://hron84.github.com/blog/tags/travel/atom.xml" rel="self"/>
-  <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T19:53:58+02:00</updated>
-  <id>http://hron84.github.com/</id>
+  <link href="http://hron.me/blog/tags/travel/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2012-10-21T19:55:45+02:00</updated>
+  <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Brno - A very different place]]></title>
-    <link href="http://hron84.github.com/blog/2012/03/brno-a-very-different-place/"/>
+    <link href="http://hron.me/blog/2012/03/brno-a-very-different-place/"/>
     <updated>2012-03-15T03:10:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/03/brno-a-very-different-place</id>
+    <id>http://hron.me/blog/2012/03/brno-a-very-different-place</id>
     <content type="html"><![CDATA[<p>I am arrived from Brno. This is a very beautiful town and a very good place. If I need to compare with Budapest, the whole Brno looks like the centre of Budapest but not at now but in 30-40 years ago.</p>
 
 <p>The mass transit is a surprise. Before I started I read the main vehicle is a tram but I didn't expect how it looks like in the reality. If you take a look for the city you understand: if there is a wider road, they place tramway and expand an existing line to it or start a new line. There are some buses but as I think they goes where the terrain is too step and the tram cannot climb up on it. During the two days while I was in the town, I saw only one bus. Not one bus line but one vehicle (this wear number 84 btw :-) ).</p>
@@ -40,9 +40,9 @@
   
   <entry>
     <title type="html"><![CDATA[Travelling to Brno]]></title>
-    <link href="http://hron84.github.com/blog/2012/03/travelling-to-brno/"/>
+    <link href="http://hron.me/blog/2012/03/travelling-to-brno/"/>
     <updated>2012-03-11T14:30:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/03/travelling-to-brno</id>
+    <id>http://hron.me/blog/2012/03/travelling-to-brno</id>
     <content type="html"><![CDATA[<p>The next Tuesday (2012.03.13) will be the day when I leave Hungary again. This will be the second travel to abroad in my life. I am very excited because I not just go to abroad but go alone into the country where I do not know the main language too.</p>
 
 <p>This travel will not be just for fun, I will participate in a job interview for RedHat CZ, and if I will be applied, I will be a part of the QA team behind RedHat Linux (if I know correclty). I would like say many-many thanks to @kozka who help me in a lot of thing before and he promised he will help me to reach the head office to not late from the interview.</p>

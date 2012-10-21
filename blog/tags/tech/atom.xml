@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tech | Hron's blog]]></title>
-  <link href="http://hron84.github.com/blog/tags/tech/atom.xml" rel="self"/>
-  <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T19:53:58+02:00</updated>
-  <id>http://hron84.github.com/</id>
+  <link href="http://hron.me/blog/tags/tech/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2012-10-21T19:55:45+02:00</updated>
+  <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[GitHub powa]]></title>
-    <link href="http://hron84.github.com/blog/2012/10/github-powa/"/>
+    <link href="http://hron.me/blog/2012/10/github-powa/"/>
     <updated>2012-10-21T01:53:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/10/github-powa</id>
+    <id>http://hron.me/blog/2012/10/github-powa</id>
     <content type="html"><![CDATA[<p>Egy régóta dédelgetett álom vált ma valóra: végre megtaláltam a megfelelő környezetet arra, hogy felköltözzem a GitHub-ra.
 Már régóta tervezgettem a költözést, egészen pontosan azóta, amióta olvastam a <a href="http://pages.github.com">GitHub Pages</a>
 szolgáltatásról - már nem tudom, hol. Mert igazából ez az, ami nekem kell: egy szövegfájl, amibe beleírom a gondolataimat,

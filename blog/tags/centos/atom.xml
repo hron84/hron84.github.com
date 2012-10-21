@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: centos | Hron's blog]]></title>
-  <link href="http://hron84.github.com/blog/tags/centos/atom.xml" rel="self"/>
-  <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T19:53:58+02:00</updated>
-  <id>http://hron84.github.com/</id>
+  <link href="http://hron.me/blog/tags/centos/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2012-10-21T19:55:45+02:00</updated>
+  <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[1 Centes bolt]]></title>
-    <link href="http://hron84.github.com/blog/2011/07/1-centes-bolt/"/>
+    <link href="http://hron.me/blog/2011/07/1-centes-bolt/"/>
     <updated>2011-07-09T01:34:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/07/1-centes-bolt</id>
+    <id>http://hron.me/blog/2011/07/1-centes-bolt</id>
     <content type="html"><![CDATA[<p>R&eacute;gebb &oacute;ta itt van a sarokban, de most megint belepiszk&aacute;ltam, egy CentOS repo. Ilyesmik vannak benne, mint</p>
 
 <ul>

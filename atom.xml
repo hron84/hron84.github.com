@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Hron's blog]]></title>
-  <link href="http://hron84.github.com/atom.xml" rel="self"/>
-  <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T19:53:58+02:00</updated>
-  <id>http://hron84.github.com/</id>
+  <link href="http://hron.me/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2012-10-21T19:55:45+02:00</updated>
+  <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[GitHub powa]]></title>
-    <link href="http://hron84.github.com/blog/2012/10/github-powa/"/>
+    <link href="http://hron.me/blog/2012/10/github-powa/"/>
     <updated>2012-10-21T01:53:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/10/github-powa</id>
+    <id>http://hron.me/blog/2012/10/github-powa</id>
     <content type="html"><![CDATA[<p>Egy régóta dédelgetett álom vált ma valóra: végre megtaláltam a megfelelő környezetet arra, hogy felköltözzem a GitHub-ra.
 Már régóta tervezgettem a költözést, egészen pontosan azóta, amióta olvastam a <a href="http://pages.github.com">GitHub Pages</a>
 szolgáltatásról - már nem tudom, hol. Mert igazából ez az, ami nekem kell: egy szövegfájl, amibe beleírom a gondolataimat,
@@ -70,9 +70,9 @@ Nem kell aggódnom a spamek miatt, nem kell várakoznom a frissítésekre, nem k
   
   <entry>
     <title type="html"><![CDATA[Valamit másképpen]]></title>
-    <link href="http://hron84.github.com/blog/2012/09/valamit-maskeppen/"/>
+    <link href="http://hron.me/blog/2012/09/valamit-maskeppen/"/>
     <updated>2012-09-09T01:14:58+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/09/valamit-maskeppen</id>
+    <id>http://hron.me/blog/2012/09/valamit-maskeppen</id>
     <content type="html"><![CDATA[<p>A HUP-on bedobott <a href="http://hup.hu/szavazasok/20120908/mit_tennel_az_utolso_napodon">szavaz&aacute;s</a>&nbsp;gondolkodtatott el azon, hogy csin&aacute;ln&eacute;k-e valamit alapvet&ouml;en m&aacute;sk&eacute;ppen, ha &uacute;jrakezdhetn&eacute;m az &eacute;letemet. Nagyon cs&aacute;b&iacute;t&oacute; a lehet&ouml;s&eacute;g, mert hib&aacute;ztam, nem is egyszer, sokszor, n&eacute;ha kicsit, n&eacute;ha nagyot.</p>
 
 <p>Akkor &eacute;s ott &uacute;gy &eacute;reztem, hogy nagyon gyorsan meg kellene nyomni a backspace gombot, &eacute;s nekifutni megint. De ut&oacute;lag visszan&eacute;zve mindig r&aacute;j&ouml;v&ouml;k, hogy h&uuml;lyes&eacute;g lett volna. Mert akkor egy csom&oacute; j&oacute; dolog sem t&ouml;rt&eacute;nt volna meg velem az &eacute;letben.</p>
@@ -90,9 +90,9 @@ Emiatt gondolom azt, hogy - b&aacute;r kellemetlen, de - nem baj az, ami van vel
   
   <entry>
     <title type="html"><![CDATA[Continous deployment, vagy afféle]]></title>
-    <link href="http://hron84.github.com/blog/2012/06/continous-deployment-vagy-affele/"/>
+    <link href="http://hron.me/blog/2012/06/continous-deployment-vagy-affele/"/>
     <updated>2012-06-07T00:56:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/06/continous-deployment-vagy-affele</id>
+    <id>http://hron.me/blog/2012/06/continous-deployment-vagy-affele</id>
     <content type="html"><![CDATA[<p>Az ember a netet olvasgatva &eacute;rdekes dolgokra tud bukkanni, illetve sokszor nagyon j&oacute; &ouml;tleteket lehet kapni puszt&aacute;n a m&aacute;sok &iacute;r&aacute;saib&oacute;l.</p>
 
 <p><a href="http://infokukac.com/2011/11/csak-egy-gombnyomas%E2%80%A6/">Info@ &iacute;rt</a> arr&oacute;l, hogy n&aacute;luk hogy ker&uuml;lt bevezet&eacute;sre az, hogy a tesztel&ouml;k gombnyom&aacute;sra deployolnak a teszt rendszerre verzi&oacute;kat. B&aacute;r n&aacute;lam max 1 tesztel&ouml; lenne, &eacute;s &ouml;t sem szeretn&eacute;m a Jenkins k&ouml;zel&eacute;be engedni, az&eacute;rt elgondolkodtatott a dolog: mi volna, ha a Jenkins egyr&eacute;szt monitorozn&aacute; a deploy &aacute;gat (ez n&aacute;lam a master &aacute;g, <a href="http://hron.me/123836765">amint azt m&aacute;r eml&iacute;tettem</a>), ezen v&eacute;grehajtana egy deployment tesztet is a staging k&ouml;rnyezetre (ezzel lenne egy folyamatosan friss teszt k&ouml;rnyezet), illetve adott esetben meg lehetne k&eacute;rni &ouml;t arra, hogy, legyen m&aacute;r kedves az &eacute;les szerverre is kidobni az aktu&aacute;l k&oacute;dot.</p>
@@ -112,9 +112,9 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
   
   <entry>
     <title type="html"><![CDATA[Qt fordítás kezdőknek]]></title>
-    <link href="http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/"/>
+    <link href="http://hron.me/blog/2012/04/qt-forditas-kezdoknek/"/>
     <updated>2012-04-20T15:59:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek</id>
+    <id>http://hron.me/blog/2012/04/qt-forditas-kezdoknek</id>
     <content type="html"><![CDATA[<p>Nasz&oacute;val, ez a cikk itten arr&oacute;l fog sz&oacute;lni, hogy hogyan ford&iacute;tsunk magunknak forr&aacute;sb&oacute;l Qt-t &uacute;gy, hogy az ne piszk&iacute;tsa &ouml;ssze a rendszer&uuml;nket.</p>
 
 <p>Hogy ez mi&eacute;rt is j&oacute;?</p>
@@ -196,9 +196,9 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
   
   <entry>
     <title type="html"><![CDATA[A legjobb Git workflow - továbbfejlesztve]]></title>
-    <link href="http://hron84.github.com/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/"/>
+    <link href="http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/"/>
     <updated>2012-04-18T23:06:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve</id>
+    <id>http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve</id>
     <content type="html"><![CDATA[<p>K&ouml;z&ouml;ns&eacute;gk&eacute;r&eacute;sre, most bevezetem az olvas&oacute;imat abba a Git repo kezel&eacute;si m&oacute;dszertanba, amit a saj&aacute;t projektjeimn&eacute;l haszn&aacute;lok.</p>
 
 <p>Alapul az egyik tal&aacute;n legn&eacute;pszerűbb Git workflow szolg&aacute;lt, melynek le&iacute;r&aacute;sa <a href="http://nvie.com/posts/a-successful-git-branching-model/" title="A successful git branching model">itt tekinthető meg</a>.</p>
@@ -271,9 +271,9 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
   
   <entry>
     <title type="html"><![CDATA[Brno - A very different place]]></title>
-    <link href="http://hron84.github.com/blog/2012/03/brno-a-very-different-place/"/>
+    <link href="http://hron.me/blog/2012/03/brno-a-very-different-place/"/>
     <updated>2012-03-15T03:10:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/03/brno-a-very-different-place</id>
+    <id>http://hron.me/blog/2012/03/brno-a-very-different-place</id>
     <content type="html"><![CDATA[<p>I am arrived from Brno. This is a very beautiful town and a very good place. If I need to compare with Budapest, the whole Brno looks like the centre of Budapest but not at now but in 30-40 years ago.</p>
 
 <p>The mass transit is a surprise. Before I started I read the main vehicle is a tram but I didn&#8217;t expect how it looks like in the reality. If you take a look for the city you understand: if there is a wider road, they place tramway and expand an existing line to it or start a new line. There are some buses but as I think they goes where the terrain is too step and the tram cannot climb up on it. During the two days while I was in the town, I saw only one bus. Not one bus line but one vehicle (this wear number 84 btw :-) ).</p>
@@ -296,9 +296,9 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
   
   <entry>
     <title type="html"><![CDATA[Travelling to Brno]]></title>
-    <link href="http://hron84.github.com/blog/2012/03/travelling-to-brno/"/>
+    <link href="http://hron.me/blog/2012/03/travelling-to-brno/"/>
     <updated>2012-03-11T14:30:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/03/travelling-to-brno</id>
+    <id>http://hron.me/blog/2012/03/travelling-to-brno</id>
     <content type="html"><![CDATA[<p>The next Tuesday (2012.03.13) will be the day when I leave Hungary again. This will be the second travel to abroad in my life. I am very excited because I not just go to abroad but go alone into the country where I do not know the main language too.</p>
 
 <p>This travel will not be just for fun, I will participate in a job interview for RedHat CZ, and if I will be applied, I will be a part of the QA team behind RedHat Linux (if I know correclty). I would like say many-many thanks to @kozka who help me in a lot of thing before and he promised he will help me to reach the head office to not late from the interview.</p>
@@ -313,9 +313,9 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
   
   <entry>
     <title type="html"><![CDATA[Some new rules / Új szabályok]]></title>
-    <link href="http://hron84.github.com/blog/2012/03/some-new-rules-uj-szabalyok/"/>
+    <link href="http://hron.me/blog/2012/03/some-new-rules-uj-szabalyok/"/>
     <updated>2012-03-11T14:22:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/03/some-new-rules-uj-szabalyok</id>
+    <id>http://hron.me/blog/2012/03/some-new-rules-uj-szabalyok</id>
     <content type="html"><![CDATA[<p>I just forgotten write down new rules for this blog. If it is possible and I am not too tired for it, I will write posts in English to practice this language. I found if I write continous text I can change my mind into English and I start thinking in English too. After this I can speak English easier too.</p>
 
 <p>However, this rule will be dynamic. If I am too lazy, I will write Hungarian posts too, primarily because I wouldn&#8217;t like loose my Hungarian readers who do not know in English, such as my mom.</p>
@@ -332,9 +332,9 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
   
   <entry>
     <title type="html"><![CDATA[Jenkins, RVM, Bundler]]></title>
-    <link href="http://hron84.github.com/blog/2012/02/jenkins-rvm-bundler/"/>
+    <link href="http://hron.me/blog/2012/02/jenkins-rvm-bundler/"/>
     <updated>2012-02-15T22:57:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/02/jenkins-rvm-bundler</id>
+    <id>http://hron.me/blog/2012/02/jenkins-rvm-bundler</id>
     <content type="html"><![CDATA[<p>Preface: Sorry for my poor english.</p>
 
 <p>So, today I started thinking on how can I compile my rails app to different Ruby versions. Luckily, I discovered, Jenkins can use RVM to run rake tasks.</p>
@@ -366,9 +366,9 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
   
   <entry>
     <title type="html"><![CDATA[Re, back, valami]]></title>
-    <link href="http://hron84.github.com/blog/2012/02/re-back-valami/"/>
+    <link href="http://hron.me/blog/2012/02/re-back-valami/"/>
     <updated>2012-02-14T19:37:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2012/02/re-back-valami</id>
+    <id>http://hron.me/blog/2012/02/re-back-valami</id>
     <content type="html"><![CDATA[<p>Fel&eacute;lesztem ezt a blogot, h&aacute;tha lesz is bel&ouml;le valami. Most visszaolvastam &eacute;s durv&aacute;n r&eacute;gen nem &iacute;rtam ide semmit, de megmondom &ouml;szint&eacute;n, nem vagyok az a blogol&oacute;s t&iacute;pus. M&eacute;gis, valahogy zavar ez az &uuml;res lap itten, h&aacute;t majd kital&aacute;lok valamit.</p>
 
 <p>Most &eacute;ppen Rails fejlesztek nagyban. Szinte minden &uacute;j, ez kicsit frusztr&aacute;l is, de h&aacute;t haladni kell a korral. Rails 3, Devise, Resque, ActiveAdmin - csak hogy a f&ouml;bb dolgokat eml&iacute;tsem.</p>
@@ -387,9 +387,9 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
   
   <entry>
     <title type="html"><![CDATA[Google Authenticator for SSH]]></title>
-    <link href="http://hron84.github.com/blog/2011/07/google-authenticator-for-ssh/"/>
+    <link href="http://hron.me/blog/2011/07/google-authenticator-for-ssh/"/>
     <updated>2011-07-18T12:49:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/07/google-authenticator-for-ssh</id>
+    <id>http://hron.me/blog/2011/07/google-authenticator-for-ssh</id>
     <content type="html"><![CDATA[<p>Na, ezt is kipr&oacute;b&aacute;ltam, yo.</p>
 
 <p>A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre:</p>
@@ -408,9 +408,9 @@ auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficien
   
   <entry>
     <title type="html"><![CDATA[Dr Ötker]]></title>
-    <link href="http://hron84.github.com/blog/2011/07/dr-otker/"/>
+    <link href="http://hron.me/blog/2011/07/dr-otker/"/>
     <updated>2011-07-11T00:37:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/07/dr-otker</id>
+    <id>http://hron.me/blog/2011/07/dr-otker</id>
     <content type="html"><![CDATA[<p>Tegnap tettem egy r&ouml;vid l&aacute;togat&aacute;st kedvenc Interspar-omban, &eacute;s vettem egy csom&oacute; acci&oacute;s gy&uuml;m&ouml;lcslevesport, t&eacute;len-ny&aacute;ron kiv&aacute;l&oacute; turmix van bel&ouml;l&uuml;k. Hogy-hogy nem, beker&uuml;lt a sorba egy s&aacute;rgabarackos tejberizs is - val&oacute;sz&iacute;n&uuml;leg mell&eacute;ny&uacute;ltam. Mindenesetre &aacute;rban nem volt nagy difi, belef&eacute;rt.</p>
 
 <p>Hogy ne vesszen pocs&eacute;kba, csak k&aacute;rba, gyorsan &ouml;sszedobtam r&aacute; valamit.</p>
@@ -428,9 +428,9 @@ auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficien
   
   <entry>
     <title type="html"><![CDATA[1 Centes bolt]]></title>
-    <link href="http://hron84.github.com/blog/2011/07/1-centes-bolt/"/>
+    <link href="http://hron.me/blog/2011/07/1-centes-bolt/"/>
     <updated>2011-07-09T01:34:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/07/1-centes-bolt</id>
+    <id>http://hron.me/blog/2011/07/1-centes-bolt</id>
     <content type="html"><![CDATA[<p>R&eacute;gebb &oacute;ta itt van a sarokban, de most megint belepiszk&aacute;ltam, egy CentOS repo. Ilyesmik vannak benne, mint</p>
 
 <ul>
@@ -454,9 +454,9 @@ Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; 
   
   <entry>
     <title type="html"><![CDATA[Viharos éj]]></title>
-    <link href="http://hron84.github.com/blog/2011/06/viharos-ej/"/>
+    <link href="http://hron.me/blog/2011/06/viharos-ej/"/>
     <updated>2011-06-30T21:38:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/06/viharos-ej</id>
+    <id>http://hron.me/blog/2011/06/viharos-ej</id>
     <content type="html"><![CDATA[<p>H&aacute;t, el&eacute;g cs&uacute;nya vihar volt itt d&eacute;lut&aacute;n. Mondjuk legal&aacute;bb v&eacute;gre eld&ouml;nt&ouml;tte mag&aacute;t az id&ouml;, mert m&aacute;r borzaszt&oacute; unalmas volt ez a se ide, se oda totoj&aacute;z&aacute;s.<p />Ellenben volt egy hatalmas villan&aacute;s, &eacute;s akkor&aacute;t d&ouml;rg&ouml;tt, hogy l&aacute;that&oacute;an megremegtek az ablakt&aacute;bl&aacute;k, &eacute;s az &ouml;sszes aut&oacute; riaszt&oacute;ja bekapcsolt.
 &Eacute;n meg csak reszkettem, mint egy f&eacute;l&eacute;nk kaktusz&#8230; Szerencs&eacute;re semmilyen komolyabb baj nem t&ouml;rt&eacute;nt.<p />(titkos <a href="http://www.google.hu/search?q=%22f%C3%A9l%C3%A9nk+kaktusz%22" target="_blank">keres&ouml;teszt&#8230;</a>)</p>
 ]]></content>
@@ -464,9 +464,9 @@ Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; 
   
   <entry>
     <title type="html"><![CDATA[Mult es jovo]]></title>
-    <link href="http://hron84.github.com/blog/2011/02/mult-es-jovo/"/>
+    <link href="http://hron.me/blog/2011/02/mult-es-jovo/"/>
     <updated>2011-02-06T11:14:26+01:00</updated>
-    <id>http://hron84.github.com/blog/2011/02/mult-es-jovo</id>
+    <id>http://hron.me/blog/2011/02/mult-es-jovo</id>
     <content type="html"><![CDATA[<p>Valaki ezt irta be facebook-ra:</p>
 
 <blockquote class="posterous_medium_quote">
@@ -488,9 +488,9 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
   
   <entry>
     <title type="html"><![CDATA[Koponyeg.hu - Elso android appom]]></title>
-    <link href="http://hron84.github.com/blog/2011/01/koponyeghu-elso-android-appom/"/>
+    <link href="http://hron.me/blog/2011/01/koponyeghu-elso-android-appom/"/>
     <updated>2011-01-05T08:59:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2011/01/koponyeghu-elso-android-appom</id>
+    <id>http://hron.me/blog/2011/01/koponyeghu-elso-android-appom</id>
     <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
 <img alt="Emulator-5556" height="480" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/PByraI5lM3QChvcI9cCMTpW4ldkt4y6YA2LersWz52H5cfATxqpgEt7eJJjn/emulator-5556.png" width="320" />
 </div>
@@ -505,9 +505,9 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
   
   <entry>
     <title type="html"><![CDATA[Jómunkásmedve 2]]></title>
-    <link href="http://hron84.github.com/blog/2010/12/jomunkasmedve-2-az-orzo/"/>
+    <link href="http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/"/>
     <updated>2010-12-17T17:36:00+01:00</updated>
-    <id>http://hron84.github.com/blog/2010/12/jomunkasmedve-2-az-orzo</id>
+    <id>http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo</id>
     <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
 <a href="http://getfile1.posterous.com/getfile/files.posterous.com/hron84/MOshuYUqYoNxgTrDfRXi9hoqT1HI0fN0RxnwYjcCq6c2xge6MnOW3pCIoLGq/2010-12-17_15.56.32.jpg.scaled.1000.jpg"><img alt="2010-12-17_15" height="667" src="http://getfile0.posterous.com/getfile/files.posterous.com/hron84/gAMZ483SiDACbO4XXOoEnHvcv9IC72XclYxhCQk3FHphbCZNtPZbmQBOULnB/2010-12-17_15.56.32.jpg.scaled.500.jpg" width="500" /></a>
 </div>
@@ -519,9 +519,9 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
   
   <entry>
     <title type="html"><![CDATA[Jómunkásmedve]]></title>
-    <link href="http://hron84.github.com/blog/2010/12/jomunkasmedve/"/>
+    <link href="http://hron.me/blog/2010/12/jomunkasmedve/"/>
     <updated>2010-12-13T16:18:48+01:00</updated>
-    <id>http://hron84.github.com/blog/2010/12/jomunkasmedve</id>
+    <id>http://hron.me/blog/2010/12/jomunkasmedve</id>
     <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
 <a href="http://getfile6.posterous.com/getfile/files.posterous.com/hron84/9YoR7p1h9Bx5ST9jyJHULr8CWD9zAnskTp2U8DzNUV2hX6D2fGfEqEZXpIMA/2010-12-13_15.10.50.jpg.scaled.1000.jpg"><img alt="2010-12-13_15" height="375" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/BMOjBEFTGA1CgOPZTHLok9tbiTIyerFC8StmXZ8xDEj7WRIqFTb5lq0aDuaz/2010-12-13_15.10.50.jpg.scaled.500.jpg" width="500" /></a>
 </div>
@@ -533,9 +533,9 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
   
   <entry>
     <title type="html"><![CDATA[A gondolkodó medve]]></title>
-    <link href="http://hron84.github.com/blog/2010/09/a-gondolkodo-medve/"/>
+    <link href="http://hron.me/blog/2010/09/a-gondolkodo-medve/"/>
     <updated>2010-09-16T10:18:07+02:00</updated>
-    <id>http://hron84.github.com/blog/2010/09/a-gondolkodo-medve</id>
+    <id>http://hron.me/blog/2010/09/a-gondolkodo-medve</id>
     <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
 <a href="http://getfile9.posterous.com/getfile/files.posterous.com/hron84/Z327lO8WPdDKLUrpnXejxRVHyffeErnoZaRDdsjqeADzaycTqMUHigpECGhb/2010-09-16_08.12.29.jpg.scaled.1000.jpg"><img alt="2010-09-16_08" height="667" src="http://getfile8.posterous.com/getfile/files.posterous.com/hron84/vIC0UqCbjjqSngGdS0OdMN3xXo57MoRZhOdDrCM8D5m5ADWihfAsquRb05PK/2010-09-16_08.12.29.jpg.scaled.500.jpg" width="500" /></a>
 </div>
@@ -545,9 +545,9 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
   
   <entry>
     <title type="html"><![CDATA[Az anya tyúkja]]></title>
-    <link href="http://hron84.github.com/blog/2010/08/az-anya-tyukja/"/>
+    <link href="http://hron.me/blog/2010/08/az-anya-tyukja/"/>
     <updated>2010-08-05T17:37:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2010/08/az-anya-tyukja</id>
+    <id>http://hron.me/blog/2010/08/az-anya-tyukja</id>
     <content type="html"><![CDATA[<p>Egy <a href="http://www.hocipo.hu/index.php?option=com_content&amp;task=view&amp;id=2398" title="V&aacute;ncsa Istv&aacute;n - Szigor&uacute; &eacute;s s&oacute;s v&iacute;zben kocka">cikk</a> ihlet&eacute;s&eacute;re &eacute;n is kipr&oacute;b&aacute;lktam a Google fordit&oacute; m&uuml;v&eacute;szi hajlamait:</p>
 
 <blockquote>

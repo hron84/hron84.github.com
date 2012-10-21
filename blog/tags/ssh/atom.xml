@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ssh | Hron's blog]]></title>
-  <link href="http://hron84.github.com/blog/tags/ssh/atom.xml" rel="self"/>
-  <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T19:53:58+02:00</updated>
-  <id>http://hron84.github.com/</id>
+  <link href="http://hron.me/blog/tags/ssh/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2012-10-21T19:55:45+02:00</updated>
+  <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Google Authenticator for SSH]]></title>
-    <link href="http://hron84.github.com/blog/2011/07/google-authenticator-for-ssh/"/>
+    <link href="http://hron.me/blog/2011/07/google-authenticator-for-ssh/"/>
     <updated>2011-07-18T12:49:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/07/google-authenticator-for-ssh</id>
+    <id>http://hron.me/blog/2011/07/google-authenticator-for-ssh</id>
     <content type="html"><![CDATA[<p>Na, ezt is kipr&oacute;b&aacute;ltam, yo.</p>
 
 <p>A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre:</p>
