@@ -366,6 +366,11 @@ section, section.first {
   font-size: 16pt;
 }
 
+.columns section#comments {
+    clear: both;
+}
+
 ul#tweets li p a:first-child {
   padding-right: 5px;
 }
+
