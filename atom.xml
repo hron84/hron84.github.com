@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron84.github.com/atom.xml" rel="self"/>
   <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T02:27:49+02:00</updated>
+  <updated>2012-10-21T19:21:45+02:00</updated>
   <id>http://hron84.github.com/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -123,6 +123,9 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
 <li>A rendszer&uuml;nk r&eacute;gi Qt-t sz&aacute;ll&iacute;t, mi pedig egy &uacute;jhoz szeretn&eacute;nk fejleszteni</li>
 <li>A Qt nyelvi f&aacute;jlokba akarunk belet&uacute;rni</li>
 </ul>
+
+
+<!-- more -->
 
 
 <p>Az első l&eacute;p&eacute;s a megfelelő git repo lekl&oacute;noz&aacute;sa. Ez &aacute;ltal&aacute;ban a git://gitorious.org/qt/qt.git, de haszn&aacute;lhatunk m&aacute;s kl&oacute;nokat is:</p>
