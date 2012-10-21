@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: wordpress | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/wordpress/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T02:27:49+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub powa]]></title>
+    <link href="http://hron84.github.com/blog/2012/10/github-powa/"/>
+    <updated>2012-10-21T01:53:00+02:00</updated>
+    <id>http://hron84.github.com/blog/2012/10/github-powa</id>
+    <content type="html"><![CDATA[<p>Egy régóta dédelgetett álom vált ma valóra: végre megtaláltam a megfelelő környezetet arra, hogy felköltözzem a GitHub-ra.
+Már régóta tervezgettem a költözést, egészen pontosan azóta, amióta olvastam a <a href="http://pages.github.com">GitHub Pages</a>
+szolgáltatásról - már nem tudom, hol. Mert igazából ez az, ami nekem kell: egy szövegfájl, amibe beleírom a gondolataimat,
+néhány egyszerű trükk, amivel megformázom, és végül pár gombnyomás, amivel beküldöm.</p>
+
+<!-- more -->
+
+
+<h2>Blogtörténelem</h2>
+
+<p>Eredetileg Wordpress alapú blogom volt. Az túlzás lenne, hogy szerettem, mondjuk, hogy kedveltem. Mármint a blogot. Az adminfelületét már
+nem annyira, azt pedig főleg nem, hogy állandóan nyüzsgött valami miatt. Most ez a plugin frissült, most a Wordpress frissült,
+most épp valami spam van... őszintén szólva egy idő után azt vettem észre, hogy belépek azzal, hogy na most cikket írok, aztán
+a végén plugint frissítettem - a cikkre meg valahogy elszállt az ihlet.</p>
+
+<p>Ezután volt egy hosszabb időszak, amikor saját készítésű (Rails alapú, mi más? :-) ) blogmotoron futottak a dolgok. Ez is zsákutcának
+bizonyult, bár másért, mint a WP: nem volt elég szabadidőm arra, hogy igényesen megcsináljam. Zavart az, hogy lehetne sokkal jobb is.</p>
+
+<p>A legutolsó időszak a <a href="http://posterous.com/">Posterous</a>-on zajlott. Imádnivaló blogszolgáltatás - apróbb és nagyobb hibákkal.
+Az első és - számomra - legzavaróbb bugja az URL generálással volt kapcsolatos. Nem tudom, ki-hogy van vele, én nem rajongok a generált
+ID-re végződő URL-ekért. No nem mintha seo mániás lennék, egyszerűen zavarja a szépérzékemet. Volt olyan cikk a blogon, amit 5x kellett
+elmenteni, hogy végre észrevegye magát a motor, hogy én itt bizony címet adtam a bejegyzésnek. De ez nem is lenne gond, ha felül lehetne
+bírálni az automatát, mert bepöttyentem én azt a három ékezetmentes szót kötőjellel elválaszva, amit ő generálna ki - csakhogy erre esély
+sem volt.</p>
+
+<p>A másik bug inkább csak szomorú mint zavaró volt: semmilyen kódformázási lehetőség nem volt. Beszúrhattál &lt;code&gt; taget a cikkbe, és
+ennyi. Még rendes class-t sem tudtam neki adni, mert a motor leirtott minden egyénieskedési törekvést, így nem jöhettek szóba a JS alapú
+kódszinezők sem.</p>
+
+<p>A harmadik problémát a Posterous cloud-szerű működése jelentette. Nem tetszettek a beépített témák, sajátot akartam. Ezt végül véghez is
+vittem, de a témához tartozó fájlokat egyszerűen nem tudtam a bloggal együtt tároltatni, egy külön helyről kellett szedni őket. Ezzel addig
+nincs is baj, amíg egy reggel arra nem ébredek, hogy a blog képeit, CSS-eit, egyéb izémicsodáit tároló hely elérhetetlen. Ez azt
+eredményezi, hogy van egy olvashatatlan blogom. Nem egy kellemes dolog.</p>
+
+<p>Most viszont úgy néz ki, a <strong>GitHub Pages</strong> és az <a href="http://octopress.org">Octopress</a> megoldotta minden problémámat.
+Nincs frissítési kötelezettség, az oldal plain HTML-ben tárolódik; a cikkeket az éppen aktuális kedvenc editoromban írhatom meg;
+használhatom a kedvenc leírónyelvemet, a <a href="http://daringfireball.net/projects/markdown/">Markdown</a>-t, a cikkek URL-je automatikusan
+generálódik, ha nem jó, beleszólhatok; a spammentességről pedig a <a href="http://disqus.com">Disqus</a> gondoskodik.</p>
+
+<p>Az egyetlen dolog, ami hibádzik, és ezt nagyon szerettem a Posterous-ban, hogy ha ráküldtem e-mailben egy képet,
+azt képes volt bejegyzéssé alakítani, és kirakni. Viszont szerencsére ez egy nagyon könnyen megvalósítható funkció.</p>
+
+<p>Összességében úgy gondolom, hogy keveset veszítettem, de azt mind visszanyertem abban, hogy ez a blog nem igényel gondozást.
+Nem kell aggódnom a spamek miatt, nem kell várakoznom a frissítésekre, nem kell tűnődni, hogy hogyan illesszek be kódot olvashatóan,
+és nem kell túl sokat fejlesztenem se.</p>
+
+<p><strong>PS</strong>: sajnos a Posterous-os kommenteket nem tudom ide áthozni, azok elvesztek számotokra. Szerencsére (?) nem volt túl sok...</p>
+]]></content>
+  </entry>
+  
+</feed>
