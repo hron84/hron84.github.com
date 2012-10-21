@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ssh | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/ssh/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T19:34:29+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Google Authenticator for SSH]]></title>
+    <link href="http://hron84.github.com/blog/2011/07/google-authenticator-for-ssh/"/>
+    <updated>2011-07-18T12:49:00+02:00</updated>
+    <id>http://hron84.github.com/blog/2011/07/google-authenticator-for-ssh</id>
+    <content type="html"><![CDATA[<p>Na, ezt is kipr&oacute;b&aacute;ltam, yo.</p>
+
+<p>A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre:</p>
+
+<p>auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_tally2.so onerr=succeed
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_shells.so
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_nologin.so
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_env.so
+auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficient&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_google_authenticator.so</p>
+
+<p>K&eacute;ri az authentikator k&oacute;djat, enter, es bel&eacute;p. A Pubkey auth fel&uuml;lv&aacute;gja, ofc.</p>
+
+<p>Szerk: ja, &eacute;s kell neki a ChallengeResponseAuthentication yes</p>
+]]></content>
+  </entry>
+  
+</feed>

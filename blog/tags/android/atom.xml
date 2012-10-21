@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: android | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/android/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T19:34:29+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Koponyeg.hu - Elso android appom]]></title>
+    <link href="http://hron84.github.com/blog/2011/01/koponyeghu-elso-android-appom/"/>
+    <updated>2011-01-05T08:59:00+01:00</updated>
+    <id>http://hron84.github.com/blog/2011/01/koponyeghu-elso-android-appom</id>
+    <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
+<img alt="Emulator-5556" height="480" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/PByraI5lM3QChvcI9cCMTpW4ldkt4y6YA2LersWz52H5cfATxqpgEt7eJJjn/emulator-5556.png" width="320" />
+</div>
+
+
+<p>Eletem elso Androidos alkalmazasa, a koponyeg.hu -hoz biztosit klienst.</p>
+
+<p>Letoltes:
+<a><img src="http://qr-kod.hu/qr-kod.php?type=url&amp;size=L&amp;t=http%253A%252F%252Fusers.hanzo.hu%252F~hron%252FKoponyeg.apk" alt="qr-kod" /></a></p>
+]]></content>
+  </entry>
+  
+</feed>

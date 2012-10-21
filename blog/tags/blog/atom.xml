@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/blog/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T19:34:29+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Some new rules / Új szabályok]]></title>
+    <link href="http://hron84.github.com/blog/2012/03/some-new-rules-uj-szabalyok/"/>
+    <updated>2012-03-11T14:22:00+01:00</updated>
+    <id>http://hron84.github.com/blog/2012/03/some-new-rules-uj-szabalyok</id>
+    <content type="html"><![CDATA[<p>I just forgotten write down new rules for this blog. If it is possible and I am not too tired for it, I will write posts in English to practice this language. I found if I write continous text I can change my mind into English and I start thinking in English too. After this I can speak English easier too.</p>
+
+<p>However, this rule will be dynamic. If I am too lazy, I will write Hungarian posts too, primarily because I wouldn't like loose my Hungarian readers who do not know in English, such as my mom.</p>
+
+<p>Stay tooned.</p>
+
+<p>Elfelejtettem le&iacute;rni a blog &uacute;j szab&aacute;ly&aacute;t. Ha csak lehets&eacute;ges, &eacute;s nem vagyok t&uacute;l f&aacute;radt hozz&aacute;, a blogban angol nyelvű postok lesznek, a nyelv gyakorl&aacute;s&aacute;nak c&eacute;lj&aacute;b&oacute;l. Ez főleg az&eacute;rt van, mert azt tal&aacute;ltam, hogy ha hosszabb, egybef&uuml;ggő sz&ouml;veget kezdek el &iacute;rni, akkor az agyam automatikusan &aacute;tv&aacute;lt angolra, &eacute;s ut&aacute;na m&aacute;r sokkal k&ouml;nnyebben tudok pl. besz&eacute;lni is angolul.</p>
+
+<p>Azonban, ez a szab&aacute;ly rugalmas lesz. Ha t&uacute;l lusta vagyok, akkor magyarul is fogok &iacute;rni, t&ouml;bbek k&ouml;zt az&eacute;rt, mert nem szeretn&eacute;m elvesz&iacute;teni csak magyarul tud&oacute; olvas&oacute;imat, pl. &eacute;desany&aacute;mat.</p>
+
+<p>Stay tooned.</p>
+]]></content>
+  </entry>
+  
+</feed>

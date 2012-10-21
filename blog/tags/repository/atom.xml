@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: repository | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/repository/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T19:34:29+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[1 Centes bolt]]></title>
+    <link href="http://hron84.github.com/blog/2011/07/1-centes-bolt/"/>
+    <updated>2011-07-09T01:34:00+02:00</updated>
+    <id>http://hron84.github.com/blog/2011/07/1-centes-bolt</id>
+    <content type="html"><![CDATA[<p>R&eacute;gebb &oacute;ta itt van a sarokban, de most megint belepiszk&aacute;ltam, egy CentOS repo. Ilyesmik vannak benne, mint</p>
+
+<ul>
+<li>Viszonylag &uacute;j apache</li>
+<li>Ruby 1.8.7 (egy vicc, hogy a CentOS 5.6 is nagyon r&eacute;gi rubyt hoz)</li>
+<li>Egy rak&aacute;s gem</li>
+<li>Sun JDK/JRE 1.6</li>
+</ul>
+
+
+<p>Repo <a href="http://users.hanzo.hu/~hron/centos/">itt</a>, Yum konfig <a href="http://users.hanzo.hu/~hron/centos/hron.repo">erre</a>. A kulcs nem t&ouml;lt&ouml;dik le automat&aacute;n, tess&eacute;k leszedni &eacute;s a megfelel&ouml; helyre rakni.
+Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; az rpm-re:</p>
+
+<p><code>
+gpg -a --export 51d11d3b &amp;gt; x.asc
+rpm --import x.asc
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

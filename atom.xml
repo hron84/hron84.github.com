@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron84.github.com/atom.xml" rel="self"/>
   <link href="http://hron84.github.com/"/>
-  <updated>2012-10-21T19:21:45+02:00</updated>
+  <updated>2012-10-21T19:34:29+02:00</updated>
   <id>http://hron84.github.com/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -195,15 +195,6 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Teszt cikk]]></title>
-    <link href="http://hron84.github.com/blog/2012/04/teszt-cikk/"/>
-    <updated>2012-04-19T01:11:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2012/04/teszt-cikk</id>
-    <content type="html"><![CDATA[<p>Teszt cikk, az URL-hez.</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[A legjobb Git workflow - továbbfejlesztve]]></title>
     <link href="http://hron84.github.com/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/"/>
     <updated>2012-04-18T23:06:00+02:00</updated>
@@ -211,6 +202,9 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
     <content type="html"><![CDATA[<p>K&ouml;z&ouml;ns&eacute;gk&eacute;r&eacute;sre, most bevezetem az olvas&oacute;imat abba a Git repo kezel&eacute;si m&oacute;dszertanba, amit a saj&aacute;t projektjeimn&eacute;l haszn&aacute;lok.</p>
 
 <p>Alapul az egyik tal&aacute;n legn&eacute;pszerűbb Git workflow szolg&aacute;lt, melynek le&iacute;r&aacute;sa <a href="http://nvie.com/posts/a-successful-git-branching-model/" title="A successful git branching model">itt tekinthető meg</a>.</p>
+
+<!-- more -->
+
 
 <p>L&aacute;ssuk az alapfogalmakat, amiket a le&iacute;r&aacute;sban haszn&aacute;lni fogok, ez az &eacute;n terminol&oacute;gi&aacute;m:</p>
 
@@ -459,10 +453,10 @@ Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; 
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Untitled]]></title>
-    <link href="http://hron84.github.com/blog/2011/06/untitled/"/>
+    <title type="html"><![CDATA[Viharos éj]]></title>
+    <link href="http://hron84.github.com/blog/2011/06/viharos-ej/"/>
     <updated>2011-06-30T21:38:00+02:00</updated>
-    <id>http://hron84.github.com/blog/2011/06/untitled</id>
+    <id>http://hron84.github.com/blog/2011/06/viharos-ej</id>
     <content type="html"><![CDATA[<p>H&aacute;t, el&eacute;g cs&uacute;nya vihar volt itt d&eacute;lut&aacute;n. Mondjuk legal&aacute;bb v&eacute;gre eld&ouml;nt&ouml;tte mag&aacute;t az id&ouml;, mert m&aacute;r borzaszt&oacute; unalmas volt ez a se ide, se oda totoj&aacute;z&aacute;s.<p />Ellenben volt egy hatalmas villan&aacute;s, &eacute;s akkor&aacute;t d&ouml;rg&ouml;tt, hogy l&aacute;that&oacute;an megremegtek az ablakt&aacute;bl&aacute;k, &eacute;s az &ouml;sszes aut&oacute; riaszt&oacute;ja bekapcsolt.
 &Eacute;n meg csak reszkettem, mint egy f&eacute;l&eacute;nk kaktusz&#8230; Szerencs&eacute;re semmilyen komolyabb baj nem t&ouml;rt&eacute;nt.<p />(titkos <a href="http://www.google.hu/search?q=%22f%C3%A9l%C3%A9nk+kaktusz%22" target="_blank">keres&ouml;teszt&#8230;</a>)</p>
 ]]></content>
@@ -546,6 +540,68 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
 <a href="http://getfile9.posterous.com/getfile/files.posterous.com/hron84/Z327lO8WPdDKLUrpnXejxRVHyffeErnoZaRDdsjqeADzaycTqMUHigpECGhb/2010-09-16_08.12.29.jpg.scaled.1000.jpg"><img alt="2010-09-16_08" height="667" src="http://getfile8.posterous.com/getfile/files.posterous.com/hron84/vIC0UqCbjjqSngGdS0OdMN3xXo57MoRZhOdDrCM8D5m5ADWihfAsquRb05PK/2010-09-16_08.12.29.jpg.scaled.500.jpg" width="500" /></a>
 </div>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Az anya tyúkja]]></title>
+    <link href="http://hron84.github.com/blog/2010/08/az-anya-tyukja/"/>
+    <updated>2010-08-05T17:37:00+02:00</updated>
+    <id>http://hron84.github.com/blog/2010/08/az-anya-tyukja</id>
+    <content type="html"><![CDATA[<p>Egy <a href="http://www.hocipo.hu/index.php?option=com_content&amp;task=view&amp;id=2398" title="V&aacute;ncsa Istv&aacute;n - Szigor&uacute; &eacute;s s&oacute;s v&iacute;zben kocka">cikk</a> ihlet&eacute;s&eacute;re &eacute;n is kipr&oacute;b&aacute;lktam a Google fordit&oacute; m&uuml;v&eacute;szi hajlamait:</p>
+
+<blockquote>
+<span style="font-family: arial, sans-serif;"> </span>
+
+
+<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
+<div style=""><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>Az anya ty&uacute;k<p /></span><span style="background-color: #ffffff;">Teh&aacute;t mi k&ouml;vek!&nbsp;</span><span>ty&uacute;kany&oacute;, kenje
+</span><span style="background-color: #ffffff;">Lakott a szob&aacute;ban van?
+</span><span>Ah, de j&oacute; Uram, adj j&oacute;
+</span><span>F&ouml;lvitte ez a s&aacute;l dolog!<p /></span><span>K&ouml;r&uuml;l fel-le, fut&aacute;s
+</span><span style="background-color: #ffffff;">Vagy ak&aacute;r a szervezet emelkedett, a
+</span><span>, Kotkod&aacute;kol Eml&eacute;kezz
+</span><span>&Eacute;s nem &uuml;t a szob&aacute;ban.<p /></span><span>&#8220;Nem legyőzni, nem &uuml;t!
+</span><span>etetni, mint egy galamb
+</span><span>V&aacute;logat&aacute;s a kender,
+</span><span>A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.<p /></span><span>Azaz, ty&uacute;kany&oacute; vissza
+</span><span>Nos, ez becsl&eacute;sek szerint az olaj
+</span><span>Nem Iparkodj&eacute;k
+</span><span>Any&aacute;m csipkedte a toj&aacute;sokat.&nbsp;</span><span>-<p /></span><span style="background-color: #ffffff;">Morzsa kutya, hegyezi a f&uuml;led
+</span><span>Sz&oacute;lj hozz&aacute;m, Let
+</span><span>Egy &ouml;reg csel&eacute;d, vagy egy h&aacute;z,
+</span><span>Az eg&eacute;sz n&eacute;p, a szolg&aacute;ltat&aacute;sok<p /></span><span>Morzsa m&eacute;g mindig jobb
+</span><span>Nem kap csirk&eacute;t, bele&eacute;rtve a Get
+</span><span>Bar&aacute;ts&aacute;ga &eacute;lő csirk&eacute;k &#8220;&#8230;
+</span><span>Any&aacute;m egy dolog.<p /></span><span>(V&aacute;c, 1848. Febru&aacute;r).</span></span></div>
+<p />
+</div>
+&nbsp;
+
+
+</blockquote>
+
+
+<p><span style="font-family: arial, sans-serif;"> </span></p>
+
+<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
+<div><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>H&aacute;t iz&eacute;&#8230; itt azt&aacute;n t&eacute;nyleg mindenről sz&oacute; ker&uuml;l, m&eacute;g a nemr&eacute;g m&eacute;g aktu&aacute;lis olajfoltr&oacute;l is, sz&oacute;val azt mondhatjuk, hogy kedvenc keresőnk ford&iacute;t&oacute;szolg&aacute;ltat&aacute;sa nem csak műv&eacute;szi hajlamokat mutat, de emellett modern, &eacute;s a legjobb tud&aacute;s&aacute;t igyekszik beleszőni az &aacute;ltala teremtett művekbe. Emellett anti-feudalista (&#8221;</span></span><span style="line-height: 22px;">A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.&#8221;), erőszakellenes (&#8221;</span><span style="line-height: 22px;">Nem legyőzni, nem &uuml;t!&#8221;), &eacute;s furcs&aacute;n v&eacute;lekedik sz&uuml;lőj&eacute;ről (&#8221;</span><span style="line-height: 22px;">Any&aacute;m egy dolog.&#8221;</span><span style="line-height: 22px;">).</span></div>
+<p />
+<div><span style="line-height: 22px;">Feladat: mi lehet az alanti sorok eredetije? Annyit el&aacute;rulok, hogy szint&eacute;n egy versről van sz&oacute;, melynek azonban az &iacute;r&oacute;ja nem magyar. A v&aacute;lasz egy k&ouml;ltő &eacute;s egy versc&iacute;m.</span></div>
+<blockquote>
+<div><span style="line-height: 22px;"><span>Rose, egy fiatal f&eacute;rfit l&aacute;t
+</span><span style="background-color: #ffffff;">f&uuml;ves p&aacute;ly&aacute;n;
+</span><span style="background-color: #ffffff;">sz&eacute;p, m&eacute;g a f&eacute;ny a nap,
+</span><span style="background-color: #ffffff;">Ez szerkezet j&oacute;l
+</span><span style="background-color: #ffffff;">Azt akarom előtt.
+</span><span style="background-color: #ffffff;">Piros r&oacute;zsa,
+</span><span style="background-color: #ffffff;">A Wildflower R&eacute;t.
+</span></span></div>
+</blockquote>
+</div>
+
+
+<p>&nbsp;</p>
 ]]></content>
   </entry>
   

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: qt | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/qt/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T19:34:29+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Qt fordítás kezdőknek]]></title>
+    <link href="http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek/"/>
+    <updated>2012-04-20T15:59:00+02:00</updated>
+    <id>http://hron84.github.com/blog/2012/04/qt-forditas-kezdoknek</id>
+    <content type="html"><![CDATA[<p>Nasz&oacute;val, ez a cikk itten arr&oacute;l fog sz&oacute;lni, hogy hogyan ford&iacute;tsunk magunknak forr&aacute;sb&oacute;l Qt-t &uacute;gy, hogy az ne piszk&iacute;tsa &ouml;ssze a rendszer&uuml;nket.</p>
+
+<p>Hogy ez mi&eacute;rt is j&oacute;?</p>
+
+<ul>
+<li>A rendszer&uuml;nk r&eacute;gi Qt-t sz&aacute;ll&iacute;t, mi pedig egy &uacute;jhoz szeretn&eacute;nk fejleszteni</li>
+<li>A Qt nyelvi f&aacute;jlokba akarunk belet&uacute;rni</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>Az első l&eacute;p&eacute;s a megfelelő git repo lekl&oacute;noz&aacute;sa. Ez &aacute;ltal&aacute;ban a git://gitorious.org/qt/qt.git, de haszn&aacute;lhatunk m&aacute;s kl&oacute;nokat is:</p>
+
+<p><code>
+hron@laptop workspace $ git clone git://gitorious.org/qt/qt.git &amp;amp;&amp;amp; cd qt
+hron@laptop qt (master) $
+</code></p>
+
+<p>Egy p&aacute;r sz&oacute;t a promptr&oacute;l: az első k&eacute;t szekci&oacute; mindenkinek ismert kell hogy legyen, ugye felhaszn&aacute;l&oacute;n&eacute;v@g&eacute;pn&eacute;v illetve az aktu&aacute;lis mappa neve. A z&aacute;r&oacute;jeles r&eacute;sz tr&uuml;kk&ouml;sebb, ide az aktu&aacute;lis git <em>branch</em> neve ker&uuml;l, hogy egy&eacute;rtelmű legyen, hol dolgozunk. &Aacute;ltal&aacute;ban az alap&eacute;rtelmezett branch a <strong>master</strong> nevű, kl&oacute;noz&aacute;s ut&aacute;n teh&aacute;t ide jutunk.</p>
+
+<p>Ezut&aacute;n ki kell v&aacute;lasztani a megfelelő branchet (a master szinte percről-percre v&aacute;ltozik, azzal nem &eacute;rdemes foglalkozni). A lehetős&eacute;gek t&aacute;rh&aacute;z&aacute;t a "git branch -r" parancs mutatja meg, v&aacute;lasztani a "git checkout -b <em>branch</em> origin/<em>branch</em>" paranccsal tudunk. &Eacute;n most a 4.7-es branchet fogom előszedni:</p>
+
+<p><code>
+hron@laptop qt (master) $ git checkout -b 4.7 origin/4.7
+hron@laptop qt (4.7) $
+</code></p>
+
+<p>Ezut&aacute;n kezdődhet az &eacute;rdemi ford&iacute;t&aacute;s. A ford&iacute;t&aacute;s ugyan nem autoconf/automake alap&uacute;, a kezdeti l&eacute;p&eacute;st m&eacute;gis a configure script megfelelő param&eacute;terekkel t&ouml;rt&eacute;nő futtat&aacute;sa jelenti:</p>
+
+<p><code>
+hron@laptop qt (4.7) $ ./configure -developer-build -opensource -confirm-license -nomake demos -nomake examples
+hron@laptop qt (4.7) $
+</code></p>
+
+<p>A scriptnek van --help kapcsol&oacute;ja, mely ismerteti az &ouml;sszes haszn&aacute;lhat&oacute; kapcsol&oacute;t, &eacute;n az itt haszn&aacute;lt n&eacute;gyet emeln&eacute;m ki:</p>
+
+<ul>
+<li><strong>-developer-build</strong>: Arra utas&iacute;tja a ford&iacute;t&aacute;si rendszert, hogy ne a szok&aacute;sos /usr/lib/ jellegű &uacute;tvonalon keresse a libeket, hanem az aktu&aacute;lis k&ouml;nyvt&aacute;rban</li>
+<li><strong>-opensource</strong>: A ny&iacute;lt forr&aacute;s&uacute; verzi&oacute;t ford&iacute;tjuk</li>
+<li><strong>-confirm-license</strong>: Egy kis k&ouml;nnyebbs&eacute;g, nem kell interakt&iacute;van elfogadni a licencet. Scriptel&eacute;sn&eacute;l hasznos.</li>
+<li><strong>-nomake</strong>: A param&eacute;terk&eacute;nt megadott k&ouml;nyvt&aacute;rban levő cuccokat nem fogja leford&iacute;tani. Nagyj&aacute;b&oacute;l a fenti k&eacute;t k&ouml;nyvt&aacute;r eset&eacute;ben van &eacute;rtelme haszn&aacute;lni, a t&ouml;bbin&eacute;l funkcioveszt&eacute;st kapunk ha haszn&aacute;ljuk (az src k&ouml;nyvt&aacute;r kiz&aacute;r&aacute;s&aacute;val meg nem kapunk semmit :-) ).</li>
+</ul>
+
+
+<p>Ezut&aacute;n egy kis molyol&aacute;s k&ouml;vetkezik, lefordul a <em>qmake</em> eszk&ouml;z, mely a Qt projektek ford&iacute;t&aacute;s&aacute;&eacute;rt felelős, majd ha m&aacute;r ott van, le is futtat&oacute;dik az &ouml;sszes qt-s cuccon, legener&aacute;lva a sz&uuml;ks&eacute;ges <em>Makefile</em>-okat.</p>
+
+<p>Ezut&aacute;n a j&oacute;l ismert make parancs k&ouml;vetkezik, mely leforgatja a Qt forr&aacute;st.</p>
+
+<p>Ha a nyelvi f&aacute;jlok friss&iacute;t&eacute;s&eacute;n t&ouml;rj&uuml;k a fej&uuml;nket, akkor ezen a ponton van m&eacute;g egy teendőnk: ha eld&ouml;nt&ouml;tt&uuml;k mely nyelvi f&aacute;jlokkal akarunk dolgozni (a p&eacute;ld&aacute;ban ez a 'hu' lesz), akkor az al&aacute;bbi parancsra van sz&uuml;ks&eacute;g&uuml;nk:</p>
+
+<p><code>
+hron@laptop qt (4.7) $ make ts-hu
+hron@laptop qt (4.7) $
+</code></p>
+
+<p>&Eacute;rtelemszerűen, ha a spanyol f&aacute;jlokkal akarunk dolgozni, akkor a param&eacute;ter <em>ts-es</em> lesz. Fontos tudni, hogy ez csak a m&aacute;r regisztr&aacute;lt nyelvekre van meg, &uacute;j nyelvn&eacute;l előbb l&eacute;tre kell hozni a megfelelő TS f&aacute;jlokat, lem&aacute;solva egy m&aacute;r l&eacute;tező f&aacute;jlt.</p>
+
+<p>Ezut&aacute;n neki lehet esni a friss&iacute;tett f&aacute;jloknak a <em>Linguist</em> nevű programmal, mely a bin/ k&ouml;nyvt&aacute;rban tal&aacute;lhat&oacute;.</p>
+
+<p>Tipp: ha csak 1-1 projekthez tartoz&oacute; f&aacute;jlt akarunk friss&iacute;teni, azt &iacute;gy tehetj&uuml;k meg:</p>
+
+<p><code>
+hron@laptop qt (4.7) $ make ts-designer-hu
+ hron@laptop qt (4.7) $
+</code></p>
+
+<p>A fenti parancsa&nbsp; translations/designer_hu.ts f&aacute;jlt friss&iacute;ti be.</p>
+
+<p><strong>Nagyon fontos</strong>: Ha beleny&uacute;lunk egy ts f&aacute;jlba, &eacute;s nem vagyunk az adott nyelv ford&iacute;t&oacute;i csapat&aacute;nak tagja, felt&eacute;tlen&uuml;l vegy&uuml;k fel a ford&iacute;t&oacute;(kk)al a kapcsolatot! Ha nem v&aacute;laszolnak, vagy nincs t&aacute;mpontunk hozz&aacute; hogy hol keress&uuml;k őket; Oswald Buddenhagen vezeti a Qt ford&iacute;t&aacute;s&aacute;t, őt mindig meg lehet tal&aacute;lni az irc.freenode.net IRC szerveren, &aacute;ltal&aacute;ban ossi nick alatt.</p>
+]]></content>
+  </entry>
+  
+</feed>

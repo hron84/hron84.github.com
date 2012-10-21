@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rails | Hron's blog]]></title>
+  <link href="http://hron84.github.com/blog/tags/rails/atom.xml" rel="self"/>
+  <link href="http://hron84.github.com/"/>
+  <updated>2012-10-21T19:34:29+02:00</updated>
+  <id>http://hron84.github.com/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Jenkins, RVM, Bundler]]></title>
+    <link href="http://hron84.github.com/blog/2012/02/jenkins-rvm-bundler/"/>
+    <updated>2012-02-15T22:57:00+01:00</updated>
+    <id>http://hron84.github.com/blog/2012/02/jenkins-rvm-bundler</id>
+    <content type="html"><![CDATA[<p>Preface: Sorry for my poor english.</p>
+
+<p>So, today I started thinking on how can I compile my rails app to different Ruby versions. Luckily, I discovered, Jenkins can use RVM to run rake tasks.</p>
+
+<p>I initialized rvm following <a href="http://watirmelon.com/2011/08/29/running-your-watir-webdriver-tests-in-the-cloud-for-free/">this tutorial</a> but I just skipped EC2 instance creation, because I currently has a CI server. I installed three ruby version, MRI 1.8.7, MRI 1.9.3, and JRuby latest stable.</p>
+
+<p>First, I created a Rakefile.bootstrap file in my project root to make bundle install phase to rake-ized because I wouldn't like run this via shell state, as because I need to select the correct rvm what is can be changed and I wouldn't like administer it on thee or more places.</p>
+
+<p>Then, I was naive. I thinked I use separated gemset to avoid infecting global ruby scope with my project's gems.</p>
+
+<p>This is quite easy, I sudo-ed to jenkins, and created gemset by <code>rvm gemset create rhcp</code>. After viewing and saving Jenkins' main configuration are, rake plugin recognized this gemset, and offered to use it.</p>
+
+<p>I clicked on it, saved the project, clicked on build, and pray (in the future: c&amp;p). No luck.</p>
+
+<p>I spent a half of hour with investigation, and I found I need install rake to the target gemset too, not enough if it is installed with ruby or installed to the @global gemset. I installed rake, c&amp;p. No luck.</p>
+
+<p>After it, I ran into <a href="http://stackoverflow.com/questions/3456304/rake-aborted-stack-level-too-deep">this problem</a>. Because rake loaded twice, it lost in the stack, and just gave up.</p>
+
+<p>So, I added rake proxy for my bootstrap Rake file. It means calls the rake command prefixed by 'bundle exec' since Jenkins cannot do this. Bundler cleans out unneccessary gems (eg.g what coming from @global, or from ruby itself) and executes rake command.</p>
+
+<p>This is the final Rakefile.bootstrap if you want to use it:</p>
+
+<p>&nbsp;</p>
+
+<script src="https://gist.github.com/1838983.js?file=gistfile1.rb"></script>
+
+]]></content>
+  </entry>
+  
+</feed>
