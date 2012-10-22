@@ -316,7 +316,7 @@ caption {
 	border-top: 2px solid #DDDDDD;
 	font-size: 12px;
 	margin: 15px 0 0;
-	padding: 10px 0 15px;
+	padding: 10px 0 30px;
 }
 
 #footer .site {
@@ -327,6 +327,12 @@ caption {
 	float: right;
 	white-space: nowrap;
 	color: #777777;
+}
+
+#footer .copy .license img {
+    float: left;
+    width: 16px;
+    height: 16px;
 }
 
 .powa .logo {
