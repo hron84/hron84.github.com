@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Jómunkásmedve 2 - Hron's blog</title>
+  <title>Guard - projektjeink testőre - Hron's blog</title>
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content=" K&ouml;zk&iacute;v&aacute;natra
-" />
+  <meta name="description" content="Nem olyan régen ismerkedtem meg a guard nevű
+gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
+a fejét, de plug-injei &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   
-  <link rel="canonical" href="http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/" />
+  <link rel="canonical" href="http://hron.me/blog/2012/10/guard-projektjeink-testore/" />
   <link href="/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -104,7 +105,7 @@
       </nav>
       
       <header>
-        <h1 class="entry-title">Jómunkásmedve 2</h1>
+        <h1 class="entry-title">Guard - projektjeink testőre</h1>
         <p class="meta">
 
 
@@ -117,7 +118,7 @@
   
 
 
-<time datetime="2010-12-17T17:36:00+01:00" class="pubdate" pubdate data-updated="true">2010. Dec. 17.</time></p>
+<time datetime="2012-10-23T14:37:00+02:00" class="pubdate" pubdate data-updated="true">2012. Oct. 23.</time></p>
       </header>
     
     </div>
@@ -136,12 +137,114 @@
   </header>
 
 
-<div class="entry-content"><div class='p_embed p_image_embed'>
-<a href="http://getfile1.posterous.com/getfile/files.posterous.com/hron84/MOshuYUqYoNxgTrDfRXi9hoqT1HI0fN0RxnwYjcCq6c2xge6MnOW3pCIoLGq/2010-12-17_15.56.32.jpg.scaled.1000.jpg"><img alt="2010-12-17_15" height="667" src="http://getfile0.posterous.com/getfile/files.posterous.com/hron84/gAMZ483SiDACbO4XXOoEnHvcv9IC72XclYxhCQk3FHphbCZNtPZbmQBOULnB/2010-12-17_15.56.32.jpg.scaled.500.jpg" width="500" /></a>
-</div>
+<div class="entry-content"><p>Nem olyan régen ismerkedtem meg a <a href="https://github.com/guard/guard">guard</a> nevű
+gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
+a fejét, de plug-injei révén például PHP fejlesztők is profitálhatnak a tudásából.</p>
+
+<!-- more -->
 
 
-<p>K&ouml;zk&iacute;v&aacute;natra</p>
+<p>Ez a kis cucc arra képes, hogy figyelje a projekt fájljait változások után
+kutatva, és amikor változik valami, pl. elmentünk egy fájlt, akkor végre tud
+hajtani bizonyos műveleteket.</p>
+
+<p>Vegyünk két nagyon alap kis példát:</p>
+
+<p>Van egy PHP projektünk, melyben PHPunit teszteket szeretnénk futtatni. Minden
+egyes osztályunkhoz tartozik, egy hasonló nevű teszt osztály, csak Test van a
+végén. Tehát a User -t a UserTest, a Car-t a CarTest osztály teszteli. Ekkor:</p>
+
+<figure class='code'><figcaption><span>Guard konfiguráció PHPUnit-hoz </span><a href='https://github.com/guard/guard-phpunit'>Több infó</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">guard</span> <span class="s1">&#39;phpunit&#39;</span><span class="p">,</span> <span class="ss">:tests_path</span> <span class="o">=&gt;</span> <span class="s1">&#39;Tests&#39;</span><span class="p">,</span> <span class="ss">:cli</span> <span class="o">=&gt;</span> <span class="s1">&#39;--colors&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># Figyeljük az összes teszt osztály változását</span>
+</span><span class='line'>  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^.+Test\.php$}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Figyeljük az osztályok változását, és futtatjuk a megfelelő teszteket</span>
+</span><span class='line'>  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^Classes/(.+)\.php}</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">&quot;Tests/</span><span class="si">#{</span><span class="n">m</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">Test.php&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Nem kell aggódni, ha a második esetnél az adott teszt osztály nem létezik,
+akkor egyszerűen nem történik semmi.</p>
+
+<p>A Guard-hoz rengeteg féle <a href="https://github.com/guard">plug-in</a> létezik már,
+de legrosszabb esetben lehetséges shell parancsokat is <a href="https://github.com/guard/guard-shell">futtatni</a>
+fájlváltozáskor.</p>
+
+<p>Amire érdemes odafigyelni, az a függőségek. A Guard-nak egyrészt szüksége
+van a platformunknak megfelelő fájlváltozás-érzékelő plug-inre, illetve
+mivel képes minden platformon a platformnak megfelelően értesítést is
+küldeni, így ezeket a plug-injeit is megfelelően konfigurálni kell.</p>
+
+<p>Néhány dolog, amire figyelni kell:
+  - Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése</p>
+
+<pre><code>(10.8-hoz van plug-in a beépített értesítési rendszer használatára)
+</code></pre>
+
+<ul>
+<li>Windows alatt a <a href="https://github.com/luislavena/win32console">win32console</a> gem nélkül nincsenek színek</li>
+</ul>
+
+
+<p>Emiatt én mindig Gemfile segítségével telepítem. Egy alap Gemfile álljon itt ehhez:</p>
+
+<figure class='code'><figcaption><span>Gemfile Guard használatához</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># Guard</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;guard&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.4.0&#39;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/darwin/i</span>
+</span><span class='line'>    <span class="k">if</span> <span class="sx">%x{sw_vers -productVersion}</span><span class="o">.</span><span class="n">strip</span> <span class="o">=~</span> <span class="sr">/^10\.8/</span>
+</span><span class='line'>      <span class="n">gem</span> <span class="s1">&#39;terminal-notifier-guard&#39;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="n">gem</span> <span class="s1">&#39;ruby_gntp&#39;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;rb-fsevent&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 0.9.1&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">elsif</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/linux/i</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;rb-inotify&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">elsif</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/(mswin|mingw)/i</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;win32console&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;wdm&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Guard plug-ins</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;guard-phpunit&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A függőségek telepítése a <code>bundle install</code> míg a Guard futtatása a <code>bundle exec guard start</code> paranccsal zajlik.</p>
+
+<p>A Guard fájlt használatba vétel előtt inicializálni is kell, ezt a <code>bundle exec guard init</code> paranccsal tehetjük meg.
+Ha menet közben telepítünk olyan plug-int, mely futtatásra alkalmas (tehát nem értesítő plug-in), akkor azt a
+<code>bundle exec guard init plug-in_NAME</code> paranccsal tehetjük meg, a plug-in neve pedig mindig a guard- után álló rész (pl. shell).
+Egyébként a legtöbb plug-in README fájlja nagyon részletes útmutatót tartalmaz a plug-in használatáról.</p>
 </div>
 
 
@@ -164,12 +267,12 @@
   
 
 
-<time datetime="2010-12-17T17:36:00+01:00" class="pubdate" pubdate data-updated="true">2010. Dec. 17.</time>
+<time datetime="2012-10-23T14:37:00+02:00" class="pubdate" pubdate data-updated="true">2012. Oct. 23.</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/tags/bear/'>bear</a>, <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/pic/'>pic</a>
+    <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/rails/'>rails</a>, <a class='category' href='/blog/tags/tutorial/'>tutorial</a>
   
 </span>
 
@@ -178,7 +281,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/" data-via="hron84" data-counturl="http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2012/10/guard-projektjeink-testore/" data-via="hron84" data-counturl="http://hron.me/blog/2012/10/guard-projektjeink-testore/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="small"></div>
@@ -191,10 +294,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2010/12/jomunkasmedve/" title="Previous Post: Jómunkásmedve">&laquo; Jómunkásmedve</a>
+        <a class="basic-alignment left" href="/blog/2012/10/github-powa/" title="Previous Post: GitHub powa">&laquo; GitHub powa</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2011/01/koponyeghu-elso-android-appom/" title="Next Post: Koponyeg.hu - Elso android appom">Koponyeg.hu - Elso android appom &raquo;</a>
       
     </p>
   </footer>
@@ -331,8 +432,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/';
-        var disqus_url = 'http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/';
+        var disqus_identifier = 'http://hron.me/blog/2012/10/guard-projektjeink-testore/';
+        var disqus_url = 'http://hron.me/blog/2012/10/guard-projektjeink-testore/';
         var disqus_script = 'embed.js';
       
     (function () {

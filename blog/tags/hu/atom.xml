@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hu | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/hu/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-10-22T22:27:33+02:00</updated>
+  <updated>2012-10-23T15:05:45+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,104 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Guard - projektjeink testőre]]></title>
+    <link href="http://hron.me/blog/2012/10/guard-projektjeink-testore/"/>
+    <updated>2012-10-23T14:37:00+02:00</updated>
+    <id>http://hron.me/blog/2012/10/guard-projektjeink-testore</id>
+    <content type="html"><![CDATA[<p>Nem olyan régen ismerkedtem meg a <a href="https://github.com/guard/guard">guard</a> nevű
+gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
+a fejét, de plug-injei révén például PHP fejlesztők is profitálhatnak a tudásából.</p>
+
+<!-- more -->
+
+
+<p>Ez a kis cucc arra képes, hogy figyelje a projekt fájljait változások után
+kutatva, és amikor változik valami, pl. elmentünk egy fájlt, akkor végre tud
+hajtani bizonyos műveleteket.</p>
+
+<p>Vegyünk két nagyon alap kis példát:</p>
+
+<p>Van egy PHP projektünk, melyben PHPunit teszteket szeretnénk futtatni. Minden
+egyes osztályunkhoz tartozik, egy hasonló nevű teszt osztály, csak Test van a
+végén. Tehát a User -t a UserTest, a Car-t a CarTest osztály teszteli. Ekkor:</p>
+
+<p>```ruby Guard konfiguráció PHPUnit-hoz https://github.com/guard/guard-phpunit Több infó
+guard 'phpunit', :tests_path => 'Tests', :cli => '--colors' do
+  # Figyeljük az összes teszt osztály változását
+  watch(%r{<sup>.+Test.php$})</sup></p>
+
+<p>  # Figyeljük az osztályok változását, és futtatjuk a megfelelő teszteket
+  watch(%r{<sup>Classes/(.+).php})</sup> { |m| "Tests/#{m[1]}Test.php" }
+end
+```</p>
+
+<p>Nem kell aggódni, ha a második esetnél az adott teszt osztály nem létezik,
+akkor egyszerűen nem történik semmi.</p>
+
+<p>A Guard-hoz rengeteg féle <a href="https://github.com/guard">plug-in</a> létezik már,
+de legrosszabb esetben lehetséges shell parancsokat is <a href="https://github.com/guard/guard-shell">futtatni</a>
+fájlváltozáskor.</p>
+
+<p>Amire érdemes odafigyelni, az a függőségek. A Guard-nak egyrészt szüksége
+van a platformunknak megfelelő fájlváltozás-érzékelő plug-inre, illetve
+mivel képes minden platformon a platformnak megfelelően értesítést is
+küldeni, így ezeket a plug-injeit is megfelelően konfigurálni kell.</p>
+
+<p>Néhány dolog, amire figyelni kell:
+  - Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése</p>
+
+<pre><code>(10.8-hoz van plug-in a beépített értesítési rendszer használatára)
+</code></pre>
+
+<ul>
+<li>Windows alatt a <a href="https://github.com/luislavena/win32console">win32console</a> gem nélkül nincsenek színek</li>
+</ul>
+
+
+<p>Emiatt én mindig Gemfile segítségével telepítem. Egy alap Gemfile álljon itt ehhez:</p>
+
+<p>```ruby Gemfile Guard használatához
+group :development do
+  # Guard
+  gem 'guard', '~> 1.4.0'
+  if RUBY_PLATFORM =~ /darwin/i</p>
+
+<pre><code>if %x{sw_vers -productVersion}.strip =~ /^10\.8/
+  gem 'terminal-notifier-guard'
+else
+  gem 'ruby_gntp'
+end
+gem 'rb-fsevent', '~&gt; 0.9.1', :require =&gt; false
+</code></pre>
+
+<p>  elsif RUBY_PLATFORM =~ /linux/i</p>
+
+<pre><code>gem 'rb-inotify', :require =&gt; false 
+</code></pre>
+
+<p>  elsif RUBY_PLATFORM =~ /(mswin|mingw)/i</p>
+
+<pre><code>gem 'win32console', :require =&gt; false
+gem 'wdm', :require =&gt; false
+</code></pre>
+
+<p>  end</p>
+
+<p>  # Guard plug-ins
+  gem 'guard-phpunit'
+end
+```</p>
+
+<p>A függőségek telepítése a <code>bundle install</code> míg a Guard futtatása a <code>bundle exec guard start</code> paranccsal zajlik.</p>
+
+<p>A Guard fájlt használatba vétel előtt inicializálni is kell, ezt a <code>bundle exec guard init</code> paranccsal tehetjük meg.
+Ha menet közben telepítünk olyan plug-int, mely futtatásra alkalmas (tehát nem értesítő plug-in), akkor azt a
+<code>bundle exec guard init plug-in_NAME</code> paranccsal tehetjük meg, a plug-in neve pedig mindig a guard- után álló rész (pl. shell).
+Egyébként a legtöbb plug-in README fájlja nagyon részletes útmutatót tartalmaz a plug-in használatáról.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GitHub powa]]></title>
@@ -186,80 +284,6 @@ hron@laptop qt (4.7) $ make ts-designer-hu
 <p>A fenti parancsa&nbsp; translations/designer_hu.ts f&aacute;jlt friss&iacute;ti be.</p>
 
 <p><strong>Nagyon fontos</strong>: Ha beleny&uacute;lunk egy ts f&aacute;jlba, &eacute;s nem vagyunk az adott nyelv ford&iacute;t&oacute;i csapat&aacute;nak tagja, felt&eacute;tlen&uuml;l vegy&uuml;k fel a ford&iacute;t&oacute;(kk)al a kapcsolatot! Ha nem v&aacute;laszolnak, vagy nincs t&aacute;mpontunk hozz&aacute; hogy hol keress&uuml;k őket; Oswald Buddenhagen vezeti a Qt ford&iacute;t&aacute;s&aacute;t, őt mindig meg lehet tal&aacute;lni az irc.freenode.net IRC szerveren, &aacute;ltal&aacute;ban ossi nick alatt.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[A legjobb Git workflow - továbbfejlesztve]]></title>
-    <link href="http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/"/>
-    <updated>2012-04-18T23:06:00+02:00</updated>
-    <id>http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve</id>
-    <content type="html"><![CDATA[<p>K&ouml;z&ouml;ns&eacute;gk&eacute;r&eacute;sre, most bevezetem az olvas&oacute;imat abba a Git repo kezel&eacute;si m&oacute;dszertanba, amit a saj&aacute;t projektjeimn&eacute;l haszn&aacute;lok.</p>
-
-<p>Alapul az egyik tal&aacute;n legn&eacute;pszerűbb Git workflow szolg&aacute;lt, melynek le&iacute;r&aacute;sa <a href="http://nvie.com/posts/a-successful-git-branching-model/" title="A successful git branching model">itt tekinthető meg</a>.</p>
-
-<!-- more -->
-
-
-<p>L&aacute;ssuk az alapfogalmakat, amiket a le&iacute;r&aacute;sban haszn&aacute;lni fogok, ez az &eacute;n terminol&oacute;gi&aacute;m:</p>
-
-<ul>
-<li><strong>Master branch</strong>: A repo alap&eacute;rtelmezett branche. A frissen l&eacute;trehozott git repo-n&aacute;l ez a "master" nevű branch, de ak&aacute;rhogy is lehet h&iacute;vni.</li>
-<li><strong>Develop branch</strong>: Ezen az &aacute;gon folyik a fejleszt&eacute;s, de k&ouml;zvetlen&uuml;l ide nem commitolunk (lsd. k&eacute;sőbb)</li>
-<li><strong>Feature branch</strong>: egy &uacute;j feature fejleszt&eacute;se zajlik  rajta. Ez lehet egy &uacute;j gomb &eacute;s a m&ouml;g&ouml;ttes k&oacute;d, lehet a tesztek &iacute;r&aacute;s&aacute;ra  szolg&aacute;l&oacute; branch, a l&eacute;nyeg, hogy az itt zajl&oacute; v&aacute;ltoz&aacute;sok vagy &uacute;j  funkcionalit&aacute;st adnak a projekthez, vagy annyira jelentősen m&oacute;dos&iacute;tanak  egy meglevő funkcionalit&aacute;st, ami m&aacute;r nem f&eacute;r bele a hotfix branchekbe.</li>
-<li><strong>Hotfix branch</strong>: Ide elsősorban hibajav&iacute;t&aacute;sok j&ouml;nnek,  amelyek j&ouml;hetnek valamilyen bugtrackerből, vagy ak&aacute;r bemond&aacute;sra is, ez  m&aacute;r egy&eacute;ni metodika k&eacute;rd&eacute;se. A l&eacute;nyeg: ide olyan v&aacute;ltoztat&aacute;s nem  k&uuml;ldhető be, mely nagy m&eacute;rt&eacute;kben v&aacute;ltoztat a funkcionalit&aacute;son.</li>
-</ul>
-
-
-<p>Sz&oacute;val. amikor indul a repo &eacute;letciklusa, akkor l&eacute;trej&ouml;n a master  branch. A kezdő commit &aacute;ltal&aacute;ban vagy egy .gitignore f&aacute;jl bek&uuml;ld&eacute;s&eacute;ből  &aacute;ll (ez a legt&ouml;bb esetben hasznos, ha megvan), vagy valami hasonl&oacute;,  jelent&eacute;ktelen v&aacute;ltoztat&aacute;sb&oacute;l. Rails projekt eset&eacute;ben &eacute;n azt szoktam  csin&aacute;lni, hogy a legener&aacute;lt &eacute;s kitiszt&iacute;tott projektf&aacute;t k&uuml;ld&ouml;m be, amiben  m&eacute;g semmi nincsen, csak a mapp&aacute;k vannak l&eacute;trehozva, illetve p&aacute;r dolog  felkonfigur&aacute;lva (pl. rspec, cucumber, meg hasonl&oacute;k). Mindenesetre az  alkalmaz&aacute;s itt kezdi meg &eacute;letciklus&aacute;t.</p>
-
-<p>Ez ut&aacute;n r&ouml;gt&ouml;n le is &aacute;gaztatom a develop branchet, majd a develop  branchből az első feature branchet. Fontos, hogy minden feature &eacute;s  hotfix branch a develop &aacute;gb&oacute;l sz&aacute;rmazik.</p>
-
-<p>A feature branchen elkezdem az első dolgokat implement&aacute;lni, majd  amikor az első feature k&eacute;sz (pl. van egy bel&eacute;pő fel&uuml;let), akkor azt  r&aacute;mergelem a develop branchre. A mergel&eacute;sek mindig szigor&uacute;an --no-ff  kapcsol&oacute;val t&ouml;rt&eacute;nnek, mert ez biztos&iacute;tja sz&aacute;munkra azt, hogy a k&eacute;sőbbi  grafikus megjelen&iacute;t&eacute;sekn&eacute;l j&oacute;l elk&uuml;l&ouml;n&iacute;thetően l&aacute;tsz&oacute;djon, hogy honn&eacute;t  sz&aacute;rmazik a v&aacute;ltoztat&aacute;s.</p>
-
-<p>P&eacute;lda:</p>
-
-<p><code>
-myproject (feature-add-loginform) $ git checkout develop
-myproject (develop) $ git merge --no-ff feature-add-loginform
-</code></p>
-
-<p>A hotfix branchekkel ugyan&iacute;gy j&aacute;rok el.</p>
-
-<p>Hogy ne legyen  konfliktus merge-l&eacute;skor, a feature/hotfix brancheket időnk&eacute;nt rebase-lem  a develop-hoz (csak ahhoz), hogy meglegyenek azok a v&aacute;ltoz&aacute;sok is,  amelyeket m&aacute;s branchen k&ouml;vettem el. Ez ugye pl. webalkalmaz&aacute;sn&aacute;l fontos,  hogy ha a diz&aacute;jnon v&aacute;ltoz&aacute;s van, vagy a js-hez &uacute;j funkcionalit&aacute;s  ker&uuml;lt, akkor azt egy, ettől f&uuml;ggelten feature fejleszt&eacute;se sor&aacute;n is  tudjam haszn&aacute;lni (tipikus p&eacute;lda erre az a pont, amikor az &aacute;tmeneti  combobox-okat lev&aacute;ltja egy automatikus kieg&eacute;sz&iacute;t&eacute;s alap&uacute; megold&aacute;s). Ez  egyr&eacute;szt k&eacute;nyelmi okokb&oacute;l fontos, m&aacute;sr&eacute;szt pedig az&eacute;rt, mert ilyenkor  m&aacute;r zajlik a <em>dogfooding</em>, vagyis a saj&aacute;t k&oacute;d felhaszn&aacute;l&oacute;i  szempontb&oacute;l t&ouml;rt&eacute;nő tesztel&eacute;se. Volt m&aacute;r, hogy itt j&ouml;ttek elő olyan  hib&aacute;k, melyeket sem a tesztek, sem az első kattintgat&aacute;sok nem hoztak ki.</p>
-
-<p>Van n&eacute;h&aacute;ny olyan eset, amikor k&ouml;zvetlen&uuml;l a develop &aacute;gra commitolok. A legfőbb szempont ilyenkor, hogy ez csak olyan v&aacute;ltoz&aacute;s lehet, ami nagyon kev&eacute;s f&aacute;jlt &eacute;rint, illetőleg a branchek nagy r&eacute;sz&eacute;nek fontos v&aacute;ltoztat&aacute;s. Ilyen lehet p&eacute;ld&aacute;ul a .gitignore f&aacute;jl felbőv&iacute;t&eacute;se, ha valaki hirtelen boldog Mac tulajdonos lesz, &eacute;s a Mac f&aacute;jlrendszer csod&aacute;it (.DS_Store) ki szeretn&eacute;nk z&aacute;rni a projektből. De ilyen lehet az is, amikor egy &aacute;ltalunk el&uuml;t&eacute;st jav&iacute;tunk ki egy nyelvi f&aacute;jlban, mert erre pl. felesleges lehet egy &uacute;j branchet sz&uuml;lni. Persze ez a fejlesztő/fejlesztők &aacute;ltal k&ouml;vetett m&oacute;dszertant&oacute;l is erősen f&uuml;gghet.
-Ilyenkor viszont fontos, hogy minden branch &eacute;rtes&uuml;lj&ouml;n a v&aacute;ltoz&aacute;sokr&oacute;l, &eacute;s rebase-zel maga al&aacute; tegye azokat.</p>
-
-<p>Amikor a projekt el&eacute;rkezett egy <em>milestone</em>-hoz,  akkor t&ouml;rt&eacute;nik a master branchre mergel&eacute;s, k&ouml;zvetlen&uuml;l a develop  branch-ről. Ha a projekt olyan, hogy ez sz&uuml;ks&eacute;ges, ilyenkor a master  branchen tagelek is (ez főleg az&eacute;rt &eacute;rdekes, mert pl. a GitHub minden  tagelt branch-ből l&eacute;trehoz egy let&ouml;lthető forr&aacute;s csomagot, &iacute;gy ezzel  nekem nem kell t&ouml;rődn&ouml;m).</p>
-
-<p>A fő szempont a master-n&eacute;l, hogy itt  mindig stabil, minden v&aacute;ltoztat&aacute;st&oacute;l mentes k&oacute;d legyen, amely b&aacute;rmikor  b&aacute;rhova deployolhat&oacute;, &eacute;s azonnal műk&ouml;dők&eacute;pes.</p>
-
-<p>&Eacute;rdekes k&eacute;rd&eacute;s,  hogy mi legyen azokkal a hotfix t&iacute;pus&uacute; v&aacute;ltoztat&aacute;sokkal, amelyek a  master branchez kellene hogy menjenek, hiszen az &eacute;les alkalmaz&aacute;sban van a  hiba, ugynakkor a develop &aacute;gon m&aacute;r mergelve van egy feature, amit nem  sz&iacute;vesen mergeln&eacute;nk r&aacute; a master &aacute;gra. Nos, &eacute;n &aacute;ltal&aacute;ban megpr&oacute;b&aacute;lok a  helyzethez igazodni. Elősz&ouml;r is, meg kell n&eacute;zni, hogy az adott hiba  előj&ouml;tt-e m&aacute;r a develop &aacute;gon, &eacute;s fix&aacute;lva lett-e. Ha nem, akkor ez az  első l&eacute;p&eacute;s, plusz a megfelelő tesztesetek legy&aacute;rt&aacute;sa, hogy a  tov&aacute;bbiakban ilyen probl&eacute;ma elő ne fordulhasson.
-Ha a hiba nem kritikus, a legegyszerűbb megold&aacute;s a hiba jav&iacute;t&aacute;s&aacute;t a k&ouml;vetkező <em>milestone</em>-ig eltolni. De nyilv&aacute;n vannak kritkus hib&aacute;k is, l&aacute;ssuk mi a teendő ezekkel.</p>
-
-<p>A  legegyszerűbb eset, amikor m&eacute;g nem t&ouml;rt&eacute;nt mergel&eacute;s a develop-ra a  master &aacute;gra t&ouml;rt&eacute;nt mergel&eacute;s &oacute;ta, ilyenkor sim&aacute;n &aacute;t lehet venni a hotfix  branch jav&iacute;t&aacute;s&aacute;t.</p>
-
-<p>M&aacute;s esetekben meg kell n&eacute;zni, hogy a  hotfix &aacute;ltal &eacute;rintett f&aacute;jlok milyen m&eacute;rt&eacute;kben v&aacute;ltoztak a master-hez  k&eacute;pest. Erre a git diff parancs ad lehetős&eacute;get. Ha a f&aacute;jl ettől a  v&aacute;ltoztat&aacute;st&oacute;l eltekintve nem v&aacute;ltozott, akkor a bek&uuml;ld&ouml;tt commit-nak  veszem a diff-j&eacute;t (git diff HEAD<sup>..HEAD),</sup> majd alkalmazom csak ezt a  jav&iacute;t&aacute;st a master branchre. Ilyenkor a k&ouml;vetkező mergel&eacute;sn&eacute;l figyelni  kell, mert konfliktus l&eacute;phet fel, ezt sajnos egyedileg le kell kezelni.</p>
-
-<p>Egy m&aacute;sik megold&aacute;sa a probl&eacute;m&aacute;nak, hogy mivel a master &aacute;g az gyakorlatilag a develop &aacute;g egy <em>snapshot</em>-ja,  &iacute;gy abb&oacute;l ind&iacute;tom a hotfix branchet, &eacute;s mind a k&eacute;t &aacute;gra visszamergelem.  Ez tal&aacute;n a legegyszerűbb megold&aacute;sa a probl&eacute;m&aacute;nak - csakhogy  tapasztalatom szerint ez az, ami a legritk&aacute;bban is műk&ouml;dik. Ugyanis  nincs &eacute;rtelme &aacute;lmodozni, a master-ről ind&iacute;tott hotfix branchek az esetek  nagy r&eacute;sz&eacute;ben nem illeszkednek a develop &aacute;gra, conflict alakul ki, &eacute;s  el&eacute;g sok nyűg van, mire oda beilleszkedik, plusz ut&aacute;na a master-ra  t&ouml;rt&eacute;nő mergel&eacute;skor megint kialakulhat conflict. Mindenesetre van, ahol  ez a megold&aacute;s is műk&ouml;dik.</p>
-
-<p>Alternat&iacute;v megold&aacute;s lehet m&eacute;g a  cherry-pick haszn&aacute;lata, mellyel egy darab commit-ot tudunk a develop  branchből &aacute;tvenni a masterre, a mergel&eacute;s kock&aacute;zata n&eacute;lk&uuml;l. Erről m&eacute;g  csak hallottam, nincs gyakorlatom vele, hogy milyen sz&aacute;zal&eacute;kban okozhat  conflict-ot, illetve hogy a --no-ff merge k&eacute;pes-e elkezelni az &aacute;tvett  commit-ot. Illetve ez is csak akkor műk&ouml;dik, ha nincsenek gy&ouml;keres  v&aacute;ltoz&aacute;sok a develop &aacute;gban erre a f&aacute;jlra n&eacute;zve.</p>
-
-<p>Amit a  commit-okr&oacute;l m&eacute;g &eacute;rdemes elmondani: &eacute;n mindig &uacute;n. topic commit-okat  haszn&aacute;lok. Ez azt jelenti, hogy mindig igyekszem olyan commit-okat  gy&aacute;rtani, amelyek &ouml;n&aacute;ll&oacute;ak, &eacute;s pontosan egy dolgot csin&aacute;ljanak. Teh&aacute;t ha  pl. teszteket &iacute;rok, &eacute;s k&ouml;zben sz&uuml;letnek jav&iacute;t&aacute;sok is, amelyek a tesztek  lefut&aacute;s&aacute;hoz kellenek, nem nyitok mindig &uacute;j hotfix branchet (mert egy  lusta diszn&oacute; vagyok), hanem a tesztek &aacute;g&aacute;ba belerakom a v&aacute;ltoz&aacute;st is.  Mivel a tesztek az appra n&eacute;zve nem jelentenek funkcion&aacute;lis v&aacute;ltoz&aacute;st, a  jav&iacute;t&aacute;s viszont igen, &iacute;gy &eacute;n nem &eacute;rzem azt, hogy ennek kock&aacute;zata lenne.  Ellenben nagyon fontos &uuml;gyelni arra, hogy ilyenkor mindig pontosan  azokat a v&aacute;ltoztat&aacute;sokat k&uuml;ldj&uuml;k be, amelyeket azzal a committ-tal  jav&iacute;tunk. Ha kell, <em>hunk</em> (ez a v&aacute;ltoztat&aacute;sok egys&eacute;ge, a diff  kimenet&eacute;ben egy, h&aacute;rom kukaccal kezdődő sorral szepar&aacute;lt blokk) szinten  bontom sz&eacute;t a v&aacute;ltoz&aacute;sokat. Erre nagyon j&oacute; lehetős&eacute;get ad a git add  parancs -p kapcsol&oacute;ja.
-Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet bontani a develop branchet, b&aacute;rhol le lehet &aacute;gaztatni r&oacute;la egy &uacute;j branchet, mindig viszonylag konzisztens &aacute;llapotot fogunk kapni.</p>
-
-<p>&Ouml;sszess&eacute;g&eacute;ben teh&aacute;t a legfőbb alapelvek:</p>
-
-<ul>
-<li>A master branchre lehetőleg csak mergel&eacute;s t&ouml;rt&eacute;njen, ide k&ouml;zvetlen&uuml;l (a kezdő commit-t&oacute;l eltekintve) ne k&uuml;ldj&uuml;nk semmit.</li>
-<li>A develop branch-en lehet j&aacute;tszani, de &eacute;rdemes figyelni a konzisztenci&aacute;j&aacute;ra</li>
-<li>Hotfix branchen a műk&ouml;d&eacute;st alapjaiban &eacute;rintő v&aacute;ltoztat&aacute;s nem t&ouml;rt&eacute;nhet</li>
-<li>Mind a hotfix mind a feature brancheket &eacute;rdemes frissen tartani a develop-hoz k&eacute;pest, hogy ne &eacute;rjenek minket nagy meglepet&eacute;sek</li>
-</ul>
-
-
-<p>V&eacute;lem&eacute;nyeket itt alul lehet &iacute;rni, ahogy időm engedi reag&aacute;lni fogok r&aacute;juk.</p>
 ]]></content>
   </entry>
   

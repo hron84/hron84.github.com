@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tutorial | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/tutorial/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-10-22T22:27:33+02:00</updated>
+  <updated>2012-10-23T15:05:45+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,104 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Guard - projektjeink testőre]]></title>
+    <link href="http://hron.me/blog/2012/10/guard-projektjeink-testore/"/>
+    <updated>2012-10-23T14:37:00+02:00</updated>
+    <id>http://hron.me/blog/2012/10/guard-projektjeink-testore</id>
+    <content type="html"><![CDATA[<p>Nem olyan régen ismerkedtem meg a <a href="https://github.com/guard/guard">guard</a> nevű
+gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
+a fejét, de plug-injei révén például PHP fejlesztők is profitálhatnak a tudásából.</p>
+
+<!-- more -->
+
+
+<p>Ez a kis cucc arra képes, hogy figyelje a projekt fájljait változások után
+kutatva, és amikor változik valami, pl. elmentünk egy fájlt, akkor végre tud
+hajtani bizonyos műveleteket.</p>
+
+<p>Vegyünk két nagyon alap kis példát:</p>
+
+<p>Van egy PHP projektünk, melyben PHPunit teszteket szeretnénk futtatni. Minden
+egyes osztályunkhoz tartozik, egy hasonló nevű teszt osztály, csak Test van a
+végén. Tehát a User -t a UserTest, a Car-t a CarTest osztály teszteli. Ekkor:</p>
+
+<p>```ruby Guard konfiguráció PHPUnit-hoz https://github.com/guard/guard-phpunit Több infó
+guard 'phpunit', :tests_path => 'Tests', :cli => '--colors' do
+  # Figyeljük az összes teszt osztály változását
+  watch(%r{<sup>.+Test.php$})</sup></p>
+
+<p>  # Figyeljük az osztályok változását, és futtatjuk a megfelelő teszteket
+  watch(%r{<sup>Classes/(.+).php})</sup> { |m| "Tests/#{m[1]}Test.php" }
+end
+```</p>
+
+<p>Nem kell aggódni, ha a második esetnél az adott teszt osztály nem létezik,
+akkor egyszerűen nem történik semmi.</p>
+
+<p>A Guard-hoz rengeteg féle <a href="https://github.com/guard">plug-in</a> létezik már,
+de legrosszabb esetben lehetséges shell parancsokat is <a href="https://github.com/guard/guard-shell">futtatni</a>
+fájlváltozáskor.</p>
+
+<p>Amire érdemes odafigyelni, az a függőségek. A Guard-nak egyrészt szüksége
+van a platformunknak megfelelő fájlváltozás-érzékelő plug-inre, illetve
+mivel képes minden platformon a platformnak megfelelően értesítést is
+küldeni, így ezeket a plug-injeit is megfelelően konfigurálni kell.</p>
+
+<p>Néhány dolog, amire figyelni kell:
+  - Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése</p>
+
+<pre><code>(10.8-hoz van plug-in a beépített értesítési rendszer használatára)
+</code></pre>
+
+<ul>
+<li>Windows alatt a <a href="https://github.com/luislavena/win32console">win32console</a> gem nélkül nincsenek színek</li>
+</ul>
+
+
+<p>Emiatt én mindig Gemfile segítségével telepítem. Egy alap Gemfile álljon itt ehhez:</p>
+
+<p>```ruby Gemfile Guard használatához
+group :development do
+  # Guard
+  gem 'guard', '~> 1.4.0'
+  if RUBY_PLATFORM =~ /darwin/i</p>
+
+<pre><code>if %x{sw_vers -productVersion}.strip =~ /^10\.8/
+  gem 'terminal-notifier-guard'
+else
+  gem 'ruby_gntp'
+end
+gem 'rb-fsevent', '~&gt; 0.9.1', :require =&gt; false
+</code></pre>
+
+<p>  elsif RUBY_PLATFORM =~ /linux/i</p>
+
+<pre><code>gem 'rb-inotify', :require =&gt; false 
+</code></pre>
+
+<p>  elsif RUBY_PLATFORM =~ /(mswin|mingw)/i</p>
+
+<pre><code>gem 'win32console', :require =&gt; false
+gem 'wdm', :require =&gt; false
+</code></pre>
+
+<p>  end</p>
+
+<p>  # Guard plug-ins
+  gem 'guard-phpunit'
+end
+```</p>
+
+<p>A függőségek telepítése a <code>bundle install</code> míg a Guard futtatása a <code>bundle exec guard start</code> paranccsal zajlik.</p>
+
+<p>A Guard fájlt használatba vétel előtt inicializálni is kell, ezt a <code>bundle exec guard init</code> paranccsal tehetjük meg.
+Ha menet közben telepítünk olyan plug-int, mely futtatásra alkalmas (tehát nem értesítő plug-in), akkor azt a
+<code>bundle exec guard init plug-in_NAME</code> paranccsal tehetjük meg, a plug-in neve pedig mindig a guard- után álló rész (pl. shell).
+Egyébként a legtöbb plug-in README fájlja nagyon részletes útmutatót tartalmaz a plug-in használatáról.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Qt fordítás kezdőknek]]></title>

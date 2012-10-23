@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-10-22T22:27:33+02:00</updated>
+  <updated>2012-10-23T15:05:45+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Guard - projektjeink testőre]]></title>
+    <link href="http://hron.me/blog/2012/10/guard-projektjeink-testore/"/>
+    <updated>2012-10-23T14:37:00+02:00</updated>
+    <id>http://hron.me/blog/2012/10/guard-projektjeink-testore</id>
+    <content type="html"><![CDATA[<p>Nem olyan régen ismerkedtem meg a <a href="https://github.com/guard/guard">guard</a> nevű
+gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
+a fejét, de plug-injei révén például PHP fejlesztők is profitálhatnak a tudásából.</p>
+
+<!-- more -->
+
+
+<p>Ez a kis cucc arra képes, hogy figyelje a projekt fájljait változások után
+kutatva, és amikor változik valami, pl. elmentünk egy fájlt, akkor végre tud
+hajtani bizonyos műveleteket.</p>
+
+<p>Vegyünk két nagyon alap kis példát:</p>
+
+<p>Van egy PHP projektünk, melyben PHPunit teszteket szeretnénk futtatni. Minden
+egyes osztályunkhoz tartozik, egy hasonló nevű teszt osztály, csak Test van a
+végén. Tehát a User -t a UserTest, a Car-t a CarTest osztály teszteli. Ekkor:</p>
+
+<figure class='code'><figcaption><span>Guard konfiguráció PHPUnit-hoz </span><a href='https://github.com/guard/guard-phpunit'>Több infó</a></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">guard</span> <span class="s1">&#39;phpunit&#39;</span><span class="p">,</span> <span class="ss">:tests_path</span> <span class="o">=&gt;</span> <span class="s1">&#39;Tests&#39;</span><span class="p">,</span> <span class="ss">:cli</span> <span class="o">=&gt;</span> <span class="s1">&#39;--colors&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># Figyeljük az összes teszt osztály változását</span>
+</span><span class='line'>  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^.+Test\.php$}</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Figyeljük az osztályok változását, és futtatjuk a megfelelő teszteket</span>
+</span><span class='line'>  <span class="n">watch</span><span class="p">(</span><span class="sr">%r{^Classes/(.+)\.php}</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span> <span class="s2">&quot;Tests/</span><span class="si">#{</span><span class="n">m</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">Test.php&quot;</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Nem kell aggódni, ha a második esetnél az adott teszt osztály nem létezik,
+akkor egyszerűen nem történik semmi.</p>
+
+<p>A Guard-hoz rengeteg féle <a href="https://github.com/guard">plug-in</a> létezik már,
+de legrosszabb esetben lehetséges shell parancsokat is <a href="https://github.com/guard/guard-shell">futtatni</a>
+fájlváltozáskor.</p>
+
+<p>Amire érdemes odafigyelni, az a függőségek. A Guard-nak egyrészt szüksége
+van a platformunknak megfelelő fájlváltozás-érzékelő plug-inre, illetve
+mivel képes minden platformon a platformnak megfelelően értesítést is
+küldeni, így ezeket a plug-injeit is megfelelően konfigurálni kell.</p>
+
+<p>Néhány dolog, amire figyelni kell:
+  - Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése</p>
+
+<pre><code>(10.8-hoz van plug-in a beépített értesítési rendszer használatára)
+</code></pre>
+
+<ul>
+<li>Windows alatt a <a href="https://github.com/luislavena/win32console">win32console</a> gem nélkül nincsenek színek</li>
+</ul>
+
+
+<p>Emiatt én mindig Gemfile segítségével telepítem. Egy alap Gemfile álljon itt ehhez:</p>
+
+<figure class='code'><figcaption><span>Gemfile Guard használatához</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># Guard</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;guard&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 1.4.0&#39;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/darwin/i</span>
+</span><span class='line'>    <span class="k">if</span> <span class="sx">%x{sw_vers -productVersion}</span><span class="o">.</span><span class="n">strip</span> <span class="o">=~</span> <span class="sr">/^10\.8/</span>
+</span><span class='line'>      <span class="n">gem</span> <span class="s1">&#39;terminal-notifier-guard&#39;</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="n">gem</span> <span class="s1">&#39;ruby_gntp&#39;</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;rb-fsevent&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt; 0.9.1&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">elsif</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/linux/i</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;rb-inotify&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">elsif</span> <span class="no">RUBY_PLATFORM</span> <span class="o">=~</span> <span class="sr">/(mswin|mingw)/i</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;win32console&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="n">gem</span> <span class="s1">&#39;wdm&#39;</span><span class="p">,</span> <span class="ss">:require</span> <span class="o">=&gt;</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Guard plug-ins</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;guard-phpunit&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A függőségek telepítése a <code>bundle install</code> míg a Guard futtatása a <code>bundle exec guard start</code> paranccsal zajlik.</p>
+
+<p>A Guard fájlt használatba vétel előtt inicializálni is kell, ezt a <code>bundle exec guard init</code> paranccsal tehetjük meg.
+Ha menet közben telepítünk olyan plug-int, mely futtatásra alkalmas (tehát nem értesítő plug-in), akkor azt a
+<code>bundle exec guard init plug-in_NAME</code> paranccsal tehetjük meg, a plug-in neve pedig mindig a guard- után álló rész (pl. shell).
+Egyébként a legtöbb plug-in README fájlja nagyon részletes útmutatót tartalmaz a plug-in használatáról.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GitHub powa]]></title>
@@ -540,68 +656,6 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
 <a href="http://getfile9.posterous.com/getfile/files.posterous.com/hron84/Z327lO8WPdDKLUrpnXejxRVHyffeErnoZaRDdsjqeADzaycTqMUHigpECGhb/2010-09-16_08.12.29.jpg.scaled.1000.jpg"><img alt="2010-09-16_08" height="667" src="http://getfile8.posterous.com/getfile/files.posterous.com/hron84/vIC0UqCbjjqSngGdS0OdMN3xXo57MoRZhOdDrCM8D5m5ADWihfAsquRb05PK/2010-09-16_08.12.29.jpg.scaled.500.jpg" width="500" /></a>
 </div>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Az anya tyúkja]]></title>
-    <link href="http://hron.me/blog/2010/08/az-anya-tyukja/"/>
-    <updated>2010-08-05T17:37:00+02:00</updated>
-    <id>http://hron.me/blog/2010/08/az-anya-tyukja</id>
-    <content type="html"><![CDATA[<p>Egy <a href="http://www.hocipo.hu/index.php?option=com_content&amp;task=view&amp;id=2398" title="V&aacute;ncsa Istv&aacute;n - Szigor&uacute; &eacute;s s&oacute;s v&iacute;zben kocka">cikk</a> ihlet&eacute;s&eacute;re &eacute;n is kipr&oacute;b&aacute;lktam a Google fordit&oacute; m&uuml;v&eacute;szi hajlamait:</p>
-
-<blockquote>
-<span style="font-family: arial, sans-serif;"> </span>
-
-
-<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
-<div style=""><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>Az anya ty&uacute;k<p /></span><span style="background-color: #ffffff;">Teh&aacute;t mi k&ouml;vek!&nbsp;</span><span>ty&uacute;kany&oacute;, kenje
-</span><span style="background-color: #ffffff;">Lakott a szob&aacute;ban van?
-</span><span>Ah, de j&oacute; Uram, adj j&oacute;
-</span><span>F&ouml;lvitte ez a s&aacute;l dolog!<p /></span><span>K&ouml;r&uuml;l fel-le, fut&aacute;s
-</span><span style="background-color: #ffffff;">Vagy ak&aacute;r a szervezet emelkedett, a
-</span><span>, Kotkod&aacute;kol Eml&eacute;kezz
-</span><span>&Eacute;s nem &uuml;t a szob&aacute;ban.<p /></span><span>&#8220;Nem legyőzni, nem &uuml;t!
-</span><span>etetni, mint egy galamb
-</span><span>V&aacute;logat&aacute;s a kender,
-</span><span>A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.<p /></span><span>Azaz, ty&uacute;kany&oacute; vissza
-</span><span>Nos, ez becsl&eacute;sek szerint az olaj
-</span><span>Nem Iparkodj&eacute;k
-</span><span>Any&aacute;m csipkedte a toj&aacute;sokat.&nbsp;</span><span>-<p /></span><span style="background-color: #ffffff;">Morzsa kutya, hegyezi a f&uuml;led
-</span><span>Sz&oacute;lj hozz&aacute;m, Let
-</span><span>Egy &ouml;reg csel&eacute;d, vagy egy h&aacute;z,
-</span><span>Az eg&eacute;sz n&eacute;p, a szolg&aacute;ltat&aacute;sok<p /></span><span>Morzsa m&eacute;g mindig jobb
-</span><span>Nem kap csirk&eacute;t, bele&eacute;rtve a Get
-</span><span>Bar&aacute;ts&aacute;ga &eacute;lő csirk&eacute;k &#8220;&#8230;
-</span><span>Any&aacute;m egy dolog.<p /></span><span>(V&aacute;c, 1848. Febru&aacute;r).</span></span></div>
-<p />
-</div>
-&nbsp;
-
-
-</blockquote>
-
-
-<p><span style="font-family: arial, sans-serif;"> </span></p>
-
-<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
-<div><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>H&aacute;t iz&eacute;&#8230; itt azt&aacute;n t&eacute;nyleg mindenről sz&oacute; ker&uuml;l, m&eacute;g a nemr&eacute;g m&eacute;g aktu&aacute;lis olajfoltr&oacute;l is, sz&oacute;val azt mondhatjuk, hogy kedvenc keresőnk ford&iacute;t&oacute;szolg&aacute;ltat&aacute;sa nem csak műv&eacute;szi hajlamokat mutat, de emellett modern, &eacute;s a legjobb tud&aacute;s&aacute;t igyekszik beleszőni az &aacute;ltala teremtett művekbe. Emellett anti-feudalista (&#8221;</span></span><span style="line-height: 22px;">A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.&#8221;), erőszakellenes (&#8221;</span><span style="line-height: 22px;">Nem legyőzni, nem &uuml;t!&#8221;), &eacute;s furcs&aacute;n v&eacute;lekedik sz&uuml;lőj&eacute;ről (&#8221;</span><span style="line-height: 22px;">Any&aacute;m egy dolog.&#8221;</span><span style="line-height: 22px;">).</span></div>
-<p />
-<div><span style="line-height: 22px;">Feladat: mi lehet az alanti sorok eredetije? Annyit el&aacute;rulok, hogy szint&eacute;n egy versről van sz&oacute;, melynek azonban az &iacute;r&oacute;ja nem magyar. A v&aacute;lasz egy k&ouml;ltő &eacute;s egy versc&iacute;m.</span></div>
-<blockquote>
-<div><span style="line-height: 22px;"><span>Rose, egy fiatal f&eacute;rfit l&aacute;t
-</span><span style="background-color: #ffffff;">f&uuml;ves p&aacute;ly&aacute;n;
-</span><span style="background-color: #ffffff;">sz&eacute;p, m&eacute;g a f&eacute;ny a nap,
-</span><span style="background-color: #ffffff;">Ez szerkezet j&oacute;l
-</span><span style="background-color: #ffffff;">Azt akarom előtt.
-</span><span style="background-color: #ffffff;">Piros r&oacute;zsa,
-</span><span style="background-color: #ffffff;">A Wildflower R&eacute;t.
-</span></span></div>
-</blockquote>
-</div>
-
-
-<p>&nbsp;</p>
 ]]></content>
   </entry>
   
