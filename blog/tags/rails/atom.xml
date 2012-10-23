@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/rails/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-10-23T15:05:45+02:00</updated>
+  <updated>2012-10-23T15:10:41+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -57,13 +57,11 @@ van a platformunknak megfelelő fájlváltozás-érzékelő plug-inre, illetve
 mivel képes minden platformon a platformnak megfelelően értesítést is
 küldeni, így ezeket a plug-injeit is megfelelően konfigurálni kell.</p>
 
-<p>Néhány dolog, amire figyelni kell:
-  - Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése</p>
-
-<pre><code>(10.8-hoz van plug-in a beépített értesítési rendszer használatára)
-</code></pre>
+<p>Néhány dolog, amire figyelni kell:</p>
 
 <ul>
+<li>Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése
+(10.8-hoz van plug-in a beépített értesítési rendszer használatára)</li>
 <li>Windows alatt a <a href="https://github.com/luislavena/win32console">win32console</a> gem nélkül nincsenek színek</li>
 </ul>
 
