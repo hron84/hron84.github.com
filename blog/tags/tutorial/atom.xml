@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tutorial | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/tutorial/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-10-23T15:13:26+02:00</updated>
+  <updated>2012-10-28T02:19:29+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,238 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Logging with Logstash]]></title>
+    <link href="http://hron.me/blog/2012/10/logging-with-logstash/"/>
+    <updated>2012-10-27T22:33:00+02:00</updated>
+    <id>http://hron.me/blog/2012/10/logging-with-logstash</id>
+    <content type="html"><![CDATA[<p>In these days I started looking up for an opensource, easy-to-use central logging system.
+I read a lot of articles on the internet, and I found two good solution,
+<a href="http://www.graylog2.org">Graylog2</a> and <a href="http://logstash.net/">LogStash</a>. Both system can
+operate as syslog server and store our logs in database. I tried both system, and I
+experienced both have small problems - but some of these problems are different.</p>
+
+<h2>Graylog2</h2>
+
+<p>Graylog has a very good-looking interface and a relative easy configuration file. It has
+a lot of parameters, but the default configuraiton file is well-documented and easy to read.</p>
+
+<p>Graylog uses a MongoDB for store some small stuffs and ElasticSearch for store and search logs.
+The main advantage of this solution is the separated web interface. It can be installed anywhere,
+it just need a some small configurations to connect to same ES/Mongo instances as Graylog server uses.</p>
+
+<p>The web ui makes easy to search and filter logs, backlist some entries, and create a "channels" what is
+a named filter setting, where you can follow what happening in a simple context.</p>
+
+<p>But as I started use web interface and the server itself in everyday tasks, I found two problems:</p>
+
+<ul>
+<li>Web interface is does not make easy to write filters, because nor the interface, nor the documentation
+not describe how filters will be matched against messages. Because these filters are simple regular
+expressions, it is needed to know how to search some specific things. I sucked with it a lot of time
+until I found a method to find something. It is need a lot of improvement.</li>
+<li>Graylog seems does not take care about its input. After a week I found logging is stopped working. After
+some investigation, I discovered the ElasticSearch eaten a lot of resources and generating a huge log.
+After reading log I found the ElasticSearch is broken on some invalid characters in index files. I
+tried to restart ES server and leave to recover itself for a hour but no luck, it stuck in recovering state.
+Because I am not know well ES and graylog I started ask Google about these problems, but I did not find a
+good solution for me. So I decided to move on from Graylog.</li>
+</ul>
+
+
+<h2>LogStash</h2>
+
+<p>LogStash is a more robust logging solution. It is similar as syslog-ng but it does not restrict itself to working
+as Syslog server (with other words: get infos from input like syslog server) but it can chew anything what is a text
+stuff. It can use a lot of things as a log source, e.g.:</p>
+
+<ul>
+<li>Syslog server (it can act as syslog server, but see below)</li>
+<li>Plain file</li>
+<li>Raw TCP/UDP socket</li>
+<li>Output of any executable</li>
+<li>IRC/Jabber channels</li>
+<li>Twitter</li>
+<li>Stdin</li>
+<li>Windows Eventlog</li>
+<li>and so on...</li>
+</ul>
+
+
+<p>And it has a numerous output format too. What is important for me is it can use ElasticSearch and some No-SQL
+databases as log-storing backend.</p>
+
+<p>It has a built-in web interface for searching in log records, but <a href="https://github.com/rashidkpc/Kibana/">Kibana</a>
+is a little better Web interface to search against ElasticSearch, it makes searching/filtering easier.</p>
+
+<p>My current configuration is very easy:</p>
+
+<ul>
+<li>There is a central syslog server, provided by LogStash</li>
+<li>All my server is logging here via RSyslog (default syslog server of Debian Linux)</li>
+<li>LogStash is configured to store log messages in ElasticSearch after some parsing</li>
+</ul>
+
+
+<p>Basically, I followed the <a href="http://cookbook.logstash.net/recipes/syslog-pri/">official recipe</a> for this setup except
+one thing: somehow I couldn't get working the date parser in the way what recipe says. So I tricked it out.</p>
+
+<p>First, I created an Rsyslog config part, what I uploaded to /etc/rsyslog.d on every server:</p>
+
+<p><code>text /etc/rsyslog.d/to-logstash.conf
+$template LOGSTASH,"&lt;%PRI%&gt;%timegenerated:::date-rfc3164-buggyday% %HOSTNAME% %APP-NAME%: %msg:::drop-last-lf%\n"
+$ActionForwardDefaultTemplate LOGSTASH
+*.*   @1.2.3.4:514
+</code></p>
+
+<p>Note the <code>%timegenerated:::date-rfc3164-buggyday%</code> directive. The documentation of Rsyslog says it is basically
+pads a day number with zero if it is smaller than 10. It is introduced to emulate a syslog-ng 'bug'.</p>
+
+<p>After it I created a following configuration for logstash:</p>
+
+<p>```text LogStash configuration
+input {
+  tcp {</p>
+
+<pre><code>port =&gt; 514
+type =&gt; syslog
+</code></pre>
+
+<p>  }</p>
+
+<p>  udp {</p>
+
+<pre><code>port =&gt; 514
+type =&gt; syslog
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>filter {
+  grok {</p>
+
+<pre><code>  type =&gt; "syslog"
+  pattern =&gt; [ "&lt;%{POSINT:syslog_pri}&gt;%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{PROG:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}" ]
+  add_field =&gt; [ "received_at", "%{@timestamp}" ]
+  add_field =&gt; [ "received_from", "%{@source_host}" ]
+</code></pre>
+
+<p>  }
+  syslog_pri {</p>
+
+<pre><code>  type =&gt; "syslog"
+</code></pre>
+
+<p>  }</p>
+
+<p>  date {</p>
+
+<pre><code>  type =&gt; "syslog"
+</code></pre>
+
+<p>  #    syslog_timestamp => [ "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]</p>
+
+<pre><code>  syslog_timestamp =&gt; [ "MMM dd HH:mm:ss" ]
+</code></pre>
+
+<p>  }</p>
+
+<p>  mutate {</p>
+
+<pre><code>  type =&gt; "syslog"
+  exclude_tags =&gt; "_grokparsefailure"
+  replace =&gt; [ "@source_host", "%{syslog_hostname}" ]
+  replace =&gt; [ "@message", "%{syslog_message}" ]
+</code></pre>
+
+<p>  }
+  mutate {</p>
+
+<pre><code>  type =&gt; "syslog"
+  remove =&gt; [ "syslog_hostname", "syslog_message", "syslog_timestamp" ]
+</code></pre>
+
+<p>  }
+}</p>
+
+<p>output {
+  elasticsearch {</p>
+
+<pre><code>index =&gt; "syslog-%{+YYYY.MM.dd}"
+embedded =&gt; false
+</code></pre>
+
+<p>  }</p>
+
+<p>  #stdout { debug => true debug_format => json }
+}</p>
+
+<h1>vim: ts=2 sw=2 et</h1>
+
+<p>```</p>
+
+<p>Note the commented out date mapping. This is what original recipe says but I always got an exception
+related to parser and DateFormat what complaining about invalid data in the date. With buggyday hack
+on Rsyslog side I made dates 2-digit long, so it will always be parsed, I hope. It will reveals at least
+Nov 1.</p>
+
+<p>The last output stuff is just for debugging, it displays the parsed object in JSON format, this is a way
+how can you check your all filter working correctly.</p>
+
+<p>I sucked with parsing the message because my old rsyslog template has a typo and I could not imagine, what
+failing.
+After some digging, I found jls-grok RubyGem is contains a same parser what LogStash uses, so you can
+check your filters via IRB. Just make sure you using 1.9.3 ruby, because Ruby 1.8 throws a SyntaxError
+when you try <code>require 'grok-pure'</code> (what is recommended, because the simple 'grok' is searching a C lib).</p>
+
+<p>```ruby Simple example for testing Grok filter
+require 'rubygems'
+require 'grok-pure'</p>
+
+<p>grok = Grok.new</p>
+
+<h1>I extracted patterns dir from jar package</h1>
+
+<p>Dir.glob('patterns/*').each { |f| grok.add_patterns_from_file f }
+s="Oct 27 19:01:09"
+pattern = '%{SYSLOGTIMESTAMP:syslog_timestamp}'
+grok.compile(pattern)
+p grok.match(s).match.to_a # => ["Oct 27 19:01:09", "Oct 27 19:01:09", "Oct", "27", "19:01:09", "19", "01", "09"]
+```</p>
+
+<p>You can use exactly same pattern as you use in LogStash configuration file.</p>
+
+<p><strong>Note:</strong> If you see a <code>_grokparsefailure</code> tag in your tag list, then you do something wrong. This means
+the filter what you using in first filter does not match correctly on your syslog message from Rsyslog.
+The good news is LogStash stop evaluating filters on the first failing in debug mode, and leave @message
+untouched (if you see the second mutate from end, you can see we replace @message with the content of
+syslog_message, and remove unneccessary fields in the last mutate filter). If somehow it falls through
+the grok filter and removes the original (raw) message, then simply comment out the last two filter by
+prefixing lines with a hashmark.</p>
+
+<p>As you see in the config  use an external ES server, not the embedded one, because I currently have a
+working and configured ES instance, and I would like to use that. No other reason to not use embedded
+ES server: if you currently not have an ES instance, then simply use what shipped with LogStash.</p>
+
+<p>The embedded web interface of LogStash is a bit tricky thing, because I could not start as documentation says
+via the java command, I had to extract the jar file and run standalone to check its user interface.
+Don't expect something cool: It is just a textfield with a button and contains a link with a basic
+query string what filters messages generated today.</p>
+
+<h2>Conclusion</h2>
+
+<p>I think Graylog is a great logging solution, but it needs some love for prevent crashing ES server with
+invalid characters in the stored data. But the web interface and easy configuration makes it very,
+really very lovely.</p>
+
+<p>LogStash is a good solution if you want to handle multiple log sources or you want to validate/manipulate
+your log messages or you want to distribute logs to multiple destinations. I think LogStash is a little
+overkill if you just want a central syslog server, however - this is working as expected. So I took my
+two cent on LogStash and not on Graylog - even if I would like to prefer Graylog.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Guard - projektjeink testőre]]></title>
