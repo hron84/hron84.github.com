@@ -9,8 +9,8 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="In these days I started looking up for an opensource, easy-to-use central logging system.
-I read a lot of articles on the internet, and I found two &hellip;" />
+  <meta name="description" content="Már régóta keresek egy olyan IDE-t, ami képes nem csak projektszinten kezelni és szintaxis-kiemelést adni a Ruby/Rails projektjeimnek,
+de magát a &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -108,6 +108,70 @@ I read a lot of articles on the internet, and I found two &hellip;" />
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/rubymine-es-teamcity/">RubyMine és TeamCity</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Már régóta keresek egy olyan IDE-t, ami képes nem csak projektszinten kezelni és szintaxis-kiemelést adni a Ruby/Rails projektjeimnek,
+de magát a nyelvet is &#8220;beszéli&#8221;, vagyis van például kódkiegészítés, refaktorálás, figyelmeztetések, etc, etc.
+Az általam eddig ismert legkomolyabb IDE, a NetBeans is csak elég alapszinten beszélte a Ruby nyelvet - aztán ki is vették belőle a támogatást,
+jelenleg a plugin folyamatosan haláltusáját vívja, 7.2-höz már meg sem jelent semmiféle verzió.</p>
+
+<p>Egy StackOverflow böngészés során akadtam rá a JetBrains <a href="http://www.jetbrains.com/ruby/">RubyMine</a> nevű IDE-jére. Saját bevallásuk szerint az
+eszköz képes nyelvi szinten is kezelni a Ruby-t, illetve támogatja az összes nagyobb teszkörnyezetet. Mivel amúgy is épp indítottam egy projektet,
+úgy gondoltam, adok neki egy esélyt, hát legfeljebb letörlöm, és folytatom az eddigi módon, TextMate és Vim párossal. Szerencsére csalódtam. Pozitívan.
+Hatalmasat.</p>
+
+<p>A RubyMine ugyanis nem csak egyszerűen jó, hanem - amennyire tudom - a maga nemében jelenleg páratlan a piacon azzal, hogy tényleg hozza azt, amit ígér,
+vagyis teljes mértékben támogatja a Ruby nyelvet és a Rails keretrendszert, sőt, még ennél is tovább megy, beépített támogatása van a lokalizációk kezeléséhez,
+grafikusan mutatja, hogy mely mdoeljeink vannak adatbázisban, képes a Rails projekt szerkezetét Rails-aspektusú nézetben mutatni (ahol nem mappák és fájlok vannak,
+hanem kategóriák, pl. Controllers, Models, Helpers), a kontrollerek akcióihoz hozzá tudja rendelni a nézeteket, partialokat, a refaktor során pedig olyan mélységekbe is
+lemegy, amiről álmodni sem mertem soha - egy modell átnevezésekor képes a nézetekben is utánanézni az útvonal metódusoknak, és megfelelően átnevezni azokat!</p>
+
+<p>Ezen felül csak úgy mellékesen, képes kezelni az <a href="http://rvm.io">RVM</a>-et, támogatja a <a href="http://gembundler.com/">Bundler</a>t, a Rails generátorokat, a Rake taszkokat, SCSS-t meg CoffeeScript-et, &#8230; meg ilyen kis semmiségeket is.</p>
+
+<p>Az egyetlen probléma vele a kissé hiperaktív kódkiegészítése, ha leírok egy nyilat, rögtön ugrana rá, pedig én magamtól szoktam szóközt is ütni utána, de azzal meg
+elfogadom az első lehetőséget is egyben - ami általában rossz ötlet. Biztos le lehet valahogy beszélni róla, majd utánanézek (de ha valaki tudja a tuti megoldást,
+a komment doboz mindig nyitott az ilyesmikre :-) ), egyelőre még elviselem.</p>
+
+<p>Jelenleg folyamatosan használom az épp aktív projektemhez, teljesen jól szolgál, bár még képességeinek csak szerény részét használom. Most egyelőre a 30 napos
+próbaidőszakban vagyunk (dicséretes, hogy ez alatt sem ugrál föl valami kis ablak indításkor, hogy még 22.45 nap van hátra, és mostazonnal vedd meg - ez rém undorító,
+ha tetszik, úgyis megveszem - főleg, mert lejár -, ha meg nem tetszik, akkor ez a kapacitálás csak ront a dolgon), ám azt gondolom, hogy a 66 euro a személyes licencért abszolút megéri.</p>
+
+<p>Amit nem használok belőle (sem), az a Git integráció, nekem a git még mindig parancssoros dolgot jelent, egyszerűbb kiadni a <code>git co feature-awesome-stuff</code> parancsot,
+mint GUI-ban kikattintgatni. Legalábbis szerintem.</p>
+
+<p>A JetBrains honlapját tallózgatva (ismét) ráakadtam a <a href="http://www.jetbrains.com/teamcity/">TeamCity</a> nevű CI szerverre is, ezzel egyszer volt már egy futó kapcsolatom, de
+valamiért nem sikerült telepíteni, és a végén Jenkins lett belőle. Most ismét kapott tőlem egy lehetőséget, hogy elinduljon, és meggyőzzön. Ezúttal mindkettő sikerült is neki.</p>
+
+<p>A TeamCity-ről azt érdemes tudni, hogy egy olyan Continous Integration szerver (továbbiakban CI szerver), melyet nagyon egyszerű kezelni, és nagyon jól áttekinthető felületet
+ad, még egy felületes szemlélő számára is (ezt muszáj volt elsütni :-) ).</p>
+
+<p>A RubyMine fejlesztők blogján pedig találtam egy <a href="http://blog.jetbrains.com/ruby/2009/11/jetbrains-teamcity-continuous-integration-for-ruby/">írást</a>, mely borzasztóan felcsigázta a kíváncsiságomat.
+Azt merték ugyanis állítani, hogy  TeamCity beépítetten képes kezelni a RSpec és a Cucumber tesztek kimenetét, arrol riportot készít, hibáról értesít. Plusz, a TeamCity beépítetten támogatja az XMPP alapú notifikációt, amit pl. a Jenkins csak pluginnel tud.</p>
+
+<p>Sajnos a TeamCity egyik hiányossága, hogy ő viszont már csak korlátozott mértékben képes kezelni a Bundlert: képes felismerni a létét, és azon keresztül futtatni a rake taszkokat, de már pl. egy <code>bundle install</code> -t képtelen elengedni, azt kézzel kell egy külön Build Step-ben, viszonylag kacifántosan megoldani. Végül sikerült, de azért nem voltam felhőtlenül boldog.
+Viszont az első teszteredmények feledtették velem az ezen a téren történt csalódást, mert pontosan azt kaptam, amit elvártam: mindenféle külön konfiguráció nélkül jelenítete meg a Cucumber es RSpec tesztek eredményét, ráadásul egy egészen barátságos felületen.</p>
+
+<p>Tényleg nem JetBrains reklámnak szánom ezt a postot, de azért annyira érződik mindkét terméken, hogy ezeket olyanok fejlesztik, akik láttak már közelről Rails projektet, meg RVM-et, meg ilyesmit&#8230; például a Jenkins Ruby pluginjénél nem volt ilyen érzésem.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -662,39 +726,6 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/some-new-rules-uj-szabalyok/">Some new rules / Új szabályok</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I just forgotten write down new rules for this blog. If it is possible and I am not too tired for it, I will write posts in English to practice this language. I found if I write continous text I can change my mind into English and I start thinking in English too. After this I can speak English easier too.</p>
-
-<p>However, this rule will be dynamic. If I am too lazy, I will write Hungarian posts too, primarily because I wouldn&#8217;t like loose my Hungarian readers who do not know in English, such as my mom.</p>
-
-<p>Stay tooned.</p>
-
-<p>Elfelejtettem le&iacute;rni a blog &uacute;j szab&aacute;ly&aacute;t. Ha csak lehets&eacute;ges, &eacute;s nem vagyok t&uacute;l f&aacute;radt hozz&aacute;, a blogban angol nyelvű postok lesznek, a nyelv gyakorl&aacute;s&aacute;nak c&eacute;lj&aacute;b&oacute;l. Ez főleg az&eacute;rt van, mert azt tal&aacute;ltam, hogy ha hosszabb, egybef&uuml;ggő sz&ouml;veget kezdek el &iacute;rni, akkor az agyam automatikusan &aacute;tv&aacute;lt angolra, &eacute;s ut&aacute;na m&aacute;r sokkal k&ouml;nnyebben tudok pl. besz&eacute;lni is angolul.</p>
-
-<p>Azonban, ez a szab&aacute;ly rugalmas lesz. Ha t&uacute;l lusta vagyok, akkor magyarul is fogok &iacute;rni, t&ouml;bbek k&ouml;zt az&eacute;rt, mert nem szeretn&eacute;m elvesz&iacute;teni csak magyarul tud&oacute; olvas&oacute;imat, pl. &eacute;desany&aacute;mat.</p>
-
-<p>Stay tooned.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -708,6 +739,10 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/rubymine-es-teamcity/">RubyMine és TeamCity</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/logging-with-logstash/">Logging with Logstash</a>
@@ -725,15 +760,11 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
         <a href="/blog/2012/09/valamit-maskeppen/">Valamit másképpen</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/06/continous-deployment-vagy-affele/">Continous deployment, vagy afféle</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/en'>en (5)</a></li><li><a href='/blog/tags/git'>git (1)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (16)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (2)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (2)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/en'>en (5)</a></li><li><a href='/blog/tags/git'>git (1)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (17)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (3)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (3)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 
 <section>

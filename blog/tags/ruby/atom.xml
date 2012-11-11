@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/ruby/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-10-28T02:19:29+02:00</updated>
+  <updated>2012-11-11T17:56:21+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,56 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RubyMine és TeamCity]]></title>
+    <link href="http://hron.me/blog/2012/11/rubymine-es-teamcity/"/>
+    <updated>2012-11-11T11:08:00+01:00</updated>
+    <id>http://hron.me/blog/2012/11/rubymine-es-teamcity</id>
+    <content type="html"><![CDATA[<p>Már régóta keresek egy olyan IDE-t, ami képes nem csak projektszinten kezelni és szintaxis-kiemelést adni a Ruby/Rails projektjeimnek,
+de magát a nyelvet is "beszéli", vagyis van például kódkiegészítés, refaktorálás, figyelmeztetések, etc, etc.
+Az általam eddig ismert legkomolyabb IDE, a NetBeans is csak elég alapszinten beszélte a Ruby nyelvet - aztán ki is vették belőle a támogatást,
+jelenleg a plugin folyamatosan haláltusáját vívja, 7.2-höz már meg sem jelent semmiféle verzió.</p>
+
+<p>Egy StackOverflow böngészés során akadtam rá a JetBrains <a href="http://www.jetbrains.com/ruby/">RubyMine</a> nevű IDE-jére. Saját bevallásuk szerint az
+eszköz képes nyelvi szinten is kezelni a Ruby-t, illetve támogatja az összes nagyobb teszkörnyezetet. Mivel amúgy is épp indítottam egy projektet,
+úgy gondoltam, adok neki egy esélyt, hát legfeljebb letörlöm, és folytatom az eddigi módon, TextMate és Vim párossal. Szerencsére csalódtam. Pozitívan.
+Hatalmasat.</p>
+
+<p>A RubyMine ugyanis nem csak egyszerűen jó, hanem - amennyire tudom - a maga nemében jelenleg páratlan a piacon azzal, hogy tényleg hozza azt, amit ígér,
+vagyis teljes mértékben támogatja a Ruby nyelvet és a Rails keretrendszert, sőt, még ennél is tovább megy, beépített támogatása van a lokalizációk kezeléséhez,
+grafikusan mutatja, hogy mely mdoeljeink vannak adatbázisban, képes a Rails projekt szerkezetét Rails-aspektusú nézetben mutatni (ahol nem mappák és fájlok vannak,
+hanem kategóriák, pl. Controllers, Models, Helpers), a kontrollerek akcióihoz hozzá tudja rendelni a nézeteket, partialokat, a refaktor során pedig olyan mélységekbe is
+lemegy, amiről álmodni sem mertem soha - egy modell átnevezésekor képes a nézetekben is utánanézni az útvonal metódusoknak, és megfelelően átnevezni azokat!</p>
+
+<p>Ezen felül csak úgy mellékesen, képes kezelni az <a href="http://rvm.io">RVM</a>-et, támogatja a <a href="http://gembundler.com/">Bundler</a>t, a Rails generátorokat, a Rake taszkokat, SCSS-t meg CoffeeScript-et, ... meg ilyen kis semmiségeket is.</p>
+
+<p>Az egyetlen probléma vele a kissé hiperaktív kódkiegészítése, ha leírok egy nyilat, rögtön ugrana rá, pedig én magamtól szoktam szóközt is ütni utána, de azzal meg
+elfogadom az első lehetőséget is egyben - ami általában rossz ötlet. Biztos le lehet valahogy beszélni róla, majd utánanézek (de ha valaki tudja a tuti megoldást,
+a komment doboz mindig nyitott az ilyesmikre :-) ), egyelőre még elviselem.</p>
+
+<p>Jelenleg folyamatosan használom az épp aktív projektemhez, teljesen jól szolgál, bár még képességeinek csak szerény részét használom. Most egyelőre a 30 napos
+próbaidőszakban vagyunk (dicséretes, hogy ez alatt sem ugrál föl valami kis ablak indításkor, hogy még 22.45 nap van hátra, és mostazonnal vedd meg - ez rém undorító,
+ha tetszik, úgyis megveszem - főleg, mert lejár -, ha meg nem tetszik, akkor ez a kapacitálás csak ront a dolgon), ám azt gondolom, hogy a 66 euro a személyes licencért abszolút megéri.</p>
+
+<p>Amit nem használok belőle (sem), az a Git integráció, nekem a git még mindig parancssoros dolgot jelent, egyszerűbb kiadni a <code>git co feature-awesome-stuff</code> parancsot,
+mint GUI-ban kikattintgatni. Legalábbis szerintem.</p>
+
+<p>A JetBrains honlapját tallózgatva (ismét) ráakadtam a <a href="http://www.jetbrains.com/teamcity/">TeamCity</a> nevű CI szerverre is, ezzel egyszer volt már egy futó kapcsolatom, de
+valamiért nem sikerült telepíteni, és a végén Jenkins lett belőle. Most ismét kapott tőlem egy lehetőséget, hogy elinduljon, és meggyőzzön. Ezúttal mindkettő sikerült is neki.</p>
+
+<p>A TeamCity-ről azt érdemes tudni, hogy egy olyan Continous Integration szerver (továbbiakban CI szerver), melyet nagyon egyszerű kezelni, és nagyon jól áttekinthető felületet
+ad, még egy felületes szemlélő számára is (ezt muszáj volt elsütni :-) ).</p>
+
+<p>A RubyMine fejlesztők blogján pedig találtam egy <a href="http://blog.jetbrains.com/ruby/2009/11/jetbrains-teamcity-continuous-integration-for-ruby/">írást</a>, mely borzasztóan felcsigázta a kíváncsiságomat.
+Azt merték ugyanis állítani, hogy  TeamCity beépítetten képes kezelni a RSpec és a Cucumber tesztek kimenetét, arrol riportot készít, hibáról értesít. Plusz, a TeamCity beépítetten támogatja az XMPP alapú notifikációt, amit pl. a Jenkins csak pluginnel tud.</p>
+
+<p>Sajnos a TeamCity egyik hiányossága, hogy ő viszont már csak korlátozott mértékben képes kezelni a Bundlert: képes felismerni a létét, és azon keresztül futtatni a rake taszkokat, de már pl. egy <code>bundle install</code> -t képtelen elengedni, azt kézzel kell egy külön Build Step-ben, viszonylag kacifántosan megoldani. Végül sikerült, de azért nem voltam felhőtlenül boldog.
+Viszont az első teszteredmények feledtették velem az ezen a téren történt csalódást, mert pontosan azt kaptam, amit elvártam: mindenféle külön konfiguráció nélkül jelenítete meg a Cucumber es RSpec tesztek eredményét, ráadásul egy egészen barátságos felületen.</p>
+
+<p>Tényleg nem JetBrains reklámnak szánom ezt a postot, de azért annyira érződik mindkét terméken, hogy ezeket olyanok fejlesztik, akik láttak már közelről Rails projektet, meg RVM-et, meg ilyesmit... például a Jenkins Ruby pluginjénél nem volt ilyen érzésem.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GitHub powa]]></title>
