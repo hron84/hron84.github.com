@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-11-11T17:56:21+01:00</updated>
+  <updated>2012-11-23T18:32:10+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,273 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RedisHash - this hash is a db!]]></title>
+    <link href="http://hron.me/blog/2012/11/redishash-this-hash-is-a-db/"/>
+    <updated>2012-11-23T17:52:00+01:00</updated>
+    <id>http://hron.me/blog/2012/11/redishash-this-hash-is-a-db</id>
+    <content type="html"><![CDATA[<p>I started to understand how [Redis] is working and how can I use it in my projects. In my current project I collect some informations with background jobs, and store these informations in Redis. I choosen this way because these data should not be really persistent (that&#8217;s why I not decided to use MySQL as storage) because it can be collected quickly again if vanishes (it collected periodically) but I would like to access it quickly.</p>
+
+<p>Redis has a beautiful interface to handle data. However, I usually like if the data storing logic is separated from my business logic. After some thinking I decided to store object in a easiest way I can: I store them in a &#8220;smart&#8221; hash. Basically, all hashes are key-value store, and Redis is a key-value store too. So, I extended ruby&#8217;s <code>Hash</code> class, and overriden some methods&#8230;</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>RedisHash code</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;redis&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;json&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">RedisHash</span> <span class="o">&lt;</span> <span class="no">Hash</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">attr_reader</span> <span class="ss">:redis</span><span class="p">,</span> <span class="ss">:redkey</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">METHODS</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:append</span><span class="p">,</span> <span class="ss">:blpop</span><span class="p">,</span> <span class="ss">:brpop</span><span class="p">,</span> <span class="ss">:brpoplpush</span><span class="p">,</span> <span class="ss">:decr</span><span class="p">,</span> <span class="ss">:decrby</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:del</span><span class="p">,</span> <span class="ss">:exists</span><span class="p">,</span> <span class="ss">:expire</span><span class="p">,</span> <span class="ss">:expireat</span><span class="p">,</span> <span class="ss">:get</span><span class="p">,</span> <span class="ss">:getbit</span><span class="p">,</span> <span class="ss">:getrange</span><span class="p">,</span> <span class="ss">:getset</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:hdel</span><span class="p">,</span> <span class="ss">:hexists</span><span class="p">,</span> <span class="ss">:hget</span><span class="p">,</span> <span class="ss">:hgetall</span><span class="p">,</span> <span class="ss">:hincrby</span><span class="p">,</span> <span class="ss">:hkeys</span><span class="p">,</span> <span class="ss">:hlen</span><span class="p">,</span> <span class="ss">:hmget</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:hmset</span><span class="p">,</span> <span class="ss">:hset</span><span class="p">,</span> <span class="ss">:hsetnx</span><span class="p">,</span> <span class="ss">:hvals</span><span class="p">,</span> <span class="ss">:incr</span><span class="p">,</span> <span class="ss">:incrby</span><span class="p">,</span> <span class="ss">:lindex</span><span class="p">,</span> <span class="ss">:linsert</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:llen</span><span class="p">,</span> <span class="ss">:lpop</span><span class="p">,</span> <span class="ss">:lpush</span><span class="p">,</span> <span class="ss">:lpushx</span><span class="p">,</span> <span class="ss">:lrange</span><span class="p">,</span> <span class="ss">:lrem</span><span class="p">,</span> <span class="ss">:lset</span><span class="p">,</span> <span class="ss">:ltrim</span><span class="p">,</span> <span class="ss">:move</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:persist</span><span class="p">,</span> <span class="ss">:ping</span><span class="p">,</span> <span class="ss">:publish</span><span class="p">,</span> <span class="ss">:rename</span><span class="p">,</span> <span class="ss">:renamenx</span><span class="p">,</span> <span class="ss">:rpop</span><span class="p">,</span> <span class="ss">:rpoplpush</span><span class="p">,</span> <span class="ss">:rpush</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:rpushx</span><span class="p">,</span> <span class="ss">:sadd</span><span class="p">,</span> <span class="ss">:scard</span><span class="p">,</span> <span class="ss">:sdiff</span><span class="p">,</span> <span class="ss">:sdiffstore</span><span class="p">,</span> <span class="ss">:set</span><span class="p">,</span> <span class="ss">:setbit</span><span class="p">,</span> <span class="ss">:setex</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:setnx</span><span class="p">,</span> <span class="ss">:setrange</span><span class="p">,</span> <span class="ss">:sinter</span><span class="p">,</span> <span class="ss">:sinterstore</span><span class="p">,</span> <span class="ss">:sismember</span><span class="p">,</span> <span class="ss">:smembers</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:smove</span><span class="p">,</span> <span class="ss">:sort</span><span class="p">,</span> <span class="ss">:spop</span><span class="p">,</span> <span class="ss">:srandmember</span><span class="p">,</span> <span class="ss">:srem</span><span class="p">,</span> <span class="ss">:strlen</span><span class="p">,</span> <span class="ss">:subscribe</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:sunion</span><span class="p">,</span> <span class="ss">:sunionstore</span><span class="p">,</span> <span class="ss">:ttl</span><span class="p">,</span> <span class="ss">:type</span><span class="p">,</span> <span class="ss">:unsubscribe</span><span class="p">,</span> <span class="ss">:watch</span><span class="p">,</span> <span class="ss">:zadd</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:zcard</span><span class="p">,</span> <span class="ss">:zcount</span><span class="p">,</span> <span class="ss">:zincrby</span><span class="p">,</span> <span class="ss">:zinterstore</span><span class="p">,</span> <span class="ss">:zrange</span><span class="p">,</span> <span class="ss">:zrangebyscore</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:zrank</span><span class="p">,</span> <span class="ss">:zrem</span><span class="p">,</span> <span class="ss">:zremrangebyrank</span><span class="p">,</span> <span class="ss">:zremrangebyscore</span><span class="p">,</span> <span class="ss">:zrevrange</span><span class="p">,</span>
+</span><span class='line'>             <span class="ss">:zrevrangebyscore</span><span class="p">,</span> <span class="ss">:zrevrank</span><span class="p">,</span> <span class="ss">:zscore</span><span class="p">,</span> <span class="ss">:zunionstore</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">redis</span> <span class="o">=</span> <span class="no">Redis</span><span class="o">.</span><span class="n">current</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">to_redis_key</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:to_redis_key</span><span class="p">)</span>
+</span><span class='line'>    <span class="vi">@redkey</span> <span class="o">=</span> <span class="n">key</span>
+</span><span class='line'>    <span class="vi">@redis</span> <span class="o">=</span> <span class="n">redis</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Mimics the similar hash method, but gets value from Redis</span>
+</span><span class='line'>  <span class="c1"># @param [Object] key Key in the sky</span>
+</span><span class='line'>  <span class="c1"># @return [Object] a value for key</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">[]</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">to_redis_key</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:to_redis_key</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">realkey</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">redkey</span><span class="si">}</span><span class="s2">:</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="n">value</span> <span class="o">=</span> <span class="vi">@redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">realkey</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">value</span><span class="o">.</span><span class="n">nil?</span> <span class="p">?</span> <span class="kp">nil</span> <span class="p">:</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">rescue</span> <span class="nb">eval</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Mimics the similar hash method, but sets the value in Redis</span>
+</span><span class='line'>  <span class="c1"># @param [Object] key   Key in the sky</span>
+</span><span class='line'>  <span class="c1"># @param [Object] value a value for key</span>
+</span><span class='line'>  <span class="c1"># @return [Object] an passed value</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">[]=</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">to_redis_key</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:to_redis_key</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">realkey</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">redkey</span><span class="si">}</span><span class="s2">:</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="vi">@redis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">realkey</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">to_json</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">value</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Mimics the similar hash method, but gets the list of the keys from Redis</span>
+</span><span class='line'>  <span class="c1"># @return [Array] array of keys</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">keys</span>
+</span><span class='line'>    <span class="c1"># Because a limitation of this implementation, we filter out keys what not in our scope</span>
+</span><span class='line'>    <span class="n">redis</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">find_all</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="o">|</span> <span class="n">k</span><span class="o">.</span><span class="n">starts_with?</span><span class="p">(</span><span class="n">redkey</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="p">}</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="o">|</span> <span class="n">k</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/^</span><span class="si">#{</span><span class="n">redkey</span><span class="si">}</span><span class="sr">:/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Mimics the similar hash method, but removes the key from Redis</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">realkey</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">redkey</span><span class="si">}</span><span class="s2">:</span><span class="si">#{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="n">oldval</span> <span class="o">=</span> <span class="nb">self</span><span class="o">[</span><span class="n">key</span><span class="o">]</span>
+</span><span class='line'>    <span class="vi">@redis</span><span class="o">.</span><span class="n">del</span><span class="p">(</span><span class="n">realkey</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">oldval</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">clear</span>
+</span><span class='line'>    <span class="n">each_key</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="o">|</span> <span class="n">delete</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">each_key</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">keys</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
+</span><span class='line'>      <span class="k">yield</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">inspect</span>
+</span><span class='line'>    <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;RedisHash(%s)&quot;</span>
+</span><span class='line'>    <span class="n">keyz</span> <span class="o">=</span> <span class="n">keys</span><span class="o">[</span><span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="mi">9</span><span class="o">].</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">k</span><span class="o">|</span> <span class="n">k</span><span class="o">.</span><span class="n">to_sym</span><span class="o">.</span><span class="n">inspect</span> <span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">keyz</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;, ...&quot;</span> <span class="k">if</span> <span class="n">keys</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">10</span>
+</span><span class='line'>    <span class="nb">sprintf</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">keyz</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">METHODS</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">meth</span><span class="o">|</span>
+</span><span class='line'>    <span class="nb">class_eval</span> <span class="o">&lt;&lt;-</span><span class="no">EVAL</span>
+</span><span class='line'><span class="sh">      def #{meth}(*args, &amp;block)</span>
+</span><span class='line'><span class="sh">        redis.send(:#{meth}, self, *args, &amp;block)</span>
+</span><span class='line'><span class="sh">      end</span>
+</span><span class='line'><span class="no">    EVAL</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It is a really naive implementation and I didn&#8217;t checked all hash methods to be working against this class, but a most used ones are working correctly.</p>
+
+<p>A special thing where this class is differs from &#8220;normal&#8221; hashes is this is needs an initialization via constructor.</p>
+
+<p><code>RedisHash</code>&#8217;s constructor takes two parameter. First is a symbol, this will identify our hash. Be careful when you choose this key: it should be unique in the Redis server because if you reconnect again to this hash, you can get stored data again. It works like a database name in MySQL.</p>
+
+<p>The second parameter is an existing Redis connection. If you do not pass it, be careful you have to initialize <code>Redis.current</code> connection before you call anything on this hash.</p>
+
+<p>Take the following example:</p>
+
+<figure class='code'><figcaption><span>Collection server</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">count_log_files</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">rdb</span> <span class="o">=</span> <span class="no">RedisHash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:dirs</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">directory?</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">entries</span> <span class="o">=</span> <span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">dir</span><span class="si">}</span><span class="s2">/*&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">entries</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">entry</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">collect_log_files</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="n">file</span> <span class="o">=</span> <span class="n">dir</span>
+</span><span class='line'>    <span class="n">dir</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">file</span> <span class="o">=~</span> <span class="sr">/\.log$/</span>
+</span><span class='line'>      <span class="n">rdb</span><span class="o">[</span><span class="n">dir</span><span class="o">]</span> <span class="o">=</span> <span class="n">rdb</span><span class="o">.</span><span class="n">key?</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">rdb</span><span class="o">[</span><span class="n">dir</span><span class="o">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Collection client</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rdb</span> <span class="o">=</span> <span class="no">RedisHash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:dirs</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">rdb</span><span class="o">.</span><span class="n">each_pair</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="p">,</span> <span class="n">count</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">dir</span><span class="si">}</span><span class="s2"> has </span><span class="si">#{</span><span class="n">count</span><span class="si">}</span><span class="s2"> log(s)&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The two service can run separatedly (on separated server too) without knowing anything about each other. In both server and client side after initialization, you can treat RedisHash as a normal ruby hash - you can assign or query a value or iterate over keys and values. And these operations immediatelly executed on your Redis db.</p>
+
+<p>If you note, I defined some methods on the hash what can help us to manage our Redis db. It can be useful if you want to get or set some special value what stored in your DB.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RubyMine és TeamCity]]></title>
@@ -936,20 +1203,6 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
 
 <p>Letoltes:
 <a><img src="http://qr-kod.hu/qr-kod.php?type=url&amp;size=L&amp;t=http%253A%252F%252Fusers.hanzo.hu%252F~hron%252FKoponyeg.apk" alt="qr-kod" /></a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Jómunkásmedve 2]]></title>
-    <link href="http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/"/>
-    <updated>2010-12-17T17:36:00+01:00</updated>
-    <id>http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo</id>
-    <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
-<a href="http://getfile1.posterous.com/getfile/files.posterous.com/hron84/MOshuYUqYoNxgTrDfRXi9hoqT1HI0fN0RxnwYjcCq6c2xge6MnOW3pCIoLGq/2010-12-17_15.56.32.jpg.scaled.1000.jpg"><img alt="2010-12-17_15" height="667" src="http://getfile0.posterous.com/getfile/files.posterous.com/hron84/gAMZ483SiDACbO4XXOoEnHvcv9IC72XclYxhCQk3FHphbCZNtPZbmQBOULnB/2010-12-17_15.56.32.jpg.scaled.500.jpg" width="500" /></a>
-</div>
-
-
-<p>K&ouml;zk&iacute;v&aacute;natra</p>
 ]]></content>
   </entry>
   

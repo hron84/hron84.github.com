@@ -93,12 +93,16 @@
         <lastmod>2012-11-11T13:49:56+01:00</lastmod>
     </url>
     <url>
+        <loc>http://hron.me/blog/2012/11/redishash-this-hash-is-a-db/</loc>
+        <lastmod>2012-11-23T18:31:59+01:00</lastmod>
+    </url>
+    <url>
         <loc>http://hron.me/about/</loc>
         <lastmod>2012-10-21T19:39:33+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/archives/</loc>
-        <lastmod>2012-11-11T13:49:56+01:00</lastmod>
+        <lastmod>2012-11-23T18:31:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/en/contributions/</loc>
@@ -110,6 +114,6 @@
     </url>
     <url>
         <loc>http://hron.me/</loc>
-        <lastmod>2012-11-11T13:49:56+01:00</lastmod>
+        <lastmod>2012-11-23T18:31:59+01:00</lastmod>
     </url>
 </urlset>
