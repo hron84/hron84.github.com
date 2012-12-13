@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/rails/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-11-23T18:32:10+01:00</updated>
+  <updated>2012-12-13T07:44:57+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,49 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails - polimorf világ]]></title>
+    <link href="http://hron.me/blog/2012/12/rails-polimorf-vilag/"/>
+    <updated>2012-12-13T07:23:00+01:00</updated>
+    <id>http://hron.me/blog/2012/12/rails-polimorf-vilag</id>
+    <content type="html"><![CDATA[<p>Azért vannak dolgok, amikkel lehet szépeket szívni.</p>
+
+<p>A feladat valami olyasmi volt, hogy kell egy újrafelhasználható "cím" osztály, ami külön táblára is képeződne le, hogy ne a megfelelő táblákat terheljük feleslegesen, plusz a címek amúgy se mindig kellenek pl. a felhasználókezeléshez. Azért kell újrafelhasználhatónak lennie, mert két különböző dolog is használ címeket a rendszerben.</p>
+
+<p>Nem akarom nagyon húzni az időt, az alábbi kód született rá:</p>
+
+<p>```ruby Polimophic user profile
+class Address &lt; ActiveRecord::Base
+  belongs_to :addressable, :polymorphic => true
+end</p>
+
+<p>class User &lt; ActiveRecord::Base
+  has_many  :addresses, :as => :addressable
+  has_one   :billing_address , :as => :addressable, :class_name => 'Address', :conditions => { :billable => true, :shippable => false }
+  has_one   :shipping_address, :as => :addressable, :class_name => 'Address', :conditions => { :shippable => true, :billable => false }
+end
+```</p>
+
+<p>Erre kedves barátom azt mondaná, hogy szép baleset. És akkor még nagyon finoman fogalmazna. Nézzük, mik azok a buktatók, amin át lehet esni egy ilyet nézve:</p>
+
+<ul>
+<li>A has_many asszociáció ugye azért kell, hogy legyen valami, ami polimorf. Elvben bele lehet suvasztani a has_one mellé is, de nekem egyébként is kell tudnom a címeket egyben
+lekérni, akkor meg miért ne emelném ki?</li>
+<li>Az előbbi asszociáció alapján definiálunk két hozzárendelést. Ugye itt a hangsúly a :conditions hashen van, ez mondja meg, hogy a polimorf tömbből mely adatok kellenek
+(pontosabban, hogy az asszociáció alapján generált query-ben a WHERE feltétel hogyan bővüljön)</li>
+<li>Az egyik trükk az, hogy mindenképp meg kell adni az osztályt is, ugyanis a has_one asszociáció <em>nem</em> kéri le ezt az infót a hivatkozott polimorf asszociációtól, hanem saját
+maga áll neki találgatni - természetesen rosszul.</li>
+<li><p>A másik trükk pedig, hogy mivel ez egy kétparaméteres, egymást kölcsönösen kizáró feltétel, így <em>mindkettőt</em> meg kell adni, különben létrehozáskor előjöhet olyan csúfság, hogy
+valaki meghinteli a dupla false-t - vagyis úgy mentünk el pl. egy billing címet, hogy az elvész az :addresses tömb nevű fekete lyukban (van értelme amúgy a dupla false-nak is,
+csak abból nem billing meg shipping címek lesznek, hanem csak címek). Azaz, mentéskor a billing_address-en keresztül mentünk, de a mentés után a billing_address pont ugyanolyan
+<code>nil</code> lesz, mint előtte volt vala.</p>
+
+<p>Azért ezzel is sikerült egy jó órát szívni...</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RubyMine és TeamCity]]></title>

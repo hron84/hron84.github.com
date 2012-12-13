@@ -9,7 +9,7 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="I started to understand how [Redis] is working and how can I use it in my projects. In my current project I collect some informations with background &hellip;" />
+  <meta name="description" content="Azért vannak dolgok, amikkel lehet szépeket szívni. A feladat valami olyasmi volt, hogy kell egy újrafelhasználható &#8220;cím&#8221; osztály, ami &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,6 +107,72 @@
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/rails-polimorf-vilag/">Rails - polimorf világ</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Azért vannak dolgok, amikkel lehet szépeket szívni.</p>
+
+<p>A feladat valami olyasmi volt, hogy kell egy újrafelhasználható &#8220;cím&#8221; osztály, ami külön táblára is képeződne le, hogy ne a megfelelő táblákat terheljük feleslegesen, plusz a címek amúgy se mindig kellenek pl. a felhasználókezeléshez. Azért kell újrafelhasználhatónak lennie, mert két különböző dolog is használ címeket a rendszerben.</p>
+
+<p>Nem akarom nagyon húzni az időt, az alábbi kód született rá:</p>
+
+<figure class='code'><figcaption><span>Polimophic user profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Address</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_many</span>  <span class="ss">:addresses</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span>
+</span><span class='line'>  <span class="n">has_one</span>   <span class="ss">:billing_address</span> <span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:billable</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:shippable</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">has_one</span>   <span class="ss">:shipping_address</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:shippable</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:billable</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Erre kedves barátom azt mondaná, hogy szép baleset. És akkor még nagyon finoman fogalmazna. Nézzük, mik azok a buktatók, amin át lehet esni egy ilyet nézve:</p>
+
+<ul>
+<li>A has_many asszociáció ugye azért kell, hogy legyen valami, ami polimorf. Elvben bele lehet suvasztani a has_one mellé is, de nekem egyébként is kell tudnom a címeket egyben
+lekérni, akkor meg miért ne emelném ki?</li>
+<li>Az előbbi asszociáció alapján definiálunk két hozzárendelést. Ugye itt a hangsúly a :conditions hashen van, ez mondja meg, hogy a polimorf tömbből mely adatok kellenek
+(pontosabban, hogy az asszociáció alapján generált query-ben a WHERE feltétel hogyan bővüljön)</li>
+<li>Az egyik trükk az, hogy mindenképp meg kell adni az osztályt is, ugyanis a has_one asszociáció <em>nem</em> kéri le ezt az infót a hivatkozott polimorf asszociációtól, hanem saját
+maga áll neki találgatni - természetesen rosszul.</li>
+<li><p>A másik trükk pedig, hogy mivel ez egy kétparaméteres, egymást kölcsönösen kizáró feltétel, így <em>mindkettőt</em> meg kell adni, különben létrehozáskor előjöhet olyan csúfság, hogy
+valaki meghinteli a dupla false-t - vagyis úgy mentünk el pl. egy billing címet, hogy az elvész az :addresses tömb nevű fekete lyukban (van értelme amúgy a dupla false-nak is,
+csak abból nem billing meg shipping címek lesznek, hanem csak címek). Azaz, mentéskor a billing_address-en keresztül mentünk, de a mentés után a billing_address pont ugyanolyan
+<code>nil</code> lesz, mint előtte volt vala.</p>
+
+<p>Azért ezzel is sikerült egy jó órát szívni&#8230;</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -685,45 +751,6 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/brno-a-very-different-place/">Brno - A very different place</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am arrived from Brno. This is a very beautiful town and a very good place. If I need to compare with Budapest, the whole Brno looks like the centre of Budapest but not at now but in 30-40 years ago.</p>
-
-<p>The mass transit is a surprise. Before I started I read the main vehicle is a tram but I didn&#8217;t expect how it looks like in the reality. If you take a look for the city you understand: if there is a wider road, they place tramway and expand an existing line to it or start a new line. There are some buses but as I think they goes where the terrain is too step and the tram cannot climb up on it. During the two days while I was in the town, I saw only one bus. Not one bus line but one vehicle (this wear number 84 btw :-) ).</p>
-
-<p>This system is interesting from other aspects too. The town is splitted to zones (z&oacute;ny) and the tickets are contains some time for travel and permission to cross some zone-borders. The most expensive ticket is valid in 5 zone and few hours. But, if you want to buy some tickets, especially if you want to buy them from a small shops (all newspaper-stand sells tickets, and all place where you see &#8220;J&Iacute;ZDENKA&#8221;), you need ask it by it&#8217;s price. I choosen this even if there is a ticket machine in every stop, because as I saw most machines do not know about other languages but Czech. And the buttons are not titled except the ticket selection button. So, there wasn&#8217;t a help to handle them if you do not know the language (I think there are some machines what can say in foreign languages and there are some machines what titled correctly, but I didn&#8217;t meet with them). I used machines to write down the price of the tickets, to ask them correctly from the sellers (ticket is a fixed-price stuff, so do not matter where you buy it).</p>
-
-<p>I choosen the Hotel Brno because it offered a cheapest room in booking.com (where is a correct description about places and the services). The hotel had a very good transport possibilities and placed at a silent, nice place. The room wasn&#8217;t too big but for two people when they woulnd&#8217;t like stay in the room for a whole day is absolute correct. Because I was alone this was more than enough for me.</p>
-
-<p>The terrain under the city is quite hilly. I never saw a too fat people under the two days and I think I understand why :-)</p>
-
-<p>As @kozka told me the office of RedHat is placed near the universities. Currently RedHat occupies a whole building but the next building is under construction so they growing fast. As I saw some levels are equipped recently (I smelled the fresh painting) so they are growing really fast.</p>
-
-<p>The people are very nice and they help you even if you do not understand what they tell you.</p>
-
-<p>The other thing what surprised me is the moral on the roads. If you stop at the pedestrian crossing, the cars are stops even if there is a rush hour. It seems like a reflex. I will need condition me back to the hungarian moral to not start crossing the road because the cars are not stop every time for you.</p>
-
-<p>Btw the interview was good I think I passed on it, but I didn&#8217;t got a reply from RH, but they informed me I will got a result today. And I collected two business card too :-)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -737,6 +764,10 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/rails-polimorf-vilag/">Rails - polimorf világ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/11/redishash-this-hash-is-a-db/">RedisHash - this hash is a db!</a>
@@ -754,15 +785,11 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
         <a href="/blog/2012/10/guard-projektjeink-testore/">Guard - projektjeink testőre</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/10/github-powa/">GitHub powa</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/en'>en (5)</a></li><li><a href='/blog/tags/git'>git (1)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (17)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (3)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (3)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/en'>en (5)</a></li><li><a href='/blog/tags/git'>git (1)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (18)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (4)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (3)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 
 <section>

@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-11-23T18:32:10+01:00</updated>
+  <updated>2012-12-13T07:44:57+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails - polimorf világ]]></title>
+    <link href="http://hron.me/blog/2012/12/rails-polimorf-vilag/"/>
+    <updated>2012-12-13T07:23:00+01:00</updated>
+    <id>http://hron.me/blog/2012/12/rails-polimorf-vilag</id>
+    <content type="html"><![CDATA[<p>Azért vannak dolgok, amikkel lehet szépeket szívni.</p>
+
+<p>A feladat valami olyasmi volt, hogy kell egy újrafelhasználható &#8220;cím&#8221; osztály, ami külön táblára is képeződne le, hogy ne a megfelelő táblákat terheljük feleslegesen, plusz a címek amúgy se mindig kellenek pl. a felhasználókezeléshez. Azért kell újrafelhasználhatónak lennie, mert két különböző dolog is használ címeket a rendszerben.</p>
+
+<p>Nem akarom nagyon húzni az időt, az alábbi kód született rá:</p>
+
+<figure class='code'><figcaption><span>Polimophic user profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Address</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_many</span>  <span class="ss">:addresses</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span>
+</span><span class='line'>  <span class="n">has_one</span>   <span class="ss">:billing_address</span> <span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:billable</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:shippable</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">has_one</span>   <span class="ss">:shipping_address</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:shippable</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:billable</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Erre kedves barátom azt mondaná, hogy szép baleset. És akkor még nagyon finoman fogalmazna. Nézzük, mik azok a buktatók, amin át lehet esni egy ilyet nézve:</p>
+
+<ul>
+<li>A has_many asszociáció ugye azért kell, hogy legyen valami, ami polimorf. Elvben bele lehet suvasztani a has_one mellé is, de nekem egyébként is kell tudnom a címeket egyben
+lekérni, akkor meg miért ne emelném ki?</li>
+<li>Az előbbi asszociáció alapján definiálunk két hozzárendelést. Ugye itt a hangsúly a :conditions hashen van, ez mondja meg, hogy a polimorf tömbből mely adatok kellenek
+(pontosabban, hogy az asszociáció alapján generált query-ben a WHERE feltétel hogyan bővüljön)</li>
+<li>Az egyik trükk az, hogy mindenképp meg kell adni az osztályt is, ugyanis a has_one asszociáció <em>nem</em> kéri le ezt az infót a hivatkozott polimorf asszociációtól, hanem saját
+maga áll neki találgatni - természetesen rosszul.</li>
+<li><p>A másik trükk pedig, hogy mivel ez egy kétparaméteres, egymást kölcsönösen kizáró feltétel, így <em>mindkettőt</em> meg kell adni, különben létrehozáskor előjöhet olyan csúfság, hogy
+valaki meghinteli a dupla false-t - vagyis úgy mentünk el pl. egy billing címet, hogy az elvész az :addresses tömb nevű fekete lyukban (van értelme amúgy a dupla false-nak is,
+csak abból nem billing meg shipping címek lesznek, hanem csak címek). Azaz, mentéskor a billing_address-en keresztül mentünk, de a mentés után a billing_address pont ugyanolyan
+<code>nil</code> lesz, mint előtte volt vala.</p>
+
+<p>Azért ezzel is sikerült egy jó órát szívni&#8230;</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RedisHash - this hash is a db!]]></title>
@@ -1186,23 +1238,6 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
 <p>Nagyon rossz a fajdalom, de meg rosszabb az onvad. Buvopatakkent bujik meg a lelkedben, es a legrosszabbkor tor a felszinre. Amikor nem is szamitasz ra. Persze, nincs sok eredmenye, ha az ember ostorozza magat multbeli hibaiert, am bizonyos hibakra (foleg, amelyek visszavonhatatlanok) nincs megoldas, nincs feloldozas. Meg ha senki sem hibaztat mar, meg ha mindenki el is felejtette, te magad meg mindig emlekszel a hibaidra.</p>
 
 <p>Es erre csak egy megoldas lehet: a felejtes. Feledni a hibakat, es tanulni beloluk: roppant nehez. De csak egyfelekepp lehet tuljutni a melypontokon: ha a jovot helyezed eloterbe. Nem lehet a multban elni. Csak&#8230; nehez a megbocsatas onmagadnak&#8230; masnak sokkal egyszerubb elnezni a hibait, mint a magadet. Ehhez szeretned kell onmagadat, azt, aki jelenleg vagy. Akkor is, ha az nem epp egy szeretheto figura. Foleg akkor.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Koponyeg.hu - Elso android appom]]></title>
-    <link href="http://hron.me/blog/2011/01/koponyeghu-elso-android-appom/"/>
-    <updated>2011-01-05T08:59:00+01:00</updated>
-    <id>http://hron.me/blog/2011/01/koponyeghu-elso-android-appom</id>
-    <content type="html"><![CDATA[<div class='p_embed p_image_embed'>
-<img alt="Emulator-5556" height="480" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/PByraI5lM3QChvcI9cCMTpW4ldkt4y6YA2LersWz52H5cfATxqpgEt7eJJjn/emulator-5556.png" width="320" />
-</div>
-
-
-<p>Eletem elso Androidos alkalmazasa, a koponyeg.hu -hoz biztosit klienst.</p>
-
-<p>Letoltes:
-<a><img src="http://qr-kod.hu/qr-kod.php?type=url&amp;size=L&amp;t=http%253A%252F%252Fusers.hanzo.hu%252F~hron%252FKoponyeg.apk" alt="qr-kod" /></a></p>
 ]]></content>
   </entry>
   

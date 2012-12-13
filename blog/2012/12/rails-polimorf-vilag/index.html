@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Az anya tyúkja - Hron's blog</title>
+  <title>Rails - polimorf világ - Hron's blog</title>
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Egy cikk ihlet&eacute;s&eacute;re &eacute;n is kipr&oacute;b&aacute;lktam a Google fordit&oacute; m&uuml;v&eacute;szi hajlamait: Az anya ty&uacute; &hellip;" />
+  <meta name="description" content="Azért vannak dolgok, amikkel lehet szépeket szívni. A feladat valami olyasmi volt, hogy kell egy újrafelhasználható &#8220;cím&#8221; osztály, ami &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   
-  <link rel="canonical" href="http://hron.me/blog/2010/08/az-anya-tyukja/" />
+  <link rel="canonical" href="http://hron.me/blog/2012/12/rails-polimorf-vilag/" />
   <link href="/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -103,7 +103,7 @@
       </nav>
       
       <header>
-        <h1 class="entry-title">Az anya tyúkja</h1>
+        <h1 class="entry-title">Rails - polimorf világ</h1>
         <p class="meta">
 
 
@@ -116,7 +116,7 @@
   
 
 
-<time datetime="2010-08-05T17:37:00+02:00" class="pubdate" pubdate data-updated="true">2010. Aug.  5.</time></p>
+<time datetime="2012-12-13T07:23:00+01:00" class="pubdate" pubdate data-updated="true">2012. Dec. 13.</time></p>
       </header>
     
     </div>
@@ -135,60 +135,50 @@
   </header>
 
 
-<div class="entry-content"><p>Egy <a href="http://www.hocipo.hu/index.php?option=com_content&amp;task=view&amp;id=2398" title="V&aacute;ncsa Istv&aacute;n - Szigor&uacute; &eacute;s s&oacute;s v&iacute;zben kocka">cikk</a> ihlet&eacute;s&eacute;re &eacute;n is kipr&oacute;b&aacute;lktam a Google fordit&oacute; m&uuml;v&eacute;szi hajlamait:</p>
+<div class="entry-content"><p>Azért vannak dolgok, amikkel lehet szépeket szívni.</p>
 
-<blockquote>
-<span style="font-family: arial, sans-serif;"> </span>
+<p>A feladat valami olyasmi volt, hogy kell egy újrafelhasználható &#8220;cím&#8221; osztály, ami külön táblára is képeződne le, hogy ne a megfelelő táblákat terheljük feleslegesen, plusz a címek amúgy se mindig kellenek pl. a felhasználókezeléshez. Azért kell újrafelhasználhatónak lennie, mert két különböző dolog is használ címeket a rendszerben.</p>
 
+<p>Nem akarom nagyon húzni az időt, az alábbi kód született rá:</p>
 
-<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
-<div style=""><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>Az anya ty&uacute;k<p /></span><span style="background-color: #ffffff;">Teh&aacute;t mi k&ouml;vek!&nbsp;</span><span>ty&uacute;kany&oacute;, kenje
-</span><span style="background-color: #ffffff;">Lakott a szob&aacute;ban van?
-</span><span>Ah, de j&oacute; Uram, adj j&oacute;
-</span><span>F&ouml;lvitte ez a s&aacute;l dolog!<p /></span><span>K&ouml;r&uuml;l fel-le, fut&aacute;s
-</span><span style="background-color: #ffffff;">Vagy ak&aacute;r a szervezet emelkedett, a
-</span><span>, Kotkod&aacute;kol Eml&eacute;kezz
-</span><span>&Eacute;s nem &uuml;t a szob&aacute;ban.<p /></span><span>&#8220;Nem legyőzni, nem &uuml;t!
-</span><span>etetni, mint egy galamb
-</span><span>V&aacute;logat&aacute;s a kender,
-</span><span>A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.<p /></span><span>Azaz, ty&uacute;kany&oacute; vissza
-</span><span>Nos, ez becsl&eacute;sek szerint az olaj
-</span><span>Nem Iparkodj&eacute;k
-</span><span>Any&aacute;m csipkedte a toj&aacute;sokat.&nbsp;</span><span>-<p /></span><span style="background-color: #ffffff;">Morzsa kutya, hegyezi a f&uuml;led
-</span><span>Sz&oacute;lj hozz&aacute;m, Let
-</span><span>Egy &ouml;reg csel&eacute;d, vagy egy h&aacute;z,
-</span><span>Az eg&eacute;sz n&eacute;p, a szolg&aacute;ltat&aacute;sok<p /></span><span>Morzsa m&eacute;g mindig jobb
-</span><span>Nem kap csirk&eacute;t, bele&eacute;rtve a Get
-</span><span>Bar&aacute;ts&aacute;ga &eacute;lő csirk&eacute;k &#8220;&#8230;
-</span><span>Any&aacute;m egy dolog.<p /></span><span>(V&aacute;c, 1848. Febru&aacute;r).</span></span></div>
-<p />
-</div>
-&nbsp;
+<figure class='code'><figcaption><span>Polimophic user profile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Address</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_many</span>  <span class="ss">:addresses</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span>
+</span><span class='line'>  <span class="n">has_one</span>   <span class="ss">:billing_address</span> <span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:billable</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:shippable</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'>  <span class="n">has_one</span>   <span class="ss">:shipping_address</span><span class="p">,</span> <span class="ss">:as</span> <span class="o">=&gt;</span> <span class="ss">:addressable</span><span class="p">,</span> <span class="ss">:class_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="ss">:shippable</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">:billable</span> <span class="o">=&gt;</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-</blockquote>
+<p>Erre kedves barátom azt mondaná, hogy szép baleset. És akkor még nagyon finoman fogalmazna. Nézzük, mik azok a buktatók, amin át lehet esni egy ilyet nézve:</p>
 
+<ul>
+<li>A has_many asszociáció ugye azért kell, hogy legyen valami, ami polimorf. Elvben bele lehet suvasztani a has_one mellé is, de nekem egyébként is kell tudnom a címeket egyben
+lekérni, akkor meg miért ne emelném ki?</li>
+<li>Az előbbi asszociáció alapján definiálunk két hozzárendelést. Ugye itt a hangsúly a :conditions hashen van, ez mondja meg, hogy a polimorf tömbből mely adatok kellenek
+(pontosabban, hogy az asszociáció alapján generált query-ben a WHERE feltétel hogyan bővüljön)</li>
+<li>Az egyik trükk az, hogy mindenképp meg kell adni az osztályt is, ugyanis a has_one asszociáció <em>nem</em> kéri le ezt az infót a hivatkozott polimorf asszociációtól, hanem saját
+maga áll neki találgatni - természetesen rosszul.</li>
+<li><p>A másik trükk pedig, hogy mivel ez egy kétparaméteres, egymást kölcsönösen kizáró feltétel, így <em>mindkettőt</em> meg kell adni, különben létrehozáskor előjöhet olyan csúfság, hogy
+valaki meghinteli a dupla false-t - vagyis úgy mentünk el pl. egy billing címet, hogy az elvész az :addresses tömb nevű fekete lyukban (van értelme amúgy a dupla false-nak is,
+csak abból nem billing meg shipping címek lesznek, hanem csak címek). Azaz, mentéskor a billing_address-en keresztül mentünk, de a mentés után a billing_address pont ugyanolyan
+<code>nil</code> lesz, mint előtte volt vala.</p>
 
-<p><span style="font-family: arial, sans-serif;"> </span></p>
+<p>Azért ezzel is sikerült egy jó órát szívni&#8230;</p></li>
+</ul>
 
-<div class="almost_half_cell" style="margin-top: 15px; margin-right: 0px; margin-bottom: 5px; margin-left: 5px;">
-<div><span class="long_text" style="font-size: 13px; line-height: 1.7em; vertical-align: top; margin-bottom: 5px;"><span>H&aacute;t iz&eacute;&#8230; itt azt&aacute;n t&eacute;nyleg mindenről sz&oacute; ker&uuml;l, m&eacute;g a nemr&eacute;g m&eacute;g aktu&aacute;lis olajfoltr&oacute;l is, sz&oacute;val azt mondhatjuk, hogy kedvenc keresőnk ford&iacute;t&oacute;szolg&aacute;ltat&aacute;sa nem csak műv&eacute;szi hajlamokat mutat, de emellett modern, &eacute;s a legjobb tud&aacute;s&aacute;t igyekszik beleszőni az &aacute;ltala teremtett művekbe. Emellett anti-feudalista (&#8221;</span></span><span style="line-height: 22px;">A kir&aacute;ly nem t&ouml;rt&eacute;nik meg &uacute;jra.&#8221;), erőszakellenes (&#8221;</span><span style="line-height: 22px;">Nem legyőzni, nem &uuml;t!&#8221;), &eacute;s furcs&aacute;n v&eacute;lekedik sz&uuml;lőj&eacute;ről (&#8221;</span><span style="line-height: 22px;">Any&aacute;m egy dolog.&#8221;</span><span style="line-height: 22px;">).</span></div>
-<p />
-<div><span style="line-height: 22px;">Feladat: mi lehet az alanti sorok eredetije? Annyit el&aacute;rulok, hogy szint&eacute;n egy versről van sz&oacute;, melynek azonban az &iacute;r&oacute;ja nem magyar. A v&aacute;lasz egy k&ouml;ltő &eacute;s egy versc&iacute;m.</span></div>
-<blockquote>
-<div><span style="line-height: 22px;"><span>Rose, egy fiatal f&eacute;rfit l&aacute;t
-</span><span style="background-color: #ffffff;">f&uuml;ves p&aacute;ly&aacute;n;
-</span><span style="background-color: #ffffff;">sz&eacute;p, m&eacute;g a f&eacute;ny a nap,
-</span><span style="background-color: #ffffff;">Ez szerkezet j&oacute;l
-</span><span style="background-color: #ffffff;">Azt akarom előtt.
-</span><span style="background-color: #ffffff;">Piros r&oacute;zsa,
-</span><span style="background-color: #ffffff;">A Wildflower R&eacute;t.
-</span></span></div>
-</blockquote>
-</div>
-
-
-<p>&nbsp;</p>
 </div>
 
 
@@ -211,12 +201,12 @@
   
 
 
-<time datetime="2010-08-05T17:37:00+02:00" class="pubdate" pubdate data-updated="true">2010. Aug.  5.</time>
+<time datetime="2012-12-13T07:23:00+01:00" class="pubdate" pubdate data-updated="true">2012. Dec. 13.</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/humour/'>humour</a>
+    <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/rails/'>rails</a>
   
 </span>
 
@@ -225,7 +215,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2010/08/az-anya-tyukja/" data-via="hron84" data-counturl="http://hron.me/blog/2010/08/az-anya-tyukja/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2012/12/rails-polimorf-vilag/" data-via="hron84" data-counturl="http://hron.me/blog/2012/12/rails-polimorf-vilag/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="small"></div>
@@ -238,8 +228,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2012/11/redishash-this-hash-is-a-db/" title="Previous Post: RedisHash - this hash is a db!">&laquo; RedisHash - this hash is a db!</a>
       
-        <a class="basic-alignment right" href="/blog/2010/09/a-gondolkodo-medve/" title="Next Post: A gondolkodó medve">A gondolkodó medve &raquo;</a>
       
     </p>
   </footer>
@@ -376,8 +366,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://hron.me/blog/2010/08/az-anya-tyukja/';
-        var disqus_url = 'http://hron.me/blog/2010/08/az-anya-tyukja/';
+        var disqus_identifier = 'http://hron.me/blog/2012/12/rails-polimorf-vilag/';
+        var disqus_url = 'http://hron.me/blog/2012/12/rails-polimorf-vilag/';
         var disqus_script = 'embed.js';
       
     (function () {
