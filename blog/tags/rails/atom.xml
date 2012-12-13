@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/rails/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-12-13T07:44:57+01:00</updated>
+  <updated>2012-12-13T07:46:55+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -45,14 +45,14 @@ lekérni, akkor meg miért ne emelném ki?</li>
 (pontosabban, hogy az asszociáció alapján generált query-ben a WHERE feltétel hogyan bővüljön)</li>
 <li>Az egyik trükk az, hogy mindenképp meg kell adni az osztályt is, ugyanis a has_one asszociáció <em>nem</em> kéri le ezt az infót a hivatkozott polimorf asszociációtól, hanem saját
 maga áll neki találgatni - természetesen rosszul.</li>
-<li><p>A másik trükk pedig, hogy mivel ez egy kétparaméteres, egymást kölcsönösen kizáró feltétel, így <em>mindkettőt</em> meg kell adni, különben létrehozáskor előjöhet olyan csúfság, hogy
+<li>A másik trükk pedig, hogy mivel ez egy kétparaméteres, egymást kölcsönösen kizáró feltétel, így <em>mindkettőt</em> meg kell adni, különben létrehozáskor előjöhet olyan csúfság, hogy
 valaki meghinteli a dupla false-t - vagyis úgy mentünk el pl. egy billing címet, hogy az elvész az :addresses tömb nevű fekete lyukban (van értelme amúgy a dupla false-nak is,
 csak abból nem billing meg shipping címek lesznek, hanem csak címek). Azaz, mentéskor a billing_address-en keresztül mentünk, de a mentés után a billing_address pont ugyanolyan
-<code>nil</code> lesz, mint előtte volt vala.</p>
-
-<p>Azért ezzel is sikerült egy jó órát szívni...</p></li>
+<code>nil</code> lesz, mint előtte volt vala.</li>
 </ul>
 
+
+<p>Azért ezzel is sikerült egy jó órát szívni...</p>
 ]]></content>
   </entry>
   
