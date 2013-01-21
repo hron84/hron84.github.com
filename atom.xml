@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2012-12-13T07:46:55+01:00</updated>
+  <updated>2013-01-21T20:00:20+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Nginx - Bevezetés]]></title>
+    <link href="http://hron.me/blog/2013/01/nginx-bevezeto/"/>
+    <updated>2013-01-21T17:51:00+01:00</updated>
+    <id>http://hron.me/blog/2013/01/nginx-bevezeto</id>
+    <content type="html"><![CDATA[<p>Ezen cikk a tervek szerint egy sorozat része lesz, amely majd szép lassan (ahogy időm engedi) kerül ki a blogra.</p>
+
+<p>Lássuk tehát az első részt, mely - ahogy a cím is utal rá - egyfajta általános bemutatása lesz ennek a pici webszervernek.</p>
+
+<h2>Mi az Nginx?</h2>
+
+<p>Az Nginx neve az angol Engine X (X motor) kifejezésből származik, ejteni is eszerint kell, tehát <code>ˈen-jən eks</code>.</p>
+
+<p>Magát a motort egy Igor Sysoev nevű srác fejleszti 2002 óta, a kód maga 2004-ben lett nyilvános. Az elsődleges cél egy
+pehelysúlyú, ugynakkor skálázható webszerver létrehozása volt, mely képes egy online tartalomszolgáltatónál felmerülő legtöbb
+problémával megbirkózni, például az ún. C10K problémával, a legtöbb akkori webszervernek ugyanis problémát okozott egyidejűleg több,
+mint 10 000 kapcsolatot kezelni.</p>
+
+<p>Jelenleg az Nginx a világ második legnépszerűbb webszervere, a 2012-es NetCraft felmérés szerint az összes mért oldal durván 12.3%-át
+Nginx segítségével szolgálják ki.</p>
+
+<h2>Az Nginx előnyei</h2>
+
+<p>De mi teszi oly népszerűvé ezt a furcsa nevű webszervert? Mi az, amiért egyre-másra jelennek meg leírások, tutorialok hozzá, ami
+a legbiztosabb jele egy termék népszerűségének?</p>
+
+<p>Az egyik kétségtelen ok a gyorsaság. Az Nginx statikus fájlok kiszolgálásában és proxyként is sokkal nagyobb sebességgel szolgál ki
+elődjeinél. A Wordpress.com mérései szerint - megfelelő gép mellett - az átlagos 8000 req/s simán elérhető vele.</p>
+
+<p>Ennek az egyik oka az, hogy az Nginx nem feltétlenül forkol mindig külön processzt vagy szálat az új kapcsolatoknak, ahogy pl. az Apache
+egyes feldolgozómoduljai (prefork, ITK) teszik, sőt erre nincs is szüksége, mert eseményalapú a feldolgozása, így nem csak több kapcsolatot,
+de több eseményt is le tud egyetlen feldolgozó szál kezelni. Ennek köszönhető egyébként az is, hogy hasonló terhelés mellett a memóriaigénye
+messze elmarad a klasszikus webszerverekétől.</p>
+
+<p>A másik oka az, hogy az Nginx sokkal agresszívebben cachel a memóriában az elődjeinél. Megfelelő konfigurálás és többé-kevésbé fix (nem, vagy ritkán
+változó) tartalom mellett elérhető az, hogy gyakorlatilag a memóriából történjen a kiszolgálás.</p>
+
+<p>A pufferelés egyébként nagyon sokrétűen konfigurálható, ugyanakkor nem a legkönnyebben emészthető téma.</p>
+
+<p>Előnye még a jó minőségű dokumentáció. A legtöbb modulnak nagyon részletes dokumentációja van, néhány konkrét használati eseteket is bemutat,
+mely teljes biztonsággal átvehető egy az egyben a saját konfigurációnkba.</p>
+
+<p>További előnyeként szokták sorolni a konfigurációs fájl könnyű érthetőségét. Akik valamilyen C szintaxisú nyelvben (PHP, Perl, C/C++, Java, stb)
+programoznak, azoknak nagyon is ismerős lehetnek a blokkok és a sorvégi pontosvesszök, melyekből a konfiguráció felépül.</p>
+
+<p><em>A következő cikkben az Nginx és a PHP kapcsolatát fogom bemutatni, és példákon keresztül szemlélteni</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Avatar történelem]]></title>
+    <link href="http://hron.me/blog/2012/12/avatar-tortenelem/"/>
+    <updated>2012-12-21T08:59:00+01:00</updated>
+    <id>http://hron.me/blog/2012/12/avatar-tortenelem</id>
+    <content type="html"><![CDATA[<p>Este újra megnéztem az Avatar-t, éjjel pedig furcsa álmom volt. Gyakorlatilag továbbálmodtam a történetet, pedig ez ritka eset nálam.</p>
+
+<p>Szóval, a sztori lényege az, hogy Jake, miután az emberek többsége elhagyja a bolygót, két ottmaradt tudóssal nekiáll felfedezni azt. Az gondolom
+már a filmből is mindenki számára világos volt, hogy ez gyakorlatilag egy hatalmas, dúsan burjánzó dzsungel. Ami nem, az az, hogy a bolygón
+vannak olyan helyek, &#8220;szent helyek&#8221;, ahova még a Navik se mennek túl sűrűn. Jake bemerészkedik az egyik ilyen helyre (amit persze a népe nem igazán helyesel,
+de nem igazán tiltják meg, bár figyelmeztetik őt a veszélyre). Mint kiderül, ezek a helyek valójában romok, egy fejlett, de letűnt civilizáció romjai.</p>
+
+<p>Ha hasonlítani kellene, akkor a földi dél-amerikai civilizációhoz hasonlítanám, azonban annál sokkal fejlettebb, idősebb civilizációról van szó. Azt tudjuk,
+hogy a ma ismert Navik együtt élnek a természettel, igyekeznek minél kevesebb kárt okozni. Nos, elődeik kapcsolata a természettel ennél sokkal bonyolultabb
+volt. Bár ők is természetimádó nép voltak, azért az nem okozott nekik gondot, hogy a nagy erdőségekből kis ligeteket csináljanak, miközben terjeszkedtek.</p>
+
+<p>No, de vissza a sztorihoz. Szóval Jake bemerészkedik az egyik ilyen romba, felderíti, és találnak pár érdekes leletet, köztük néhány vésetekkel teli kőtáblát.
+Ezeken főképp képek láthatóak, írás szinte alig, de annyit azért sikerül kiolvasni belőle, hogy itt egy fejlett civilizáció lakott, elég nagy lélekszámmal.
+Találtak néhány térképet is a holdról, illetve olyan szintű leírásokat az óriásbolygóról, ami egyértelművé teszi, hogy űrutazásra képes fajról van szó.</p>
+
+<p>Egy másik romban, találnak egy furcsa, fallal lezárt helységet. Majd&#8217; egy hónapjuk rámegy, mire sikerül kitalálni, hogy jussanak be. Bent két asztalt találnak,
+két-két székkel, a mennyezeten pedig fura díszítésű panelek lógnak a két asztal felett. Az egyik kutató, aki korábban azt próbálta meg kitalálni, hogy milyen jellegű
+mezőgazdasága volt a civilizációnak, fáradtan roskadt le az egyik székre&#8230; majd meglepően gyorsan el is aludt. Néhány perc múlva felébredt, és elmondta, hogy rájött
+a megoldásra, ilyen és ilyen eszközöket használtak, stb. Mivel erre vonatkozóan eddig semmilyen bizonyítékot nem leltek, persze mindenki kételkedett a szavában.
+Pár nappal később azonban felfedeztek pár mezőgazdasági témájú vésetet, ami pontosan megfelelt a kutató által vázoltaknak. Néhány további kísérlet után rájöttek, hogy
+a szoba egyfajta tudástárként működik, letölti a betérő fejébe azokat a válaszokat, melyekre kiváncsi.</p>
+
+<p>Jake közben talál egy kötáblát, tele neveknek és dátumoknak tűnő vésetekkel. Ő is kipróbálja a szobát, és valami különös történik&#8230;</p>
+
+<p>Az a tábla valóban neveket tartalmazott, méghozzá különböző uralkodók neveit. Amikor Jake leül a szobában, egy név jár folyamatosan a fejében, a szoba pedig hozzáférhetővé
+teszi számára ezen uralkodó naplóját. Mint kiderül, a Navik ősei nem volt egységes faj, az egyes klánok közt folyamatos volt a viszálykodás. Az az uralkodó, akinek a
+naplójához Jake hozzáfért, az utolsók egyike volt. A faj hosszú életű volt, a száz helyi év teljesen átlagos kornak számított, a mai embernél talán valahol 50-60 évnek felel meg.
+Az uralkodó naplójába gondosan feljegyezte az általa vívott harcok minden eseményét. Pusztító harcok voltak ezek, rengeteg áldozattal. A naplóbejegyzésekből azonban az is kiderül,
+hogy írójuk belefásult a harcba, értelmetlennek találja, ő maga már nem is nagyon támadt, csak a városát védelmezte. Mivel tisztában van azzal, hogy nem győzhet, összedob egy csapatot nőkből és gyerekekből, akiket beküld az egyik erdőbe. Pár évvel később egy - közelebbről meg nem nevezett - fegyver elpusztítja az egész civilizációt, a naplót író uralkodó is teljesen véletlenül menekül meg.</p>
+
+<p>Csatlakozik a menekültek csapatához, és elhatározzák, hogy újrakezdik, de az alapoktól. Megtiltja, hogy visszamenjenek a romokhoz (nem mintha nagyon lenne miért&#8230;), és
+elkezdenek az ősi módon élni, gyűjtögetni, vadászni&#8230; Ő maga is csak egyszer megy vissza - a halála előtt nem sokkal -, hogy befejezze a naplóját.</p>
+
+<p>A Navik faja tehát újrakezdés, visszatértek ősi gyökereikhez, és teljesen elfeledték a múltat.</p>
+
+<p>Jake és csapata úgy dönt, hogy erről nem szólnak a Naviknak. Ha egyszer maguktól megtalálják a tudástárt, hát legyen, de nem látják értelmét annak, hogy ezt a népet
+megbolygassák ilyen szörnyű emlékekkel.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails - polimorf világ]]></title>
@@ -1204,40 +1298,6 @@ Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; 
 </pre></td><td class='code'><pre><code class=''><span class='line'>gpg -a --export 51d11d3b &gt; x.asc
 </span><span class='line'>rpm --import x.asc</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Viharos éj]]></title>
-    <link href="http://hron.me/blog/2011/06/viharos-ej/"/>
-    <updated>2011-06-30T21:38:00+02:00</updated>
-    <id>http://hron.me/blog/2011/06/viharos-ej</id>
-    <content type="html"><![CDATA[<p>H&aacute;t, el&eacute;g cs&uacute;nya vihar volt itt d&eacute;lut&aacute;n. Mondjuk legal&aacute;bb v&eacute;gre eld&ouml;nt&ouml;tte mag&aacute;t az id&ouml;, mert m&aacute;r borzaszt&oacute; unalmas volt ez a se ide, se oda totoj&aacute;z&aacute;s.<p />Ellenben volt egy hatalmas villan&aacute;s, &eacute;s akkor&aacute;t d&ouml;rg&ouml;tt, hogy l&aacute;that&oacute;an megremegtek az ablakt&aacute;bl&aacute;k, &eacute;s az &ouml;sszes aut&oacute; riaszt&oacute;ja bekapcsolt.
-&Eacute;n meg csak reszkettem, mint egy f&eacute;l&eacute;nk kaktusz&#8230; Szerencs&eacute;re semmilyen komolyabb baj nem t&ouml;rt&eacute;nt.<p />(titkos <a href="http://www.google.hu/search?q=%22f%C3%A9l%C3%A9nk+kaktusz%22" target="_blank">keres&ouml;teszt&#8230;</a>)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mult es jovo]]></title>
-    <link href="http://hron.me/blog/2011/02/mult-es-jovo/"/>
-    <updated>2011-02-06T11:14:26+01:00</updated>
-    <id>http://hron.me/blog/2011/02/mult-es-jovo</id>
-    <content type="html"><![CDATA[<p>Valaki ezt irta be facebook-ra:</p>
-
-<blockquote class="posterous_medium_quote">
-Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat, a  j&ouml;vő pedig soha nem lesz pontosan olyan, amilyennek tervezed vagy  rem&eacute;led. F&aacute;jdalmad, f&eacute;lelmed &eacute;s d&uuml;h&ouml;d, sajn&aacute;lkoz&aacute;sod &eacute;s bűntudatod,  terveid &eacute;s s&oacute;v&aacute;rg&aacute;said csak a m&uacute;ltban vagy a j&ouml;vőben &eacute;lnek.
-
-
-</blockquote>
-
-
-<p>De mit tehet az ember, ha ugy erzi: szeretne visszamenni a multba, es megvaltoztatni dolgokat, amiket elrontott? Mi van akkor, ha ugy erzed: visszavonhatatlanul elrontottal valamit, es nagyon ki kene javitani?</p>
-
-<p>Nem tudom. Nekem szerencsere nagyon keves ilyen pont van, amit ki kene javitani, de sajnos van. Vannak dolgok, amiket nem ugy kellett volna megoldani, ahogy megoldottam. Azt hittem celravezeto, de nem volt az. Sokkal rosszabb volt, mintha csak hagytam volna, hogy a dolgok megtortenjenek. A fajdalom mindig ugyanakkora, ha valakit elveszitunk, ezen nem lehet kisebbiteni. El lehet takarni, el lehet nyomni, de a fajdalom a felszinre tor.</p>
-
-<p>Nagyon rossz a fajdalom, de meg rosszabb az onvad. Buvopatakkent bujik meg a lelkedben, es a legrosszabbkor tor a felszinre. Amikor nem is szamitasz ra. Persze, nincs sok eredmenye, ha az ember ostorozza magat multbeli hibaiert, am bizonyos hibakra (foleg, amelyek visszavonhatatlanok) nincs megoldas, nincs feloldozas. Meg ha senki sem hibaztat mar, meg ha mindenki el is felejtette, te magad meg mindig emlekszel a hibaidra.</p>
-
-<p>Es erre csak egy megoldas lehet: a felejtes. Feledni a hibakat, es tanulni beloluk: roppant nehez. De csak egyfelekepp lehet tuljutni a melypontokon: ha a jovot helyezed eloterbe. Nem lehet a multban elni. Csak&#8230; nehez a megbocsatas onmagadnak&#8230; masnak sokkal egyszerubb elnezni a hibait, mint a magadet. Ehhez szeretned kell onmagadat, azt, aki jelenleg vagy. Akkor is, ha az nem epp egy szeretheto figura. Foleg akkor.</p>
 ]]></content>
   </entry>
   

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nginx | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/nginx/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-01-21T20:00:20+01:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Nginx - Bevezetés]]></title>
+    <link href="http://hron.me/blog/2013/01/nginx-bevezeto/"/>
+    <updated>2013-01-21T17:51:00+01:00</updated>
+    <id>http://hron.me/blog/2013/01/nginx-bevezeto</id>
+    <content type="html"><![CDATA[<p>Ezen cikk a tervek szerint egy sorozat része lesz, amely majd szép lassan (ahogy időm engedi) kerül ki a blogra.</p>
+
+<p>Lássuk tehát az első részt, mely - ahogy a cím is utal rá - egyfajta általános bemutatása lesz ennek a pici webszervernek.</p>
+
+<h2>Mi az Nginx?</h2>
+
+<p>Az Nginx neve az angol Engine X (X motor) kifejezésből származik, ejteni is eszerint kell, tehát <code>ˈen-jən eks</code>.</p>
+
+<p>Magát a motort egy Igor Sysoev nevű srác fejleszti 2002 óta, a kód maga 2004-ben lett nyilvános. Az elsődleges cél egy
+pehelysúlyú, ugynakkor skálázható webszerver létrehozása volt, mely képes egy online tartalomszolgáltatónál felmerülő legtöbb
+problémával megbirkózni, például az ún. C10K problémával, a legtöbb akkori webszervernek ugyanis problémát okozott egyidejűleg több,
+mint 10 000 kapcsolatot kezelni.</p>
+
+<p>Jelenleg az Nginx a világ második legnépszerűbb webszervere, a 2012-es NetCraft felmérés szerint az összes mért oldal durván 12.3%-át
+Nginx segítségével szolgálják ki.</p>
+
+<h2>Az Nginx előnyei</h2>
+
+<p>De mi teszi oly népszerűvé ezt a furcsa nevű webszervert? Mi az, amiért egyre-másra jelennek meg leírások, tutorialok hozzá, ami
+a legbiztosabb jele egy termék népszerűségének?</p>
+
+<p>Az egyik kétségtelen ok a gyorsaság. Az Nginx statikus fájlok kiszolgálásában és proxyként is sokkal nagyobb sebességgel szolgál ki
+elődjeinél. A Wordpress.com mérései szerint - megfelelő gép mellett - az átlagos 8000 req/s simán elérhető vele.</p>
+
+<p>Ennek az egyik oka az, hogy az Nginx nem feltétlenül forkol mindig külön processzt vagy szálat az új kapcsolatoknak, ahogy pl. az Apache
+egyes feldolgozómoduljai (prefork, ITK) teszik, sőt erre nincs is szüksége, mert eseményalapú a feldolgozása, így nem csak több kapcsolatot,
+de több eseményt is le tud egyetlen feldolgozó szál kezelni. Ennek köszönhető egyébként az is, hogy hasonló terhelés mellett a memóriaigénye
+messze elmarad a klasszikus webszerverekétől.</p>
+
+<p>A másik oka az, hogy az Nginx sokkal agresszívebben cachel a memóriában az elődjeinél. Megfelelő konfigurálás és többé-kevésbé fix (nem, vagy ritkán
+változó) tartalom mellett elérhető az, hogy gyakorlatilag a memóriából történjen a kiszolgálás.</p>
+
+<p>A pufferelés egyébként nagyon sokrétűen konfigurálható, ugyanakkor nem a legkönnyebben emészthető téma.</p>
+
+<p>Előnye még a jó minőségű dokumentáció. A legtöbb modulnak nagyon részletes dokumentációja van, néhány konkrét használati eseteket is bemutat,
+mely teljes biztonsággal átvehető egy az egyben a saját konfigurációnkba.</p>
+
+<p>További előnyeként szokták sorolni a konfigurációs fájl könnyű érthetőségét. Akik valamilyen C szintaxisú nyelvben (PHP, Perl, C/C++, Java, stb)
+programoznak, azoknak nagyon is ismerős lehetnek a blokkok és a sorvégi pontosvesszök, melyekből a konfiguráció felépül.</p>
+
+<p><em>A következő cikkben az Nginx és a PHP kapcsolatát fogom bemutatni, és példákon keresztül szemlélteni</em></p>
+]]></content>
+  </entry>
+  
+</feed>
