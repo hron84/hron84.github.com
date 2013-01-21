@@ -141,14 +141,14 @@
 
 <h2>Mi az Nginx?</h2>
 
-<p>Az Nginx neve az angol Engine X (X motor) kifejezésből származik, ejteni is eszerint kell, tehát <code>ˈen-jən eks</code>.</p>
+<p>Az <a href="http://www.nginx.org/">Nginx</a> neve az angol Engine X (X motor) kifejezésből származik, ejteni is eszerint kell, tehát <code>ˈen-jən eks</code>.</p>
 
 <p>Magát a motort egy Igor Sysoev nevű srác fejleszti 2002 óta, a kód maga 2004-ben lett nyilvános. Az elsődleges cél egy
 pehelysúlyú, ugynakkor skálázható webszerver létrehozása volt, mely képes egy online tartalomszolgáltatónál felmerülő legtöbb
 problémával megbirkózni, például az ún. C10K problémával, a legtöbb akkori webszervernek ugyanis problémát okozott egyidejűleg több,
 mint 10 000 kapcsolatot kezelni.</p>
 
-<p>Jelenleg az Nginx a világ második legnépszerűbb webszervere, a 2012-es NetCraft felmérés szerint az összes mért oldal durván 12.3%-át
+<p>Jelenleg az Nginx a világ harmadik legnépszerűbb webszervere, a <a href="http://news.netcraft.com/archives/2012/">2012-es NetCraft felmérés</a> szerint az összes mért oldal 12.07%-át
 Nginx segítségével szolgálják ki.</p>
 
 <h2>Az Nginx előnyei</h2>
@@ -157,12 +157,12 @@ Nginx segítségével szolgálják ki.</p>
 a legbiztosabb jele egy termék népszerűségének?</p>
 
 <p>Az egyik kétségtelen ok a gyorsaság. Az Nginx statikus fájlok kiszolgálásában és proxyként is sokkal nagyobb sebességgel szolgál ki
-elődjeinél. A Wordpress.com mérései szerint - megfelelő gép mellett - az átlagos 8000 req/s simán elérhető vele.</p>
+elődjeinél. A Wordpress.com <a href="http://highscalability.com/blog/2012/9/26/wordpresscom-serves-70000-reqsec-and-over-15-gbitsec-of-traf.html">mérései</a> szerint - megfelelő gép mellett - az átlagos 70000 req/s simán elérhető vele.</p>
 
 <p>Ennek az egyik oka az, hogy az Nginx nem feltétlenül forkol mindig külön processzt vagy szálat az új kapcsolatoknak, ahogy pl. az Apache
 egyes feldolgozómoduljai (prefork, ITK) teszik, sőt erre nincs is szüksége, mert eseményalapú a feldolgozása, így nem csak több kapcsolatot,
 de több eseményt is le tud egyetlen feldolgozó szál kezelni. Ennek köszönhető egyébként az is, hogy hasonló terhelés mellett a memóriaigénye
-messze elmarad a klasszikus webszerverekétől.</p>
+messze elmarad a klasszikus webszerverekétől. Erről bővebben <a href="http://www.ichilton.co.uk/blog/web/nginx-and-why-you-should-be-running-it-instead-of-or-at-least-in-front-of-apache-380.html">itt</a> lehet olvasni.</p>
 
 <p>A másik oka az, hogy az Nginx sokkal agresszívebben cachel a memóriában az elődjeinél. Megfelelő konfigurálás és többé-kevésbé fix (nem, vagy ritkán
 változó) tartalom mellett elérhető az, hogy gyakorlatilag a memóriából történjen a kiszolgálás.</p>
