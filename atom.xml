@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-01-21T21:00:08+01:00</updated>
+  <updated>2013-01-30T17:38:09+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,75 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Gitiles Install Howto]]></title>
+    <link href="http://hron.me/blog/2013/01/gitiles-install-howto/"/>
+    <updated>2013-01-30T17:12:00+01:00</updated>
+    <id>http://hron.me/blog/2013/01/gitiles-install-howto</id>
+    <content type="html"><![CDATA[<p>I sucked a bit with <a href="https://code.google.com/p/gitiles/">Gitiles</a>, Gerrit&#8217;s Gitweb implementation, because this project lacks an INSTALL file.</p>
+
+<p>So, basically you have to do following:</p>
+
+<ul>
+<li><p>First, check out of the source:</p>
+
+<p> <code>git clone https://gerrit.googlesource.com/gitiles</code></p></li>
+<li><p>After you cloned the source, compile it with <a href="http://maven.apache.org/">Maven</a>:</p>
+
+<p> <code>mvn package -Dmaven.test.skip=true</code></p></li>
+</ul>
+
+
+<p>  Now, you got <strong>gitiles-war-1.0-SNAPSHOT.war</strong> in gitiles-war/target folder. Deploy it under your application server, in this case I put it to Jetty&#8217;s webapps folder.</p>
+
+<ul>
+<li>Tricky part is coming: you will faced with an error message, what says some configuration options are missing. This is because you didn&#8217;t created any configuration file yet. By default, webapp searches its configuration in the webapp root folder, but - because jetty explodes this folder every restart, I decided to put it to some more persistent place. I am do not run any other thing under this Jetty than Gerrit and Gitiles, so I created the gitiles.config under Jetty&#8217;s etc folder:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>gitiles.config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>[gitiles]
+</span><span class='line'>    # Repositories placed here
+</span><span class='line'>    basePath = /srv/git/repositories
+</span><span class='line'>    # Do not check they are exported
+</span><span class='line'>    exportAll = true
+</span><span class='line'>    # This URL will be displayed as clone URL. DO NOT FORGET TRAILING SLASH!
+</span><span class='line'>    baseGitUrl = ssh://cr.hron.me:29418/
+</span><span class='line'>    # Title of site (doh)
+</span><span class='line'>    siteTitle  = Gitiles - kingmax.hron.me:/srv/git/repositories
+</span><span class='line'>    # I dunno why, but it is have to be configured.
+</span><span class='line'>    canonicalHostName = kingmax.hron.me
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>The config file above is cool, but Gitiles still crying&#8230; yeah, because you have to tell where it should find that. To do this, you must export a System property <strong>com.google.gitiles.configPath</strong>. I was <em>very</em> lazy, so I edited jetty.xml and before last closing tag I pasted this:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>jetty.xml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Call</span> <span class="na">class=</span><span class="s">&quot;java.lang.System&quot;</span> <span class="na">name=</span><span class="s">&quot;setProperty&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Arg&gt;</span>com.google.gitiles.configPath<span class="nt">&lt;/Arg&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Arg&gt;&lt;SystemProperty</span> <span class="na">name=</span><span class="s">&quot;jetty.home&quot;</span> <span class="na">default=</span><span class="s">&quot;.&quot;</span> <span class="nt">/&gt;</span>/etc/gitiles.config<span class="nt">&lt;/Arg&gt;</span>
+</span><span class='line'><span class="nt">&lt;/Call&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Nginx - Bevezetés]]></title>
@@ -1272,32 +1341,6 @@ auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficien
 10 perc (alapos :-) ) fed&ouml;. Na itt &aacute;llunk most.</p>
 
 <p>Uhh, el is felejtettem friss&iacute;teni. Na, sz&oacute;val feledhetetlen volt, b&aacute;r legk&ouml;zelebb picit kevesebb vanili&aacute;s tejet &eacute;s egy picit t&ouml;bb sima tejet rakok bele.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[1 Centes bolt]]></title>
-    <link href="http://hron.me/blog/2011/07/1-centes-bolt/"/>
-    <updated>2011-07-09T01:34:00+02:00</updated>
-    <id>http://hron.me/blog/2011/07/1-centes-bolt</id>
-    <content type="html"><![CDATA[<p>R&eacute;gebb &oacute;ta itt van a sarokban, de most megint belepiszk&aacute;ltam, egy CentOS repo. Ilyesmik vannak benne, mint</p>
-
-<ul>
-<li>Viszonylag &uacute;j apache</li>
-<li>Ruby 1.8.7 (egy vicc, hogy a CentOS 5.6 is nagyon r&eacute;gi rubyt hoz)</li>
-<li>Egy rak&aacute;s gem</li>
-<li>Sun JDK/JRE 1.6</li>
-</ul>
-
-
-<p>Repo <a href="http://users.hanzo.hu/~hron/centos/">itt</a>, Yum konfig <a href="http://users.hanzo.hu/~hron/centos/hron.repo">erre</a>. A kulcs nem t&ouml;lt&ouml;dik le automat&aacute;n, tess&eacute;k leszedni &eacute;s a megfelel&ouml; helyre rakni.
-Akinek megvan a levelez&ouml;s GPG kulcsom, az csak export&aacute;lja r&aacute; az rpm-re:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg -a --export 51d11d3b &gt; x.asc
-</span><span class='line'>rpm --import x.asc</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

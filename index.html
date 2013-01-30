@@ -9,7 +9,7 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Ezen cikk a tervek szerint egy sorozat része lesz, amely majd szép lassan (ahogy időm engedi) kerül ki a blogra. Lássuk tehát az első részt, mely - &hellip;" />
+  <meta name="description" content="I sucked a bit with Gitiles, Gerrit&#8217;s Gitweb implementation, because this project lacks an INSTALL file. So, basically you have to do following &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,6 +107,89 @@
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I sucked a bit with <a href="https://code.google.com/p/gitiles/">Gitiles</a>, Gerrit&#8217;s Gitweb implementation, because this project lacks an INSTALL file.</p>
+
+<p>So, basically you have to do following:</p>
+
+<ul>
+<li><p>First, check out of the source:</p>
+
+<p> <code>git clone https://gerrit.googlesource.com/gitiles</code></p></li>
+<li><p>After you cloned the source, compile it with <a href="http://maven.apache.org/">Maven</a>:</p>
+
+<p> <code>mvn package -Dmaven.test.skip=true</code></p></li>
+</ul>
+
+
+<p>  Now, you got <strong>gitiles-war-1.0-SNAPSHOT.war</strong> in gitiles-war/target folder. Deploy it under your application server, in this case I put it to Jetty&#8217;s webapps folder.</p>
+
+<ul>
+<li>Tricky part is coming: you will faced with an error message, what says some configuration options are missing. This is because you didn&#8217;t created any configuration file yet. By default, webapp searches its configuration in the webapp root folder, but - because jetty explodes this folder every restart, I decided to put it to some more persistent place. I am do not run any other thing under this Jetty than Gerrit and Gitiles, so I created the gitiles.config under Jetty&#8217;s etc folder:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>gitiles.config</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>[gitiles]
+</span><span class='line'>    # Repositories placed here
+</span><span class='line'>    basePath = /srv/git/repositories
+</span><span class='line'>    # Do not check they are exported
+</span><span class='line'>    exportAll = true
+</span><span class='line'>    # This URL will be displayed as clone URL. DO NOT FORGET TRAILING SLASH!
+</span><span class='line'>    baseGitUrl = ssh://cr.hron.me:29418/
+</span><span class='line'>    # Title of site (doh)
+</span><span class='line'>    siteTitle  = Gitiles - kingmax.hron.me:/srv/git/repositories
+</span><span class='line'>    # I dunno why, but it is have to be configured.
+</span><span class='line'>    canonicalHostName = kingmax.hron.me
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>The config file above is cool, but Gitiles still crying&#8230; yeah, because you have to tell where it should find that. To do this, you must export a System property <strong>com.google.gitiles.configPath</strong>. I was <em>very</em> lazy, so I edited jetty.xml and before last closing tag I pasted this:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>jetty.xml</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;Call</span> <span class="na">class=</span><span class="s">&quot;java.lang.System&quot;</span> <span class="na">name=</span><span class="s">&quot;setProperty&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Arg&gt;</span>com.google.gitiles.configPath<span class="nt">&lt;/Arg&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;Arg&gt;&lt;SystemProperty</span> <span class="na">name=</span><span class="s">&quot;jetty.home&quot;</span> <span class="na">default=</span><span class="s">&quot;.&quot;</span> <span class="nt">/&gt;</span>/etc/gitiles.config<span class="nt">&lt;/Arg&gt;</span>
+</span><span class='line'><span class="nt">&lt;/Call&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -771,42 +854,6 @@ Emiatt gondolom azt, hogy - b&aacute;r kellemetlen, de - nem baj az, ami van vel
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/continous-deployment-vagy-affele/">Continous deployment, vagy afféle</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Az ember a netet olvasgatva &eacute;rdekes dolgokra tud bukkanni, illetve sokszor nagyon j&oacute; &ouml;tleteket lehet kapni puszt&aacute;n a m&aacute;sok &iacute;r&aacute;saib&oacute;l.</p>
-
-<p><a href="http://infokukac.com/2011/11/csak-egy-gombnyomas%E2%80%A6/">Info@ &iacute;rt</a> arr&oacute;l, hogy n&aacute;luk hogy ker&uuml;lt bevezet&eacute;sre az, hogy a tesztel&ouml;k gombnyom&aacute;sra deployolnak a teszt rendszerre verzi&oacute;kat. B&aacute;r n&aacute;lam max 1 tesztel&ouml; lenne, &eacute;s &ouml;t sem szeretn&eacute;m a Jenkins k&ouml;zel&eacute;be engedni, az&eacute;rt elgondolkodtatott a dolog: mi volna, ha a Jenkins egyr&eacute;szt monitorozn&aacute; a deploy &aacute;gat (ez n&aacute;lam a master &aacute;g, <a href="http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/">amint azt m&aacute;r eml&iacute;tettem</a>), ezen v&eacute;grehajtana egy deployment tesztet is a staging k&ouml;rnyezetre (ezzel lenne egy folyamatosan friss teszt k&ouml;rnyezet), illetve adott esetben meg lehetne k&eacute;rni &ouml;t arra, hogy, legyen m&aacute;r kedves az &eacute;les szerverre is kidobni az aktu&aacute;l k&oacute;dot.</p>
-
-<p>Ez amennyire bonyolultan hangzik, annyira egyszer&uuml; volt megoldani. Egyr&eacute;szt a staging &eacute;s az &eacute;les szerverre fel kellett venni a Jenkins saj&aacute;t SSH kulcs&aacute;t (m&aacute;r r&eacute;gebbr&ouml;l volt ilyenem, mert a Jenkins slave-k kezel&eacute;s&eacute;hez kell), m&aacute;sr&eacute;szt kellett k&eacute;t olyan jobot csin&aacute;lni, amelyek elv&eacute;gzik a fent eml&iacute;tett k&eacute;t m&uuml;veletet.</p>
-
-<p>Ut&aacute;na fogtam, lem&aacute;soltam azt a jobot, ami a norm&aacute;l (nem deployol&oacute;s) teszteket csin&aacute;lja, hozz&aacute;csaptam m&eacute;g egy l&eacute;p&eacute;st, miszerint deployoljon is a staging k&ouml;rnyezetbe. Illetve &aacute;t&iacute;rtam, hogy a master &aacute;gat figyelje.
-Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacute;l sem csin&aacute;lok coverage m&eacute;r&eacute;st, mert ez csak lass&iacute;tja a tesztek futtat&aacute;s&aacute;t, de &eacute;rdemi eredm&eacute;nyt nem ad hozz&aacute; a teszthez, hiszen itt a tesztek lefut&aacute;sa is csak az&eacute;rt fontos, hogy ha valaki v&eacute;letlen&uuml;l r&aacute;comittolt volna az &eacute;les &aacute;gra, miel&ouml;tt lefutna a deployment teszt, az m&eacute;g kibukjon. De &aacute;ltal&aacute;ban senki nem szokott.</p>
-
-<p>Az &eacute;les deploy job annyiban volt k&uuml;l&ouml;nb&ouml;z&ouml; ett&ouml;l, hogy itt m&eacute;g kikapcsoltam a pollingoz&aacute;st is, mert ezt k&eacute;zzel (na j&oacute;, XMPP-n kereszt&uuml;l) fogom triggerelni, &eacute;s csak akkor, ha a staging k&ouml;rnyezetbe rendben kiker&uuml;lt a k&oacute;d, illetve mindenki j&oacute;v&aacute;hagyta a m&uuml;k&ouml;d&eacute;st is. Egy&eacute;bk&eacute;nt az el&ouml;z&ouml; job m&aacute;solata volt.</p>
-
-<p>&Iacute;gy gyakorlatilag az van, hogy amikor release van, akkor szok&aacute;s szerint mergelek egyet a master &aacute;gra, ezt felnyomom a git rep&oacute;ba, majd neki&aacute;llok t&uuml;relmetlen&uuml;l lesni az IM kliensem ablak&aacute;t. N&eacute;mi id&ouml; eltelt&eacute;vel a Jenkins besz&oacute;l, hogy (j&oacute; esetben) az aktu&aacute;lis job &aacute;tment minden l&eacute;p&eacute;sen, &eacute;s k&eacute;szen &aacute;ll az &eacute;les&iacute;t&eacute;sre. Ekkor megk&eacute;rem a jenkins-t, hogy deployoljon (jenkins, build project-deploy now), ez &aacute;tfuttatja m&eacute;g egyszer a teszteket, majd kiteszi az &eacute;les szerverre a k&oacute;dot, &uacute;jraind&iacute;tja a thin webszervert hozz&aacute;, &eacute;s k&eacute;sz is. Mivel mind a teszteknek mind a deploymentnek r&eacute;sze az adatb&aacute;zis friss&iacute;t&eacute;se is (rake db:migrate), &iacute;gy nem fordulhat el&ouml;, hogy a db s&eacute;ma miatt halunk meg.</p>
-
-<p>Az&eacute;rt itt m&eacute;g nincs v&eacute;ge a t&ouml;rt&eacute;netnek, a k&ouml;vetkez&ouml; l&eacute;p&eacute;s az, hogy ellen&ouml;rizni kell, hogy az app fel is bootolt-e tisztess&eacute;gesen. Sajnos a thin webszervernek megvan az a kellemetlen tulajdons&aacute;ga, hogy csak azt v&aacute;rja meg, am&iacute;g &ouml; maga meg a k&ouml;rnyezete felbootol, miel&ouml;tt forkol, mag&aacute;t a rails appot nem v&aacute;rja be. Vagyis lehet, hogy &uacute;gy kapsz HTTP 500-at, hogy am&uacute;gy a thin azt jelezte vissza, hogy sikeresen elindult (a deployment utols&oacute; mozzanata az appszerver &uacute;jraind&iacute;t&aacute;sa). Egyel&ouml;re most a k&eacute;zi mel&oacute; is j&oacute;, a j&ouml;v&ouml;ben meg sztem lesz egy negat&iacute;v teszt, egy fix oldalra fogok egy curl-t h&iacute;vni, ha HTTP 200 j&ouml;n vissza, m&aacute;r j&oacute;k vagyunk.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -820,6 +867,10 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/01/nginx-bevezeto/">Nginx - Bevezetés</a>
@@ -837,15 +888,11 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
         <a href="/blog/2012/11/redishash-this-hash-is-a-db/">RedisHash - this hash is a db!</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/11/rubymine-es-teamcity/">RubyMine és TeamCity</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/drupal'>drupal (1)</a></li><li><a href='/blog/tags/en'>en (5)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/git'>git (1)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (20)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/nginx'>nginx (1)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (4)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (3)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/drupal'>drupal (1)</a></li><li><a href='/blog/tags/en'>en (6)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (20)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/java'>java (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/nginx'>nginx (1)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (4)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (3)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 
 <section>
