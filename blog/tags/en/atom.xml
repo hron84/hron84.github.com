@@ -4,7 +4,7 @@
   <title><![CDATA[Category: en | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/en/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-01-30T17:38:09+01:00</updated>
+  <updated>2013-02-12T23:27:20+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails pre-commit hook]]></title>
+    <link href="http://hron.me/blog/2013/02/rails-pre-commit-hook/"/>
+    <updated>2013-02-12T23:23:00+01:00</updated>
+    <id>http://hron.me/blog/2013/02/rails-pre-commit-hook</id>
+    <content type="html"><![CDATA[<p>I just created this small hook for my Rails projects. It helps me to make my codebase clean.</p>
+
+<p><div><script src='https://gist.github.com/4774014.js?file=git-pre-commit-hook.rb'></script>
+<noscript><pre><code>#!/usr/bin/env ruby
+
+require 'erb'
+require 'yaml'
+require 'pp'
+
+lines = %x{git diff-index --cached --name-only HEAD}.split(/[\r\n]+/)
+
+ENV['RAILS_ENV'] = 'test'
+
+lines.each do |file|
+  if File.exists?(file) and file =~ /\.(rb|rake|god)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+
+    if file =~ /_test\.rb$/
+      print &quot;[UNIT  ] #{file} - &quot;
+      unitcmd = &quot;ruby -Ilib:test #{file}&quot;
+      unitcmd = &quot;bundle exec #{unitcmd}&quot; if File.exists?('Gemfile')
+      ret = system(unitcmd)
+      exit 1 unless ret
+    end
+
+    if file =~ /_spec\.rb$/
+      print &quot;[SPEC  ] #{file} - &quot;
+      rspeccmd = &quot;rspec #{file}&quot;
+      rspeccmd = &quot;bundle exec #{rspeccmd}&quot; if File.exists?('Gemfile')
+      ret = system(rspeccmd)
+      exit 1 unless ret
+    end
+  end
+
+  if File.exists?(file) and File.basename(file) =~ /^(Capfile|Gemfile|Guardfile|Rakefile|config.ru)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.feature$/
+    print &quot;[ (::) ] #{file} - &quot;
+    ENV['CUCUMBER_FORMAT'] = 'progress'
+    cuccmd = &quot;cucumber #{file}&quot;
+    cuccmd = &quot;bundle exec #{cuccmd}&quot; if File.exists?('Gemfile')
+    ret = system(cuccmd)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.(yml|yaml)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    begin
+      # Load with erb to avoid problems with cucumber's yml
+      erb = ERB.new(IO.read(file)).result(binding)
+      yaml = YAML.load(erb)
+      puts &quot;Syntax OK&quot;
+    rescue SyntaxError =&gt; ex
+      puts ex.message
+      exit 1
+    rescue ArgumentError =&gt; ex
+      puts ex.message
+      exit 1
+    end
+  end
+end
+</code></pre></noscript></div>
+</p>
+
+<p>You can clone it at <a href="https://gist.github.com/hron84/4774014">Gist</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gitiles Install Howto]]></title>
@@ -344,25 +423,6 @@ two cent on LogStash and not on Graylog - even if I would like to prefer Graylog
 <p>When I come back at Wednesday, I will post here about my experiences and - of course - the result of the interview too.</p>
 
 <p>Stay tooned, seriously :-)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Some new rules / Új szabályok]]></title>
-    <link href="http://hron.me/blog/2012/03/some-new-rules-uj-szabalyok/"/>
-    <updated>2012-03-11T14:22:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/some-new-rules-uj-szabalyok</id>
-    <content type="html"><![CDATA[<p>I just forgotten write down new rules for this blog. If it is possible and I am not too tired for it, I will write posts in English to practice this language. I found if I write continous text I can change my mind into English and I start thinking in English too. After this I can speak English easier too.</p>
-
-<p>However, this rule will be dynamic. If I am too lazy, I will write Hungarian posts too, primarily because I wouldn't like loose my Hungarian readers who do not know in English, such as my mom.</p>
-
-<p>Stay tooned.</p>
-
-<p>Elfelejtettem le&iacute;rni a blog &uacute;j szab&aacute;ly&aacute;t. Ha csak lehets&eacute;ges, &eacute;s nem vagyok t&uacute;l f&aacute;radt hozz&aacute;, a blogban angol nyelvű postok lesznek, a nyelv gyakorl&aacute;s&aacute;nak c&eacute;lj&aacute;b&oacute;l. Ez főleg az&eacute;rt van, mert azt tal&aacute;ltam, hogy ha hosszabb, egybef&uuml;ggő sz&ouml;veget kezdek el &iacute;rni, akkor az agyam automatikusan &aacute;tv&aacute;lt angolra, &eacute;s ut&aacute;na m&aacute;r sokkal k&ouml;nnyebben tudok pl. besz&eacute;lni is angolul.</p>
-
-<p>Azonban, ez a szab&aacute;ly rugalmas lesz. Ha t&uacute;l lusta vagyok, akkor magyarul is fogok &iacute;rni, t&ouml;bbek k&ouml;zt az&eacute;rt, mert nem szeretn&eacute;m elvesz&iacute;teni csak magyarul tud&oacute; olvas&oacute;imat, pl. &eacute;desany&aacute;mat.</p>
-
-<p>Stay tooned.</p>
 ]]></content>
   </entry>
   

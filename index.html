@@ -9,7 +9,9 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="I sucked a bit with Gitiles, Gerrit&#8217;s Gitweb implementation, because this project lacks an INSTALL file. So, basically you have to do following &hellip;" />
+  <meta name="description" content="I just created this small hook for my Rails projects. It helps me to make my codebase clean. #!/usr/bin/env ruby require 'erb'
+require 'yaml'
+require &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -107,6 +109,99 @@
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I just created this small hook for my Rails projects. It helps me to make my codebase clean.</p>
+
+<div><script src='https://gist.github.com/4774014.js?file=git-pre-commit-hook.rb'></script>
+<noscript><pre><code>#!/usr/bin/env ruby
+
+require 'erb'
+require 'yaml'
+require 'pp'
+
+lines = %x{git diff-index --cached --name-only HEAD}.split(/[\r\n]+/)
+
+ENV['RAILS_ENV'] = 'test'
+
+lines.each do |file|
+  if File.exists?(file) and file =~ /\.(rb|rake|god)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+
+    if file =~ /_test\.rb$/
+      print &quot;[UNIT  ] #{file} - &quot;
+      unitcmd = &quot;ruby -Ilib:test #{file}&quot;
+      unitcmd = &quot;bundle exec #{unitcmd}&quot; if File.exists?('Gemfile')
+      ret = system(unitcmd)
+      exit 1 unless ret
+    end
+
+    if file =~ /_spec\.rb$/
+      print &quot;[SPEC  ] #{file} - &quot;
+      rspeccmd = &quot;rspec #{file}&quot;
+      rspeccmd = &quot;bundle exec #{rspeccmd}&quot; if File.exists?('Gemfile')
+      ret = system(rspeccmd)
+      exit 1 unless ret
+    end
+  end
+
+  if File.exists?(file) and File.basename(file) =~ /^(Capfile|Gemfile|Guardfile|Rakefile|config.ru)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.feature$/
+    print &quot;[ (::) ] #{file} - &quot;
+    ENV['CUCUMBER_FORMAT'] = 'progress'
+    cuccmd = &quot;cucumber #{file}&quot;
+    cuccmd = &quot;bundle exec #{cuccmd}&quot; if File.exists?('Gemfile')
+    ret = system(cuccmd)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.(yml|yaml)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    begin
+      # Load with erb to avoid problems with cucumber's yml
+      erb = ERB.new(IO.read(file)).result(binding)
+      yaml = YAML.load(erb)
+      puts &quot;Syntax OK&quot;
+    rescue SyntaxError =&gt; ex
+      puts ex.message
+      exit 1
+    rescue ArgumentError =&gt; ex
+      puts ex.message
+      exit 1
+    end
+  end
+end
+</code></pre></noscript></div>
+
+
+<p>You can clone it at <a href="https://gist.github.com/hron84/4774014">Gist</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -820,40 +915,6 @@ néhány egyszerű trükk, amivel megformázom, és végül pár gombnyomás, am
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/09/valamit-maskeppen/">Valamit másképpen</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A HUP-on bedobott <a href="http://hup.hu/szavazasok/20120908/mit_tennel_az_utolso_napodon">szavaz&aacute;s</a>&nbsp;gondolkodtatott el azon, hogy csin&aacute;ln&eacute;k-e valamit alapvet&ouml;en m&aacute;sk&eacute;ppen, ha &uacute;jrakezdhetn&eacute;m az &eacute;letemet. Nagyon cs&aacute;b&iacute;t&oacute; a lehet&ouml;s&eacute;g, mert hib&aacute;ztam, nem is egyszer, sokszor, n&eacute;ha kicsit, n&eacute;ha nagyot.</p>
-
-<p>Akkor &eacute;s ott &uacute;gy &eacute;reztem, hogy nagyon gyorsan meg kellene nyomni a backspace gombot, &eacute;s nekifutni megint. De ut&oacute;lag visszan&eacute;zve mindig r&aacute;j&ouml;v&ouml;k, hogy h&uuml;lyes&eacute;g lett volna. Mert akkor egy csom&oacute; j&oacute; dolog sem t&ouml;rt&eacute;nt volna meg velem az &eacute;letben.</p>
-
-<p>Tal&aacute;n egyetlen esem&eacute;ny van, amit megakad&aacute;lyozn&eacute;k, b&aacute;r jelenleg nem tudom felm&eacute;rni, mekkora hat&aacute;sa lenne: a tavalyel&ouml;tt ny&aacute;ri esem&eacute;nyeket. Az az egy h&oacute;napnyi k&iacute;nl&oacute;d&aacute;s lehet, hogy megsp&oacute;rolhat&oacute; lett volna. Nem biztos, de lehet.</p>
-
-<p>De a t&ouml;bbin nem v&aacute;ltoztatn&eacute;k. S&ouml;t, m&eacute;g csak azt sem szeretn&eacute;m, hogy eg&eacute;szs&eacute;gesen sz&uuml;lessek. Nem volt egyszer&uuml; a betegs&eacute;gemmel, ez t&eacute;ny. &Eacute;s azt is tudom, hogy a k&ouml;rnyezetemnek sem volt egyszer&uuml;. De ha nem annak sz&uuml;letek, akinek, ma nem lehetek az, aki, &eacute;s nem lehetnek azok a bar&aacute;taim, akik. A k&eacute;t legjobb bar&aacute;tomat &uacute;gy ismertem meg, hogy interneten k&eacute;rtek t&ouml;lem seg&iacute;ts&eacute;get. Eg&eacute;szs&eacute;gesk&eacute;nt tal&aacute;n nem &uuml;ln&eacute;k ennyit a g&eacute;p el&ouml;tt, hiszen nagyon impulz&iacute;v &eacute;s akt&iacute;v emberke vagyok egy&eacute;bk&eacute;nt, de ez azzal j&aacute;r, hogy lemaradn&eacute;k mindenr&ouml;l, ami most fontos.
-Emiatt gondolom azt, hogy - b&aacute;r kellemetlen, de - nem baj az, ami van velem. &Eacute;n egy picit m&aacute;s vagyok, n&aacute;lam ez az &#8220;eg&eacute;szs&eacute;ges&#8221;.</p>
-
-<p>V&aacute;lasztan&eacute;k-e m&aacute;sik csal&aacute;dot, k&ouml;rnyezetet? Aki k&ouml;zelebbr&ouml;l ismer, tudja, hogy n&aacute;lam m&eacute;g ez sem egy egyszer&uuml; eld&ouml;ntend&ouml; k&eacute;rd&eacute;s. De &uacute;gy gondolom, nem. Nem volt sima &eacute;letem, voltak g&ouml;r&ouml;ngy&ouml;k, bukkan&oacute;k, hegyek &eacute;s v&ouml;lgyek. Volt, amikor nagy volt a s&ouml;t&eacute;t, volt amikor sok volt a f&eacute;ny. De hiszem, hogy ezek is seg&iacute;tettek olyann&aacute; form&aacute;lni, amilyen most vagyok.&nbsp;</p>
-
-<p>Csak n&eacute;h&aacute;ny dolog van, amiken v&aacute;ltoztatn&eacute;k. P&aacute;r &eacute;letvitelbeli apr&oacute;s&aacute;g. P&aacute;r apr&oacute; t&aacute;rgy, amire jobban vigy&aacute;zn&eacute;k. &Eacute;s n&eacute;h&aacute;ny ember, akikkel egy kicsit t&ouml;bb id&ouml;t t&ouml;lten&eacute;k, kicsit jobban szeretn&eacute;m &ouml;ket, mert &uacute;gy &eacute;rzem, ad&oacute;s maradtam. De ez minden.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -867,6 +928,10 @@ Emiatt gondolom azt, hogy - b&aacute;r kellemetlen, de - nem baj az, ami van vel
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
@@ -884,15 +949,11 @@ Emiatt gondolom azt, hogy - b&aacute;r kellemetlen, de - nem baj az, ami van vel
         <a href="/blog/2012/12/rails-polimorf-vilag/">Rails - polimorf világ</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2012/11/redishash-this-hash-is-a-db/">RedisHash - this hash is a db!</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/drupal'>drupal (1)</a></li><li><a href='/blog/tags/en'>en (6)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (20)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/java'>java (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/nginx'>nginx (1)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (4)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (3)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/drupal'>drupal (1)</a></li><li><a href='/blog/tags/en'>en (7)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hu'>hu (20)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/java'>java (1)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/nginx'>nginx (1)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (5)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (4)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 
 <section>

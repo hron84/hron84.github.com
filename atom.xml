@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-01-30T17:38:09+01:00</updated>
+  <updated>2013-02-12T23:27:20+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rails pre-commit hook]]></title>
+    <link href="http://hron.me/blog/2013/02/rails-pre-commit-hook/"/>
+    <updated>2013-02-12T23:23:00+01:00</updated>
+    <id>http://hron.me/blog/2013/02/rails-pre-commit-hook</id>
+    <content type="html"><![CDATA[<p>I just created this small hook for my Rails projects. It helps me to make my codebase clean.</p>
+
+<div><script src='https://gist.github.com/4774014.js?file=git-pre-commit-hook.rb'></script>
+<noscript><pre><code>#!/usr/bin/env ruby
+
+require 'erb'
+require 'yaml'
+require 'pp'
+
+lines = %x{git diff-index --cached --name-only HEAD}.split(/[\r\n]+/)
+
+ENV['RAILS_ENV'] = 'test'
+
+lines.each do |file|
+  if File.exists?(file) and file =~ /\.(rb|rake|god)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+
+    if file =~ /_test\.rb$/
+      print &quot;[UNIT  ] #{file} - &quot;
+      unitcmd = &quot;ruby -Ilib:test #{file}&quot;
+      unitcmd = &quot;bundle exec #{unitcmd}&quot; if File.exists?('Gemfile')
+      ret = system(unitcmd)
+      exit 1 unless ret
+    end
+
+    if file =~ /_spec\.rb$/
+      print &quot;[SPEC  ] #{file} - &quot;
+      rspeccmd = &quot;rspec #{file}&quot;
+      rspeccmd = &quot;bundle exec #{rspeccmd}&quot; if File.exists?('Gemfile')
+      ret = system(rspeccmd)
+      exit 1 unless ret
+    end
+  end
+
+  if File.exists?(file) and File.basename(file) =~ /^(Capfile|Gemfile|Guardfile|Rakefile|config.ru)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.feature$/
+    print &quot;[ (::) ] #{file} - &quot;
+    ENV['CUCUMBER_FORMAT'] = 'progress'
+    cuccmd = &quot;cucumber #{file}&quot;
+    cuccmd = &quot;bundle exec #{cuccmd}&quot; if File.exists?('Gemfile')
+    ret = system(cuccmd)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.(yml|yaml)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    begin
+      # Load with erb to avoid problems with cucumber's yml
+      erb = ERB.new(IO.read(file)).result(binding)
+      yaml = YAML.load(erb)
+      puts &quot;Syntax OK&quot;
+    rescue SyntaxError =&gt; ex
+      puts ex.message
+      exit 1
+    rescue ArgumentError =&gt; ex
+      puts ex.message
+      exit 1
+    end
+  end
+end
+</code></pre></noscript></div>
+
+
+<p>You can clone it at <a href="https://gist.github.com/hron84/4774014">Gist</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gitiles Install Howto]]></title>
@@ -1321,26 +1400,6 @@ auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficien
 <p>K&eacute;ri az authentikator k&oacute;djat, enter, es bel&eacute;p. A Pubkey auth fel&uuml;lv&aacute;gja, ofc.</p>
 
 <p>Szerk: ja, &eacute;s kell neki a ChallengeResponseAuthentication yes</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Dr Ötker]]></title>
-    <link href="http://hron.me/blog/2011/07/dr-otker/"/>
-    <updated>2011-07-11T00:37:00+02:00</updated>
-    <id>http://hron.me/blog/2011/07/dr-otker</id>
-    <content type="html"><![CDATA[<p>Tegnap tettem egy r&ouml;vid l&aacute;togat&aacute;st kedvenc Interspar-omban, &eacute;s vettem egy csom&oacute; acci&oacute;s gy&uuml;m&ouml;lcslevesport, t&eacute;len-ny&aacute;ron kiv&aacute;l&oacute; turmix van bel&ouml;l&uuml;k. Hogy-hogy nem, beker&uuml;lt a sorba egy s&aacute;rgabarackos tejberizs is - val&oacute;sz&iacute;n&uuml;leg mell&eacute;ny&uacute;ltam. Mindenesetre &aacute;rban nem volt nagy difi, belef&eacute;rt.</p>
-
-<p>Hogy ne vesszen pocs&eacute;kba, csak k&aacute;rba, gyorsan &ouml;sszedobtam r&aacute; valamit.</p>
-
-<p>&nbsp;- 1/2 doboz 0.5l-es SPAR vanili&aacute;s ital (egy kicsit sokat vettem bel&ouml;le a j&oacute;m&uacute;ltkor&#8230;)
-&nbsp;- 1 poh&aacute;r tej (ez eddig ugye f&eacute;l liter, ennyi folyad&eacute;k &aacute;ll a zacsin)
-&nbsp;- 1 zacsi tejberizs kezdem&eacute;ny (ez ugye most a s&aacute;rgabarackos)</p>
-
-<p>Tot&aacute;l a zacsi szerint j&aacute;rtam el, alapos felforral&aacute;s (megv&aacute;rtam, mig takar&eacute;kon elkezd kin&eacute;zni a faz&eacute;kb&oacute;l - ez csak el&eacute;g alapos&#8230;), 1 perces (alapos) kever&eacute;s,
-10 perc (alapos :-) ) fed&ouml;. Na itt &aacute;llunk most.</p>
-
-<p>Uhh, el is felejtettem friss&iacute;teni. Na, sz&oacute;val feledhetetlen volt, b&aacute;r legk&ouml;zelebb picit kevesebb vanili&aacute;s tejet &eacute;s egy picit t&ouml;bb sima tejet rakok bele.</p>
 ]]></content>
   </entry>
   

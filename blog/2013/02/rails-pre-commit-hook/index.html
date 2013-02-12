@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: bear - Hron's blog</title>
+  <title>Rails pre-commit hook - Hron's blog</title>
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Category: bear" />
+  <meta name="description" content="I just created this small hook for my Rails projects. It helps me to make my codebase clean. #!/usr/bin/env ruby require 'erb'
+require 'yaml'
+require &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   
-  <link rel="canonical" href="http://hron.meblog/tags/bear/" />
+  <link rel="canonical" href="http://hron.me/blog/2013/02/rails-pre-commit-hook/" />
   <link href="/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
   <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -103,67 +105,170 @@
       </nav>
       
       <header>
-        <h1 class="entry-title">Category: bear</h1>
-        
+        <h1 class="entry-title">Rails pre-commit hook</h1>
+        <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-12T23:23:00+01:00" class="pubdate" pubdate data-updated="true">2013. Feb. 12.</time></p>
       </header>
     
     </div>
 
     <div id="content" class="columns container">
       <div class="first">
-<article role="article">
-
-  <div id="blog-archives" class="category">
-
-
-
+<article class="hentry" role="article">
   
-  <h2>2010</h2>
-
-<article>
-  
-<h1><a href="/blog/2010/12/jomunkasmedve-2-az-orzo/">Jómunkásmedve 2</a></h1>
-<time datetime="2010-12-17T17:36:00+01:00" pubdate><span class='month'>Dec</span> <span class='day'>17</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/tags/bear/'>bear</a>, <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/pic/'>pic</a></span>
-</footer>
+  <header>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
 
 
-</article>
+<div class="entry-content"><p>I just created this small hook for my Rails projects. It helps me to make my codebase clean.</p>
+
+<div><script src='https://gist.github.com/4774014.js?file=git-pre-commit-hook.rb'></script>
+<noscript><pre><code>#!/usr/bin/env ruby
+
+require 'erb'
+require 'yaml'
+require 'pp'
+
+lines = %x{git diff-index --cached --name-only HEAD}.split(/[\r\n]+/)
+
+ENV['RAILS_ENV'] = 'test'
+
+lines.each do |file|
+  if File.exists?(file) and file =~ /\.(rb|rake|god)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+
+    if file =~ /_test\.rb$/
+      print &quot;[UNIT  ] #{file} - &quot;
+      unitcmd = &quot;ruby -Ilib:test #{file}&quot;
+      unitcmd = &quot;bundle exec #{unitcmd}&quot; if File.exists?('Gemfile')
+      ret = system(unitcmd)
+      exit 1 unless ret
+    end
+
+    if file =~ /_spec\.rb$/
+      print &quot;[SPEC  ] #{file} - &quot;
+      rspeccmd = &quot;rspec #{file}&quot;
+      rspeccmd = &quot;bundle exec #{rspeccmd}&quot; if File.exists?('Gemfile')
+      ret = system(rspeccmd)
+      exit 1 unless ret
+    end
+  end
+
+  if File.exists?(file) and File.basename(file) =~ /^(Capfile|Gemfile|Guardfile|Rakefile|config.ru)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    ret = system(&quot;ruby -c '#{file}'&quot;)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.feature$/
+    print &quot;[ (::) ] #{file} - &quot;
+    ENV['CUCUMBER_FORMAT'] = 'progress'
+    cuccmd = &quot;cucumber #{file}&quot;
+    cuccmd = &quot;bundle exec #{cuccmd}&quot; if File.exists?('Gemfile')
+    ret = system(cuccmd)
+    exit 1 unless ret
+  end
+
+  if File.exists?(file) and file =~ /\.(yml|yaml)$/
+    print &quot;[SYNTAX] #{file} - &quot;
+    begin
+      # Load with erb to avoid problems with cucumber's yml
+      erb = ERB.new(IO.read(file)).result(binding)
+      yaml = YAML.load(erb)
+      puts &quot;Syntax OK&quot;
+    rescue SyntaxError =&gt; ex
+      puts ex.message
+      exit 1
+    rescue ArgumentError =&gt; ex
+      puts ex.message
+      exit 1
+    end
+  end
+end
+</code></pre></noscript></div>
 
 
-
-<article>
-  
-<h1><a href="/blog/2010/12/jomunkasmedve/">Jómunkásmedve</a></h1>
-<time datetime="2010-12-13T16:18:48+01:00" pubdate><span class='month'>Dec</span> <span class='day'>13</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/tags/bear/'>bear</a>, <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/pic/'>pic</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2010/09/a-gondolkodo-medve/">A gondolkodó medve</a></h1>
-<time datetime="2010-09-16T10:18:07+02:00" pubdate><span class='month'>Sep</span> <span class='day'>16</span> <span class='year'>2010</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/tags/bear/'>bear</a>, <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/pic/'>pic</a></span>
-</footer>
-
-
-</article>
-
+<p>You can clone it at <a href="https://gist.github.com/hron84/4774014">Gist</a></p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Gábor Garami</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-12T23:23:00+01:00" class="pubdate" pubdate data-updated="true">2013. Feb. 12.</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tags/en/'>en</a>, <a class='category' href='/blog/tags/rails/'>rails</a>, <a class='category' href='/blog/tags/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2013/02/rails-pre-commit-hook/" data-via="hron84" data-counturl="http://hron.me/blog/2013/02/rails-pre-commit-hook/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="small"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/gitiles-install-howto/" title="Previous Post: Gitiles Install Howto">&laquo; Gitiles Install Howto</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section id="comments">
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -289,7 +394,10 @@
       var disqus_shortname = 'hron84';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hron.me/blog/2013/02/rails-pre-commit-hook/';
+        var disqus_url = 'http://hron.me/blog/2013/02/rails-pre-commit-hook/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
