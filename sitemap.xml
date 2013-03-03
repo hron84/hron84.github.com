@@ -117,12 +117,16 @@
         <lastmod>2013-02-12T23:26:30+01:00</lastmod>
     </url>
     <url>
+        <loc>http://hron.me/blog/2013/03/hazi/</loc>
+        <lastmod>2013-03-03T16:52:58+01:00</lastmod>
+    </url>
+    <url>
         <loc>http://hron.me/about/</loc>
         <lastmod>2013-01-30T17:02:59+01:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/archives/</loc>
-        <lastmod>2013-02-12T23:26:30+01:00</lastmod>
+        <lastmod>2013-03-03T16:52:58+01:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/en/contributions/</loc>
@@ -134,6 +138,6 @@
     </url>
     <url>
         <loc>http://hron.me/</loc>
-        <lastmod>2013-02-12T23:26:30+01:00</lastmod>
+        <lastmod>2013-03-03T16:52:58+01:00</lastmod>
     </url>
 </urlset>

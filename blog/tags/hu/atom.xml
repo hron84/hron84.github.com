@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hu | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/hu/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-02-12T23:27:20+01:00</updated>
+  <updated>2013-03-03T16:53:40+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Házi, magam sütöttem]]></title>
+    <link href="http://hron.me/blog/2013/03/hazi/"/>
+    <updated>2013-03-03T16:23:00+01:00</updated>
+    <id>http://hron.me/blog/2013/03/hazi</id>
+    <content type="html"><![CDATA[<p>A cím az utolsó betűig igaz - de csak addig. Pár hete (hmm... hónapja?) jártam-keltem a KÖKI Terminálon nyílt Tescoban, és nem tudtam elmenni egy fahéjas sütemény mellett, nevetséges áron volt, "Hamar kész" - hirdette a felirat. Naná hogy vettem.</p>
+
+<p>Ma jutottam el odáig, hogy megint eszembe jutott (egy fenét, pár napja kerestem valamit a fagyasztóban és szembejött), mondom pocsékba ne vesszen már, megcsinálom.</p>
+
+<p>Szóval, vettem egy nagy levegőt, meg egy még nagyobb tepsit (úgy értem, a levegőnél...) és belevágtam. A címke szerint 80 percet kell pihentetni, hát gondoltam, ez nem olyan betű szerinti dolog, hogy percre kellene betartani, ebédcsinálás előtt kiraktam, ebéd + pihi után álltam neki megcsinálni. Volt az 90-120 perc is, de ki számolja...</p>
+
+<p>Aztán olyat mondott a címke, hogy vegyek sütőpapírt, borítsam a tepisbe, és utána rá a sütit. Na most nekem elég sokféle papír kószál itthon, sütőpapír az pont nem. Mivel már belevágtam (az ilyet nem szabad visszafagyasztani, mert elég undorító lesz utána) így a sütőpapírt kicseréltem alufóliára, mert az volt itthon. A csere egyszerű volt, tepsiből nem létező sütőpapír kidob, alufólia beterít.</p>
+
+<p>A következő utasítás az volt, hogy 185 fokon kell sütni. Mivel nekem csak ilyen nempontos gázsütőm van, belöktem 5-ös fokozatra, és felhúztam az órát öt percre, ha nagyon elszaladna a ló, ott még lehet korrigálni mondjuk egy 4-es fokozattal. Kimentem, semmi extra, rápörgettem még 5-öt a kisvekkerre (a címke 10-12 perces sütést ír, de ez valami sablonból van, sosem vettem még olyan terméket, amit tényleg meg lehett volna csinálni ennyi idő alatt. A jobbik esetben nyers volt, a rosszabbikban... hát... érdekesen sötét).</p>
+
+<p>Csörgésre lustán kiballagtam (+1-2 perc), megvizsgáltam úgy szemileg, meg megbökdöstem a kés hegyével, lagymatag és puha volt, szóval kollektív döntésként született, hogy kell neki még 5 perc. Kisvekker orrát megtekertem megint.</p>
+
+<p>Miután megint egy cikk kellős közepébe csörgött bele a határidő, így úgy döntöttem, hogy egy életem, egy halálom, én bizony ezt nem fogom visszarakni a sütőbe, lett légyen akármilyen is az a sütemény. Végül nem volt szükség ilyen kemény elhatározásra, a süti magától is nagyon szép állagú lett, picit barna, de az nem baj.</p>
+
+<p><a target="_blank" title="Suti @ Tepsi" href="http://static.hron.me/imgpaste/blog/IMG_20130303_160141.jpg"><img src="http://static.hron.me/imgpaste/blog/IMG_20130303_160141.jpg" alt="Suti @ Tepsi" width="324" height="245" /></a></p>
+
+<p>A kiszedéssel viszont megszenvedtem. Mondjuk úgy, hogz nem véletlen ajánlanak ehhez sütőpapírt, bár az is csak felezi a kiszedési időt, ellenben megkönnyíteni nem fogja. A fahéjas töltelék ugyanis elég ragaszkodó természetű, viszont engem annyira nem kedvel, inkább az alufólia iránt mutatott élénk érdeklődést. Végüé több, mint 20 perces hősies küzdelem után rá tudtam beszélni arra, hogy egy rongyos, összetépett, ragacsos alufólia közel sem annyira vonzó, mint egy szép új kéztőrlővel leterített tiszta tányér.</p>
+
+<p><a target="_blank" title="Suti @ Tanyer" href="http://static.hron.me/imgpaste/blog/IMG_20130303_161610.jpg"><img src="http://static.hron.me/imgpaste/blog/IMG_20130303_161610.jpg" alt="Suti @ Tanyer" width="324" height="245" /></a></p>
+
+<p>Tanulságok:
+ - Kell venni egy tekercs sütőpapírt, akkor is, ha csak szökőévente egyszer támad ilyen ötletem.
+   Mivel nem romlik meg, nem szagosodik meg, valamint alig foglal helyet, így mindenképpen megéri,
+   főleg, mert elég sok időt megspórol.
+ - Sose higyjünk a címkére írt sütési utasításnak vakon. Mindig ellenőrizzük szemileg a készülő
+   termék állagát, mert azt a címkét Átlag Istvánné szül. Mindegy Jolán számára írták, nem pedig nekünk.</p>
+
+<p>Ettől eltekintve ízre semmi probléma, a kicsit megkaramellizálódott alap pedig abszolút nem okoz problémát.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Nginx - Bevezetés]]></title>
@@ -197,102 +233,6 @@ Azt merték ugyanis állítani, hogy  TeamCity beépítetten képes kezelni a RS
 Viszont az első teszteredmények feledtették velem az ezen a téren történt csalódást, mert pontosan azt kaptam, amit elvártam: mindenféle külön konfiguráció nélkül jelenítete meg a Cucumber es RSpec tesztek eredményét, ráadásul egy egészen barátságos felületen.</p>
 
 <p>Tényleg nem JetBrains reklámnak szánom ezt a postot, de azért annyira érződik mindkét terméken, hogy ezeket olyanok fejlesztik, akik láttak már közelről Rails projektet, meg RVM-et, meg ilyesmit... például a Jenkins Ruby pluginjénél nem volt ilyen érzésem.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Guard - projektjeink testőre]]></title>
-    <link href="http://hron.me/blog/2012/10/guard-projektjeink-testore/"/>
-    <updated>2012-10-23T14:37:00+02:00</updated>
-    <id>http://hron.me/blog/2012/10/guard-projektjeink-testore</id>
-    <content type="html"><![CDATA[<p>Nem olyan régen ismerkedtem meg a <a href="https://github.com/guard/guard">guard</a> nevű
-gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
-a fejét, de plug-injei révén például PHP fejlesztők is profitálhatnak a tudásából.</p>
-
-<!-- more -->
-
-
-<p>Ez a kis cucc arra képes, hogy figyelje a projekt fájljait változások után
-kutatva, és amikor változik valami, pl. elmentünk egy fájlt, akkor végre tud
-hajtani bizonyos műveleteket.</p>
-
-<p>Vegyünk két nagyon alap kis példát:</p>
-
-<p>Van egy PHP projektünk, melyben PHPunit teszteket szeretnénk futtatni. Minden
-egyes osztályunkhoz tartozik, egy hasonló nevű teszt osztály, csak Test van a
-végén. Tehát a User -t a UserTest, a Car-t a CarTest osztály teszteli. Ekkor:</p>
-
-<p>```ruby Guard konfiguráció PHPUnit-hoz https://github.com/guard/guard-phpunit Több infó
-guard 'phpunit', :tests_path => 'Tests', :cli => '--colors' do
-  # Figyeljük az összes teszt osztály változását
-  watch(%r{<sup>.+Test.php$})</sup></p>
-
-<p>  # Figyeljük az osztályok változását, és futtatjuk a megfelelő teszteket
-  watch(%r{<sup>Classes/(.+).php})</sup> { |m| "Tests/#{m[1]}Test.php" }
-end
-```</p>
-
-<p>Nem kell aggódni, ha a második esetnél az adott teszt osztály nem létezik,
-akkor egyszerűen nem történik semmi.</p>
-
-<p>A Guard-hoz rengeteg féle <a href="https://github.com/guard">plug-in</a> létezik már,
-de legrosszabb esetben lehetséges shell parancsokat is <a href="https://github.com/guard/guard-shell">futtatni</a>
-fájlváltozáskor.</p>
-
-<p>Amire érdemes odafigyelni, az a függőségek. A Guard-nak egyrészt szüksége
-van a platformunknak megfelelő fájlváltozás-érzékelő plug-inre, illetve
-mivel képes minden platformon a platformnak megfelelően értesítést is
-küldeni, így ezeket a plug-injeit is megfelelően konfigurálni kell.</p>
-
-<p>Néhány dolog, amire figyelni kell:</p>
-
-<ul>
-<li>Mac OS X 10.8-nél korábbi verziólnál szükséges a <a href="http://growl.info">Growl</a> telepítése
-(10.8-hoz van plug-in a beépített értesítési rendszer használatára)</li>
-<li>Windows alatt a <a href="https://github.com/luislavena/win32console">win32console</a> gem nélkül nincsenek színek</li>
-</ul>
-
-
-<p>Emiatt én mindig Gemfile segítségével telepítem. Egy alap Gemfile álljon itt ehhez:</p>
-
-<p>```ruby Gemfile Guard használatához
-group :development do
-  # Guard
-  gem 'guard', '~> 1.4.0'
-  if RUBY_PLATFORM =~ /darwin/i</p>
-
-<pre><code>if %x{sw_vers -productVersion}.strip =~ /^10\.8/
-  gem 'terminal-notifier-guard'
-else
-  gem 'ruby_gntp'
-end
-gem 'rb-fsevent', '~&gt; 0.9.1', :require =&gt; false
-</code></pre>
-
-<p>  elsif RUBY_PLATFORM =~ /linux/i</p>
-
-<pre><code>gem 'rb-inotify', :require =&gt; false 
-</code></pre>
-
-<p>  elsif RUBY_PLATFORM =~ /(mswin|mingw)/i</p>
-
-<pre><code>gem 'win32console', :require =&gt; false
-gem 'wdm', :require =&gt; false
-</code></pre>
-
-<p>  end</p>
-
-<p>  # Guard plug-ins
-  gem 'guard-phpunit'
-end
-```</p>
-
-<p>A függőségek telepítése a <code>bundle install</code> míg a Guard futtatása a <code>bundle exec guard start</code> paranccsal zajlik.</p>
-
-<p>A Guard fájlt használatba vétel előtt inicializálni is kell, ezt a <code>bundle exec guard init</code> paranccsal tehetjük meg.
-Ha menet közben telepítünk olyan plug-int, mely futtatásra alkalmas (tehát nem értesítő plug-in), akkor azt a
-<code>bundle exec guard init PLUGIN_NAME</code> paranccsal tehetjük meg, a plug-in neve pedig mindig a guard- után álló rész (pl. shell).
-Egyébként a legtöbb plug-in README fájlja nagyon részletes útmutatót tartalmaz a plug-in használatáról.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-02-12T23:27:20+01:00</updated>
+  <updated>2013-03-03T16:53:40+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Házi, magam sütöttem]]></title>
+    <link href="http://hron.me/blog/2013/03/hazi/"/>
+    <updated>2013-03-03T16:23:00+01:00</updated>
+    <id>http://hron.me/blog/2013/03/hazi</id>
+    <content type="html"><![CDATA[<p>A cím az utolsó betűig igaz - de csak addig. Pár hete (hmm&#8230; hónapja?) jártam-keltem a KÖKI Terminálon nyílt Tescoban, és nem tudtam elmenni egy fahéjas sütemény mellett, nevetséges áron volt, &#8220;Hamar kész&#8221; - hirdette a felirat. Naná hogy vettem.</p>
+
+<p>Ma jutottam el odáig, hogy megint eszembe jutott (egy fenét, pár napja kerestem valamit a fagyasztóban és szembejött), mondom pocsékba ne vesszen már, megcsinálom.</p>
+
+<p>Szóval, vettem egy nagy levegőt, meg egy még nagyobb tepsit (úgy értem, a levegőnél&#8230;) és belevágtam. A címke szerint 80 percet kell pihentetni, hát gondoltam, ez nem olyan betű szerinti dolog, hogy percre kellene betartani, ebédcsinálás előtt kiraktam, ebéd + pihi után álltam neki megcsinálni. Volt az 90-120 perc is, de ki számolja&#8230;</p>
+
+<p>Aztán olyat mondott a címke, hogy vegyek sütőpapírt, borítsam a tepisbe, és utána rá a sütit. Na most nekem elég sokféle papír kószál itthon, sütőpapír az pont nem. Mivel már belevágtam (az ilyet nem szabad visszafagyasztani, mert elég undorító lesz utána) így a sütőpapírt kicseréltem alufóliára, mert az volt itthon. A csere egyszerű volt, tepsiből nem létező sütőpapír kidob, alufólia beterít.</p>
+
+<p>A következő utasítás az volt, hogy 185 fokon kell sütni. Mivel nekem csak ilyen nempontos gázsütőm van, belöktem 5-ös fokozatra, és felhúztam az órát öt percre, ha nagyon elszaladna a ló, ott még lehet korrigálni mondjuk egy 4-es fokozattal. Kimentem, semmi extra, rápörgettem még 5-öt a kisvekkerre (a címke 10-12 perces sütést ír, de ez valami sablonból van, sosem vettem még olyan terméket, amit tényleg meg lehett volna csinálni ennyi idő alatt. A jobbik esetben nyers volt, a rosszabbikban&#8230; hát&#8230; érdekesen sötét).</p>
+
+<p>Csörgésre lustán kiballagtam (+1-2 perc), megvizsgáltam úgy szemileg, meg megbökdöstem a kés hegyével, lagymatag és puha volt, szóval kollektív döntésként született, hogy kell neki még 5 perc. Kisvekker orrát megtekertem megint.</p>
+
+<p>Miután megint egy cikk kellős közepébe csörgött bele a határidő, így úgy döntöttem, hogy egy életem, egy halálom, én bizony ezt nem fogom visszarakni a sütőbe, lett légyen akármilyen is az a sütemény. Végül nem volt szükség ilyen kemény elhatározásra, a süti magától is nagyon szép állagú lett, picit barna, de az nem baj.</p>
+
+<p><a target="_blank" title="Suti @ Tepsi" href="http://static.hron.me/imgpaste/blog/IMG_20130303_160141.jpg"><img src="http://static.hron.me/imgpaste/blog/IMG_20130303_160141.jpg" alt="Suti @ Tepsi" width="324" height="245" /></a></p>
+
+<p>A kiszedéssel viszont megszenvedtem. Mondjuk úgy, hogz nem véletlen ajánlanak ehhez sütőpapírt, bár az is csak felezi a kiszedési időt, ellenben megkönnyíteni nem fogja. A fahéjas töltelék ugyanis elég ragaszkodó természetű, viszont engem annyira nem kedvel, inkább az alufólia iránt mutatott élénk érdeklődést. Végüé több, mint 20 perces hősies küzdelem után rá tudtam beszélni arra, hogy egy rongyos, összetépett, ragacsos alufólia közel sem annyira vonzó, mint egy szép új kéztőrlővel leterített tiszta tányér.</p>
+
+<p><a target="_blank" title="Suti @ Tanyer" href="http://static.hron.me/imgpaste/blog/IMG_20130303_161610.jpg"><img src="http://static.hron.me/imgpaste/blog/IMG_20130303_161610.jpg" alt="Suti @ Tanyer" width="324" height="245" /></a></p>
+
+<p>Tanulságok:
+ - Kell venni egy tekercs sütőpapírt, akkor is, ha csak szökőévente egyszer támad ilyen ötletem.
+   Mivel nem romlik meg, nem szagosodik meg, valamint alig foglal helyet, így mindenképpen megéri,
+   főleg, mert elég sok időt megspórol.
+ - Sose higyjünk a címkére írt sütési utasításnak vakon. Mindig ellenőrizzük szemileg a készülő
+   termék állagát, mert azt a címkét Átlag Istvánné szül. Mindegy Jolán számára írták, nem pedig nekünk.</p>
+
+<p>Ettől eltekintve ízre semmi probléma, a kicsit megkaramellizálódott alap pedig abszolút nem okoz problémát.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails pre-commit hook]]></title>
@@ -1379,27 +1415,6 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
 <p>Azt&aacute;n itt van m&eacute;g a fel&uacute;j&iacute;t&aacute;s projekt is. Borzaszt&oacute; dolog, p&aacute;r &eacute;vig biztos nem vetemedek ilyen egetverő őr&uuml;lts&eacute;gekre. Elősz&ouml;r is, sz&iacute;vszaggat&oacute; romokban l&aacute;tni a lak&aacute;st. M&aacute;sodszor, egy ilyen <strong>mindig</strong> elh&uacute;z&oacute;dik, f&uuml;ggetlen&uuml;l att&oacute;l, mennyire tervezted meg. Ez lassan negyed &eacute;ve k&iacute;nl&oacute;dik.. :s &eacute;s m&eacute;g nincs v&eacute;ge.</p>
 
 <p>Na, becsukom a panaszl&aacute;d&aacute;t, megyek vissza k&oacute;dolni, csak ezt &iacute;gy egyben ki kellett m&aacute;r &iacute;rnom&#8230;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Google Authenticator for SSH]]></title>
-    <link href="http://hron.me/blog/2011/07/google-authenticator-for-ssh/"/>
-    <updated>2011-07-18T12:49:00+02:00</updated>
-    <id>http://hron.me/blog/2011/07/google-authenticator-for-ssh</id>
-    <content type="html"><![CDATA[<p>Na, ezt is kipr&oacute;b&aacute;ltam, yo.</p>
-
-<p>A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre:</p>
-
-<p>auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_tally2.so onerr=succeed
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_shells.so
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_nologin.so
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_env.so
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficient&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_google_authenticator.so</p>
-
-<p>K&eacute;ri az authentikator k&oacute;djat, enter, es bel&eacute;p. A Pubkey auth fel&uuml;lv&aacute;gja, ofc.</p>
-
-<p>Szerk: ja, &eacute;s kell neki a ChallengeResponseAuthentication yes</p>
 ]]></content>
   </entry>
   
