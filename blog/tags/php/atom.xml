@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: drupal | Hron's blog]]></title>
-  <link href="http://hron.me/blog/tags/drupal/atom.xml" rel="self"/>
+  <title><![CDATA[Category: php | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/php/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
   <updated>2013-03-17T14:00:59+01:00</updated>
   <id>http://hron.me/</id>

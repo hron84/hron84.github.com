@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hu | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/hu/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-03-03T19:05:28+01:00</updated>
+  <updated>2013-03-17T14:00:59+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,245 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Nginx és PHP]]></title>
+    <link href="http://hron.me/blog/2013/03/nginx-es-php/"/>
+    <updated>2013-03-17T11:32:00+01:00</updated>
+    <id>http://hron.me/blog/2013/03/nginx-es-php</id>
+    <content type="html"><![CDATA[<p>Az <a href="http://hron.me/blog/2013/01/nginx-bevezeto/">előző</a> cikkben alapszinten megismerkedtünk az Nginx-szel,
+valamint megtudtuk, mitől és miben gyorsabb, mint a kihívójának szánt Apache.</p>
+
+<p>Ebben, és a következő cikkben azt vizsgáljuk, hogy hogyan tudunk egy PHP alapú site-t futtatni vele, például
+egy Drupal alapú portált.</p>
+
+<!-- more -->
+
+
+<h2>PHP kicsit másként</h2>
+
+<p>A legtöbben tisztában vannak azzal, hogy a PHP-t alapvetően kétféleképpen lehet futtatni: Apache modulként
+és CGI-ként. A két módszer közül az előbbi elterjedtebb, mert a CGI-s futtatás nagy terhet ró a kiszolgáló
+webszerverre, hiszne minden egyes lekéréshez külön PHP interpretert kell forkolni.</p>
+
+<p>Az Apache modulos futtatásnak viszont van egy pár hátránya, amiről nem mindig esik szó:</p>
+
+<ul>
+<li>Problémákhoz vezethet, ha szálkezeléses (threading) Apache-on belül használjuk</li>
+<li>Ugyanazzal az userrel fut, mint az őt hostoló Apache folyamat</li>
+<li>Az életciklusa szorosan össze van kötve az őt hostoló Apache folyamattal</li>
+</ul>
+
+
+<p>Ebből a leginkább problematikus a második pont. Az Apache-t ugyanis alapvetően kétféleképp szokás futtatni:</p>
+
+<ul>
+<li>Minden site ugyanazzal a felhasználóval fut (www-data, wwwrun, apache, httpd, ...).
+Ennek hátrányai nyilvánvalóak: bármely site kódja képes lehet írni/olvasni bármely másik site könyvtárát</li>
+<li>Minden site különböző felhasználóval fut, de a fő Apache folyamat root userként (ITK modul).</li>
+</ul>
+
+
+<p>A második probléma megértéséhez kicsit bele kell túrni az Apache lelkivilágába. A fő Apache folyamat ugyanis az,
+amelyik a 80-as (443-as, stb) porton figyel, majd bejövő kérésnél a kérés fejlécét megvizsgálva dönti el, hogy
+milyen felhasználó nevében indítsa el a gyermekfolyamatot. Azonban - és ez nagyon fontos - amennyiben bármilyen
+sérülékenység van a HTTP kéréseket feldolgozó kódrészletben, a támadó ezt kihasználva egy root felhasználói jogokkal
+futó folyamat belsejében találja magát - ami teljes hozzáférést biztosít számára a rendszer minden komponenséhez és
+adatához. A fő Apache folyamatnak viszont muszáj root userként futnia, mert csak így tud adott felhasználóval
+gyermekfolyamatot indítani.</p>
+
+<p>Mi hát a megoldás? Egy teljesen új futtatási mód: a FastCGI!
+A FastCGI ötvözi a CGI és a modulos PHP előnyeit: bármilyen felhasználóval elindulhat, viszont egynél több lekérést is ki
+tud szolgálni. Ezen felül teljesen elkülönítetten fut a webszervertől, egy többé-kevésbé standard protokollon kommunikálva
+vele, így képes lehet akár bebörtönözve is futni (chroot, jail), de akár egy teljesen különálló gépen is futhat.</p>
+
+<p>Működését tekintve lényegesen egyszerübb folyamatról van szó: itt is egy darab, root felhasználóként futó felügyelő folyamat
+(control process) fut, ám ő nem foglalkozik semmilyen szinten a bejövő kérések feldolgozásával, hanem amint bejön egy, rögtön
+elkezd egy szabad feldolgozó (worker) szálat keresni, ha nem talál, akkor pedig indít egy újat. A feldolgozó szál az, ami először
+beleolvas a kérés fejlécébe.
+Ennek megfelelően a kéréseket nem a site-ok neve alapján osztja el, hanem az alapján, hogy mely portjára érkezett a kérés (a feldolgozó
+folyamatokat is ennek megfelelően lehet konfigurálni). Ez azt jelenti, hogy futtató felhasználónként egy portra (vagy unix socketre) van
+szükségünk a futtatáshoz.</p>
+
+<p>PHP esetében a FastCGI futtatási mód egyébként nem annyira újdonság, már a 4-es verzióhoz is készült egy olyan patchkészlet, mely lehetővé
+tette a webalkalmazások ilyen módon való futtatását, azóta pedig minden PHP főverzióhoz elkészült, illetve az 5.3-as verziótól már szerves
+része a fő kódbázisnak is a FastCGI futtatási lehetőség. A továbbiakban ezzel foglalkozunk.</p>
+
+<p>Tekintve, hogy az Nginx-hez nem készült PHP modul, és CGI-ket sem tud futtatni, a PHP integrációjának egyetlen újta-módja a FastCGI-s futtatás.</p>
+
+<h2>Egy FastCGI worker születése</h2>
+
+<p>A FastCGI használatba vételéhez fel kell telepíteni az ehhez szükséges csomagot, mely a legtöbbször <code>php-fpm</code>, <code>php5-fpm</code> vagy <code>php53-fpm</code>
+néven található meg a rendszerben. Van néhány olyan Linux disztribúció, mely alapból nem szállítja ezt a futtatási módot, de szinte minden
+ilyenhez létezik külső csomagfejlesztők által biztosított csomag.</p>
+
+<p>Az FPM konfigja alapvetően két részből áll: a globális beállításokból, és az egyes ún. worker poolok konfigurálásából. A globális részben
+általában nincs túl sok dolgunk, ezt a csomagfejlesztők már jól beállították, hiszen itt olyasmiket lehet csak állítani, mint a naplófájlok
+útvonala, vagy a folyamatazonosítót tartalmazó fájl útvonala.</p>
+
+<p>Ami számunkra sokkal-sokkal érdekesebb, az az egyes workerek konfigurálása. Három fő dolgot kell beállítani:</p>
+
+<ul>
+<li>Milyen felhasználó nevében fusson</li>
+<li>Hol figyeljen</li>
+<li>Milyen stratégiát használjon a gyermekfolyamatok menedzselése során</li>
+</ul>
+
+
+<p>Lássunk egy tipikus worker konfigot (csak a cikkben érdekes részeket hagytam meg, ennél több lehetőség is van):</p>
+
+<p>```ini
+[www]
+; The address on which to accept FastCGI requests.
+; Valid syntaxes are:
+;   'ip.add.re.ss:port'    - to listen on a TCP socket to a specific address on
+;                            a specific port;
+;   'port'                 - to listen on a TCP socket to all addresses on a
+;                            specific port;
+;   '/path/to/unix/socket' - to listen on a unix socket.
+; Note: This value is mandatory.
+listen = 127.0.0.1:9000
+;listen = /var/run/php-fpm/www.sock</p>
+
+<p>; Unix user/group of processes
+; Note: The user is mandatory. If the group is not set, the default user's group
+;       will be used.
+user = nobody
+group = www</p>
+
+<p>; Choose how the process manager will control the number of child processes.
+; Possible Values:
+;   static  - a fixed number (pm.max_children) of child processes;
+;   dynamic - the number of child processes are set dynamically based on the
+;             following directives:
+;             pm.max_children      - the maximum number of children that can
+;                                    be alive at the same time.
+;             pm.start_servers     - the number of children created on startup.
+;             pm.min_spare_servers - the minimum number of children in 'idle'
+;                                    state (waiting to process). If the number
+;                                    of 'idle' processes is less than this
+;                                    number then some children will be created.
+;             pm.max_spare_servers - the maximum number of children in 'idle'
+;                                    state (waiting to process). If the number
+;                                    of 'idle' processes is greater than this
+;                                    number then some children will be killed.
+;  ondemand - no children are created at startup. Children will be forked when
+;             new requests will connect. The following parameter are used:
+;             pm.max_children           - the maximum number of children that
+;                                         can be alive at the same time.
+;             pm.process_idle_timeout   - The number of seconds after which
+;                                         an idle process will be killed.
+; Note: This value is mandatory.
+pm = ondemand</p>
+
+<p>; The number of child processes to be created when pm is set to 'static' and the
+; maximum number of child processes to be created when pm is set to 'dynamic'.
+; This value sets the limit on the number of simultaneous requests that will be
+; served. Equivalent to the ApacheMaxClients directive with mpm_prefork.
+; Equivalent to the PHP_FCGI_CHILDREN environment variable in the original PHP
+; CGI.
+; Note: Used when pm is set to either 'static' or 'dynamic'
+; Note: This value is mandatory.
+pm.max_children = 20
+pm.process_idle_timeout = 10s</p>
+
+<p>; The number of child processes created on startup.
+; Note: Used only when pm is set to 'dynamic'
+; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2
+;pm.start_servers = 20</p>
+
+<p>; The desired minimum number of idle server processes.
+; Note: Used only when pm is set to 'dynamic'
+; Note: Mandatory when pm is set to 'dynamic'
+; pm.min_spare_servers = 5</p>
+
+<p>; The desired maximum number of idle server processes.
+; Note: Used only when pm is set to 'dynamic'
+; Note: Mandatory when pm is set to 'dynamic'
+; pm.max_spare_servers = 20</p>
+
+<p>; The number of requests each child process should execute before respawning.
+; This can be useful to work around memory leaks in 3rd party libraries. For
+; endless request processing specify '0'. Equivalent to PHP_FCGI_MAX_REQUESTS.
+; Default Value: 0
+;pm.max_requests = 500</p>
+
+<p>; Chroot to this directory at the start. This value must be defined as an
+; absolute path. When this value is not set, chroot is not used.
+; Note: you can prefix with '$prefix' to chroot to the pool prefix or one
+; of its subdirectories. If the pool prefix is not set, the global prefix
+; will be used instead.
+; Note: chrooting is a great security feature and should be used whenever
+;       possible. However, all PHP paths will be relative to the chroot
+;       (error_log, sessions.save_path, ...).
+; Default Value: not set
+;chroot =
+; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from
+; the current environment.
+; Default Value: clean env
+;env[HOSTNAME] = $HOSTNAME
+;env[PATH] = /usr/local/bin:/usr/bin:/bin</p>
+
+<p>; Additional php.ini defines, specific to this pool of workers. These settings
+; overwrite the values previously defined in the php.ini. The directives are the
+; same as the PHP SAPI:
+;   php_value/php_flag             - you can set classic ini defines which can
+;                                    be overwritten from PHP call 'ini_set'.
+;   php_admin_value/php_admin_flag - these directives won't be overwritten by
+;                                     PHP call 'ini_set'
+; For php_*flag, valid values are on, off, 1, 0, true, false, yes or no.</p>
+
+<p>; Default Value: nothing is defined by default except the values in php.ini and
+;                specified at startup with the -d argument
+php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@railwayhosting.hu
+;php_flag[display_errors] = off
+;php_admin_value[error_log] = /var/log/fpm-php.www.log
+;php_admin_flag[log_errors] = on
+;php_admin_value[memory_limit] = 32M
+```</p>
+
+<p>Fuh, kicsit hosszú lett, de nem akartam kivenni a magyarázó megjegyzéseket, mert
+rettentő hasznosak - noha a végleges konfig fájlból ezeket ki lehet gyomlálni</p>
+
+<p>Szóval, ahogy látjuk, a konfig a port megadásával indul (<code>listen</code>, 10. sor), hogy hol akarjuk majd elérni a
+workereket. Ez lehet TCP port is, vagy egy ún. Unix socket, ami valójában nem más, mint egy speciális
+fájl, amit ugyan közvetlenül nem lehet sem írni sem olvasni, viszont kiválóan használható folyamatok
+közti kommunikációra. Ez utóbbi gyetlen korlátja, hogy kialakítása miatt csak egy gépen belül működik.</p>
+
+<p>A következő két opció (<code>user</code> és <code>group</code>, 11-12. sorok) adja meg, hogy milyen felhasználó és csoport nevében
+fussanak a worker folyamatok. Ez határozza meg, hogy a PHP feldolgozó milyen fájlokat/mappákat írhat és olvashat,
+tehát minden jogosultságnak eszerint kell alakulnia a webalkalmazás fájljain/mappáin.</p>
+
+<p>Ezután következik a worker folyamatok menedzselésének szabályozása (19-74. sorok).
+A konfig fájl kommentjei elég részletesen bemutatnak minden opciót, így én arra fókuszálnék,
+hogy melyik főbb stratégiát mikor érdemes használni:</p>
+
+<ul>
+<li><strong>ondemand:</strong> Fejlesztéshez ez a legjobb. Nem terheli a gépet feleslegesen kihasználatlan worker folyamatokkal,
+illetve nincs esélye hogy "beleragad" valami régebbi módosítás. Nagyon gyér látogatottságú, gyors
+válaszidőt nem igénylő oldalak esetében lehet még hasznos, például valami statisztika oldalnál.</li>
+<li><strong>static:</strong> Nevéből adódóan mindig egy fix worker készlettel dolgozik. Olyan oldalaknál hasznos, aminek előre
+tervezhető a terhelése, pl. intranetes oldalaknál, ahol mindig körülbelül ugyanannyi felhasználóra kell
+felkészülni</li>
+<li><strong>dynamic:</strong> Ez az, amit általánosan használunk publikus website-ok esetén. Konfigurációs opciói nagyjából
+hasonlóképpen alakulnak, mint a Prefork modullal futtatott Apache hasonló opciói, bár itt-ott van némi eltérés.</li>
+</ul>
+
+
+<p>Sorban ezután nyílik lehetőség a chroot beállítására (85. sor). Fontos tudni, hogy a FastCGI-s PHP csak a worker folyamat elindulása
+<strong>után</strong> vált be chroot-ba, így a worker elindulásához szükséges programkönyvtáraknak nem kell a chroot részét képezniük, csak
+a különböző beépülő modulok által igényelt dolgoknak kell ott lenniük (pl. az XML modulokhoz a libxml2-nek). Ez a tizedére
+csökkenti a chroot méretét.</p>
+
+<p>Végül két külön szekcióban a környezeti változókat (<code>env</code>) adhatjuk meg, illetve a közös php.ini opciókat bírálhatjuk felül,
+hasonlóan, mint az Apache modulként futtatott PHP esetében.</p>
+
+<p>Nagyjából ennyiből áll egy PHP worker beállítása. A következő részben összekötjük az Nginx-et és a PHP-t, illetve ismételten
+szó kerül a teljesítményről is.</p>
+
+<p><em>Folytatjuk</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Házi, magam sütöttem]]></title>
@@ -187,56 +426,6 @@ csak abból nem billing meg shipping címek lesznek, hanem csak címek). Azaz, m
 
 
 <p>Azért ezzel is sikerült egy jó órát szívni...</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RubyMine és TeamCity]]></title>
-    <link href="http://hron.me/blog/2012/11/rubymine-es-teamcity/"/>
-    <updated>2012-11-11T11:08:00+01:00</updated>
-    <id>http://hron.me/blog/2012/11/rubymine-es-teamcity</id>
-    <content type="html"><![CDATA[<p>Már régóta keresek egy olyan IDE-t, ami képes nem csak projektszinten kezelni és szintaxis-kiemelést adni a Ruby/Rails projektjeimnek,
-de magát a nyelvet is "beszéli", vagyis van például kódkiegészítés, refaktorálás, figyelmeztetések, etc, etc.
-Az általam eddig ismert legkomolyabb IDE, a NetBeans is csak elég alapszinten beszélte a Ruby nyelvet - aztán ki is vették belőle a támogatást,
-jelenleg a plugin folyamatosan haláltusáját vívja, 7.2-höz már meg sem jelent semmiféle verzió.</p>
-
-<p>Egy StackOverflow böngészés során akadtam rá a JetBrains <a href="http://www.jetbrains.com/ruby/">RubyMine</a> nevű IDE-jére. Saját bevallásuk szerint az
-eszköz képes nyelvi szinten is kezelni a Ruby-t, illetve támogatja az összes nagyobb teszkörnyezetet. Mivel amúgy is épp indítottam egy projektet,
-úgy gondoltam, adok neki egy esélyt, hát legfeljebb letörlöm, és folytatom az eddigi módon, TextMate és Vim párossal. Szerencsére csalódtam. Pozitívan.
-Hatalmasat.</p>
-
-<p>A RubyMine ugyanis nem csak egyszerűen jó, hanem - amennyire tudom - a maga nemében jelenleg páratlan a piacon azzal, hogy tényleg hozza azt, amit ígér,
-vagyis teljes mértékben támogatja a Ruby nyelvet és a Rails keretrendszert, sőt, még ennél is tovább megy, beépített támogatása van a lokalizációk kezeléséhez,
-grafikusan mutatja, hogy mely mdoeljeink vannak adatbázisban, képes a Rails projekt szerkezetét Rails-aspektusú nézetben mutatni (ahol nem mappák és fájlok vannak,
-hanem kategóriák, pl. Controllers, Models, Helpers), a kontrollerek akcióihoz hozzá tudja rendelni a nézeteket, partialokat, a refaktor során pedig olyan mélységekbe is
-lemegy, amiről álmodni sem mertem soha - egy modell átnevezésekor képes a nézetekben is utánanézni az útvonal metódusoknak, és megfelelően átnevezni azokat!</p>
-
-<p>Ezen felül csak úgy mellékesen, képes kezelni az <a href="http://rvm.io">RVM</a>-et, támogatja a <a href="http://gembundler.com/">Bundler</a>t, a Rails generátorokat, a Rake taszkokat, SCSS-t meg CoffeeScript-et, ... meg ilyen kis semmiségeket is.</p>
-
-<p>Az egyetlen probléma vele a kissé hiperaktív kódkiegészítése, ha leírok egy nyilat, rögtön ugrana rá, pedig én magamtól szoktam szóközt is ütni utána, de azzal meg
-elfogadom az első lehetőséget is egyben - ami általában rossz ötlet. Biztos le lehet valahogy beszélni róla, majd utánanézek (de ha valaki tudja a tuti megoldást,
-a komment doboz mindig nyitott az ilyesmikre :-) ), egyelőre még elviselem.</p>
-
-<p>Jelenleg folyamatosan használom az épp aktív projektemhez, teljesen jól szolgál, bár még képességeinek csak szerény részét használom. Most egyelőre a 30 napos
-próbaidőszakban vagyunk (dicséretes, hogy ez alatt sem ugrál föl valami kis ablak indításkor, hogy még 22.45 nap van hátra, és mostazonnal vedd meg - ez rém undorító,
-ha tetszik, úgyis megveszem - főleg, mert lejár -, ha meg nem tetszik, akkor ez a kapacitálás csak ront a dolgon), ám azt gondolom, hogy a 66 euro a személyes licencért abszolút megéri.</p>
-
-<p>Amit nem használok belőle (sem), az a Git integráció, nekem a git még mindig parancssoros dolgot jelent, egyszerűbb kiadni a <code>git co feature-awesome-stuff</code> parancsot,
-mint GUI-ban kikattintgatni. Legalábbis szerintem.</p>
-
-<p>A JetBrains honlapját tallózgatva (ismét) ráakadtam a <a href="http://www.jetbrains.com/teamcity/">TeamCity</a> nevű CI szerverre is, ezzel egyszer volt már egy futó kapcsolatom, de
-valamiért nem sikerült telepíteni, és a végén Jenkins lett belőle. Most ismét kapott tőlem egy lehetőséget, hogy elinduljon, és meggyőzzön. Ezúttal mindkettő sikerült is neki.</p>
-
-<p>A TeamCity-ről azt érdemes tudni, hogy egy olyan Continous Integration szerver (továbbiakban CI szerver), melyet nagyon egyszerű kezelni, és nagyon jól áttekinthető felületet
-ad, még egy felületes szemlélő számára is (ezt muszáj volt elsütni :-) ).</p>
-
-<p>A RubyMine fejlesztők blogján pedig találtam egy <a href="http://blog.jetbrains.com/ruby/2009/11/jetbrains-teamcity-continuous-integration-for-ruby/">írást</a>, mely borzasztóan felcsigázta a kíváncsiságomat.
-Azt merték ugyanis állítani, hogy  TeamCity beépítetten képes kezelni a RSpec és a Cucumber tesztek kimenetét, arrol riportot készít, hibáról értesít. Plusz, a TeamCity beépítetten támogatja az XMPP alapú notifikációt, amit pl. a Jenkins csak pluginnel tud.</p>
-
-<p>Sajnos a TeamCity egyik hiányossága, hogy ő viszont már csak korlátozott mértékben képes kezelni a Bundlert: képes felismerni a létét, és azon keresztül futtatni a rake taszkokat, de már pl. egy <code>bundle install</code> -t képtelen elengedni, azt kézzel kell egy külön Build Step-ben, viszonylag kacifántosan megoldani. Végül sikerült, de azért nem voltam felhőtlenül boldog.
-Viszont az első teszteredmények feledtették velem az ezen a téren történt csalódást, mert pontosan azt kaptam, amit elvártam: mindenféle külön konfiguráció nélkül jelenítete meg a Cucumber es RSpec tesztek eredményét, ráadásul egy egészen barátságos felületen.</p>
-
-<p>Tényleg nem JetBrains reklámnak szánom ezt a postot, de azért annyira érződik mindkét terméken, hogy ezeket olyanok fejlesztik, akik láttak már közelről Rails projektet, meg RVM-et, meg ilyesmit... például a Jenkins Ruby pluginjénél nem volt ilyen érzésem.</p>
 ]]></content>
   </entry>
   

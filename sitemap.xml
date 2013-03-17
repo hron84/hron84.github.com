@@ -106,7 +106,7 @@
     </url>
     <url>
         <loc>http://hron.me/blog/2013/01/nginx-bevezeto/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-03-17T14:00:32+01:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2013/01/gitiles-install-howto/</loc>
@@ -121,23 +121,27 @@
         <lastmod>2013-03-03T19:05:23+01:00</lastmod>
     </url>
     <url>
-        <loc>http://hron.me/about/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <loc>http://hron.me/blog/2013/03/nginx-es-php/</loc>
+        <lastmod>2013-03-17T14:00:12+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/</loc>
+        <lastmod>2013-03-17T14:00:32+01:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/archives/</loc>
-        <lastmod>2013-03-03T19:05:23+01:00</lastmod>
+        <lastmod>2013-03-17T14:00:32+01:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/en/contributions/</loc>
         <lastmod>2013-01-30T17:02:59+01:00</lastmod>
     </url>
     <url>
-        <loc>http://hron.me/hu/hozzajarulasok/</loc>
+        <loc>http://hron.me/about/</loc>
         <lastmod>2013-01-30T17:02:59+01:00</lastmod>
     </url>
     <url>
-        <loc>http://hron.me/</loc>
-        <lastmod>2013-03-03T19:05:23+01:00</lastmod>
+        <loc>http://hron.me/hu/hozzajarulasok/</loc>
+        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
     </url>
 </urlset>

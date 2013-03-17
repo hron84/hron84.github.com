@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-03-03T19:05:28+01:00</updated>
+  <updated>2013-03-17T14:00:59+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,352 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Nginx és PHP]]></title>
+    <link href="http://hron.me/blog/2013/03/nginx-es-php/"/>
+    <updated>2013-03-17T11:32:00+01:00</updated>
+    <id>http://hron.me/blog/2013/03/nginx-es-php</id>
+    <content type="html"><![CDATA[<p>Az <a href="http://hron.me/blog/2013/01/nginx-bevezeto/">előző</a> cikkben alapszinten megismerkedtünk az Nginx-szel,
+valamint megtudtuk, mitől és miben gyorsabb, mint a kihívójának szánt Apache.</p>
+
+<p>Ebben, és a következő cikkben azt vizsgáljuk, hogy hogyan tudunk egy PHP alapú site-t futtatni vele, például
+egy Drupal alapú portált.</p>
+
+<!-- more -->
+
+
+<h2>PHP kicsit másként</h2>
+
+<p>A legtöbben tisztában vannak azzal, hogy a PHP-t alapvetően kétféleképpen lehet futtatni: Apache modulként
+és CGI-ként. A két módszer közül az előbbi elterjedtebb, mert a CGI-s futtatás nagy terhet ró a kiszolgáló
+webszerverre, hiszne minden egyes lekéréshez külön PHP interpretert kell forkolni.</p>
+
+<p>Az Apache modulos futtatásnak viszont van egy pár hátránya, amiről nem mindig esik szó:</p>
+
+<ul>
+<li>Problémákhoz vezethet, ha szálkezeléses (threading) Apache-on belül használjuk</li>
+<li>Ugyanazzal az userrel fut, mint az őt hostoló Apache folyamat</li>
+<li>Az életciklusa szorosan össze van kötve az őt hostoló Apache folyamattal</li>
+</ul>
+
+
+<p>Ebből a leginkább problematikus a második pont. Az Apache-t ugyanis alapvetően kétféleképp szokás futtatni:</p>
+
+<ul>
+<li>Minden site ugyanazzal a felhasználóval fut (www-data, wwwrun, apache, httpd, &#8230;).
+Ennek hátrányai nyilvánvalóak: bármely site kódja képes lehet írni/olvasni bármely másik site könyvtárát</li>
+<li>Minden site különböző felhasználóval fut, de a fő Apache folyamat root userként (ITK modul).</li>
+</ul>
+
+
+<p>A második probléma megértéséhez kicsit bele kell túrni az Apache lelkivilágába. A fő Apache folyamat ugyanis az,
+amelyik a 80-as (443-as, stb) porton figyel, majd bejövő kérésnél a kérés fejlécét megvizsgálva dönti el, hogy
+milyen felhasználó nevében indítsa el a gyermekfolyamatot. Azonban - és ez nagyon fontos - amennyiben bármilyen
+sérülékenység van a HTTP kéréseket feldolgozó kódrészletben, a támadó ezt kihasználva egy root felhasználói jogokkal
+futó folyamat belsejében találja magát - ami teljes hozzáférést biztosít számára a rendszer minden komponenséhez és
+adatához. A fő Apache folyamatnak viszont muszáj root userként futnia, mert csak így tud adott felhasználóval
+gyermekfolyamatot indítani.</p>
+
+<p>Mi hát a megoldás? Egy teljesen új futtatási mód: a FastCGI!
+A FastCGI ötvözi a CGI és a modulos PHP előnyeit: bármilyen felhasználóval elindulhat, viszont egynél több lekérést is ki
+tud szolgálni. Ezen felül teljesen elkülönítetten fut a webszervertől, egy többé-kevésbé standard protokollon kommunikálva
+vele, így képes lehet akár bebörtönözve is futni (chroot, jail), de akár egy teljesen különálló gépen is futhat.</p>
+
+<p>Működését tekintve lényegesen egyszerübb folyamatról van szó: itt is egy darab, root felhasználóként futó felügyelő folyamat
+(control process) fut, ám ő nem foglalkozik semmilyen szinten a bejövő kérések feldolgozásával, hanem amint bejön egy, rögtön
+elkezd egy szabad feldolgozó (worker) szálat keresni, ha nem talál, akkor pedig indít egy újat. A feldolgozó szál az, ami először
+beleolvas a kérés fejlécébe.
+Ennek megfelelően a kéréseket nem a site-ok neve alapján osztja el, hanem az alapján, hogy mely portjára érkezett a kérés (a feldolgozó
+folyamatokat is ennek megfelelően lehet konfigurálni). Ez azt jelenti, hogy futtató felhasználónként egy portra (vagy unix socketre) van
+szükségünk a futtatáshoz.</p>
+
+<p>PHP esetében a FastCGI futtatási mód egyébként nem annyira újdonság, már a 4-es verzióhoz is készült egy olyan patchkészlet, mely lehetővé
+tette a webalkalmazások ilyen módon való futtatását, azóta pedig minden PHP főverzióhoz elkészült, illetve az 5.3-as verziótól már szerves
+része a fő kódbázisnak is a FastCGI futtatási lehetőség. A továbbiakban ezzel foglalkozunk.</p>
+
+<p>Tekintve, hogy az Nginx-hez nem készült PHP modul, és CGI-ket sem tud futtatni, a PHP integrációjának egyetlen újta-módja a FastCGI-s futtatás.</p>
+
+<h2>Egy FastCGI worker születése</h2>
+
+<p>A FastCGI használatba vételéhez fel kell telepíteni az ehhez szükséges csomagot, mely a legtöbbször <code>php-fpm</code>, <code>php5-fpm</code> vagy <code>php53-fpm</code>
+néven található meg a rendszerben. Van néhány olyan Linux disztribúció, mely alapból nem szállítja ezt a futtatási módot, de szinte minden
+ilyenhez létezik külső csomagfejlesztők által biztosított csomag.</p>
+
+<p>Az FPM konfigja alapvetően két részből áll: a globális beállításokból, és az egyes ún. worker poolok konfigurálásából. A globális részben
+általában nincs túl sok dolgunk, ezt a csomagfejlesztők már jól beállították, hiszen itt olyasmiket lehet csak állítani, mint a naplófájlok
+útvonala, vagy a folyamatazonosítót tartalmazó fájl útvonala.</p>
+
+<p>Ami számunkra sokkal-sokkal érdekesebb, az az egyes workerek konfigurálása. Három fő dolgot kell beállítani:</p>
+
+<ul>
+<li>Milyen felhasználó nevében fusson</li>
+<li>Hol figyeljen</li>
+<li>Milyen stratégiát használjon a gyermekfolyamatok menedzselése során</li>
+</ul>
+
+
+<p>Lássunk egy tipikus worker konfigot (csak a cikkben érdekes részeket hagytam meg, ennél több lehetőség is van):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+</pre></td><td class='code'><pre><code class='ini'><span class='line'><span class="k">[www]</span>
+</span><span class='line'><span class="c">; The address on which to accept FastCGI requests.</span>
+</span><span class='line'><span class="c">; Valid syntaxes are:</span>
+</span><span class='line'><span class="c">;   &#39;ip.add.re.ss:port&#39;    - to listen on a TCP socket to a specific address on</span>
+</span><span class='line'><span class="c">;                            a specific port;</span>
+</span><span class='line'><span class="c">;   &#39;port&#39;                 - to listen on a TCP socket to all addresses on a</span>
+</span><span class='line'><span class="c">;                            specific port;</span>
+</span><span class='line'><span class="c">;   &#39;/path/to/unix/socket&#39; - to listen on a unix socket.</span>
+</span><span class='line'><span class="c">; Note: This value is mandatory.</span>
+</span><span class='line'><span class="na">listen</span> <span class="o">=</span> <span class="s">127.0.0.1:9000</span>
+</span><span class='line'><span class="c">;listen = /var/run/php-fpm/www.sock</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; Unix user/group of processes</span>
+</span><span class='line'><span class="c">; Note: The user is mandatory. If the group is not set, the default user&#39;s group</span>
+</span><span class='line'><span class="c">;       will be used.</span>
+</span><span class='line'><span class="na">user</span> <span class="o">=</span> <span class="s">nobody</span>
+</span><span class='line'><span class="na">group</span> <span class="o">=</span> <span class="s">www</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; Choose how the process manager will control the number of child processes.</span>
+</span><span class='line'><span class="c">; Possible Values:</span>
+</span><span class='line'><span class="c">;   static  - a fixed number (pm.max_children) of child processes;</span>
+</span><span class='line'><span class="c">;   dynamic - the number of child processes are set dynamically based on the</span>
+</span><span class='line'><span class="c">;             following directives:</span>
+</span><span class='line'><span class="c">;             pm.max_children      - the maximum number of children that can</span>
+</span><span class='line'><span class="c">;                                    be alive at the same time.</span>
+</span><span class='line'><span class="c">;             pm.start_servers     - the number of children created on startup.</span>
+</span><span class='line'><span class="c">;             pm.min_spare_servers - the minimum number of children in &#39;idle&#39;</span>
+</span><span class='line'><span class="c">;                                    state (waiting to process). If the number</span>
+</span><span class='line'><span class="c">;                                    of &#39;idle&#39; processes is less than this</span>
+</span><span class='line'><span class="c">;                                    number then some children will be created.</span>
+</span><span class='line'><span class="c">;             pm.max_spare_servers - the maximum number of children in &#39;idle&#39;</span>
+</span><span class='line'><span class="c">;                                    state (waiting to process). If the number</span>
+</span><span class='line'><span class="c">;                                    of &#39;idle&#39; processes is greater than this</span>
+</span><span class='line'><span class="c">;                                    number then some children will be killed.</span>
+</span><span class='line'><span class="c">;  ondemand - no children are created at startup. Children will be forked when</span>
+</span><span class='line'><span class="c">;             new requests will connect. The following parameter are used:</span>
+</span><span class='line'><span class="c">;             pm.max_children           - the maximum number of children that</span>
+</span><span class='line'><span class="c">;                                         can be alive at the same time.</span>
+</span><span class='line'><span class="c">;             pm.process_idle_timeout   - The number of seconds after which</span>
+</span><span class='line'><span class="c">;                                         an idle process will be killed.</span>
+</span><span class='line'><span class="c">; Note: This value is mandatory.</span>
+</span><span class='line'><span class="na">pm</span> <span class="o">=</span> <span class="s">ondemand</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; The number of child processes to be created when pm is set to &#39;static&#39; and the</span>
+</span><span class='line'><span class="c">; maximum number of child processes to be created when pm is set to &#39;dynamic&#39;.</span>
+</span><span class='line'><span class="c">; This value sets the limit on the number of simultaneous requests that will be</span>
+</span><span class='line'><span class="c">; served. Equivalent to the ApacheMaxClients directive with mpm_prefork.</span>
+</span><span class='line'><span class="c">; Equivalent to the PHP_FCGI_CHILDREN environment variable in the original PHP</span>
+</span><span class='line'><span class="c">; CGI.</span>
+</span><span class='line'><span class="c">; Note: Used when pm is set to either &#39;static&#39; or &#39;dynamic&#39;</span>
+</span><span class='line'><span class="c">; Note: This value is mandatory.</span>
+</span><span class='line'><span class="na">pm.max_children</span> <span class="o">=</span> <span class="s">20</span>
+</span><span class='line'><span class="na">pm.process_idle_timeout</span> <span class="o">=</span> <span class="s">10s</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; The number of child processes created on startup.</span>
+</span><span class='line'><span class="c">; Note: Used only when pm is set to &#39;dynamic&#39;</span>
+</span><span class='line'><span class="c">; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2</span>
+</span><span class='line'><span class="c">;pm.start_servers = 20</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; The desired minimum number of idle server processes.</span>
+</span><span class='line'><span class="c">; Note: Used only when pm is set to &#39;dynamic&#39;</span>
+</span><span class='line'><span class="c">; Note: Mandatory when pm is set to &#39;dynamic&#39;</span>
+</span><span class='line'><span class="c">; pm.min_spare_servers = 5</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; The desired maximum number of idle server processes.</span>
+</span><span class='line'><span class="c">; Note: Used only when pm is set to &#39;dynamic&#39;</span>
+</span><span class='line'><span class="c">; Note: Mandatory when pm is set to &#39;dynamic&#39;</span>
+</span><span class='line'><span class="c">; pm.max_spare_servers = 20</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; The number of requests each child process should execute before respawning.</span>
+</span><span class='line'><span class="c">; This can be useful to work around memory leaks in 3rd party libraries. For</span>
+</span><span class='line'><span class="c">; endless request processing specify &#39;0&#39;. Equivalent to PHP_FCGI_MAX_REQUESTS.</span>
+</span><span class='line'><span class="c">; Default Value: 0</span>
+</span><span class='line'><span class="c">;pm.max_requests = 500</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; Chroot to this directory at the start. This value must be defined as an</span>
+</span><span class='line'><span class="c">; absolute path. When this value is not set, chroot is not used.</span>
+</span><span class='line'><span class="c">; Note: you can prefix with &#39;$prefix&#39; to chroot to the pool prefix or one</span>
+</span><span class='line'><span class="c">; of its subdirectories. If the pool prefix is not set, the global prefix</span>
+</span><span class='line'><span class="c">; will be used instead.</span>
+</span><span class='line'><span class="c">; Note: chrooting is a great security feature and should be used whenever </span>
+</span><span class='line'><span class="c">;       possible. However, all PHP paths will be relative to the chroot</span>
+</span><span class='line'><span class="c">;       (error_log, sessions.save_path, ...).</span>
+</span><span class='line'><span class="c">; Default Value: not set</span>
+</span><span class='line'><span class="c">;chroot = </span>
+</span><span class='line'><span class="c">; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from</span>
+</span><span class='line'><span class="c">; the current environment.</span>
+</span><span class='line'><span class="c">; Default Value: clean env</span>
+</span><span class='line'><span class="c">;env[HOSTNAME] = $HOSTNAME</span>
+</span><span class='line'><span class="c">;env[PATH] = /usr/local/bin:/usr/bin:/bin</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; Additional php.ini defines, specific to this pool of workers. These settings</span>
+</span><span class='line'><span class="c">; overwrite the values previously defined in the php.ini. The directives are the</span>
+</span><span class='line'><span class="c">; same as the PHP SAPI:</span>
+</span><span class='line'><span class="c">;   php_value/php_flag             - you can set classic ini defines which can</span>
+</span><span class='line'><span class="c">;                                    be overwritten from PHP call &#39;ini_set&#39;. </span>
+</span><span class='line'><span class="c">;   php_admin_value/php_admin_flag - these directives won&#39;t be overwritten by</span>
+</span><span class='line'><span class="c">;                                     PHP call &#39;ini_set&#39;</span>
+</span><span class='line'><span class="c">; For php_*flag, valid values are on, off, 1, 0, true, false, yes or no.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">; Default Value: nothing is defined by default except the values in php.ini and</span>
+</span><span class='line'><span class="c">;                specified at startup with the -d argument</span>
+</span><span class='line'><span class="na">php_admin_value[sendmail_path]</span> <span class="o">=</span> <span class="s">/usr/sbin/sendmail -t -i -f www@railwayhosting.hu</span>
+</span><span class='line'><span class="c">;php_flag[display_errors] = off</span>
+</span><span class='line'><span class="c">;php_admin_value[error_log] = /var/log/fpm-php.www.log</span>
+</span><span class='line'><span class="c">;php_admin_flag[log_errors] = on</span>
+</span><span class='line'><span class="c">;php_admin_value[memory_limit] = 32M</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fuh, kicsit hosszú lett, de nem akartam kivenni a magyarázó megjegyzéseket, mert
+rettentő hasznosak - noha a végleges konfig fájlból ezeket ki lehet gyomlálni</p>
+
+<p>Szóval, ahogy látjuk, a konfig a port megadásával indul (<code>listen</code>, 10. sor), hogy hol akarjuk majd elérni a
+workereket. Ez lehet TCP port is, vagy egy ún. Unix socket, ami valójában nem más, mint egy speciális
+fájl, amit ugyan közvetlenül nem lehet sem írni sem olvasni, viszont kiválóan használható folyamatok
+közti kommunikációra. Ez utóbbi gyetlen korlátja, hogy kialakítása miatt csak egy gépen belül működik.</p>
+
+<p>A következő két opció (<code>user</code> és <code>group</code>, 11-12. sorok) adja meg, hogy milyen felhasználó és csoport nevében
+fussanak a worker folyamatok. Ez határozza meg, hogy a PHP feldolgozó milyen fájlokat/mappákat írhat és olvashat,
+tehát minden jogosultságnak eszerint kell alakulnia a webalkalmazás fájljain/mappáin.</p>
+
+<p>Ezután következik a worker folyamatok menedzselésének szabályozása (19-74. sorok).
+A konfig fájl kommentjei elég részletesen bemutatnak minden opciót, így én arra fókuszálnék,
+hogy melyik főbb stratégiát mikor érdemes használni:</p>
+
+<ul>
+<li><strong>ondemand:</strong> Fejlesztéshez ez a legjobb. Nem terheli a gépet feleslegesen kihasználatlan worker folyamatokkal,
+illetve nincs esélye hogy &#8220;beleragad&#8221; valami régebbi módosítás. Nagyon gyér látogatottságú, gyors
+válaszidőt nem igénylő oldalak esetében lehet még hasznos, például valami statisztika oldalnál.</li>
+<li><strong>static:</strong> Nevéből adódóan mindig egy fix worker készlettel dolgozik. Olyan oldalaknál hasznos, aminek előre
+tervezhető a terhelése, pl. intranetes oldalaknál, ahol mindig körülbelül ugyanannyi felhasználóra kell
+felkészülni</li>
+<li><strong>dynamic:</strong> Ez az, amit általánosan használunk publikus website-ok esetén. Konfigurációs opciói nagyjából
+hasonlóképpen alakulnak, mint a Prefork modullal futtatott Apache hasonló opciói, bár itt-ott van némi eltérés.</li>
+</ul>
+
+
+<p>Sorban ezután nyílik lehetőség a chroot beállítására (85. sor). Fontos tudni, hogy a FastCGI-s PHP csak a worker folyamat elindulása
+<strong>után</strong> vált be chroot-ba, így a worker elindulásához szükséges programkönyvtáraknak nem kell a chroot részét képezniük, csak
+a különböző beépülő modulok által igényelt dolgoknak kell ott lenniük (pl. az XML modulokhoz a libxml2-nek). Ez a tizedére
+csökkenti a chroot méretét.</p>
+
+<p>Végül két külön szekcióban a környezeti változókat (<code>env</code>) adhatjuk meg, illetve a közös php.ini opciókat bírálhatjuk felül,
+hasonlóan, mint az Apache modulként futtatott PHP esetében.</p>
+
+<p>Nagyjából ennyiből áll egy PHP worker beállítása. A következő részben összekötjük az Nginx-et és a PHP-t, illetve ismételten
+szó kerül a teljesítményről is.</p>
+
+<p><em>Folytatjuk</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Házi, magam sütöttem]]></title>
@@ -1398,27 +1744,6 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
 
 <script src="https://gist.github.com/1838983.js?file=gistfile1.rb"></script>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Re, back, valami]]></title>
-    <link href="http://hron.me/blog/2012/02/re-back-valami/"/>
-    <updated>2012-02-14T19:37:00+01:00</updated>
-    <id>http://hron.me/blog/2012/02/re-back-valami</id>
-    <content type="html"><![CDATA[<p>Fel&eacute;lesztem ezt a blogot, h&aacute;tha lesz is bel&ouml;le valami. Most visszaolvastam &eacute;s durv&aacute;n r&eacute;gen nem &iacute;rtam ide semmit, de megmondom &ouml;szint&eacute;n, nem vagyok az a blogol&oacute;s t&iacute;pus. M&eacute;gis, valahogy zavar ez az &uuml;res lap itten, h&aacute;t majd kital&aacute;lok valamit.</p>
-
-<p>Most &eacute;ppen Rails fejlesztek nagyban. Szinte minden &uacute;j, ez kicsit frusztr&aacute;l is, de h&aacute;t haladni kell a korral. Rails 3, Devise, Resque, ActiveAdmin - csak hogy a f&ouml;bb dolgokat eml&iacute;tsem.</p>
-
-<p>A legjobb a Rails fejleszt&eacute;sben, hogy ha otthon vagy a HTML-ben, CSS-ben, JS-ben, akkor k&ouml;nny&uuml; vele a munka, de ezekre mindenk&eacute;ppen sz&uuml;ks&eacute;g van, mert sok megold&aacute;s l&eacute;nyeg&eacute;t csak akkor lehet meg&eacute;rteni, ha az ember ismeri, hogy a fent eml&iacute;tett tri&oacute; hogyan m&uuml;k&ouml;dik, mi a c&eacute;lja, &eacute;s hogy lehet haszn&aacute;lni.</p>
-
-<p>Van egy angol sr&aacute;c, IRC-n tal&aacute;lkoztunk, tan&iacute;tgatom &ouml;t Railsre. N&eacute;ha kicsit frusztr&aacute;l&oacute; dolog tud lenni, mert neh&eacute;z elvonatkoztatni att&oacute;l, hogy &eacute;n - m&eacute;g &uacute;gy is, hogy most tanulom &uacute;jra az eg&eacute;sz Rails-t - relat&iacute;ve <em>sokkal</em> t&ouml;bbet tudok, mint &ouml;. Szeg&eacute;nyk&eacute;m sajnos nagyon bizonytalanul mozog a JS ter&eacute;n - erre siker&uuml;lt neki egy igencsak JS intenz&iacute;v appba belekezdenie. Fil&oacute;zok rajta, hogy elkezdem &ouml;t arra szor&iacute;tani, hogy olvasgasson JS tutorialokat, mert nem lesz ez &iacute;gy j&oacute;&#8230; Amikor egy esem&eacute;nykezelőbe val&oacute; k&oacute;dot csak &uacute;gy bev&aacute;g valahova, az sose j&oacute; ir&aacute;ny.</p>
-
-<p>Mondjuk nekem meg az angol nyelv okoz neh&eacute;zs&eacute;geket, nagyon sokszor szaladok bele abba, hogy nem tudok tov&aacute;bb menni. B&aacute;r nagyon sokszor alkalmazom azt a tr&uuml;kk&ouml;t, hogy ha nem tudod kimondani, &iacute;rd k&ouml;r&uuml;l, van, amikor m&eacute;g a k&ouml;r&uuml;l&iacute;r&aacute;shoz is hi&aacute;nyoznak a szavak. &Eacute;s olyankor sajnos csalnom kell, &eacute;s a Google Translate - ilyen szempontb&oacute;l - k&eacute;tes minős&eacute;gű seg&iacute;ts&eacute;g&eacute;re hagyatkozni.</p>
-
-<p>Azt&aacute;n itt van m&eacute;g a fel&uacute;j&iacute;t&aacute;s projekt is. Borzaszt&oacute; dolog, p&aacute;r &eacute;vig biztos nem vetemedek ilyen egetverő őr&uuml;lts&eacute;gekre. Elősz&ouml;r is, sz&iacute;vszaggat&oacute; romokban l&aacute;tni a lak&aacute;st. M&aacute;sodszor, egy ilyen <strong>mindig</strong> elh&uacute;z&oacute;dik, f&uuml;ggetlen&uuml;l att&oacute;l, mennyire tervezted meg. Ez lassan negyed &eacute;ve k&iacute;nl&oacute;dik.. :s &eacute;s m&eacute;g nincs v&eacute;ge.</p>
-
-<p>Na, becsukom a panaszl&aacute;d&aacute;t, megyek vissza k&oacute;dolni, csak ezt &iacute;gy egyben ki kellett m&aacute;r &iacute;rnom&#8230;</p>
 ]]></content>
   </entry>
   
