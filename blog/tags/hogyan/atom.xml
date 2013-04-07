@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hogyan | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/hogyan/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-04-07T04:54:22+02:00</updated>
+  <updated>2013-04-07T04:57:22+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -75,9 +75,7 @@ check-names ignore;
 };
 ```</p>
 
-<p>mittudomain.com zonafajl...</p>
-
-<p>```
+<p>```plain mittudomain.com zonafajl...
 @       IN      SOA     mittudomain.com.    hostmaster.mittudomain.com. (
 2008120901  ; serial
 28800       ; refresh
@@ -92,9 +90,8 @@ dns             A       10.0.20.3
 dc              A       10.0.20.5
 ```</p>
 
-<p>_msdcs.mittudomain.com zonafajl...</p>
-
-<p><code>_msdcs.mittudomain.com      IN SOA  mittudomain.com. hostmaster.mittudomain.com. (
+<p><code>plain _msdcs.mittudomain.com` zonafajl...
+_msdcs.mittudomain.com      IN SOA  mittudomain.com. hostmaster.mittudomain.com. (
 2008120901 ; serial
 28800      ; refresh (8 hours)
 7200       ; retry (2 hours)
