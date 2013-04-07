@@ -4,7 +4,7 @@
   <title><![CDATA[Category: windows | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/windows/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-04-07T04:46:21+02:00</updated>
+  <updated>2013-04-07T04:54:22+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -48,15 +48,16 @@
 
 <p>A konfigfajlban keressuk meg eloszor az options reszt, majd pakoljunk ilyeneket bele:</p>
 
-<p><code lang="text">
+<p><code>
 auth-nxdomain no;
 </code></p>
 
-<p>Ezutan az options mezon kivul hozzunk letre ketto zonat, egyet a fo zonanak, egyet pedig a _msdcs zonanak. Ez utobbit mindenkeppen letre kell hozni, mert az Active Directory fokepp erre tamaszkodik. Lassuk a kodokat elobb, majd utana duma:</p>
+<p>Ezutan az options mezon kivul hozzunk letre ketto zonat, egyet a fo zonanak, egyet pedig a <code>_msdcs</code> zonanak. Ez utobbit mindenkeppen letre kell hozni, mert az Active Directory fokepp erre tamaszkodik. Lassuk a kodokat elobb, majd utana duma:</p>
 
 <p>Zona...</p>
 
-<p><code lang="text">zone "mittudomain.com" IN {
+<p>```
+zone "mittudomain.com" IN {
 type master;
 file "zones/mittudomain.com.db";
 allow-update {
@@ -71,11 +72,13 @@ allow-update {
 10.0.20.5;
 };
 check-names ignore;
-};</code></p>
+};
+```</p>
 
 <p>mittudomain.com zonafajl...</p>
 
-<p><code lang="text">@       IN      SOA     mittudomain.com.    hostmaster.mittudomain.com. (
+<p>```
+@       IN      SOA     mittudomain.com.    hostmaster.mittudomain.com. (
 2008120901  ; serial
 28800       ; refresh
 7200        ; retry
@@ -86,18 +89,20 @@ check-names ignore;
 
 <p>@       IN      A       10.0.20.3
 dns             A       10.0.20.3
-dc              A       10.0.20.5</code></p>
+dc              A       10.0.20.5
+```</p>
 
 <p>_msdcs.mittudomain.com zonafajl...</p>
 
-<p><code lang="text"><em>msdcs.mittudomain.com      IN SOA  mittudomain.com. hostmaster.mittudomain.com. (
+<p><code>_msdcs.mittudomain.com      IN SOA  mittudomain.com. hostmaster.mittudomain.com. (
 2008120901 ; serial
 28800      ; refresh (8 hours)
 7200       ; retry (2 hours)
 3600000    ; expire (5 weeks 6 days 16 hours)
 86400      ; minimum (1 day)
 )
-</em>msdcs.mittudomain.com.     IN      NS      dns.mittudomain.com.</code></p>
+_msdcs.mittudomain.com.     IN      NS      dns.mittudomain.com.
+</code></p>
 
 <p>Es akkor most duma:</p>
 
@@ -117,8 +122,10 @@ dc              A       10.0.20.5</code></p>
 
 <p>A Support Tools a Windows telepitolemez SUPPORT mappajaban talalhato, van itt egy SUPTOOLS.MSI, na azon kell duplakatt, es Next,Next,Finish. Nyissunk parancssort:</p>
 
-<p><code lang="text">&gt; cd "C:\Program Files\Support Tools"
-&gt; netdiag /test:dns</p>
+<p>```</p>
+
+<blockquote><p>cd "C:\Program Files\Support Tools"
+netdiag /test:dns</p></blockquote>
 
 <p>... snip ...</p>
 
@@ -127,7 +134,8 @@ dc              A       10.0.20.5</code></p>
 <p>PASS - All the DNS entries for DC are registered on DNS server '10.0.20.3'
 and other DCs also have some of the names registered.</p>
 
-<p>The command completed successfully.</code></p>
+<p>The command completed successfully.
+```</p>
 
 <p>Ennek igy kell kineznie. Ha valami RCODE hibara panaszkodik, vagy arra, hogy a DNS szerver szerinte nem authoritativ, akkor ellenorizzuk nslookup -pal, hogy a domain nevere megkapjuk-e A rekordkent a dns.mittudomain.com ip cimet. Ha nem, akkor ellenorizzuk a DNS szervert, hogy a kukacos A rekord bekerult-e a zonafajlba. Esetleg inditsuk ujra a bind-et.</p>
 
@@ -137,7 +145,7 @@ and other DCs also have some of the names registered.</p>
 
 <p>A dcpromo lefutasa soran meg nem tortenik semmi a DNS szerverunkkel, viszont amikor a Windows szerver ujraindul, kezdjuk argus szemekkel figyelni a dns.mittudomain.com syslog-jat, mert a domain bejegyzesek ekkor tortennek meg. Ha lefutott, akkor csinaljunk egy teljes restartot a bind-en. Barmily hihetetlen ugyanis, a bind kepes a teljesen hibas bejegyzesek eltarolasara is, es ilyenkor ujraninditaskor akadnak a torkan dolgok. Hogy ez ne tudjon varatlanul elofordulni, celszeru tehat szandekosan kezdemenyezni. Ilyenkor altalaban a check-names szokott kiabalni. Ha nagyon kiabal, az options reszben tegyunk egy ilyen bejegyzest:</p>
 
-<p><code lang="text">check-names master warn;</code></p>
+<p><code>check-names master warn;</code></p>
 
 <p>Es a zonafajlbol vegyuk ki a check-names bejegyzest. Ezzel ugyan globalisan kikapcsoltuk a nevek ellenorzeset, de hat ez egy ilyen vilag.</p>
 
