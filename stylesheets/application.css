@@ -380,3 +380,35 @@ ul#tweets li p a:first-child {
   padding-right: 5px;
 }
 
+img.centered, img.aligncenter {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+img.alignright {
+        padding: 4px;
+        margin: 0 0 2px 7px;
+        display: inline;
+}
+
+img.alignleft {
+        padding: 4px;
+        margin: 0 7px 2px 0;
+        display: inline;
+}
+
+.alignright {
+        float: right;
+}
+
+.alignleft {
+        float: left;
+}
+.aligncenter, div.aligncenter {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+}
+
+
