@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Vice: magyar kiosztású billentyűzet - Hron's blog</title>
+  <meta name="author" content="Gábor Garami" />
+
+  
+  <meta name="description" content="Idegesítő dolog, de a vice linuxon magyar kiosztású billentyűzet esetében félig átmegy passthru módba, mert a vkm fájl hozzá angol leosztáshoz van &hellip;" />
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <link rel="canonical" href="http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/" />
+  <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/code.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hron's blog" type="application/atom+xml" />
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', "UA-20858841-1"]);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div id="header"><!-- <hgroup>
+  <h1><a href="/">Hron's blog</a></h1>
+  
+    <h2>Who want to fly with doves loses the treasure down here</h2>
+  
+</hgroup> -->
+<a class="logo"><img src="/images/bear-logo.png" alt="bear with earphone"></a>
+<div class="userbox">
+
+
+
+  
+  <form action="http://google.com/search" method="get" class="search">
+    <!-- <fieldset role="search"> -->
+      <input type="hidden" name="q" value="site:hron.me" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    <!-- </fieldset> -->
+  </form>
+  
+  <div class="avatar"><a href="#" class="name">Hron's blog</a></div>
+  <ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+
+</div>
+</div>
+  <!-- <nav role="navigation"><ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+</nav> -->
+  <div id="main" class="site dashboard">
+    <div class="pagehead">
+      <nav rel="navigation">
+        <ul class="actions">
+             <li><a href="/">Kezdőlap</a></li>
+             <li><a href="/about/">Bemutatkozás</a></li>
+         </ul>
+      </nav>
+      
+      <header>
+        <h1 class="entry-title">Vice: magyar kiosztású billentyűzet</h1>
+        <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-06T18:38:53+02:00" class="pubdate" pubdate data-updated="true">2009. Apr.  6.</time></p>
+      </header>
+    
+    </div>
+
+    <div id="content" class="columns container">
+      <div class="first">
+<article class="hentry" role="article">
+  
+  <header>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>
+Idegesítő dolog, de a vice linuxon magyar kiosztású billentyűzet esetében félig átmegy passthru módba, mert a vkm fájl hozzá angol leosztáshoz van kitalálva, az pedig nagyjából stimmel is.<br />
+Amiért baj, hogy ilyen, az az, hogy a speckó szimbólumok némelyike kicsit nehezebben vihető be, plusz ha az ember keze c64 esetében a c64 kiosztásra áll át, akkor nagyából semmit nem fog találni. Klasszikus példa: &#8216;LOAD &#8220;$&#8221;,8&#8217;. Ez ugye alapbol úgy üttetik be, hogy load, shiftre könyököl, 242, shiftről lemász, vessző, 8, enter. Igen ám, de ez magyar kiosztáson nem jót ad, ott ugyanis a shift+4 az felkiáltójel, a dollárjelhez le kell mászni a shiftről és altgr-rel kell hülyéskedni.
+</p>
+
+
+<p>
+Miután már sokadszorra szaladtam bele, átírtam az eredeti vkm fájlt, hogy megfeleljen <strike>kényes úri izlésemnek</strike> az igényeimnek. A fájl <a href="http://users.hanzo.hu/~hron/x11_hu_sym.vkm.gz">itten</a> érhető tetten. Ki kell csomagolni (gunzip), majd be kell másolni valahova. Ezután a Vice emulátoron belül Beállítások -&gt; Billentyűzet beállításai -&gt; Szimbolikus leképezés betöltése, majd itt kitallózni. <em>Btw, hogy ez milyen hülye elnevezés&#8230; Szimbolikus térkép esetleg&#8230;</em>
+</p>
+
+
+<p>
+Amit a cuccról tudni érdemes:
+<ul>
+<li>nagyjából minden a helyén van, ez alól a ← és ↑ gombok kivételek, őket az End illetve a Delete gomb hordozza.</li>
+<li>Az y-t és a z-t felcseréltem, hogy az angol kiosztású C64 billentyűzethez teljesen hasonuljon a cucc. Ha ez valakit zavar, kommentben mind a kis, mind a nagybetűknél ott van az eredeti, vissza lehet írkálni. Ez igaz az összes módosításra, ahol letiltottam, vagy átdefiniáltam valamit, ott kommentben ott az eredeti beállítás is, így ha valami nem tetszik, egyszerűen vissza kell írni az eredeti beállításra.</li>
+</ul>
+</p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Gábor Garami</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-06T18:38:53+02:00" class="pubdate" pubdate data-updated="true">2009. Apr.  6.</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/it/'>it</a>, <a class='category' href='/blog/tags/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/" data-via="hron84" data-counturl="http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="small"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/03/tortellini-a-leragasztott-igazsag/" title="Previous Post: Tortellini - a leragasztott igazság">&laquo; Tortellini - a leragasztott igazság</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/04/vmware-billentyuzet-problema/" title="Next Post: VMware billentyűzet probléma">VMware billentyűzet probléma &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section id="comments">
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar last">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/nginx-es-php/">Nginx és PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/hazi/">Házi, magam sütöttem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/nginx-bevezeto/">Nginx - Bevezetés</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (7)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (82)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (15)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (4)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+</section>
+<section>
+    <h1>StackOverflow Profile</h1>
+    <p>
+        <a href="http://stackoverflow.com/users/182474/gabor-garami">
+            <img src="http://stackoverflow.com/users/flair/182474.png" width="208" height="58" alt="profile for Gabor Garami at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Gabor Garami at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+        </a>
+    </p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/hron84">@hron84</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'hron84',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hron84", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/hron84" class="twitter-follow-button" data-show-count="false">Follow @hron84</a>
+  
+</section>
+
+
+  
+</aside>
+
+<div class="rule">&nbsp;</div>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div id="footer" class="clearfix">
+  <div class="site">
+    <div class="copy">
+      
+      Copyright &copy; 2013 - Gábor Garami &mdash; Some rights reserved<br/>
+      <small class="license">
+        Contents and design are licensed under the terms of <br/>
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+          <img src="/images/cc.png" alt="creativecommons" />
+          &nbsp;CreativeCommons BY-SA 3.0 Unported License</a>
+      </small>
+    </div>
+    <div class="powa">
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span><br/>
+      <span class="credit">Hosted by <a href="https://github.com/">GitHub Pages</a></span>
+    </div>
+  </div>
+</div>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hron84';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/';
+        var disqus_url = 'http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

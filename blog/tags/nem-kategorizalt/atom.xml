@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: nem-kategorizalt | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/nem-kategorizalt/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-04-07T04:17:19+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Változások]]></title>
+    <link href="http://hron.me/blog/2009/10/valtozasok/"/>
+    <updated>2009-10-27T15:18:03+01:00</updated>
+    <id>http://hron.me/blog/2009/10/valtozasok</id>
+    <content type="html"><![CDATA[<p>
+Szeretném minden kedves erre járó olvasóm figyelmét felhívni, hogy a jövőven pár változás lesz eszközölve az oldalon, mert a jelenlegi motor kidobásra kerül. <br />
+<!--more-->
+Igen, jól olvastad. Valóban kidobom a motort. Helyette természetesen lesz másik, hiszen enélkül a blog nem üzemelhetne túl sokat.
+</p>
+
+
+<p>
+Az az igazság, hogy meguntam a WordPress hülyeségeivel küszködni, illetve lesni a Damoklész kardját itt a fejem fölött. <br //>
+Egyrészről még mindig nem sikerült megoldani azt az egyszerű dolgot, hogy a WYSIWYG szerkesztőben készült bejegyzésekről ne tűnjön el minden sortörés és/vagy formázás. Tudom, hogy ezt az általam hekkelt GeSHI alapu syntax highlighter okozza, és nem tudok ellene semmit sem tenni. Kikapcsolni nem szeretném, a PHP-ban pedig nem vagyok annyira otthon, hogy rá tudnék jönni a bajára.
+</p>
+
+
+<p>
+A másik gond, hogy a jobb oldali sávban egy darab widget sincsen, mert a jelenlegi témán kicsit bénán jelennek meg a widgetek. Mindent a két szép kacsómmal írtam be, hogy legyen valami hasznos is ottan. A login form is azért ilyen kis egyszerű. <br />
+Ennekokán rettegek attól, hogy a WP fejlesztői egyszer csak átírják az általam használt API-k formátumát, egy warning listává változtatva a jelenlegi szép oldalsávot. Ezt nem szeretném.
+</p>
+
+
+<p>
+A következő motorról csak annyit, hogy saját fejlesztés, és Rails alapú. A többi titok... :-)
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Reset]]></title>
+    <link href="http://hron.me/blog/2009/08/reset/"/>
+    <updated>2009-08-16T10:37:20+02:00</updated>
+    <id>http://hron.me/blog/2009/08/reset</id>
+    <content type="html"><![CDATA[<p>
+Sikerült a blogom adatbázisának valami nagy bogarat beszedni, és alig-működést produkálni. Megszereltem ugyan, de nem igazán volt jó. Visszatöltöttem egy januári dumpot, amire rájátszottam egy friss exportot, és remélem, hogy sikerült mindent összeszedni. Ha valakinek esetleg eltűnt volna a hozzászólása, attól ezúton kérnék elnézést. Ez volt a legtöbb, amit tudtam a dologért tenni.
+</p>
+
+
+<p>
+<strong>Figyelem:</strong> Az e-mailes feliratkozások elvesztek! Aki fel volt valamely bejegyzésre íratkozva, az ismételje meg a feliratkozást.
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CMake - egy fájdalommal kevesebb]]></title>
+    <link href="http://hron.me/blog/2009/01/cmake-egy-fajdalommal-kevesebb/"/>
+    <updated>2009-01-09T12:43:48+01:00</updated>
+    <id>http://hron.me/blog/2009/01/cmake-egy-fajdalommal-kevesebb</id>
+    <content type="html"><![CDATA[<p>
+Mostanában kezdtem el intenzívebben használni a CMake nevű programot a C alapú projektjeim kezeléséhez (eddig vagy megírtam a Makefile-t kézzel, vagy kínlódtam az autoconf nevű szörnnyel). Azt kell mondjam, meg fogja érni a váltás. Bár egyelőre nem látom, hogyan lehetne bele a C/C++ kombótól eltérő nyelvekhez támogatást belerakni (vagy van-e már készen), nagyon hasznos stuff. És még színes is...
+</p>
+
+
+<p>
+Amivel nagyon meg lehet kezdőként szívni, hogy megköveteli magának a CMAKE_MINIMUM_REQUIRED  parancs felvételét minden projekt fő CMakeLists.txt-jének a fejlécébe. Ettől kissé rigolyásnak tűnik a progi, de szerencsére erről szó sincs, egyszerűen kell csinálni egy template CMakeLists.txt-t amit az ember ezzel kezd. Amúgy is jó dolog, ha a szükséges két sort nem kell állandóan bepötyögni (a fentin kívül minden esetben meg kell adni a projekt nevét).
+</p>
+
+
+<p>
+A függőségek kezelése egyszerűen mesés. Nem is igazán tudok egyszerűbb módot elképzelni a probléma kezelésére, mint a FIND_PACKAGE(csomagneve REQUIRED) megoldást. Ezzel az egy sorral el van intézve az összes probléma, amit az autoconf-nál kézzel kell lezongorázni (mi van akkor, ha nincs, mi van akkor ha igen, CFLAGS, LDFLAGS beállítgatása, etc.).
+</p>
+
+
+<p>
+Minden kezdő és haladó kódernek csak ajánlani tudom. Bár minden fejlesztést segítőnek kikiáltott program tanulhatósága és kezelhetősége ilyen lenne mint a CMake-é. Sokkal egyszerűbb lenne a munka.
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Telitalálat vaksötétben]]></title>
+    <link href="http://hron.me/blog/2009/01/telitalalat-vaksotetben/"/>
+    <updated>2009-01-06T10:45:27+01:00</updated>
+    <id>http://hron.me/blog/2009/01/telitalalat-vaksotetben</id>
+    <content type="html"><![CDATA[<p>
+Olvasgatom JoeP <a href="http://mivanvelem.hu/2009/01/05/loves-a-sotetbe/" title="JoeP: Lövés a sötétbe?">írását</a>, és eszembe jutott, milyen volt, amikor én mentem felvételizni a Lufthansa-hoz.
+</p>
+
+
+
+
+<p>
+Történt ugyanis, hogy regisztráltam a weblapjukon, majd kisvártatva értesítés jött, miszerint várnának engem interjúra x hó y.-án 12:00-kor. Az ebéd ugye helyből bukva, de ez van, menjünk.<br />
+<!--more-->
+
+Útvonalterv, cím bekopiz, lakcím beír, tervezz. Csunya nagy átlót húz egy szürke mezőn. Akkor már sejtettem, hogy nem lesz ez olyan egyszerű. Mindegy, keljünk útra.</p>
+
+
+<p>
+Leszállok a villamosról, beforgatom a térképet, látom ám, hogy amit belő az útvonalam irány, az igy nyílegyenesen egy felüljáró lábazatába vezet, majd eltűnik. Tekintve, hogy én nem vagyok Houdini, így más megoldást kerestem. Kerestem, kerestem... de a környéken senki nem tudta, hogy volna erre egyáltalán a Lufthansa-nak akár csak a logoja is. Végül nagy nehezen eljutottam oda (meg kell hagyni, tényleg eldugták annak, aki hátulról közelít), dél persze rég elmúlt, nem baj, bemegyünk, legrosszabb esetben kérek egy pohár vizet (mondtam már, hogy nyár volt, rekkenő hőséggel, meg ami ezzel jár úgy déli 12 és fél egy közt?)</p>
+
+
+<p>
+Bemegyek, kedves titkárnő fogad, leültet, ember jön, kérdez pár dolgot, majd meginvitál egy gépekkel megszórt terembe. Belóg az egyik gépbe, majd jön a totó alapú kérdezőprogi, téma: win, lin, Solaris. Mit mondjak, Windows-ba nem alkottam valami fényeset, a Linux is eléggé határterületeket súrolt, meg olyan kérdésköröket, amiben akkoriban nem álltam biztos talajon, mindenesetre igyekeztem jól megfelelni. <br />
+Aztán jönni kezdtek a Solaris-sal kapcsolatos kérdések, kötetkezelés, raid, diszkek. Na most ebből nekem annyi volt ismert, hogy /dev/c0t0d0s0, ez is csak azért, mert nem sokkal azelőtt linkelt egy írás a <a href="http://www.c0t0d0s0.org">hasonló webcímű</a> blogra. Teljesen vakon lődöztem minden kérdésre, mondjuk annyit segítettem magamon, hogy legalább elolvastam, hogy mit szeretne. Hapi jön, nyomtat, kiértékelés, addig 10 perc szünet. Az értékelés közlésekor ledöbbentem: a kérdéskörökben a Solaris-os kérdésekre adott válaszaim voltak a <strong>legnagyobb</strong> arányban helyesek!</p>
+
+
+<p>
+Nem tudom, lehet hogy csak iszonyú nagy mázlim volt, az is lehet, hogy valahogy ráéreztem, nem tudom, mindenesetre ezt az eredményt még akkor sem vártam volna, ha történetesen két mondattal többet tudok a témáról. <br /> Mindenesetre én amondó vagyok, hogy meg kell nézni az adott kérdést, és eldönteni, hogy mennyire nem tudom. Ha valami megoldást sejlik az alaktalan masszában, érdemes rábökni valamire, még akkor is, ha az a végén hülyeségnek bizonyul. Persze ha tökhüklye az ember a témához, akkor kerülni kell minden kísérletet, mert tényleg rossz vége lehet, de ha legalább egy választ ki lehet zárni, akkor már érdemes a maradék n-1 válaszon eltöprengeni. Persze mindenképpen csak akkor, ha már a biztos kérdések megválaszolásra kerültek.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rólam]]></title>
+    <link href="http://hron.me/blog/2009/01/rolam/"/>
+    <updated>2009-01-01T20:08:33+01:00</updated>
+    <id>http://hron.me/blog/2009/01/rolam</id>
+    <content type="html"><![CDATA[<p>Jelenleg rendszergazda vagyok, vagyis minden hétköznap reggel kihajtom a rendszereket az ólból, es a nap végén visszaterelgetem őket aludni.
+Szeretek játszani, programozni, olvasni.</p>
+]]></content>
+  </entry>
+  
+</feed>

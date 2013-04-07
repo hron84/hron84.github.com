@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hetkoznapok | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/hetkoznapok/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-04-07T04:17:19+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[OpenID szolgáltató váltás]]></title>
+    <link href="http://hron.me/blog/2010/03/openid-szolgaltato-valtas/"/>
+    <updated>2010-03-22T12:01:41+01:00</updated>
+    <id>http://hron.me/blog/2010/03/openid-szolgaltato-valtas</id>
+    <content type="html"><![CDATA[<p>Hosszú vívódások után ugy döntöttem, hogy megváltoztatom az azonosságomért felelős céget. Sajnálatos módon a MyOpenID sok ideje nem képes új személyes tanusítványokat kibocsátani, így lehetetlenné vált az SSL tanusítvány alapú authentikálás (a mostani certtel több böngészőnek is bajai vannak).</p>
+
+<p>A régi OpenID-m (http://ggarami.myopenid.com/) a jelenlegi formájában megszűnik, és egy sokkal jobb és általam megbízhatóbbnak tartott cég, a VeriSign által biztosított OpenID (http://ggarami.pip.verisignlabs.com/) veszi át a helyét.</p>
+
+<p>Nagyon fog hiányozni a MyOpenID oldala, számomra roppantul tetszett a letisztult, átlátható felület, de úgy gondolom, hogy a biztonság ennél sokkal-sokkal fontosabb. Márpedig az OpenID lényege számomra egy biztonságosabb belépési mód.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Sláger Rádió tulajdonosa mégsem vonult ki Magyarországról]]></title>
+    <link href="http://hron.me/blog/2009/11/a-slager-radio-tulajdonosa-megsem-vonult-ki-magyarorszagrol/"/>
+    <updated>2009-11-29T23:48:41+01:00</updated>
+    <id>http://hron.me/blog/2009/11/a-slager-radio-tulajdonosa-megsem-vonult-ki-magyarorszagrol</id>
+    <content type="html"><![CDATA[<p>Idézet következik:</p>
+
+<blockquote><p>A széles körben elterjedt hírekkel ellentétben a
+Sláger Rádió részvényesei, az Emmis és partnerei nem
+vonultak ki Magyarországról és továbbra is arra
+fókuszálnak, hogy a Sláger Rádió ismét hallható
+legyen az éterben. "Nagy erőfeszítéseket teszünk az
+ügy bíróságon történő érvényesítése érdekében, és
+minden erőnkkel azon vagyunk, hogy népes és hűséges
+hallgatóságunk minél előbb visszakapja a Sláger
+Rádiót." - mondta Barbara Brill, az Emmis
+International budapesti alelnöke.</p></blockquote>
+
+<p>A cikk további része ezt ecseteli élénken, valamint hogy a kilenc ország nagykövete által benyujtott kifogásokat most kezdik komolyan venni, meg ilyenek. Egyelőre ezen felül semmi konkrét infó nincs, de már ez is valami.</p>
+
+<p>Ami a személyes véleményemet illeti: nagyjából lehetett sejteni, hogy a kivonulós sztori kamu, kacsa. Egy: ilyen befektetest nem hagy senki ebek harmincadjara, kettő: ha más nem is, hát a közvélemény biztos nem fogad egy ilyen döntést kitörő örömmel. Mint kiderült, ezzel sikerült a fél világot magunkra haragítani.</p>
+
+<p>Az $1000-os kérdés: megérte?</p>
+
+<p>Forrás: <a href="http://www.brandtrend.hu/hir/3506/a_slager_radio_tulajdonosa_megsem_vonult_ki_magyarorszagrol.html">BrandTrend</a></p>
+
+<p><em>A hírért köszönet sartek-nek</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Keresd a telót!]]></title>
+    <link href="http://hron.me/blog/2009/06/keresd-a-telot-/"/>
+    <updated>2009-06-09T20:48:54+02:00</updated>
+    <id>http://hron.me/blog/2009/06/keresd-a-telot-</id>
+    <content type="html"><![CDATA[<p>
+<img src="http://hron.me/uploads/downpics/android.jpg" width="50" height="50" title="Android" alt="Android ikon" class="alignright size-full" />
+Megjött a várva várt telefonom, a Google G1-es telefonja. Sajnálatos módon függő állapotban küldték el, de szerencsére találtam egy jó helyet, ahol unlockolták. Mondjuk ez sem volt egy egyszerű eset, másodjára sikerült csak normális reszponzivitású céget találni, de legalább egy másik telót is ki tudok kódolni.
+</p>
+
+
+<p>
+A brand-new állapot megvolt, de voltak kissebb ismeretlen eredetű fehér koszdarabkák a hátlapon, amiket sikerült eltüntetni. Megfelel az elvárásoknak, pont ugyanúgy működik mint ami a leírásokba szerepel.
+</p>
+
+
+<p>
+Sajnos vannak nem elvárt bugok is. A telefon mini-USB helyett valami kacifántos csatlakozóval érkezett, és az adapter USA szabványú volt, konverter nélkül. A doboz elég pocsék állapotban volt - ez mondjuk lehet az USPS sara is -, és belül is meglátszott a dobozon, hogy nem kezelték elég óvatosan. <br />
+Cserébe legalább minden dokumentáció járt hozzá.<br /> A firmware csak 1.1, és nem mutat frissítést, úgyhogy kényszerű leszek majd valahogy kézzel levadászni a frissítést.
+</p>
+
+
+<p>Néhány kép került a <a href="http://www.flickr.com/photos/hron84/sets/72157619499637756">Flickr képtárba is</a></p>
+
+
+<p><strong>Update:</strong>A cikk megírását követő nap hajnalán, 5 óra környékén kezdett nyűglődni, hogy hát akkor talán mégis frissülne. Most 1.5 van.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kivételes juttatás 2]]></title>
+    <link href="http://hron.me/blog/2009/02/kiveteles-juttatas-2/"/>
+    <updated>2009-02-16T23:35:32+01:00</updated>
+    <id>http://hron.me/blog/2009/02/kiveteles-juttatas-2</id>
+    <content type="html"><![CDATA[<p>
+Ma megint megpróbálkoztam <a href="http://hron.hanzo.hu/2009/01/kiveteles-juttatas/">ezzel</a>, nem is egészen sikertelenül.<br />
+A kísérletek azt mutatják, hogy 3-3,5 kanál cukorhoz ugyanennyi dara szükségeltetik, körülbelül fél liter tej, és só. A karamell ízre tökéletes lett, bár a hideg tejtől ugyanúgy megüvegesedett, ez úgy látszik, a karamell reakciója a hidegre (végülis jogos... én is ledermednék, ha a jó meleg után nyakonöntenének valami jéghideg, fehér lötyivel...), szóval mindenképp meg kell várni, amíg teljesen felolvad, addig dara nem kerülhet az elegybe.
+</p>
+
+
+<p>
+Ma megint tolták a gázművesek, kénytelen voltam a legkisebb gázra költöztetni a tejet a félig felolvadt karamell-pajzzsal, mert a tej kezdett kifutni a lábos által szabott keretek közül. Szerencsém volt, hogy éber voltam. <br />
+Tettem bele egy kis (egy evőkanál nyelének hegyével 4-szer) kókuszreszeléket (az úgy volt, hogy azt terveztem, az itthoni töméntelen kekszmennyiségből csinálok kókuszgolyót, de egyszerűen képtelen vagyok úgy itthon lenni, hogy időm is legyen, meg végig is tudjam állni, meg eszembe is jusson), nem túl rossz vele, sőt. Egy picit pikánsabb ízt kapott. Ehhez azonban nem szabad már kakaót tenni (a múltkor tettem, nem jó ötlet), mert annak túl erős az íze, és mindent elront.
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Megjött]]></title>
+    <link href="http://hron.me/blog/2009/02/megjott/"/>
+    <updated>2009-02-16T12:23:33+01:00</updated>
+    <id>http://hron.me/blog/2009/02/megjott</id>
+    <content type="html"><![CDATA[<p>
+<img class="alignright size-full wp-image-237" title="Gentoo Large Mug" src="http://images2.cafepress.com/product/22573762v10_150x150_Back.jpg" alt="Gentoo Large mug" width="150" height="150" />Megjött a melóhelyi bögrém. Valamikor múlt hét szerda magasságába rendeltem, és már itt van... Persze a belgáktól hamar itt van minden. Kösz, Cafepress.
+</p>
+
+]]></content>
+  </entry>
+  
+</feed>

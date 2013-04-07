@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/ruby/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-03-26T16:29:30+01:00</updated>
+  <updated>2013-04-07T04:17:19+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -227,6 +227,16 @@ Nem kell aggódnom a spamek miatt, nem kell várakoznom a frissítésekre, nem k
 <p>&nbsp;</p>
 
 <script src="https://gist.github.com/1838983.js?file=gistfile1.rb"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails with mongrel: cache_template_loading]]></title>
+    <link href="http://hron.me/blog/2008/11/rails-with-mongrel-cache_template_loading/"/>
+    <updated>2008-11-30T02:33:40+01:00</updated>
+    <id>http://hron.me/blog/2008/11/rails-with-mongrel-cache_template_loading</id>
+    <content type="html"><![CDATA[<p>Almos vagyok, ugyhogy ez most csak egy <a href="http://railsforum.com/viewtopic.php?id=23648" class="bb-url">link</a></p>
 
 ]]></content>
   </entry>

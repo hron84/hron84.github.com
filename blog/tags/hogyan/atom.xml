@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hogyan | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/hogyan/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-04-07T04:17:19+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Active Directory - DNS Bind alapokon]]></title>
+    <link href="http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/"/>
+    <updated>2008-12-09T11:00:45+01:00</updated>
+    <id>http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon</id>
+    <content type="html"><![CDATA[<p>Ez megint egy erdekes allatfajta lesz, elore szolok.</p>
+
+<p>A pelda rendszer ketto gepet fog tartalmazni, dc es dns, a tartomany pedig a szeretett mittudomain.com lesz.</p>
+
+<p>Nos, most lassuk a hozzavalokat, ket szerverre:</p>
+
+<ol class="bb-list" style="list-style-type:circle;">
+    <li>DC
+<ol class="bb-list" style="list-style-type:circle;">
+    <li>Windows 2000 vagy 2003 Server</li>
+    <li>Support Tools</li>
+</ol>
+</li>
+    <li>DNS
+<ol class="bb-list" style="list-style-type:circle;">
+    <li>Bind 9</li>
+    <li>Valamilyen szovegszerkeszto</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Eloszor is, lassuk a DNS szervert, mert ez az egyszerubb a bonyolultabb:</p>
+
+<p>Telepitsuk fel a bind-et, ha szukseges, tegyuk elerhetove a DNS portjait a belso halo szamara.</p>
+
+<p>Nagyon fontos, hogy ezt a DNS szervert semmikeppen se probaljuk meg valamilyen grafikus/webes eszkozzel menedzselni, mert eleg kenyes dolgok vannak benne, amiket nem jo, ha egy magat okosnak erzo eszkoz szemetnek erzekelve kihajit.</p>
+
+<p>A konfigfajlban keressuk meg eloszor az options reszt, majd pakoljunk ilyeneket bele:</p>
+
+<p><code lang="text">
+auth-nxdomain no;
+</code></p>
+
+<p>Ezutan az options mezon kivul hozzunk letre ketto zonat, egyet a fo zonanak, egyet pedig a _msdcs zonanak. Ez utobbit mindenkeppen letre kell hozni, mert az Active Directory fokepp erre tamaszkodik. Lassuk a kodokat elobb, majd utana duma:</p>
+
+<p>Zona...</p>
+
+<p><code lang="text">zone "mittudomain.com" IN {
+type master;
+file "zones/mittudomain.com.db";
+allow-update {
+10.0.20.0/24;
+};
+};</p>
+
+<p>zone "<em>msdcs.mittudomain.com" {
+type master;
+file "zones/</em>msdcs.mittudomain.com.db";
+allow-update {
+10.0.20.5;
+};
+check-names ignore;
+};</code></p>
+
+<p>mittudomain.com zonafajl...</p>
+
+<p><code lang="text">@       IN      SOA     mittudomain.com.    hostmaster.mittudomain.com. (
+2008120901  ; serial
+28800       ; refresh
+7200        ; retry
+3600000     ; expires
+86400 )     ; minimum</p>
+
+<p>IN      NS      dns</p>
+
+<p>@       IN      A       10.0.20.3
+dns             A       10.0.20.3
+dc              A       10.0.20.5</code></p>
+
+<p>_msdcs.mittudomain.com zonafajl...</p>
+
+<p><code lang="text"><em>msdcs.mittudomain.com      IN SOA  mittudomain.com. hostmaster.mittudomain.com. (
+2008120901 ; serial
+28800      ; refresh (8 hours)
+7200       ; retry (2 hours)
+3600000    ; expire (5 weeks 6 days 16 hours)
+86400      ; minimum (1 day)
+)
+</em>msdcs.mittudomain.com.     IN      NS      dns.mittudomain.com.</code></p>
+
+<p>Es akkor most duma:</p>
+
+<p>Amint lathato a mittudomain.com zonafajl a leheto legegyszerubb lett, harom A rekord, egy NS, egy SOA, es roviditett formatum. Amit lenyeges megjegyezni belole, hogy a @ rekordnak <span style="font-weight:bold">mindig, kivetel nelkul</span> a DNS szerverre onmagara kell mutatni, meghozza A rekordkent. Ez azert nagyon-nagyon fontos, mert az AD csak igy ertekeli a DNS szervert authoritativnak, es csak igy lesz hajlando beleirni magat.</p>
+
+<p>Lassuk a nagyobbik remet, a _msdcs-t. Itt mar a konfig is modosult, latszik, hogy a bekerulo nevek ellenorzeset kikapcsoltam. Ez is nagyon fontos dolog, ugyanis a szabvany szerint a DNS nevekben nem lehetne alahuzas (underscore) karakter, marpedig itt maga a domain kezdodik igy. Ez sajnos MS sajatossag, nincs mit ellene tenni.</p>
+
+<p>A zonafajlban precizen ki kell irni mindent, ugyanis a bind tud eleg sokat anyazni dolgokon, illetve neha nem kepes a @ feloldasara. Ilyenkor sajnos nincs mas hatra, mint potyogni. Ettol eltekintve ez meg egyszerubb: csak egy NS bejegyzes kerult ide, ami a DNS szerverunkre mutat.</p>
+
+<p>Ezzel a bind kesz is, inditsuk el. Ha a syslog-ba valamire panaszkodna, akkor eloszor is ellenorizzuk a check-names megletet a zona konfigjaban, majd nezzuk at tuzetesen a zonafajlt.</p>
+
+<p>Lassuk a DC-t.</p>
+
+<p>Jelentkezzunk be, es ha eddig nem tettuk volna meg, akkor adjunk egy jo eros jelszot az Administrator/Rendszergazda felhasznalonak, mert a kovetkezo lepes ezt a jelszot importalja.</p>
+
+<p>Allitsuk be a dns gepet a Windows elsodleges DNS szerverekent, ne legyen masodlagos DNS. Halozati helyek -&gt; jobb klikk, Tulajdonsagok. Valasszuk ki a halozati kapcsolatunkat, majd a TCP/IP protokoll tulajdonsagainal irjuk be a dns gep IP cimet.</p>
+
+<p>A Support Tools a Windows telepitolemez SUPPORT mappajaban talalhato, van itt egy SUPTOOLS.MSI, na azon kell duplakatt, es Next,Next,Finish. Nyissunk parancssort:</p>
+
+<p><code lang="text">&gt; cd "C:\Program Files\Support Tools"
+&gt; netdiag /test:dns</p>
+
+<p>... snip ...</p>
+
+<p>DNS test . . . . . . . . . . . . . : Passed</p>
+
+<p>PASS - All the DNS entries for DC are registered on DNS server '10.0.20.3'
+and other DCs also have some of the names registered.</p>
+
+<p>The command completed successfully.</code></p>
+
+<p>Ennek igy kell kineznie. Ha valami RCODE hibara panaszkodik, vagy arra, hogy a DNS szerver szerinte nem authoritativ, akkor ellenorizzuk nslookup -pal, hogy a domain nevere megkapjuk-e A rekordkent a dns.mittudomain.com ip cimet. Ha nem, akkor ellenorizzuk a DNS szervert, hogy a kukacos A rekord bekerult-e a zonafajlba. Esetleg inditsuk ujra a bind-et.</p>
+
+<p>Barmi egyeb hiba tovabbi keresest kell hogy maga utan vonjon, barmilyen szosz keresztbe fog akadni a kovetkezo lepes torkan.</p>
+
+<p>Most adjuk ki a dcpromo parancsot. Ezt nem reszleteznem kulon, hogyan kell kitolteni, egyvalamire hivom csak fel a figyelmet: a tartomany DNS neve feltetlen egyezzen azzal a nevvel, amire a bind authoritativ, kulonben nem fogunk tudni tovabblepni.</p>
+
+<p>A dcpromo lefutasa soran meg nem tortenik semmi a DNS szerverunkkel, viszont amikor a Windows szerver ujraindul, kezdjuk argus szemekkel figyelni a dns.mittudomain.com syslog-jat, mert a domain bejegyzesek ekkor tortennek meg. Ha lefutott, akkor csinaljunk egy teljes restartot a bind-en. Barmily hihetetlen ugyanis, a bind kepes a teljesen hibas bejegyzesek eltarolasara is, es ilyenkor ujraninditaskor akadnak a torkan dolgok. Hogy ez ne tudjon varatlanul elofordulni, celszeru tehat szandekosan kezdemenyezni. Ilyenkor altalaban a check-names szokott kiabalni. Ha nagyon kiabal, az options reszben tegyunk egy ilyen bejegyzest:</p>
+
+<p><code lang="text">check-names master warn;</code></p>
+
+<p>Es a zonafajlbol vegyuk ki a check-names bejegyzest. Ezzel ugyan globalisan kikapcsoltuk a nevek ellenorzeset, de hat ez egy ilyen vilag.</p>
+
+<p>Ha szerencsenk volt, akkor jelenleg van egy teljesen mukodokepes Active Directory rendszerunk Bind DNS szerverrel.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby on Windows: LIBMYSQL.DLL]]></title>
+    <link href="http://hron.me/blog/2008/11/ruby-on-windows-libmysql-dll/"/>
+    <updated>2008-11-30T01:30:38+01:00</updated>
+    <id>http://hron.me/blog/2008/11/ruby-on-windows-libmysql-dll</id>
+    <content type="html"><![CDATA[<p><span style="font-style:italic">Megint egy... ennek a sorozatnak sosincs vege?</span></p>
+
+
+<p>Szoval, ha olyan uzeneteket kapnal, hogyaszongya:</p>
+
+
+<pre class="bb-code-block">
+ ArgumentError in &lt;%= controller.class %&gt;#index
+
+NULL pointer given
+</pre>
+
+
+<p>Akkor beleszaladtal abba, hogy a gem-kent csomagolt 2.7.3-as mysql.so lib csak a 5.0-as libmysql.dll-lel hajlamos egyutmukodni korrektul. <a href="http://mysql.mirrors.crysys.hit.bme.hu/Downloads/MySQL-5.0/mysql-essential-5.0.67-win32.msi" class="bb-url">Innet</a> szerezheted meg jol, arra kell ugyelni, hogy a klienseknel nem eleg csak a commandline klienst (mysql.exe) kijelolni, hanem az other tools-t is ki kell, akkor lesz libmysql.dll amit be lehet masolni a ruby bin mappajaba.</p>
+
+
+<p>Forras: <a href="http://railsforum.com/viewtopic.php?id=18918" class="bb-url">Railsforum: mysql driver not working with Rails 2.0.2</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby on Windows: inputrc]]></title>
+    <link href="http://hron.me/blog/2008/11/ruby-on-windows-inputrc/"/>
+    <updated>2008-11-29T23:42:52+01:00</updated>
+    <id>http://hron.me/blog/2008/11/ruby-on-windows-inputrc</id>
+    <content type="html"><![CDATA[<p>Nagyon kellemetlen, ha az ember nem tud karaktereket beutni a terminalba, mert valami idiota lib nem engedi. Konkretan az irb es a readline hazasitasa okan az osszes olyan karakter elveszett, amihez AltGr-t kell nyomni. Az irb-s terminal az mindig angol kiosztas volt, es ettol megkergultem mar. No, itt a megoldas.</p>
+
+
+<p>Hozzavalo: nincs. Illetve... no, de ezt kesobb.</p>
+
+
+<p>Elkeszites:</p>
+
+
+<p>Toltsuk le <a href="http://www.freepbx.hu/~hron/.inputrc" class="bb-url">ezt</a> valami olyan helyre, aminek a neveben se szokoz, se ekezetes karakter nincsen (hasznal valaki fajlnevben ekezetes karaktert?!).<br />
+Az utvonalat tegyuk vagolapra, majd Sajatgep -&gt; Tulajdonsagok -&gt; Special -&gt; Environment variables<br />
+Name: INPUTRC<br />
+Value: az eppen kimasolt utvonal, a vegen mindenkepp legyen ott, hogy .inputrc, vagyis a file neve.</p>
+
+
+<p>A konzolt ujranyitva az irb-t elstartolva mar van minden hianyzo karakter. Ha megse, akkor szoljatok, es belepakolom.</p>
+
+
+<p>Forras: <a href="http://flip.netzbeben.de/2007/07/rails-12-fehlender-zeichensatz-in-der-console-irb/" class="bb-url">flip: Rails 1.2: Fehlender Zeichensatz der Rails console (irb)</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Postfix over SELinux (Virtual mail domains)]]></title>
+    <link href="http://hron.me/blog/2008/11/postfix-over-selinux-virtual-mail-domains-/"/>
+    <updated>2008-11-26T19:52:29+01:00</updated>
+    <id>http://hron.me/blog/2008/11/postfix-over-selinux-virtual-mail-domains-</id>
+    <content type="html"><![CDATA[<p>Ha virtualis levelezes van:</p>
+
+
+<pre class="bb-code-block">
+# chcon -R -t mail_spool_t /srv/mail
+</pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DNS server: MS master - Bind slave]]></title>
+    <link href="http://hron.me/blog/2008/11/dns-server-ms-master-bind-slave/"/>
+    <updated>2008-11-21T17:12:19+01:00</updated>
+    <id>http://hron.me/blog/2008/11/dns-server-ms-master-bind-slave</id>
+    <content type="html"><![CDATA[<p>Avagy hogyan biztositsuk magunkat be.</p>
+
+<p>Hozzavalok - ket szerverre:</p>
+
+<ul>
+<li>Szerver 1 (DNS1)</li>
+<li> Microsoft Windows 200x Server</li>
+<li> DNS service</li>
+<li><p> MMC</p></li>
+<li><p>Szerver 2 (DNS2)</p>
+
+<ul>
+<li>Linux (BSD?)</li>
+<li>Bind 9.x</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Elokeszulet:</p>
+
+<ul>
+<li>Ha meg nem lenne installalva a megfelelo Microsoft Windows Server cucc, azt itt tegyuk meg. Nem kell semmilyen extra dolog hozza.</li>
+<li>Ha mar egy meglevo DNS szervernek akarunk masodlagos szervert beloni, akkor nincs egyeb teendo</li>
+<li>Nagyon fontos, hogy a DNS2 a megfelelo DNS vegzodest ismerje. Ezt legegyszerubben a /etc/hosts fajlban adhatjuk meg ilytenkeppen:
+<code>
+127.0.0.1    dns2.mittudomain.com dns2 localhost
+</code></li>
+<li>Szinten fontos, hogy amig nincs meg a zonatranszfer, addig a resolv.conf-ban a Microsoft-os DNS szerverre mutassunk.</li>
+<li>Egyertelmu, hogy a DNS2 gepnek rendelkeznie kell bejegyzessel a DNS1 adatbazisaban.</li>
+</ul>
+
+
+<p>Elkeszites:</p>
+
+
+<p>DNS1-en inditsuk el az MMC konzolt, es eloszor is ellenorizzuk, hogy a DNS2 gep informacioi tenyleg megvannak-e. Ha nem, akkor surgosen potoljuk.<br />
+Menjunk ra a Forward-lookup Zones mappan belul a mittudomain.com mappara, es jobbklikk/Tulajdonsagok muvelettel hozzuk be a tulajdonsagait.<br />
+Itt a Nameservers fulon adjuk hozza kedves dns2 gepunket (ha igaz, akkor DNS adminoknak kell lennunk ehhez a muvelethez). Nagyon fontos, hogy a nevet irjuk be legfelulre, es nyomjunk Resolve gombot. Ha csak az ip-t irjuk be az IP-cim mezobe, akkor az ablak nem fogja engedni leokezni magat.<br />
+Az utolso elotti fulon engedelyezzuk a zonatranszfert, kattintsunk a masodik radiogombra, majd a Notify fulon is tegyunk hasonlokepp, itt azonban az elso radiogombra tenyereljunk ra. Ezzel a Windows fel van keszitve a hozza fordulo zonatranszfer keresek kiszolgalasara.</p>
+
+
+<p>DNS2-re eloszor is tegyuk fel a bind-et. Ha elinditotta volna a csomagkezelo, akkor most allitsuk le.<br />
+Vagy a named.conf-ban, vagy a named.conf.options-ban tegyunk ilyen beallitasokat:</p>
+
+
+<p><code>
+listen-on {
+   10.0.20.4;
+   127.0.0.1;
+};
+</code></p>
+
+<p>
+A named.conf-ba vagy a named.conf.local-ba vegyuk fel az uj zonankat:</p>
+
+
+<p><code>
+zone "mittudomain.com" {
+   type slave;
+   file "mittudomain.com";
+   masters { 10.0.20.3; };
+};
+</code></p>
+
+<p>
+Megjegyzes: a listen-on szekcioban a DNS2 IP-cime legyen, a zone szekcioba pedig a DNS1 IP-cime keruljon. </p>
+
+
+<p>Ezutan inditsuk el a bind-et, es figyeljuk erosen a syslogot.<br />
+Ha szerencsenk van, akkor lathatjuk, hogy a zona transzfer sikeres volt. Errol meggyozodhetunk DNS1 -en az esemenynaplot elinditva a DNS szerver naplojaban levo riportbol is, illetve belenezhetunk a leszinkronizalt zonafajlba is.</p>
+
+
+<p>A fenti modszer mukodik AD-integralt zonak eseteben is.</p>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/linux/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-04-07T04:17:19+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[VMware billentyűzet probléma]]></title>
+    <link href="http://hron.me/blog/2009/04/vmware-billentyuzet-problema/"/>
+    <updated>2009-04-16T14:43:13+02:00</updated>
+    <id>http://hron.me/blog/2009/04/vmware-billentyuzet-problema</id>
+    <content type="html"><![CDATA[<p>
+Újrapakoltam a melóhelyi gépet, és rögtön elkezdett nem működni a billentyűzet elég nagy része. A betűk, meg az írógépszámok még okésak voltak, de a nyílgombok és felettük a hatos együttes egy <strike>emberként</strike> billentyűként mondott csütörtököt. Ami végülis nem csoda, csütörtök lévén, bár ez engem egyáltalán nem vígasztalt.
+</p>
+
+
+<p>
+Noshát, a megoldás igen egyszerű lett, <a href="http://www.linuxscrew.com/2008/12/19/vmware-server-console-keyboard-problem-in-ubuntu-intrepid-ibex/">itten</a> van leírva.</p>
+
+
+<p>
+<strong>Szerk:</strong> A megoldás nem volt egészen ilyen egyszerű, sajnos bele kellett mászni a xorg-hal lelkivilágába is...
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vice: magyar kiosztású billentyűzet]]></title>
+    <link href="http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/"/>
+    <updated>2009-04-06T18:38:53+02:00</updated>
+    <id>http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet</id>
+    <content type="html"><![CDATA[<p>
+Idegesítő dolog, de a vice linuxon magyar kiosztású billentyűzet esetében félig átmegy passthru módba, mert a vkm fájl hozzá angol leosztáshoz van kitalálva, az pedig nagyjából stimmel is.<br />
+Amiért baj, hogy ilyen, az az, hogy a speckó szimbólumok némelyike kicsit nehezebben vihető be, plusz ha az ember keze c64 esetében a c64 kiosztásra áll át, akkor nagyából semmit nem fog találni. Klasszikus példa: 'LOAD "$",8'. Ez ugye alapbol úgy üttetik be, hogy load, shiftre könyököl, 242, shiftről lemász, vessző, 8, enter. Igen ám, de ez magyar kiosztáson nem jót ad, ott ugyanis a shift+4 az felkiáltójel, a dollárjelhez le kell mászni a shiftről és altgr-rel kell hülyéskedni.
+</p>
+
+
+<p>
+Miután már sokadszorra szaladtam bele, átírtam az eredeti vkm fájlt, hogy megfeleljen <strike>kényes úri izlésemnek</strike> az igényeimnek. A fájl <a href="http://users.hanzo.hu/~hron/x11_hu_sym.vkm.gz">itten</a> érhető tetten. Ki kell csomagolni (gunzip), majd be kell másolni valahova. Ezután a Vice emulátoron belül Beállítások -&gt; Billentyűzet beállításai -&gt; Szimbolikus leképezés betöltése, majd itt kitallózni. <em>Btw, hogy ez milyen hülye elnevezés... Szimbolikus térkép esetleg...</em>
+</p>
+
+
+<p>
+Amit a cuccról tudni érdemes:
+<ul>
+<li>nagyjából minden a helyén van, ez alól a ← és ↑ gombok kivételek, őket az End illetve a Delete gomb hordozza.</li>
+<li>Az y-t és a z-t felcseréltem, hogy az angol kiosztású C64 billentyűzethez teljesen hasonuljon a cucc. Ha ez valakit zavar, kommentben mind a kis, mind a nagybetűknél ott van az eredeti, vissza lehet írkálni. Ez igaz az összes módosításra, ahol letiltottam, vagy átdefiniáltam valamit, ott kommentben ott az eredeti beállítás is, így ha valami nem tetszik, egyszerűen vissza kell írni az eredeti beállításra.</li>
+</ul>
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Megérteni a folyamatot]]></title>
+    <link href="http://hron.me/blog/2009/02/megerteni-a-folyamatot/"/>
+    <updated>2009-02-11T09:15:30+01:00</updated>
+    <id>http://hron.me/blog/2009/02/megerteni-a-folyamatot</id>
+    <content type="html"><![CDATA[<p>
+Amikor a nyilvánvaló hiba nem is annyira nyilvánvaló.
+</p>
+
+
+<p>
+Van egy szerverem, mely alapvetően egy webszerver és egy levelezőszerver, ez utóbbi az előbbiben regisztrált domainek számára biztosít levelezést.
+</p>
+
+
+<p>
+A rendszer maga rém egyszerűen működik, a Postfix a MySQL-t zaklatja, hogy akkor én most mely domainekért is vagyok felelős? Ki az a Kovács János? Hova kell kézbesíteni a pooh.bear@forest.com leveleit? Meg ilyen nagyon hasonló kérdésekkel. <br />
+Amibe belefutottam, az az volt, hogy a szerver időnként különféle riportokat generál saját működéséről, és ezt elküldi a rendszergazdának, pontosabban a root-nak. Mivel ez a része mindig is önműködő volt, sosem bántottam. <br />
+Viszont nem szeretem, ha a webes felületen bármilyen root@ felhasználó belépked, így lett kreálva egy user a szerver fő domainjén belül, és a root leveleit neki címeztettem. A dolog ment is, mígnem egy szép napon elkezdtek nagyon furcsa dolgok történni.
+</p>
+
+
+<!--more-->
+
+
+<p>
+Jött egy non-delivery report azzal, hogy a root nevű usert ő bizony nem találja, legyek szíves ezt tudomásul vennni, mint postmaster. És csak a root-ot nem. <br />
+Vagyis az alias elkezdett úgy működni, hogy a levél el akart menni a root-nak, az nem volt feloldható, visszapattant a postmaster-nek, aki viszont már feloldható volt az admin@ -ra, és a levél (ugyan mint NDR), de végülis megérkezett az admin postaládájába. <br />
+Tesztlevél: NDA. Oké. Postfix ismer olyant, hogy root? Ismerni ismer, sőt, fel is oldja a nevet admin@ -ra. Az admin@ -nak lehívhatók az infói? Le. WTF? <br />
+Mivel jobb ötletem nem volt, a levélküldő alkalmazásokat kezdtem el átállítgatni, hogy a fontos levelek azért megjöjjenek rendesen, ne csak NDR-en keresztül. A szervert úgy mellesleg <a href="http://hup.hu/node/59756" title="Postfix+mysql: root nem található">fel is jelentettem</a>, de a probléma nem öltött akkora méreteket, hogy tudtam volna időt szánni a nyomozásra.
+</p>
+
+
+<p>
+
+Aztán egy szép napon valaki előszedte a fórumtémát, hogy akkor most végülis mi volt. Ennek kapcsán valaki más megkeresett IRC-n, hogy akkor ő most segítene, nézzük meg, mi lehet a baj. <br / />
+Először is, bekért egy csomó infót a szerverről, amit lehetett készségesen el is küldtem. Végül egy ilyen sor keltette fel a kíváncsiságát:
+</p>
+
+
+<p><code>
+myorigin = /etc/mailname
+</code></p>
+
+<p>
+Mi is az a myorigin? Nos, mint kiderült, a myorigin az a beleértett végződés, amit a Postfix a végződés nélküli címekhez rendel hozzá. Vagyis ha valaki azt mondja, hogy akkor ezt most küldd el a root-nak, akkor ő veszi a myorigin értékét (azaz kiolvassa a /etc/mailname tartalmát), hozzácsapja a root felhasznlónévhez, és elkezdi a rendes levélküldési folyamatot: megnézi, felelős-e ezért a domain-ért, ha igen, akkor pedig mit kell kezdeni a levéllel.
+</p>
+
+
+<p>
+Nos, a bukta már az első keresésnél kiderült: a Postfix nem volt felelős azért a domain-ért, ami értéket a myorigin végülis felvett. Ennek az volt az oka, hogy a homályos múltban még homályosabb okokból a szerver hostneve át lett írva mail.mittudomain.com -ról mittudomain.com-ra (én sosem csinálok ilyent, de nem kizárólag az enyém a szerver), majd a Postfix-től el lett véve a cím, mondván, hogy innentől ilyen címzett nem lesz. <br />
+A gond csak az volt, hogy a másik rendszergazda a /etc/mailname értékét nem írta át, hanem maradt mail.mittudomain.com -nak, és a Postfix továbbra is ezt értette bele a végződés nélküli címekhez. Mivel azonban ilyen domainért ő nem volt felelős, megpróbálta kifelé feloldani. A DNS saját magára mutatott, ám mivel ő továbbra sem érzett semmilyen elkötelezettséget a mail.mittudomain.com domain irányába, a kézbesítést feladta, és kihisztizte magát a postmaster vállain egy NDR formájában.
+</p>
+
+
+<p>
+A végső megoldás természetesen az /etc/mailname értékének az átfaragása, a probléma azonban az elvvel van. <br />
+Általánosságban igaz, hogy ha az ember gépet nevez át (mondjuk már ahhoz is nagyon nyomós indok kell, hogy a gép nevét megváltoztassam), akkor igyekszik a legnagyobb alapossággal eljárni, és sed-del végigjárja az összes szóbajöhető érintett konfigot, lecserélve a gép régi nevét az újra. Ezt a kollega meg is tette, azzal az apró pici különbséggel, hogy a végén nem grep-pelt egyet, hogy biztos nem maradt-e a sarokban valahol egy apró pici fájl, benne a régi névvel. A main.cf pedig nem egyértelműen hivatkozott erre a névre, hanem közvetve, az /etc/mailname értékén át. Mivel pedig a main.cf meg lett nézve, onnét a régi név gyökeresen ki lett írtva, így a Postfix teljes joggal érezhette, hogy márpedig ehhez a dologhoz neki köze nincsen.
+</p>
+
+
+<p>
+És hogy mi a tanulság? Az, hogy ilyen neveket nem rakunk le apró pici fájlokba, hanem bevéssük rendesen a konfigba. Egyfelől a dolog jobban parsolhatóvá válik (nem kell külön ellenőrizni, hogy akkor ez most fájl vagy sem), másfelől pedig egy esetleges probléma felmerülésekor eggyel kevesebb nyomon kell elindulni. No és persze a névváltásokat meg kell alaposan tervezni, és a végén vissza kell ellenőrizni, hogy valami hülye spion nem ragaszkodik-e foggal-körömmel a régi névhez.
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[KDE4 SVN-ből 2 - Az asztal]]></title>
+    <link href="http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal/"/>
+    <updated>2009-01-19T16:11:21+01:00</updated>
+    <id>http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal</id>
+    <content type="html"><![CDATA[<p><a name="plasmoid"><h3>Plazma az asztalon</h3></a></p>
+
+<p>
+Nem, ez nem plazmatévé, nem is <a href="http://hu.wikipedia.org/wiki/Plazma" title="Wikipédia - Plazma">plazma</a>, ez valami teljesen más. <br />
+Ugye emlékszünk még mindenki kedvenceire, a SuperKaramba kisalkalmazásokra? Ezeket az asztalra lehetett szétszórni, és időjárás és a gazdasági helyzet figyelésétől az iWiW-es értesítésekig nagyon sok mindenre lehetett felhasználni őket. A KDE fejlesztői úgy gondolták, ez elég hasznos dolog ahhoz, hogy még integránsabb részévé tegyék a KDE-s asztaloknak, mint amennyire eddig lehetőség nyílt rá.</p>
+
+
+<!--more-->
+
+
+<p>
+A KDE 4-es verziójában újraimplementálták az ezen kisalkalmazásokat futtató engine-t, és Plasma  névre keresztelték. Mielőtt továbbmennénk, kis fogalommagyarázat:
+<ul>
+<li>Plasma (plazma): az engine neve, mely a kisalkalmazásokat futtatja. Többféle kliense lehet, például a Kicker (mindjárt), és az asztal maga.</li>
+<li>Plasmoid (plazmoid): a kisalkalmazások neve, megfelel a SuperKaramba widgetjeinek</li>
+</ul>
+<a href="http://hron.me/uploads/2009/01/plasmoid-add.png"><img src="http://hron.me/uploads/2009/01/plasmoid-add-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="Plazmoid hozzáadása" class="alignright size-full wp-image-237" /></a>
+Noha a KDE alapcsomagjait eleve nagyon megszórták plazmoidokkal, (kevés kivétellel) <a href="http://techbase.kde.org/Development/Tutorials/SuperKaramba#SuperKaramba_on_KDE4" title="KDE TechBase: SuperKaramba on KDE 4">lehetőség van</a> a saját magunk által fejlesztett SuperKaramba cuccokat is tovább  használni Plasma alatt. <br />
+Ízelítőül itt jobbra láthatóak az alaptelepítéssel jövő plasmoidok listájának egy része (nem fért ki több :-) ).
+</p>
+
+
+<p>
+A telepített plazmoidokat az asztal jobb felső sarkában található sárga amorf "dologgal" megjelölt területére kattintva adhatjuk hozzá asztalunkhoz. A hozzáadott kisalkalmazás ezek után mozgatható, átméretezhető vagy elforgatható. Ha elidőzünk rajta, valamelyik függőleges oldal mentén megjelenik egy eszköztár, melyen a hely és helyzetváltoztatásra szolgáló gombokon kívül helyet kapott még egy csavarkulcs is, mellyel szokás szerint a beállítások ablaka hívható elő (ha az adott plasmoidnak van ilyenje), illetve egy bezárás gomb is, mellyel a plasmoid eltűntethető asztalunkról.
+</p>
+
+
+<p><a name="kicked-kicker"><h3>Plazma plazmatálcán kínálva</h3></a></p>
+
+<p>
+Egy nagyon furát mondok: a Kicker az általunk ismert formájában megszűnt létezni, nincs többé. A KDE 4-ben ezt is teljesen újragondolták. Mert mi is a tálca? Az asztal része. Mik vannak rajta? különböző kisalkalmazások. Hohó, hiszen ezeknek már egy rendszer ki van találva, a fent tárgyalt Plasma! Miért ne lehetne a rendszertálca is egy (speciális) plazmoid? Semmi akadálya. S lőn.</p>
+
+
+<p>
+A rendszertálca tehát mostmár csak egy plasmoid az asztalon. Annyiban azonban speciális, hogy képes más Plasmoid-okat megjeleníteni illetve néhánynak egy kissé megváltoztatja a viselkedését.<br />
+Ha nem akarnánk elhinni, tekintsük meg a tálca jobb oldalán megbúvó amorf kis ikont, mely nagyon hasonlít asztali társára. A működése is hasonló, egy kis eltéréssel: egy csík jelenik meg, melyen a kisalkalmazások hozzáadására szolgáló műveleteken kívül magának a tálcának a beállítását szolgáló műveletek is helyet kaptak.
+</p>
+
+
+<p><a name="apperance"><h3>Kinézet és effektek</h3></a></p>
+
+<p>
+A legnagyobb újítás kétségkívül az ablakok és ikonok általános kinézetében történt. Az előző verziókban megszokott, látványosan 3 dimenziós Plastik kinézetet leváltotta a letisztult vonalakból álló, nyugodt és szolíd kinézetű Oxygen. Ehhez az új témához tartozik ikon- és kurzorkészlet, ablakdesign és színséma, valamint egy rakat (stílusban illeszkedő) háttér. A KDE 4.2-ben debütál ez utóbbiak legfiatalabb tagja, az <a href="http://pinheiro-kde.blogspot.com/2008/12/air-we-breath.html">Air</a>. Egyedül talán az indítómenü őrzi még a régi KDE-s kinézetet, és emlékeztet a régi időkre.
+</p>
+
+
+<p><a href="http://nuno-icons.com/images/wall/snapshot3.jpg"><img src="http://1.bp.blogspot.com/__JNFVYfijS4/SUgy1wMzXII/AAAAAAAAAVc/4vlwNlxE5Fw/s400/snapshot5.png" width="400" height="250" title="Katt ide a nagyobb képért" alt="Air háttérkép" class="size-full wp-image-237" /></a></p>
+
+<p>
+Ám az asztal kinézete nem csak megújult, hanem - az idők szavának megfelelően - jónéhány effekttel is gazdagodott. Ezek egy jó része csak megfelelő beállítások és hardvertámogatás mellett érhető el, egy másik részükhöz azonban nem szükséges a gépünk részéről semmilyen extra. Ilyen például a tálcán ablakváltó gombjain való végighúzás közbeni simított egérkövetés a tooltip által, illetve a Konsole beállítópanelének kinézetváltója.
+<br />
+Ezen felül egy csomó olyan grafikai effekt került be a konkurrens Compiz ötleteit felhasználva, mellyel inkábba a prezentációhoz színesíthetjük asztalunkat, a folyamatos használatot bizony igencsak hátráltatja az illető megoldás, valamint hardveres támogatás is szükségeltetik hozzá.<br />
+A már divatnak számító asztalkocka mellett hóesésben és esőben dolgozhatunk, lehetőség van arra, hogy ablakainkat a bezárógombbal elégessük, valamint sok egyéb dologra is.<br />
+Van azonban egy effekt, mely különösen hasznos tud lenni, és érdemes elgondolkodni az engedélyezésén, ha lehetőségünk van rá: élő előnézeti képet tud biztosítani az ablakainkról azok gombja felett elidőzvén. Ez a fent említett standard simított tooltip-effektbe nagyon szépen belesimul, és a váltások nem annyira élesek, mint a Compiz esetében (valamint sokkal gyorsabbak is).
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[KDE4 SVN-ből 1 - Alaprendszer]]></title>
+    <link href="http://hron.me/blog/2009/01/kde4-svn-bol-1-alaprendszer/"/>
+    <updated>2009-01-13T16:47:28+01:00</updated>
+    <id>http://hron.me/blog/2009/01/kde4-svn-bol-1-alaprendszer</id>
+    <content type="html"><![CDATA[<p><a name="systemsettings"><h3>Vezérlőpult</h3></a></p>
+
+<p>Kezdjük ott, ahol minden valamirevaló rendszergazda kezdi: a beállításoknál. Előbb egy kis történelem, majd jönnek a részletek. </p>
+
+
+<p><a href="http://hron.me/uploads/2009/01/kcontrol3.png"><img src="http://hron.me/uploads/2009/01/kcontrol3-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="KDE3 vezérlőpult" class="alignright size-full wp-image-237" /></a>
+KDE3-ban elég egyszerűen volt intézve a vezérlőpult, balra volt fa szerkezeben a beállítások listája, jobbra az épp kijelölt beállításhoz tartozó panel. A minőség változó volt, hol a bőség zavarával kellett megküzdeni, hol a beállítások hiányos voltával. <br />Maguk a beállítópanelek amúgy egész pofásak voltak, noha egyik-másiknak az elrendezése nem volt egészen a legoptimálisabb, volt pár nehezen kezelhető, bonyolult eszköz. De ennek most vége. </p>
+
+
+<p>A KDE 4-ben ugyanis a KControlCenter mint olyan megszűnt létezni, helyét a SystemSettings (igen, nincsen benne 'K' :-) ) vette át, és kinézetre is teljesen más lett.</p>
+
+
+<!--more-->
+
+
+<p>
+<a href="http://hron.me/uploads/2009/01/systemsettings.png"><img src="http://hron.me/uploads/2009/01/systemsettings-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="KDE4 vezérlőpult" class="alignright size-full wp-image-237" /></a>
+Eltűnt a jól ismert fa-nézet a bal oldalról és eltűnt a panelek helye is, a helyüket egy, a Mac OS X vezérlőpultjához igen-igen hasonlító dolog vette át. Kategóriákra osztott lehetőségek közül válaszhatunk, sőt a "Speciális" fülön mélyen is belemászhatunk kedvenc KDE-nk lelkivilágába, kezdve az energiakezeléssel, a hardverek kezelésén át egészen az asztali téma testreszabásáig, szóval beállítófelületekben nincs hiány.</p>
+
+
+<p>Egy elemre szimplán vagy duplán kattintva (az Egér beállításánál lehet ezt neki megmondani, ti. hogy hogyan szoktunk ikont inditani, csak rábökünk, vagy ráduplázunk) a felület átvált a lényegi beállítórészre, ahol a különféle opciók tárulnak elénk. Most nem mennék végig a beállításokon, mert sok van, és egyre több. Ha végeztünk az adott modullal, és az alkalmazás gombra való kattintás után még vissza szeretnénk lépni a főablakba, keressük meg a bal felső sarokban a Vissza gombot :-) .</p>
+
+
+<p><a name="dolphin"><h3>Fájlkezelés</h3></a></p>
+
+<p>A következő dolog, amit jobban szemügyre kell venni, az a fájlkezelés témaköre, ugyanis itt elég nagy változások voltak</p>
+
+
+<p>Az előző KDE verzióban a fájlkezelést csak és kizárólag a Konqueror felületén át lehetett elvégezni, ez volt a fájlkezelő és a böngésző egyszemélyben. Voltak hozzá különböző pluginek, midnight commander nézet, meg hasonló okosságok, de a lényegen ez nem sokat változtatott.</p>
+
+
+<p>
+<a href="http://hron.me/uploads/2009/01/dolphin.png" target="_blank">
+<img src="http://hron.me/uploads/2009/01/dolphin-150x150.png"
+  alt="Dolphin fájlkezelő"
+  title="Katt ide a nagyobb képért"
+  width="150" height="150"
+  class="alignleft size-full wp-image-237"
+/>
+</a>
+Az új KDE-ben a Konqueror megtartotta ugyan fájlkezelési képességeit, ám bekerült egy kimondottan fájlokra specializálódott program, Dolphin néven. A Dolphin kiválóan alkalmas a feladatának elvégzésére, ugyanakkor egyszerűbben kezelhető mint a Konqueror, a felülete is jobban alkalmazkodott a célhoz.</p>
+
+
+<p>Balra a meghajtóink listája látható, pontosabban azok a meghajtók, amiket a KDE ismer. Mivel a legtöbb modern disztribúcióban már engedélyezve van a Hal (egyfajta eszközmenedzser), így valószínű, hogy nincs olyan meghajtónk, amiről a KDE ne tudna. <br />
+Jobbfelől egy nagy panel látható, rajta minden olyan információval, ami a kijelölt fájlról elérhető, illetve kijelölés híján az aktuális mappa adatai láthatók e helyütt. Középen a fájlok böngészésére szolgáló felület terpeszkedik, alul pedig a státuszsoron egy zanzát láthatunk a jobboldali panel adataiból (általába fájlnév és méret).
+</p>
+
+
+<p>
+A státuszsoron szerénykedik egy csúszka, mely a böngészőfelületen levő ikonok méretét hivatott szabályozni az extra nagytól a kis méretig. Őt akkor érdemes piszkálni főképp, ha a fájlok előnézete engedélyezve van (ez az eszköztár megfelelő parancsával elintézhető).
+</p>
+
+
+<p>
+Az eszköztár legvégén van egy ártatlannak tűnő gomb, mely azonban hatalmas lehetőséget rejt: kétpaneles böngészővé tudja alakítani a dolphin-t, így sokkal könnyebb a munka vele, mintha két ablak közt kellene mozogni.
+</p>
+
+
+<p>A nézet menü Panelek menüjébe belenézve két hasznos dolgot is találunk: az egyik egy terminál behívása, mely alapértelmezetten alul jelenik meg, és híven követi a dolphin-ban való mozgásunkat, a másik pedig egy, a meghajtólista lecserélésére alkalmas mappaböngésző, melyben fastruktúrában mozoghatunk gépünk mappái között.</p>
+
+
+<p>Érdekességképpen meg kell hogy említsem, hogy az SVN fájlrendszermodult feltéve úgy a Dolphin mint a Konqueror lehetőséget ad a munkakönyvtár böngészése közben annak frissítésére (svn up), és az aktuális változások beküldésére (svn commit). Ez egy nagyon hasznos dolog.<br />
+Szomorú hír viszont, hogy a többi verziókezelő rendszer felhasználói semmiféle ilyen lehetőségnek nem örvendhetnek, ugyanis nincsen fájlrendszer modul az ő programjuk formátumához - még.</p>
+
+]]></content>
+  </entry>
+  
+</feed>

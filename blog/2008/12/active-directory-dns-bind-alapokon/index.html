@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Active Directory - DNS Bind alapokon - Hron's blog</title>
+  <meta name="author" content="Gábor Garami" />
+
+  
+  <meta name="description" content="Ez megint egy erdekes allatfajta lesz, elore szolok. A pelda rendszer ketto gepet fog tartalmazni, dc es dns, a tartomany pedig a szeretett &hellip;" />
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <link rel="canonical" href="http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/" />
+  <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/code.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hron's blog" type="application/atom+xml" />
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', "UA-20858841-1"]);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div id="header"><!-- <hgroup>
+  <h1><a href="/">Hron's blog</a></h1>
+  
+    <h2>Who want to fly with doves loses the treasure down here</h2>
+  
+</hgroup> -->
+<a class="logo"><img src="/images/bear-logo.png" alt="bear with earphone"></a>
+<div class="userbox">
+
+
+
+  
+  <form action="http://google.com/search" method="get" class="search">
+    <!-- <fieldset role="search"> -->
+      <input type="hidden" name="q" value="site:hron.me" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    <!-- </fieldset> -->
+  </form>
+  
+  <div class="avatar"><a href="#" class="name">Hron's blog</a></div>
+  <ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+
+</div>
+</div>
+  <!-- <nav role="navigation"><ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+</nav> -->
+  <div id="main" class="site dashboard">
+    <div class="pagehead">
+      <nav rel="navigation">
+        <ul class="actions">
+             <li><a href="/">Kezdőlap</a></li>
+             <li><a href="/about/">Bemutatkozás</a></li>
+         </ul>
+      </nav>
+      
+      <header>
+        <h1 class="entry-title">Active Directory - DNS Bind alapokon</h1>
+        <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-09T11:00:45+01:00" class="pubdate" pubdate data-updated="true">2008. Dec.  9.</time></p>
+      </header>
+    
+    </div>
+
+    <div id="content" class="columns container">
+      <div class="first">
+<article class="hentry" role="article">
+  
+  <header>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Ez megint egy erdekes allatfajta lesz, elore szolok.</p>
+
+<p>A pelda rendszer ketto gepet fog tartalmazni, dc es dns, a tartomany pedig a szeretett mittudomain.com lesz.</p>
+
+<p>Nos, most lassuk a hozzavalokat, ket szerverre:</p>
+
+<ol class="bb-list" style="list-style-type:circle;">
+    <li>DC
+<ol class="bb-list" style="list-style-type:circle;">
+    <li>Windows 2000 vagy 2003 Server</li>
+    <li>Support Tools</li>
+</ol>
+</li>
+    <li>DNS
+<ol class="bb-list" style="list-style-type:circle;">
+    <li>Bind 9</li>
+    <li>Valamilyen szovegszerkeszto</li>
+</ol>
+</li>
+</ol>
+
+
+<p>Eloszor is, lassuk a DNS szervert, mert ez az egyszerubb a bonyolultabb:</p>
+
+<p>Telepitsuk fel a bind-et, ha szukseges, tegyuk elerhetove a DNS portjait a belso halo szamara.</p>
+
+<p>Nagyon fontos, hogy ezt a DNS szervert semmikeppen se probaljuk meg valamilyen grafikus/webes eszkozzel menedzselni, mert eleg kenyes dolgok vannak benne, amiket nem jo, ha egy magat okosnak erzo eszkoz szemetnek erzekelve kihajit.</p>
+
+<p>A konfigfajlban keressuk meg eloszor az options reszt, majd pakoljunk ilyeneket bele:</p>
+
+<p><code lang="text">
+auth-nxdomain no;
+</code></p>
+
+<p>Ezutan az options mezon kivul hozzunk letre ketto zonat, egyet a fo zonanak, egyet pedig a _msdcs zonanak. Ez utobbit mindenkeppen letre kell hozni, mert az Active Directory fokepp erre tamaszkodik. Lassuk a kodokat elobb, majd utana duma:</p>
+
+<p>Zona&#8230;</p>
+
+<p><code lang="text">zone "mittudomain.com" IN {
+type master;
+file "zones/mittudomain.com.db";
+allow-update {
+10.0.20.0/24;
+};
+};</p>
+
+<p>zone "<em>msdcs.mittudomain.com" {
+type master;
+file "zones/</em>msdcs.mittudomain.com.db";
+allow-update {
+10.0.20.5;
+};
+check-names ignore;
+};</code></p>
+
+<p>mittudomain.com zonafajl&#8230;</p>
+
+<p><code lang="text">@       IN      SOA     mittudomain.com.    hostmaster.mittudomain.com. (
+2008120901  ; serial
+28800       ; refresh
+7200        ; retry
+3600000     ; expires
+86400 )     ; minimum</p>
+
+<p>IN      NS      dns</p>
+
+<p>@       IN      A       10.0.20.3
+dns             A       10.0.20.3
+dc              A       10.0.20.5</code></p>
+
+<p>_msdcs.mittudomain.com zonafajl&#8230;</p>
+
+<p><code lang="text"><em>msdcs.mittudomain.com      IN SOA  mittudomain.com. hostmaster.mittudomain.com. (
+2008120901 ; serial
+28800      ; refresh (8 hours)
+7200       ; retry (2 hours)
+3600000    ; expire (5 weeks 6 days 16 hours)
+86400      ; minimum (1 day)
+)
+</em>msdcs.mittudomain.com.     IN      NS      dns.mittudomain.com.</code></p>
+
+<p>Es akkor most duma:</p>
+
+<p>Amint lathato a mittudomain.com zonafajl a leheto legegyszerubb lett, harom A rekord, egy NS, egy SOA, es roviditett formatum. Amit lenyeges megjegyezni belole, hogy a @ rekordnak <span style="font-weight:bold">mindig, kivetel nelkul</span> a DNS szerverre onmagara kell mutatni, meghozza A rekordkent. Ez azert nagyon-nagyon fontos, mert az AD csak igy ertekeli a DNS szervert authoritativnak, es csak igy lesz hajlando beleirni magat.</p>
+
+<p>Lassuk a nagyobbik remet, a _msdcs-t. Itt mar a konfig is modosult, latszik, hogy a bekerulo nevek ellenorzeset kikapcsoltam. Ez is nagyon fontos dolog, ugyanis a szabvany szerint a DNS nevekben nem lehetne alahuzas (underscore) karakter, marpedig itt maga a domain kezdodik igy. Ez sajnos MS sajatossag, nincs mit ellene tenni.</p>
+
+<p>A zonafajlban precizen ki kell irni mindent, ugyanis a bind tud eleg sokat anyazni dolgokon, illetve neha nem kepes a @ feloldasara. Ilyenkor sajnos nincs mas hatra, mint potyogni. Ettol eltekintve ez meg egyszerubb: csak egy NS bejegyzes kerult ide, ami a DNS szerverunkre mutat.</p>
+
+<p>Ezzel a bind kesz is, inditsuk el. Ha a syslog-ba valamire panaszkodna, akkor eloszor is ellenorizzuk a check-names megletet a zona konfigjaban, majd nezzuk at tuzetesen a zonafajlt.</p>
+
+<p>Lassuk a DC-t.</p>
+
+<p>Jelentkezzunk be, es ha eddig nem tettuk volna meg, akkor adjunk egy jo eros jelszot az Administrator/Rendszergazda felhasznalonak, mert a kovetkezo lepes ezt a jelszot importalja.</p>
+
+<p>Allitsuk be a dns gepet a Windows elsodleges DNS szerverekent, ne legyen masodlagos DNS. Halozati helyek -&gt; jobb klikk, Tulajdonsagok. Valasszuk ki a halozati kapcsolatunkat, majd a TCP/IP protokoll tulajdonsagainal irjuk be a dns gep IP cimet.</p>
+
+<p>A Support Tools a Windows telepitolemez SUPPORT mappajaban talalhato, van itt egy SUPTOOLS.MSI, na azon kell duplakatt, es Next,Next,Finish. Nyissunk parancssort:</p>
+
+<p><code lang="text">&gt; cd "C:\Program Files\Support Tools"
+&gt; netdiag /test:dns</p>
+
+<p>... snip ...</p>
+
+<p>DNS test . . . . . . . . . . . . . : Passed</p>
+
+<p>PASS - All the DNS entries for DC are registered on DNS server '10.0.20.3'
+and other DCs also have some of the names registered.</p>
+
+<p>The command completed successfully.</code></p>
+
+<p>Ennek igy kell kineznie. Ha valami RCODE hibara panaszkodik, vagy arra, hogy a DNS szerver szerinte nem authoritativ, akkor ellenorizzuk nslookup -pal, hogy a domain nevere megkapjuk-e A rekordkent a dns.mittudomain.com ip cimet. Ha nem, akkor ellenorizzuk a DNS szervert, hogy a kukacos A rekord bekerult-e a zonafajlba. Esetleg inditsuk ujra a bind-et.</p>
+
+<p>Barmi egyeb hiba tovabbi keresest kell hogy maga utan vonjon, barmilyen szosz keresztbe fog akadni a kovetkezo lepes torkan.</p>
+
+<p>Most adjuk ki a dcpromo parancsot. Ezt nem reszleteznem kulon, hogyan kell kitolteni, egyvalamire hivom csak fel a figyelmet: a tartomany DNS neve feltetlen egyezzen azzal a nevvel, amire a bind authoritativ, kulonben nem fogunk tudni tovabblepni.</p>
+
+<p>A dcpromo lefutasa soran meg nem tortenik semmi a DNS szerverunkkel, viszont amikor a Windows szerver ujraindul, kezdjuk argus szemekkel figyelni a dns.mittudomain.com syslog-jat, mert a domain bejegyzesek ekkor tortennek meg. Ha lefutott, akkor csinaljunk egy teljes restartot a bind-en. Barmily hihetetlen ugyanis, a bind kepes a teljesen hibas bejegyzesek eltarolasara is, es ilyenkor ujraninditaskor akadnak a torkan dolgok. Hogy ez ne tudjon varatlanul elofordulni, celszeru tehat szandekosan kezdemenyezni. Ilyenkor altalaban a check-names szokott kiabalni. Ha nagyon kiabal, az options reszben tegyunk egy ilyen bejegyzest:</p>
+
+<p><code lang="text">check-names master warn;</code></p>
+
+<p>Es a zonafajlbol vegyuk ki a check-names bejegyzest. Ezzel ugyan globalisan kikapcsoltuk a nevek ellenorzeset, de hat ez egy ilyen vilag.</p>
+
+<p>Ha szerencsenk volt, akkor jelenleg van egy teljesen mukodokepes Active Directory rendszerunk Bind DNS szerverrel.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Gábor Garami</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-09T11:00:45+01:00" class="pubdate" pubdate data-updated="true">2008. Dec.  9.</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tags/hogyan/'>hogyan</a>, <a class='category' href='/blog/tags/hu/'>hu</a>, <a class='category' href='/blog/tags/it/'>it</a>, <a class='category' href='/blog/tags/linux/'>linux</a>, <a class='category' href='/blog/tags/windows/'>windows</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/" data-via="hron84" data-counturl="http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="small"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/12/opera-jobbklikkes-szofordito/" title="Previous Post: Opera - jobbklikkes szofordito">&laquo; Opera - jobbklikkes szofordito</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/12/quicknote-divx-dvd-konverzio/" title="Next Post: Quicknote: DivX -> DVD konverzio">Quicknote: DivX -> DVD konverzio &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section id="comments">
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar last">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/nginx-es-php/">Nginx és PHP</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/hazi/">Házi, magam sütöttem</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/01/nginx-bevezeto/">Nginx - Bevezetés</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (7)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (82)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (15)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (4)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+</section>
+<section>
+    <h1>StackOverflow Profile</h1>
+    <p>
+        <a href="http://stackoverflow.com/users/182474/gabor-garami">
+            <img src="http://stackoverflow.com/users/flair/182474.png" width="208" height="58" alt="profile for Gabor Garami at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Gabor Garami at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+        </a>
+    </p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/hron84">@hron84</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'hron84',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hron84", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/hron84" class="twitter-follow-button" data-show-count="false">Follow @hron84</a>
+  
+</section>
+
+
+  
+</aside>
+
+<div class="rule">&nbsp;</div>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div id="footer" class="clearfix">
+  <div class="site">
+    <div class="copy">
+      
+      Copyright &copy; 2013 - Gábor Garami &mdash; Some rights reserved<br/>
+      <small class="license">
+        Contents and design are licensed under the terms of <br/>
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+          <img src="/images/cc.png" alt="creativecommons" />
+          &nbsp;CreativeCommons BY-SA 3.0 Unported License</a>
+      </small>
+    </div>
+    <div class="powa">
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span><br/>
+      <span class="credit">Hosted by <a href="https://github.com/">GitHub Pages</a></span>
+    </div>
+  </div>
+</div>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hron84';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/';
+        var disqus_url = 'http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

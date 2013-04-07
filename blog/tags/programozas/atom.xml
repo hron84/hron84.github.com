@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: programozas | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/programozas/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-04-07T04:17:19+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Spammerek, rettegjetek]]></title>
+    <link href="http://hron.me/blog/2010/06/spammerek-rettegjetek/"/>
+    <updated>2010-06-03T11:33:27+02:00</updated>
+    <id>http://hron.me/blog/2010/06/spammerek-rettegjetek</id>
+    <content type="html"><![CDATA[<p>Kész, most lett elegem a spammerek idiotaságából. Miután ma reggel ismételten 152 spam kommentre mondtam nemet, nekiálltam beleheggeszteni az oldal kódjába az <a href="http://akismet.com">Akismet</a> nagyszerű szolgáltatását a <a href="http://github.com/jfrench/rakismet">rakismet</a> gem/plugin segítségével. Most figyelem az eredményeket.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GlassFish kalandok]]></title>
+    <link href="http://hron.me/blog/2009/10/glassfish-kalandok/"/>
+    <updated>2009-10-24T03:05:35+02:00</updated>
+    <id>http://hron.me/blog/2009/10/glassfish-kalandok</id>
+    <content type="html"><![CDATA[<p>
+Kicsit elkezdtem ismerkedni a GlassFish nevű... hát hirtelen nem is tudom, minek nevezzem. Több, mint webszerver, sőt még Java alkalmazásszervernél is sokkal-sokkal több. </p>
+
+
+<!--more-->
+
+
+<p> Egyrészt képes ugyebár mindenre, amit egy Java alkalmazásszervertől (csúnya néven J2EE Container-től) az ember elvárhat: JSP-k, szervletek futtatása, valamint különféle babok (EJB) nagyüzemi kezelése. Ezt erősen megtámogatja JDBC oldalról, a deployment módjának szabad megválasztásával (alapvetően 4 opciónk van: feltöltjük a szerveren valahova, és az adminfelületen kitallózzuk; közvetlen töltjük fel az adminfelületre az appot; a szerveren az autodeploy mappába pakoljuk az appot; illetve ha használunk IDE-t, akkkor onnet is deployolhatunk, minden IDE-nek van pluginje hozzá), különböző opciók finomhangásával, és még nagyon sokáig sorolhatnám.
+</p>
+
+
+<p>
+Másrészt azonban a laptopomon levő üveghal pillanatnyilag PHP, Ruby, és Python nyelvu webalkalmazások futtatására is képes (a blogom másolatát vígan futtatja) egy kevés beállítás után. Szinte hihetetlen, ezzel a dologgal talán nincs is olyan szó, hogy lehetetlen, maximum olyan, hogy "nincs idő megcsinálni". 
+</p>
+
+
+<p>
+Az admin felülete egyszerű és letisztult, és iszonyúan segíti a munkát. Webszervízekhez ad tesztfelületet, a webalkalmazásokat felkínálja indításra, és más egyéb finomságok. <br />
+Egy olyan webszerveren, ahol kicsit bővebb RAM áll az ember rendelkezésére, simán el tudom képzelni, mint Apache helyettest. Talán még a munka is kevesebb lenne vele. Persze, mivel jelenleg csak 1G RAM van a szerverünkbe, így az Apache jobb választásnak tűnik (a GlassFish indításához 512 minimum az ajánlott, és gondolom a kliensek számával erőteljesen növekszik a memóriaigény). 
+</p>
+
+
+<p>
+Persze, ez csak az első fellángolás. Vannak vele azért szívások rendesen, például a PHP-t egyáltalán nem volt triviális beállítani, a Quercus pl. ígéretesnek hangzott, aztán kiderült, hogy sokat akart a szarka... végül egy natív PHP feltelepítésével, valamint a Java-PHP Bridge nevű cucc beizzításával sikerült a gondokon urrá lenni. Érdekes, hogy ez a stuff amúgy belül PHP-CGI-t használ... ez annyiból jó, hogy a PHP átkonfigurálása után nem kell a komplett appszervert újraindítani (ez kicsit hosszú idő lenne), a változások azonnal érvényre jutnak. 
+</p>
+
+
+<p>
+Összességében véve azonban egy nagyon jó kezdeményezésnek tartom, amit érdemes jobban tanulmányozni. Nagyon sok jó dologra lehet egy ilyen cuccot használni, és annak csak egy része, hogy Java alkalmazásszerverként üzemeltessük.
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[KDevelop4 első pillantásra]]></title>
+    <link href="http://hron.me/blog/2009/01/kdevelop4-elso-pillantasra/"/>
+    <updated>2009-01-07T23:21:48+01:00</updated>
+    <id>http://hron.me/blog/2009/01/kdevelop4-elso-pillantasra</id>
+    <content type="html"><![CDATA[<p>
+A mai nap volt egy kis szabadidőm, és úgy döntöttem, kipróbálom a KDevelop KDE4-es variánsát, mi változott a jól ismert KDE3-as verzióhoz képest.
+<br />Miután nagy nehezen felhekkeltem és elindítottam, megnyitottam benne önmagát (vagyis az őt tartalmazó projektet). Azután fél percig még levegőt is csak elvétve vettem.</p>
+
+
+<!--more-->
+
+
+<p><a href="http://hron.me/uploads/2009/01/kdevelop_alap.png"> <img src="http://hron.me/uploads/2009/01/kdevelop_alap-300x241.png" width="300" height="241" class="alignleft size-medium wp-image-235" alt="KDevelop alap ablak" title="Katt ide a nagyobb képért" /></a>
+Ha azt mondom, hogy ezt az alkalmazást tényleg a nulláról írták és gondolták újra, akkor úgy hiszem, nem tévedek nagyot. Elsőre elég funkciószegénynek tűnik a program, de sosem szabad hinni az első pillantásra feltámadó érzelmeknek.</p>
+
+
+
+
+<p>
+
+Elsőre az tűnt fel, hogy bámészkodás közben a kódszerkesztőn felejtett egérkurzor alatti kóddarabról kicsit lejjebb hihetetlen részletes információkat kaphatunk, a projekt megnyitásától számított néhány másodperc múlva (a régi kdevelop-nak sokszor 3-5 perc is kellett, mire megismerkedett egy közepesen nagy kódfával).<br />
+<a href="http://hron.me/uploads/2009/01/kdevelop_onmouse.png">
+<img src="http://hron.me/uploads/2009/01/kdevelop_onmouse-300x241.png" width="300" height="241" class="alignright size-medium wp-image-236" alt="KDevelop - Egér a kódban" title="Katt ide a nagyobb képért" /></a>
+A projektnézet hagyományos helyén, a bal oldalon található, ám a tartalma kissé trükkös. A KDevelop4 ugyanis <strong>értelmezi a Makefile/CMakeList.txt fájlokat</strong>, és az azokban található targetekhez tartozó fájlokat egy 'virtuális mappában' jeleníti meg (az ikonja eltér a mappáétól, így könnyű megkülönboztetni), míg a targethez nem tartozó fájlok a rendes, fájlrendszerbeli helyükön látszanak.</p>
+
+
+<p>
+A projektimport hihetetlen egyszerű lett, akár egy töküres mappát is megnyithatunk projektként, és dolgozhatunk benne. Egyedüli kitétel, hogy amit a projekt importálásakor megadtunk build rendszert ahhoz tartanunk kell magunkat, mert az automata buildscript-parser ez alapján dolgozik és állítja össze a projektnézetet.<br />
+A projekt elmentésére lehetőség nincsen, ugyanis a program automatikusan elmenti a projekt változásait, amikor az import- vagy beállítóablakon az 'OK' gomb megnyomásra kerül.</p>
+
+
+<p>
+<a href="http://hron.me/uploads/2009/01/kdevelop_plugins.png">
+<img src="http://hron.me/uploads/2009/01/kdevelop_plugins-300x293.png" alt="KDevelop plugin lista" title="Katt ide a nagyobb képért" width="300" height="293" class="alignright size-full wp-image-237" /></a>
+Újdonság, hogy kibővült a használható verziókezelők köre. Immáron a CVS-től a Git-en át a Mercurial-ig szinte minden használható, ami nem, az pedig hamarosan az lesz, hiszen a programozási felületek is rengeteget egyszerűsödtek.<br />
+Ehhez hozzáalakult a projektablak jobbkattintásos menüje is, bár azt hozzá kell tenni, hogy még kissé nem tiszta a logikája a veriókezelő menüknek. De még minden változásban van, így ez csak egy előzetes vélemény, akár még javulhat is.
+</p>
+
+
+<p>
+A rendesen létrehozható projektek köre viszonylag szűk, (talán a fenti importálási lehetőség miatt) sima cmake/make alapú projekt nincs is, csak Qt-s vagy KDE-s, illetve néhány KDE plugin-hoz vannak előredefiniált sablonok (erősítvén azt az érzésemet, hogy  a KDE4 része vagy egésze ezzel az eszközzel készül). </p>
+
+
+<p>
+A szövegszerkesztő elég sok változást hoz ugyancsak. Teljesen átalakult a jobboldali sáv, a összecsukó/kinyitó ikonok stílusa is változott, és ezen művelet is nagyon sokat gyorsult.<br />
+A szintaxiskiemelésről sok szót nem érdemes ejteni, teljes egészében átveszi a kate menüit és képességeit e téren, tehát amit a kate ki tud szinezni, azt a KDevelop is ki tudja.</p>
+
+
+<p>
+Általánosságban elmondható tehát, hogy külsőleg és funkcióiban teljesen megújult a KDevelop4, ezen felül sokkal gyorsabb és önállóbb lett. Érdekes módon viszont a kódja sokkal kisebb, ugyanis nagyon sokmindent kiemeltek a kdevplatform nevű csomagba, éspedig azért, hogy a többi fejlesztőeszköz is profitálhasson a KDevelop fejlesztése során született dolgokból. Ennekokán valószínűsítem, hogy a Quanta, a KBabel és a többi program is egy megújult, funkcióban sokkal gazdagabb verzióval jelentkezik majd a KDE4 keretében.
+</p>
+
+
+<p>
+Nem hivatalos források megerősítették, hogy a KDE 4.2 kiadásban sajnos nem lesz még KDevelop4, legkorábban talán a KDE 4.3 kiadásában vehetjük először szemügyre ezt a csinos fejlesztőeszközt. Addig sajnos türelemmel kell lenni.
+</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Quicknote: Type alloc hack]]></title>
+    <link href="http://hron.me/blog/2008/12/quicknote-type-alloc-hack/"/>
+    <updated>2008-12-03T12:10:30+01:00</updated>
+    <id>http://hron.me/blog/2008/12/quicknote-type-alloc-hack</id>
+    <content type="html"><![CDATA[<p>No comment.</p>
+
+
+<pre class="bb-code-block">
+#define talloc(type) (type *) malloc(sizeof(type))
+</pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails with mongrel: cache_template_loading]]></title>
+    <link href="http://hron.me/blog/2008/11/rails-with-mongrel-cache_template_loading/"/>
+    <updated>2008-11-30T02:33:40+01:00</updated>
+    <id>http://hron.me/blog/2008/11/rails-with-mongrel-cache_template_loading</id>
+    <content type="html"><![CDATA[<p>Almos vagyok, ugyhogy ez most csak egy <a href="http://railsforum.com/viewtopic.php?id=23648" class="bb-url">link</a></p>
+
+]]></content>
+  </entry>
+  
+</feed>

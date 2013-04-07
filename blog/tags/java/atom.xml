@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/java/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-03-26T16:29:30+01:00</updated>
+  <updated>2013-04-07T04:17:19+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -70,6 +70,45 @@ canonicalHostName = kingmax.hron.me
 </code></pre>
 
 <p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GlassFish kalandok]]></title>
+    <link href="http://hron.me/blog/2009/10/glassfish-kalandok/"/>
+    <updated>2009-10-24T03:05:35+02:00</updated>
+    <id>http://hron.me/blog/2009/10/glassfish-kalandok</id>
+    <content type="html"><![CDATA[<p>
+Kicsit elkezdtem ismerkedni a GlassFish nevű... hát hirtelen nem is tudom, minek nevezzem. Több, mint webszerver, sőt még Java alkalmazásszervernél is sokkal-sokkal több. </p>
+
+
+<!--more-->
+
+
+<p> Egyrészt képes ugyebár mindenre, amit egy Java alkalmazásszervertől (csúnya néven J2EE Container-től) az ember elvárhat: JSP-k, szervletek futtatása, valamint különféle babok (EJB) nagyüzemi kezelése. Ezt erősen megtámogatja JDBC oldalról, a deployment módjának szabad megválasztásával (alapvetően 4 opciónk van: feltöltjük a szerveren valahova, és az adminfelületen kitallózzuk; közvetlen töltjük fel az adminfelületre az appot; a szerveren az autodeploy mappába pakoljuk az appot; illetve ha használunk IDE-t, akkkor onnet is deployolhatunk, minden IDE-nek van pluginje hozzá), különböző opciók finomhangásával, és még nagyon sokáig sorolhatnám.
+</p>
+
+
+<p>
+Másrészt azonban a laptopomon levő üveghal pillanatnyilag PHP, Ruby, és Python nyelvu webalkalmazások futtatására is képes (a blogom másolatát vígan futtatja) egy kevés beállítás után. Szinte hihetetlen, ezzel a dologgal talán nincs is olyan szó, hogy lehetetlen, maximum olyan, hogy "nincs idő megcsinálni". 
+</p>
+
+
+<p>
+Az admin felülete egyszerű és letisztult, és iszonyúan segíti a munkát. Webszervízekhez ad tesztfelületet, a webalkalmazásokat felkínálja indításra, és más egyéb finomságok. <br />
+Egy olyan webszerveren, ahol kicsit bővebb RAM áll az ember rendelkezésére, simán el tudom képzelni, mint Apache helyettest. Talán még a munka is kevesebb lenne vele. Persze, mivel jelenleg csak 1G RAM van a szerverünkbe, így az Apache jobb választásnak tűnik (a GlassFish indításához 512 minimum az ajánlott, és gondolom a kliensek számával erőteljesen növekszik a memóriaigény). 
+</p>
+
+
+<p>
+Persze, ez csak az első fellángolás. Vannak vele azért szívások rendesen, például a PHP-t egyáltalán nem volt triviális beállítani, a Quercus pl. ígéretesnek hangzott, aztán kiderült, hogy sokat akart a szarka... végül egy natív PHP feltelepítésével, valamint a Java-PHP Bridge nevű cucc beizzításával sikerült a gondokon urrá lenni. Érdekes, hogy ez a stuff amúgy belül PHP-CGI-t használ... ez annyiból jó, hogy a PHP átkonfigurálása után nem kell a komplett appszervert újraindítani (ez kicsit hosszú idő lenne), a változások azonnal érvényre jutnak. 
+</p>
+
+
+<p>
+Összességében véve azonban egy nagyon jó kezdeményezésnek tartom, amit érdemes jobban tanulmányozni. Nagyon sok jó dologra lehet egy ilyen cuccot használni, és annak csak egy része, hogy Java alkalmazásszerverként üzemeltessük.
+</p>
+
 ]]></content>
   </entry>
   

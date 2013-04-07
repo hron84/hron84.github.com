@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mac | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/mac/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-04-07T04:17:19+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Frissítettem Mac OS X 10.5.8-ra]]></title>
+    <link href="http://hron.me/blog/2009/08/frissitettem-mac-os-x-10-5-8-ra/"/>
+    <updated>2009-08-23T23:40:12+02:00</updated>
+    <id>http://hron.me/blog/2009/08/frissitettem-mac-os-x-10-5-8-ra</id>
+    <content type="html"><![CDATA[<p>Ez most nem olyan lesz, mint Trey frissítős cikkei a HUP-on, amennyiben csak a végeredményt mutatom, meg az ahhoz vezető pár lépést írom le címszavakban:
+<ul>
+<li>Kattints az Alma -&gt; Software Update menüpontra</li>
+<li>Válaszd ki a rendszerfrissítést</li>
+<li>Kattints az Install gombra</li>
+</ul>
+</p>
+
+
+<p>Azért hozzá kell tenni, hogy ez csak iAtkos v7 alatt működik, valamint ezzel a kernelünk (szerencsére) nem frissül. Azt külön kell intézni.</p>
+
+
+<p><a href="http://hron.me/uploads/2009/08/osx-10-5-8.png" title="Katt ide a nagy képért" alt="OSX 10.5.8 telepítve"><img src="http://hron.me/uploads/2009/08/osx-10-5-8-150x150.png" width="150" height="150" title="Android" alt="Android ikon" class="aligncenter size-full" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Macőrültem]]></title>
+    <link href="http://hron.me/blog/2009/08/macorultem/"/>
+    <updated>2009-08-19T12:22:55+02:00</updated>
+    <id>http://hron.me/blog/2009/08/macorultem</id>
+    <content type="html"><![CDATA[<p>
+Úgy néz ki, engem is elkapott a Macintosh láz. Sikerült a munkahelyi és az otthoni gépemre is Macintosh-t... akarom mondani Hackintosh-t rakni. Nem mondom, hogy nem izzadtam le párszor, meg nem szívtam nagyokat, de hat Gentoo-sként ez már annyira nem visel meg :-).
+</p>
+
+
+<!--more-->
+
+
+<p>
+Ami egy picit zavar, az a verziókülönbség a két rendszer között. Míg az otthoni gépen 10.5.7 (iAtkos v7) tekeri a biteket, addig a munkahelyi gépre csak egy 10.5.4-es (JaS) verziót sikerült felpakolni. Reményeim szerint valamikor a jövőben megpróbálok frissíteni, de egyelőre nem vagyok túlságosan bizakodó ezzel kapcsolatban. Az sem lesz egy egyszerű menet. 
+</p>
+
+
+<p>
+Ami megdöbbentő: az otthoni AMD rendszerem messzebb már nem is igen lehetne az Apple féle gépektől (VIA chipsetes, AMD Sempron64 procis), mégis, sokkal könnyebben és gyorsabban sikerült felraknom rá a Macet, mint a munkahelyi Core2Duo fullintel rendszerre. Nem akartam elhinni, de muszáj volt. 
+</p>
+
+
+
+]]></content>
+  </entry>
+  
+</feed>

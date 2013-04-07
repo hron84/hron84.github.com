@@ -1,143 +1,385 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://hron.me/blog/2006/06/miert-nem-lesz-errefele-politikai-bejegyzes-/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/pydocserver/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/a-pluto-elvesztette-bolygoi-statuszat/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/a-nemzetkozi-urallomas-friss-levegot-kapott/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/a-marsi-viharok-nagy-zurt-kavarhatnak/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/adathalaszat-vagy-hulyeseg-a-kobon/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/vizes-kulso-bolygo/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/07/nasa-a-nap-kepe/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/08/nasa-negy-csillag-egy-csapatban/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/08/a-torhetetlen/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2007/10/the-4400-soundtrack/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/02/amikor-mar-semmin-nem-lepodok-meg/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/dns-server-ms-master-bind-slave/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/nagios-status-monitor/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/postfix-over-selinux-virtual-mail-domains-/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/apache-cgi-bin-selinux/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/centos-gyorsteszt-tapasztalatok/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/ruby-on-windows-inputrc/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/ruby-on-windows-libmysql-dll/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/11/rails-with-mongrel-cache_template_loading/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/12/quicknote-type-alloc-hack/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/12/opera-jobbklikkes-szofordito/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/12/active-directory-dns-bind-alapokon/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/12/quicknote-divx-dvd-konverzio/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/12/msi-ex600x-415hu-elso-latasra/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2008/12/msi-ex600x-415hu-avagy-fedezd-fel-laptopodat/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/rolam/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/koltozkodes/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/bloghekkeles/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/telitalalat-vaksotetben/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/kdevelop4-elso-pillantasra/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/cmake-egy-fajdalommal-kevesebb/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/kde4-svn-bol-0-eloszo/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/kde4-svn-bol-1-alaprendszer/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/01/kiveteles-juttatas/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/02/az-el-takarito/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/02/medvek-egymas-kozt/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/02/megerteni-a-folyamatot/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/02/motorgeneral/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/02/megjott/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/02/kiveteles-juttatas-2/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/03/tortellini-a-leragasztott-igazsag/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/04/vice-magyar-kiosztasu-billentyuzet/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/04/vmware-billentyuzet-problema/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/04/commodore/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/06/keresd-a-telot-/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/07/o-a-robot/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/08/reset/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/08/macorultem/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/08/frissitettem-mac-os-x-10-5-8-ra/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/09/ceges-hetvege-liptovske-sliace/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/10/glassfish-kalandok/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/10/valtozasok/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2009/11/blog-update/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://hron.me/blog/2009/11/a-slager-radio-tulajdonosa-megsem-vonult-ki-magyarorszagrol/
+        </loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2010/01/vasarolgatok/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2010/03/openid-szolgaltato-valtas/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2010/06/spammerek-rettegjetek/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://hron.me/blog/2010/08/az-anya-tyukja/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2010/09/a-gondolkodo-medve/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2010/12/jomunkasmedve/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2010/12/jomunkasmedve-2-az-orzo/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2011/01/koponyeghu-elso-android-appom/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2011/02/mult-es-jovo/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/2011/02/openid-szolgaltato-valtas-tapasztalatok/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2011/06/viharos-ej/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2011/07/1-centes-bolt/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2011/07/dr-otker/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2011/07/google-authenticator-for-ssh/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/02/re-back-valami/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/02/jenkins-rvm-bundler/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/03/some-new-rules-uj-szabalyok/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/03/travelling-to-brno/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/03/brno-a-very-different-place/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/04/qt-forditas-kezdoknek/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/06/continous-deployment-vagy-affele/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/09/valamit-maskeppen/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/10/github-powa/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/10/guard-projektjeink-testore/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/10/logging-with-logstash/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/11/rubymine-es-teamcity/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/11/redishash-this-hash-is-a-db/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/12/rails-polimorf-vilag/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2012/12/avatar-tortenelem/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2013/01/nginx-bevezeto/</loc>
-        <lastmod>2013-03-17T14:00:32+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2013/01/gitiles-install-howto/</loc>
-        <lastmod>2013-01-30T17:37:46+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2013/02/rails-pre-commit-hook/</loc>
-        <lastmod>2013-02-12T23:26:30+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2013/03/hazi/</loc>
-        <lastmod>2013-03-03T19:05:23+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/blog/2013/03/nginx-es-php/</loc>
-        <lastmod>2013-03-17T14:00:12+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://hron.me/</loc>
-        <lastmod>2013-03-17T14:00:32+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://hron.me/blog/archives/</loc>
-        <lastmod>2013-03-17T14:00:32+01:00</lastmod>
-    </url>
-    <url>
-        <loc>http://hron.me/en/contributions/</loc>
-        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
     </url>
     <url>
         <loc>http://hron.me/about/</loc>
+        <lastmod>2013-01-30T17:02:59+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/blog/archives/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/</loc>
+        <lastmod>2013-04-07T04:11:11+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hron.me/en/contributions/</loc>
         <lastmod>2013-01-30T17:02:59+01:00</lastmod>
     </url>
     <url>
