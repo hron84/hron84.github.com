@@ -4,7 +4,7 @@
   <title><![CDATA[Category: windows | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/windows/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-04-18T00:47:37+02:00</updated>
+  <updated>2013-04-18T00:58:49+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -25,9 +25,10 @@ the final version is changed it to create account based on your first name, it w
 case. Notice the accented second letter.</p>
 
 <p>The problem with folders containing non-ASCII char in its name is obvious: not all program can handle
-it correctly. It has a displaying problems, and some apps cannot create its file in this profile.</p>
+it correctly. It has a displaying problems in some apps, and some apps cannot create their files in
+this profile.</p>
 
-<p>The fix is not so easy.</p>
+<p>The fix was not so easy but I now describe required steps.</p>
 
 <p>First if you do not have an another administrator user than you, then you have to create it. Windows 8
 does not allow to log into the built-in Administrator account anymore, so you have to create one in
