@@ -9,7 +9,7 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Fel&eacute;lesztem ezt a blogot, h&aacute;tha lesz is bel&ouml;le valami. Most visszaolvastam &eacute;s durv&aacute;n r&eacute;gen nem &iacute;rtam &hellip;" />
+  <meta name="description" content="Preface: Sorry for my poor english. So, today I started thinking on how can I compile my rails app to different Ruby versions. Luckily, I discovered &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -108,6 +108,54 @@
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/02/jenkins-rvm-bundler/">Jenkins, RVM, Bundler</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Preface: Sorry for my poor english.</p>
+
+<p>So, today I started thinking on how can I compile my rails app to different Ruby versions. Luckily, I discovered, Jenkins can use RVM to run rake tasks.</p>
+
+<p>I initialized rvm following <a href="http://watirmelon.com/2011/08/29/running-your-watir-webdriver-tests-in-the-cloud-for-free/">this tutorial</a> but I just skipped EC2 instance creation, because I currently has a CI server. I installed three ruby version, MRI 1.8.7, MRI 1.9.3, and JRuby latest stable.</p>
+
+<p>First, I created a Rakefile.bootstrap file in my project root to make bundle install phase to rake-ized because I wouldn&#8217;t like run this via shell state, as because I need to select the correct rvm what is can be changed and I wouldn&#8217;t like administer it on thee or more places.</p>
+
+<p>Then, I was naive. I thinked I use separated gemset to avoid infecting global ruby scope with my project&#8217;s gems.</p>
+
+<p>This is quite easy, I sudo-ed to jenkins, and created gemset by <code>rvm gemset create rhcp</code>. After viewing and saving Jenkins&#8217; main configuration are, rake plugin recognized this gemset, and offered to use it.</p>
+
+<p>I clicked on it, saved the project, clicked on build, and pray (in the future: c&amp;p). No luck.</p>
+
+<p>I spent a half of hour with investigation, and I found I need install rake to the target gemset too, not enough if it is installed with ruby or installed to the @global gemset. I installed rake, c&amp;p. No luck.</p>
+
+<p>After it, I ran into <a href="http://stackoverflow.com/questions/3456304/rake-aborted-stack-level-too-deep">this problem</a>. Because rake loaded twice, it lost in the stack, and just gave up.</p>
+
+<p>So, I added rake proxy for my bootstrap Rake file. It means calls the rake command prefixed by &#8216;bundle exec&#8217; since Jenkins cannot do this. Bundler cleans out unneccessary gems (eg.g what coming from @global, or from ruby itself) and executes rake command.</p>
+
+<p>This is the final Rakefile.bootstrap if you want to use it:</p>
+
+<p>&nbsp;</p>
+
+<script src="https://gist.github.com/1838983.js?file=gistfile1.rb"></script>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -413,34 +461,6 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2010/12/jomunkasmedve/">Jómunkásmedve</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class='p_embed p_image_embed'>
-<a href="http://getfile6.posterous.com/getfile/files.posterous.com/hron84/9YoR7p1h9Bx5ST9jyJHULr8CWD9zAnskTp2U8DzNUV2hX6D2fGfEqEZXpIMA/2010-12-13_15.10.50.jpg.scaled.1000.jpg"><img alt="2010-12-13_15" height="375" src="http://getfile5.posterous.com/getfile/files.posterous.com/hron84/BMOjBEFTGA1CgOPZTHLok9tbiTIyerFC8StmXZ8xDEj7WRIqFTb5lq0aDuaz/2010-12-13_15.10.50.jpg.scaled.500.jpg" width="500" /></a>
-</div>
-
-
-<p>&#8211;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -458,6 +478,10 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/rename-windows-8-profile-dir/">Rename Windows 8 Profile dir</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/nginx-es-php/">Nginx és PHP</a>
       </li>
     
@@ -473,15 +497,11 @@ Maradj a jelenben. Semmit sem tehetsz, hogy megv&aacute;ltoztasd a m&uacute;ltat
         <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/01/nginx-bevezeto/">Nginx - Bevezetés</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (7)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (82)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (15)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (4)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (8)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (82)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (15)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 <section>
     <h1>StackOverflow Profile</h1>

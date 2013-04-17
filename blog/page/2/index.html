@@ -9,9 +9,8 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Nem olyan régen ismerkedtem meg a guard nevű
-gemmel, ami egy nagyon hasznos kis szerszám annak, aki Rails fejlesztésre adja
-a fejét, de plug-injei &hellip;" />
+  <meta name="description" content="In these days I started looking up for an opensource, easy-to-use central logging system.
+I read a lot of articles on the internet, and I found two &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -110,6 +109,292 @@ a fejét, de plug-injei &hellip;" />
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/logging-with-logstash/">Logging with Logstash</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In these days I started looking up for an opensource, easy-to-use central logging system.
+I read a lot of articles on the internet, and I found two good solution,
+<a href="http://www.graylog2.org">Graylog2</a> and <a href="http://logstash.net/">LogStash</a>. Both system can
+operate as syslog server and store our logs in database. I tried both system, and I
+experienced both have small problems - but some of these problems are different.</p>
+
+<h2>Graylog2</h2>
+
+<p>Graylog has a very good-looking interface and a relative easy configuration file. It has
+a lot of parameters, but the default configuraiton file is well-documented and easy to read.</p>
+
+<p>Graylog uses a MongoDB for store some small stuffs and ElasticSearch for store and search logs.
+The main advantage of this solution is the separated web interface. It can be installed anywhere,
+it just need a some small configurations to connect to same ES/Mongo instances as Graylog server uses.</p>
+
+<p>The web ui makes easy to search and filter logs, backlist some entries, and create a &#8220;channels&#8221; what is
+a named filter setting, where you can follow what happening in a simple context.</p>
+
+<p>But as I started use web interface and the server itself in everyday tasks, I found two problems:</p>
+
+<ul>
+<li>Web interface is does not make easy to write filters, because nor the interface, nor the documentation
+not describe how filters will be matched against messages. Because these filters are simple regular
+expressions, it is needed to know how to search some specific things. I sucked with it a lot of time
+until I found a method to find something. It is need a lot of improvement.</li>
+<li>Graylog seems does not take care about its input. After a week I found logging is stopped working. After
+some investigation, I discovered the ElasticSearch eaten a lot of resources and generating a huge log.
+After reading log I found the ElasticSearch is broken on some invalid characters in index files. I
+tried to restart ES server and leave to recover itself for a hour but no luck, it stuck in recovering state.
+Because I am not know well ES and graylog I started ask Google about these problems, but I did not find a
+good solution for me. So I decided to move on from Graylog.</li>
+</ul>
+
+
+<h2>LogStash</h2>
+
+<p>LogStash is a more robust logging solution. It is similar as syslog-ng but it does not restrict itself to working
+as Syslog server (with other words: get infos from input like syslog server) but it can chew anything what is a text
+stuff. It can use a lot of things as a log source, e.g.:</p>
+
+<ul>
+<li>Syslog server (it can act as syslog server, but see below)</li>
+<li>Plain file</li>
+<li>Raw TCP/UDP socket</li>
+<li>Output of any executable</li>
+<li>IRC/Jabber channels</li>
+<li>Twitter</li>
+<li>Stdin</li>
+<li>Windows Eventlog</li>
+<li>and so on&#8230;</li>
+</ul>
+
+
+<p>And it has a numerous output format too. What is important for me is it can use ElasticSearch and some No-SQL
+databases as log-storing backend.</p>
+
+<p>It has a built-in web interface for searching in log records, but <a href="https://github.com/rashidkpc/Kibana/">Kibana</a>
+is a little better Web interface to search against ElasticSearch, it makes searching/filtering easier.</p>
+
+<p>My current configuration is very easy:</p>
+
+<ul>
+<li>There is a central syslog server, provided by LogStash</li>
+<li>All my server is logging here via RSyslog (default syslog server of Debian Linux)</li>
+<li>LogStash is configured to store log messages in ElasticSearch after some parsing</li>
+</ul>
+
+
+<p>Basically, I followed the <a href="http://cookbook.logstash.net/recipes/syslog-pri/">official recipe</a> for this setup except
+one thing: somehow I couldn&#8217;t get working the date parser in the way what recipe says. So I tricked it out.</p>
+
+<p>First, I created an Rsyslog config part, what I uploaded to /etc/rsyslog.d on every server:</p>
+
+<figure class='code'><figcaption><span>/etc/rsyslog.d/to-logstash.conf</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>$template LOGSTASH,&quot;&lt;%PRI%&gt;%timegenerated:::date-rfc3164-buggyday% %HOSTNAME% %APP-NAME%: %msg:::drop-last-lf%\n&quot;
+</span><span class='line'>$ActionForwardDefaultTemplate LOGSTASH
+</span><span class='line'>*.*   @1.2.3.4:514
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note the <code>%timegenerated:::date-rfc3164-buggyday%</code> directive. The documentation of Rsyslog says it is basically
+pads a day number with zero if it is smaller than 10. It is introduced to emulate a syslog-ng &#8216;bug&#8217;.</p>
+
+<p>After it I created a following configuration for logstash:</p>
+
+<figure class='code'><figcaption><span>LogStash configuration</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>input {
+</span><span class='line'>  tcp {
+</span><span class='line'>    port =&gt; 514
+</span><span class='line'>    type =&gt; syslog
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  udp {
+</span><span class='line'>    port =&gt; 514
+</span><span class='line'>    type =&gt; syslog
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>filter {
+</span><span class='line'>  grok {
+</span><span class='line'>      type =&gt; &quot;syslog&quot;
+</span><span class='line'>      pattern =&gt; [ &quot;&lt;%{POSINT:syslog_pri}&gt;%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{PROG:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}&quot; ]
+</span><span class='line'>      add_field =&gt; [ &quot;received_at&quot;, &quot;%{@timestamp}&quot; ]
+</span><span class='line'>      add_field =&gt; [ &quot;received_from&quot;, &quot;%{@source_host}&quot; ]
+</span><span class='line'>  }
+</span><span class='line'>  syslog_pri {
+</span><span class='line'>      type =&gt; &quot;syslog&quot;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  date {
+</span><span class='line'>      type =&gt; &quot;syslog&quot;
+</span><span class='line'>  #    syslog_timestamp =&gt; [ &quot;MMM  d HH:mm:ss&quot;, &quot;MMM dd HH:mm:ss&quot; ]
+</span><span class='line'>      syslog_timestamp =&gt; [ &quot;MMM dd HH:mm:ss&quot; ]
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  mutate {
+</span><span class='line'>      type =&gt; &quot;syslog&quot;
+</span><span class='line'>      exclude_tags =&gt; &quot;_grokparsefailure&quot;
+</span><span class='line'>      replace =&gt; [ &quot;@source_host&quot;, &quot;%{syslog_hostname}&quot; ]
+</span><span class='line'>      replace =&gt; [ &quot;@message&quot;, &quot;%{syslog_message}&quot; ]
+</span><span class='line'>  }
+</span><span class='line'>  mutate {
+</span><span class='line'>      type =&gt; &quot;syslog&quot;
+</span><span class='line'>      remove =&gt; [ &quot;syslog_hostname&quot;, &quot;syslog_message&quot;, &quot;syslog_timestamp&quot; ]
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>output {
+</span><span class='line'>  elasticsearch {
+</span><span class='line'>    index =&gt; &quot;syslog-%{+YYYY.MM.dd}&quot;
+</span><span class='line'>    embedded =&gt; false
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  #stdout { debug =&gt; true debug_format =&gt; json }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'># vim: ts=2 sw=2 et
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>Note the commented out date mapping. This is what original recipe says but I always got an exception
+related to parser and DateFormat what complaining about invalid data in the date. With buggyday hack
+on Rsyslog side I made dates 2-digit long, so it will always be parsed, I hope. It will reveals at least
+Nov 1.</p>
+
+<p>The last output stuff is just for debugging, it displays the parsed object in JSON format, this is a way
+how can you check your all filter working correctly.</p>
+
+<p>I sucked with parsing the message because my old rsyslog template has a typo and I could not imagine, what
+failing.
+After some digging, I found jls-grok RubyGem is contains a same parser what LogStash uses, so you can
+check your filters via IRB. Just make sure you using 1.9.3 ruby, because Ruby 1.8 throws a SyntaxError
+when you try <code>require 'grok-pure'</code> (what is recommended, because the simple &#8216;grok&#8217; is searching a C lib).</p>
+
+<figure class='code'><figcaption><span>Simple example for testing Grok filter</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;grok-pure&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">grok</span> <span class="o">=</span> <span class="no">Grok</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># I extracted patterns dir from jar package</span>
+</span><span class='line'><span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;patterns/*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">grok</span><span class="o">.</span><span class="n">add_patterns_from_file</span> <span class="n">f</span> <span class="p">}</span>
+</span><span class='line'><span class="n">s</span><span class="o">=</span><span class="s2">&quot;Oct 27 19:01:09&quot;</span>
+</span><span class='line'><span class="n">pattern</span> <span class="o">=</span> <span class="s1">&#39;%{SYSLOGTIMESTAMP:syslog_timestamp}&#39;</span>
+</span><span class='line'><span class="n">grok</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</span><span class='line'><span class="nb">p</span> <span class="n">grok</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">to_a</span> <span class="c1"># =&gt; [&quot;Oct 27 19:01:09&quot;, &quot;Oct 27 19:01:09&quot;, &quot;Oct&quot;, &quot;27&quot;, &quot;19:01:09&quot;, &quot;19&quot;, &quot;01&quot;, &quot;09&quot;]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can use exactly same pattern as you use in LogStash configuration file.</p>
+
+<p><strong>Note:</strong> If you see a <code>_grokparsefailure</code> tag in your tag list, then you do something wrong. This means
+the filter what you using in first filter does not match correctly on your syslog message from Rsyslog.
+The good news is LogStash stop evaluating filters on the first failing in debug mode, and leave @message
+untouched (if you see the second mutate from end, you can see we replace @message with the content of
+syslog_message, and remove unneccessary fields in the last mutate filter). If somehow it falls through
+the grok filter and removes the original (raw) message, then simply comment out the last two filter by
+prefixing lines with a hashmark.</p>
+
+<p>As you see in the config  use an external ES server, not the embedded one, because I currently have a
+working and configured ES instance, and I would like to use that. No other reason to not use embedded
+ES server: if you currently not have an ES instance, then simply use what shipped with LogStash.</p>
+
+<p>The embedded web interface of LogStash is a bit tricky thing, because I could not start as documentation says
+via the java command, I had to extract the jar file and run standalone to check its user interface.
+Don&#8217;t expect something cool: It is just a textfield with a button and contains a link with a basic
+query string what filters messages generated today.</p>
+
+<h2>Conclusion</h2>
+
+<p>I think Graylog is a great logging solution, but it needs some love for prevent crashing ES server with
+invalid characters in the stored data. But the web interface and easy configuration makes it very,
+really very lovely.</p>
+
+<p>LogStash is a good solution if you want to handle multiple log sources or you want to validate/manipulate
+your log messages or you want to distribute logs to multiple destinations. I think LogStash is a little
+overkill if you just want a central syslog server, however - this is working as expected. So I took my
+two cent on LogStash and not on Graylog - even if I would like to prefer Graylog.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -411,54 +696,6 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/jenkins-rvm-bundler/">Jenkins, RVM, Bundler</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Preface: Sorry for my poor english.</p>
-
-<p>So, today I started thinking on how can I compile my rails app to different Ruby versions. Luckily, I discovered, Jenkins can use RVM to run rake tasks.</p>
-
-<p>I initialized rvm following <a href="http://watirmelon.com/2011/08/29/running-your-watir-webdriver-tests-in-the-cloud-for-free/">this tutorial</a> but I just skipped EC2 instance creation, because I currently has a CI server. I installed three ruby version, MRI 1.8.7, MRI 1.9.3, and JRuby latest stable.</p>
-
-<p>First, I created a Rakefile.bootstrap file in my project root to make bundle install phase to rake-ized because I wouldn&#8217;t like run this via shell state, as because I need to select the correct rvm what is can be changed and I wouldn&#8217;t like administer it on thee or more places.</p>
-
-<p>Then, I was naive. I thinked I use separated gemset to avoid infecting global ruby scope with my project&#8217;s gems.</p>
-
-<p>This is quite easy, I sudo-ed to jenkins, and created gemset by <code>rvm gemset create rhcp</code>. After viewing and saving Jenkins&#8217; main configuration are, rake plugin recognized this gemset, and offered to use it.</p>
-
-<p>I clicked on it, saved the project, clicked on build, and pray (in the future: c&amp;p). No luck.</p>
-
-<p>I spent a half of hour with investigation, and I found I need install rake to the target gemset too, not enough if it is installed with ruby or installed to the @global gemset. I installed rake, c&amp;p. No luck.</p>
-
-<p>After it, I ran into <a href="http://stackoverflow.com/questions/3456304/rake-aborted-stack-level-too-deep">this problem</a>. Because rake loaded twice, it lost in the stack, and just gave up.</p>
-
-<p>So, I added rake proxy for my bootstrap Rake file. It means calls the rake command prefixed by &#8216;bundle exec&#8217; since Jenkins cannot do this. Bundler cleans out unneccessary gems (eg.g what coming from @global, or from ruby itself) and executes rake command.</p>
-
-<p>This is the final Rakefile.bootstrap if you want to use it:</p>
-
-<p>&nbsp;</p>
-
-<script src="https://gist.github.com/1838983.js?file=gistfile1.rb"></script>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -476,6 +713,10 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/rename-windows-8-profile-dir/">Rename Windows 8 Profile dir</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/nginx-es-php/">Nginx és PHP</a>
       </li>
     
@@ -491,15 +732,11 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
         <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/01/nginx-bevezeto/">Nginx - Bevezetés</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (7)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (82)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (15)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (5)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (4)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (8)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (1)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (82)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (15)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (2)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 <section>
     <h1>StackOverflow Profile</h1>

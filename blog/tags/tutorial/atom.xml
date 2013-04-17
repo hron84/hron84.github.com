@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tutorial | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/tutorial/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-04-07T05:06:02+02:00</updated>
+  <updated>2013-04-18T00:47:37+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,66 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rename Windows 8 Profile dir]]></title>
+    <link href="http://hron.me/blog/2013/04/rename-windows-8-profile-dir/"/>
+    <updated>2013-04-18T00:08:00+02:00</updated>
+    <id>http://hron.me/blog/2013/04/rename-windows-8-profile-dir</id>
+    <content type="html"><![CDATA[<p>So, I ran into a weird situation: when I installed Windows, I used Live account to create my user.
+In preview version of Windows 8 it created a profile dir based on the user part of e-mail address
+of the Live account, so from hrgy@live.com it created an user hrgy with same profile dir. However,
+the final version is changed it to create account based on your first name, it was "Gábor" in this
+case. Notice the accented second letter.</p>
+
+<p>The problem with folders containing non-ASCII char in its name is obvious: not all program can handle
+it correctly. It has a displaying problems, and some apps cannot create its file in this profile.</p>
+
+<p>The fix is not so easy.</p>
+
+<p>First if you do not have an another administrator user than you, then you have to create it. Windows 8
+does not allow to log into the built-in Administrator account anymore, so you have to create one in
+Control Panel. It's pretty straighforward and net contains a bunch of howtos for it, so I skip describing
+this step.</p>
+
+<p>Now, log out from your account, and log in into the new one.</p>
+
+<p>Start <code>regedit</code> and navigate to <code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code></p>
+
+<p>In the subkeys (subfolders) find one what displays your old dirname in <code>ProfileImagePath</code> attribute. In my
+case the value was <code>C:\Users\Gábor</code>. Right click, edit and replace last part of the path to what you want to use.</p>
+
+<p><strong>Important:</strong> Even if world collapsing, <strong>do not log in into your own account (what being modified)</strong>
+until you finish these steps!</p>
+
+<p>Then, you have to reboot into Safe mode. The easiest way is press <code>Shift + F8</code> during boot. If you
+seeing the Windows splash displaying in "wrong" resolution then you are in Safe mode.</p>
+
+<p><strong>Important:</strong> you have to log in into the newly created admin account, <em>not</em> into your own one!</p>
+
+<p>Then you have to rename your profile folder. Start a command prompt in Safe mode, and type following:</p>
+
+<pre><code>cd C:\Users
+move old_name new_name
+</code></pre>
+
+<p>The <code>old_name</code> is the old name of your profile directory, the <code>new_name</code> is what you specified in RegEdit. In
+my case it was:</p>
+
+<pre><code>cd C:\Users
+move Gábor hron
+</code></pre>
+
+<p>Now you are done! If you striclty follwed this tutorial, then if you reboot and log in into your account, you do not see
+any change, except the %USERPROFILE% environment variable carries the new name.</p>
+
+<p><strong>Note:</strong> I saw only one bug: iCloud Photo stream stored the full path of my Pictures folder in its database and I had to relocate it.
+It's a bug in iCloud, not a Windows problem.</p>
+
+<p><em>Disclaimer: This tutorial is tested by me but I do not guarantee anything. Take a backup from your important data before start doing
+this. I am not responsible if your data lose, you cannot login anymore or your kitten vanishes.</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Logging with Logstash]]></title>
@@ -491,27 +551,6 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
 
 
 <p>V&eacute;lem&eacute;nyeket itt alul lehet &iacute;rni, ahogy időm engedi reag&aacute;lni fogok r&aacute;juk.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Google Authenticator for SSH]]></title>
-    <link href="http://hron.me/blog/2011/07/google-authenticator-for-ssh/"/>
-    <updated>2011-07-18T12:49:00+02:00</updated>
-    <id>http://hron.me/blog/2011/07/google-authenticator-for-ssh</id>
-    <content type="html"><![CDATA[<p>Na, ezt is kipr&oacute;b&aacute;ltam, yo.</p>
-
-<p>A /etc/pam.d/system-remote-login f&aacute;jlban az auth include kezdet&uuml; sor ment &aacute;t erre:</p>
-
-<p>auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_tally2.so onerr=succeed
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_shells.so
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_nologin.so
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; required&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_env.so
-auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sufficient&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pam_google_authenticator.so</p>
-
-<p>K&eacute;ri az authentikator k&oacute;djat, enter, es bel&eacute;p. A Pubkey auth fel&uuml;lv&aacute;gja, ofc.</p>
-
-<p>Szerk: ja, &eacute;s kell neki a ChallengeResponseAuthentication yes</p>
 ]]></content>
   </entry>
   

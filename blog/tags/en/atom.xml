@@ -4,7 +4,7 @@
   <title><![CDATA[Category: en | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/en/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-04-07T05:06:02+02:00</updated>
+  <updated>2013-04-18T00:47:37+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,66 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Rename Windows 8 Profile dir]]></title>
+    <link href="http://hron.me/blog/2013/04/rename-windows-8-profile-dir/"/>
+    <updated>2013-04-18T00:08:00+02:00</updated>
+    <id>http://hron.me/blog/2013/04/rename-windows-8-profile-dir</id>
+    <content type="html"><![CDATA[<p>So, I ran into a weird situation: when I installed Windows, I used Live account to create my user.
+In preview version of Windows 8 it created a profile dir based on the user part of e-mail address
+of the Live account, so from hrgy@live.com it created an user hrgy with same profile dir. However,
+the final version is changed it to create account based on your first name, it was "Gábor" in this
+case. Notice the accented second letter.</p>
+
+<p>The problem with folders containing non-ASCII char in its name is obvious: not all program can handle
+it correctly. It has a displaying problems, and some apps cannot create its file in this profile.</p>
+
+<p>The fix is not so easy.</p>
+
+<p>First if you do not have an another administrator user than you, then you have to create it. Windows 8
+does not allow to log into the built-in Administrator account anymore, so you have to create one in
+Control Panel. It's pretty straighforward and net contains a bunch of howtos for it, so I skip describing
+this step.</p>
+
+<p>Now, log out from your account, and log in into the new one.</p>
+
+<p>Start <code>regedit</code> and navigate to <code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code></p>
+
+<p>In the subkeys (subfolders) find one what displays your old dirname in <code>ProfileImagePath</code> attribute. In my
+case the value was <code>C:\Users\Gábor</code>. Right click, edit and replace last part of the path to what you want to use.</p>
+
+<p><strong>Important:</strong> Even if world collapsing, <strong>do not log in into your own account (what being modified)</strong>
+until you finish these steps!</p>
+
+<p>Then, you have to reboot into Safe mode. The easiest way is press <code>Shift + F8</code> during boot. If you
+seeing the Windows splash displaying in "wrong" resolution then you are in Safe mode.</p>
+
+<p><strong>Important:</strong> you have to log in into the newly created admin account, <em>not</em> into your own one!</p>
+
+<p>Then you have to rename your profile folder. Start a command prompt in Safe mode, and type following:</p>
+
+<pre><code>cd C:\Users
+move old_name new_name
+</code></pre>
+
+<p>The <code>old_name</code> is the old name of your profile directory, the <code>new_name</code> is what you specified in RegEdit. In
+my case it was:</p>
+
+<pre><code>cd C:\Users
+move Gábor hron
+</code></pre>
+
+<p>Now you are done! If you striclty follwed this tutorial, then if you reboot and log in into your account, you do not see
+any change, except the %USERPROFILE% environment variable carries the new name.</p>
+
+<p><strong>Note:</strong> I saw only one bug: iCloud Photo stream stored the full path of my Pictures folder in its database and I had to relocate it.
+It's a bug in iCloud, not a Windows problem.</p>
+
+<p><em>Disclaimer: This tutorial is tested by me but I do not guarantee anything. Take a backup from your important data before start doing
+this. I am not responsible if your data lose, you cannot login anymore or your kitten vanishes.</em></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails pre-commit hook]]></title>
@@ -406,23 +466,6 @@ two cent on LogStash and not on Graylog - even if I would like to prefer Graylog
 <p>The other thing what surprised me is the moral on the roads. If you stop at the pedestrian crossing, the cars are stops even if there is a rush hour. It seems like a reflex. I will need condition me back to the hungarian moral to not start crossing the road because the cars are not stop every time for you.</p>
 
 <p>Btw the interview was good I think I passed on it, but I didn't got a reply from RH, but they informed me I will got a result today. And I collected two business card too :-)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Travelling to Brno]]></title>
-    <link href="http://hron.me/blog/2012/03/travelling-to-brno/"/>
-    <updated>2012-03-11T14:30:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/travelling-to-brno</id>
-    <content type="html"><![CDATA[<p>The next Tuesday (2012.03.13) will be the day when I leave Hungary again. This will be the second travel to abroad in my life. I am very excited because I not just go to abroad but go alone into the country where I do not know the main language too.</p>
-
-<p>This travel will not be just for fun, I will participate in a job interview for RedHat CZ, and if I will be applied, I will be a part of the QA team behind RedHat Linux (if I know correclty). I would like say many-many thanks to @kozka who help me in a lot of thing before and he promised he will help me to reach the head office to not late from the interview.</p>
-
-<p>But, because I never been in Bohemia before, after testing my knowledge against RedHat requirements, I will become a simple tourist and enjoy beautifulness of Brno (RedHat CZ is located at this town). I heard and read a lot of good things about this city, so I am very curious about them.</p>
-
-<p>When I come back at Wednesday, I will post here about my experiences and - of course - the result of the interview too.</p>
-
-<p>Stay tooned, seriously :-)</p>
 ]]></content>
   </entry>
   
