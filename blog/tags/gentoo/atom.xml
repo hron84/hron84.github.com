@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gentoo | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/gentoo/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-04-18T00:58:49+02:00</updated>
+  <updated>2013-06-25T19:50:08+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,275 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Gento - Para vagy nem para]]></title>
+    <link href="http://hron.me/blog/2013/06/gento-para-vagy-nem-para/"/>
+    <updated>2013-06-25T19:48:00+02:00</updated>
+    <id>http://hron.me/blog/2013/06/gento-para-vagy-nem-para</id>
+    <content type="html"><![CDATA[<p>Twitteren volt egy ilyen üzenetváltás:</p>
+
+<blockquote><p>@hron84: Kiprobaltam megint a #gentoo -t. Mar elfelejtettem, hogz mennyit kell
+varni egy firefoxra. [...]
+@team4world: @hron84 lehet én is kipróbálom. Mennyire parás egy frissítés?
+@hron84: @team4world Ha mindenbol csak stabil verziot hasznalsz, akkor abszolut
+nem para. Ha elkezdesz a testing arch-csal ismerkedni, figyelni kell.
+@hron84: @team4world Lehet este osszeszedek egy cikket az ajanlott konfigrol.
+@team4world: @hron84 az nagyon jó lenne!</p></blockquote>
+
+<p>Itt tartunk tehát most. Nem aznap este lett ugyan összeszedve, de hát az "aznap"
+szó nem is szerepelt a twittben :-). Na jó, evezzünk komolyabb vizekre.</p>
+
+<p>El■rebocsátom, hogy ez nem egy Gentoo tutorial lesz, nem fogok minden fogalmat
+elmagyarázni, csak a legszükségesebbeket. Ha nem értesz valamit, ott a <a href="">Gentoo
+Handbook</a>, ott a <a href="">Gentoo Wiki</a>, olvass utána. Ennek els■sorban terjedelmi
+okai vannak, a Gentoo-ról szóló irományokkal egy könyvtárat meg lehet tölteni
+(s■t, bizonyos értelemben ez már
+<a href="http://www.gentoo.org/doc/index.xml">megtörtént</a>), ez meg itt csak egy blog.</p>
+
+<h2>Para vagy nem para?</h2>
+
+<p>Mehéz kérdés, mert mindenkinek mást jelent a "parás". Én, aki cirka 3-3.5 évet
+tuti lehúzott Gentoo desktop mellett, mást érzek parásnak, mint az, aki most
+adja ki élete els■ emerge parancsát. Szóval az els■ körös válaszom kicsit
+sántít, mert valójában nincs egzakt válasz a dologra.</p>
+
+<p>Van, akinek para az, hogy egy Firefoxra - gépt■l függ■en - fél és két óra között
+kell várni. Nekem nem volt az, mert én ezzel már tisztában voltam, így a
+telepítés során el■bb a Google Chrome-t tettem fel, és csak részben azért,
+mert az elmúlt két évben ez vált az els■dleges böngész■mmé, jobban belejátszott,
+hogy ez csak bináris formában van jelen (elérhet■ a Chromium is, forrásból
+fordul, de ezt még binárisan se szeretem, néha ugyanis bugosabb, mint a Chrome,
+nem tudom, miért).</p>
+
+<p>Van, akinek para az, hogy több, ún. <strong>slot</strong> van, ami annyit takar, hogy egy
+adott nev■ csomagból többféle verzió is lehet a gépünkön (gondoljunk a PHP-re,
+az 5.3 és az 5.4 az két különböz■ PHP-nak számít), és ha nem az alapértelmezett
+slot verziót szeretnénk, akkor célzottan kell telepíteni és maszkolni azt, amit
+nem szeretnénk (esetünkben én nem vagyok olyan nagy PHP 5.4 fan, akkor sem, ha a
+hardcore PHP-sok ezért megszólnak, szóval én hanyagolom azt a verziót).</p>
+
+<p>Szóval hogy mi para és mi nem, az egyénfügg■. Nagyon fontos dolog, hogy a Gentoo
+egy teljesen más hozzáállást igényel, mint a legtöbb disztró. Ez els■sorban arra
+irányul, hogy pontosan tisztában kell lenned azzal, hogy mit és hogyan
+szeretnéd, valamint nagyon oda kell figyelned arra, hogy mit csinálsz. Ha
+valamit nem értesz, nem lehet elbliccelni, utána kell olvasni, át kell gondolni,
+sokszor. De cserébe egy végletekig testreszabható rendszert kapsz, és ez nagyon
+sokszor megéri.</p>
+
+<h2>Ajánlott hardverek</h2>
+
+<p>Töprengtem, hogy ne az legyen az alcím, hogy "Milyen hardvert ne vegyek", de
+aztán arra gondoltam, hogy nem leszek ennyire destruktív.</p>
+
+<p>Szóval, Gentoo esetében legyen egy jó procid, lehet■leg sok maggal,
+HyperThreading kiemelten jó, ha van és be is van kapcsolva. Minél több
+processzort listáz a /proc/cpuinfo, annál hamarább végzel a telepítéssel.</p>
+
+<p>Legyen továbbá sok RAM-od. 2G RAM alatt eszünkbe se jusson Gentoo-t telepíteni!
+Tapasztalataim szerint 3-4G RAM az, amivel már t■rhet■ (pontosabban kivárható)
+id■ alatt összeáll valami rendszernek már nevezhet■ tárgy.</p>
+
+<p>A winyó kiemelten fontos. Nem csak a tárhely (a gyökérre lehet nyugodtan 30G-t
+szánni, meghálálja a rendszer, a home legyen külön partíció) fontos, de a
+merevlemez pörgési sebessége is. Ha 5400 RPM-es merevlemezünk van, ne egy bödön,
+hanem két bödön kávét készítsünk be. Ezt az infót szokás elrejteni a merevlemez
+címkéjén, vagy akár le is hagyni, így telepítés el■tt mindenképp nézzünk el a
+Google felé, a merevlemez típusszámával, az els■ három találat a gyártó
+datasheetjére fog vinni, ha nem, tegyük hozzá, hogy 'speed'. SSD felhasználók
+itt komoly el■nnyel indulnak.</p>
+
+<h2>Mit rakjak fel?</h2>
+
+<p>Kezd■knél ez nagyon gyakori kérdés, és a kellemetlen élmények nagy része az ezen
+kérdésre adott rossz válaszokból adódik. Tisztában kell lennünk azzal, hogy a
+Gentoo egy <em>forrásalapú</em> rendszer, vagyis a <em>bináris</em> rendszerekkel ellentétben
+itt a legtöbb csomag a <strong>gépünkön, forrásból fordul</strong>, legyen szó a GCC-r■l vagy
+a Gitr■l. Van néhány olyan csomag, ami elérhet■ binárisban is, vagy épp
+kizárólag abban mert a gyártó nem tette elérhet■vé a szoftver forrását. Ez
+utóbbira példa az Adobe Flash playere, az el■bbire pedig a LibreOffice, mert
+err■l köztudott, hogy még er■s gépen is fél nap egy fordítás.</p>
+
+<p>Én az alábbi metodikát követem:</p>
+
+<ul>
+<li>El■ször összerakok egy alaprendszert. Legyen konzolom, legyen egy friss és
+jól m■köd■ kernelem, Grub (1-es mert én azt szeretem), hálózatom, meg más
+effélék, egyszóval álljon meg a saját lábán a rendszer, ne kelljen hozzá
+LiveCD. Szerencsés esetben ez olyan 2 óra alatt abszolválható feladat,
+kezd■knek se sokkal több.</li>
+<li>Következ■ lépés: Legyen egy alap grafikus felületem. Itt általában már
+felteszem a kérdést: most rögtön akarok a rendszerrel dolgozni, vagy van id■m
+hogy mindent klappoljon? Ha az els■ a válasz, akkor mindenféle preferenciát
+figyelmen kívül hagyva, komolyabb USE flag állítgatások nélkül felszórok egy
+IceWM-et, egy Google Chrome-t, meg valami terminált, mondjuk XTerm-et. Ez
+<strong>nem</strong> eredményez összkomfortos rendszert, ennek csak az a célja, hogy
+miközben a ház épül-szépül, legyen hol dolgozni meg aludni. Amennyiben
+ráérek, átugrom ezt a pontot.</li>
+<li><p>Ezután rá lehet térni a preferenciáknak megfelel■ rendszer telepítésére.
+El■ször mindig az USE flag állítgatásokat kezdem el. Mivel én GNOME-fan
+vagyok, így a make.conf -ba mindenképpen bekerülnek a <code>gnome</code>, <code>gtk</code>, <code>avahi</code>
+flagek, ezen felül PulseAudio-ellenes vagyok, így a <code>alsa</code> és <code>-pulseaudio</code>
+is. Elég jó alapbeállításokat lehet szerezni az <code>eseletc profile list</code>
+kimenete alapján kiadott <code>eselect profile set &lt;szám&gt;</code> paranccsal is, ahol a
+<code>&lt;szám&gt;</code> a lista elemei mellett látható számot jelenti, kockás zárójelek
+nélkül.
+Sorrendileg el■ször mindig a konzolos cuccokat szoktam felszórni, nem csak
+azért, mert ezek hamar fordulnak, hanem mert ezeket utána már tudom
+használni, amíg a grafikus cuccok születnek. A teljesség igénye nélkül egy
+kis lista:</p>
+
+<ul>
+<li>flaggie: hasznos cucc a csomagonkénti USE flag es keyword állításra. Ezen
+felül tud licenceket is elfogadni, de én általában minden licencre
+rábólintok, mert így könnyebb az életem. A /usr/portage/licenses alatt
+lehet kultúrálódni egyébként.</li>
+<li>portage-utils: újabban része a stage3 alaprendszernek. Hasznos kis utilityk
+gy■jteménye, a <code>q --help</code> parancs nagyon szolgálatkészen mutatja be ■ket
+egyenként.</li>
+<li>eix: A Google helyi megfelel■je :-). Alapvet■en csomagkeresgélésre
+használható, részletes információkkal szolgál arról, hogy milyen csomagok
+érhet■ek el a rendszerben. A kézikönyvekben ajánlott <code>emerge --sync</code>
+parancs helyett (ha már fenn van az eix<code>mindig az</code>eix-sync` parancsot
+használjuk, mert ez frissíti az eix adatbázisát is a sync végén, plusz ad
+egy kedves listát az ■j/frissült/törölt csomagokról. Ezt gondosan
+tanulmányozzuk.</li>
+<li>gentoolkit: Szintén hasznos csomagkezel■ gyüjtemény. Én egy parancsot
+használok bel■le permanensen, a többit csak szükség esetén, ez pedig a
+glsa-check. Mind desktopon, mind pedig szerveren kiemelten fontosnak tartom
+ugyanis, hogy ne legyen fenn olyan csomag, melyben ismert sebezhet■ség van.
+Egy id■ után hajlamos az ember rászokni arra, hogy ha egy frissebb verzió
+bugos lenne egy adott csomagból, akkor a bugos verziót és afelettieket
+kimaszkolja, majd az egészet elfelejtse. Ilyenkor jó a glsa-check, ami
+figyelmeztet, hogy bizony-bizony abba a verzióba már találtak egy komoly
+bugot, és talán érdemes lehet megfontolni a frissítést.</li>
+<li>eselect és pluginjei: maga az eselect szintén az alaprendszer része, a
+pluginjei pedig a legtöbb esetben a hozzátartozó csomaggal kerülnek fel. Az
+update-alternatives-nek felel meg, csak kissé okosabb és színesebb. Érdemes
+ismerkedni vele.</li>
+<li>bash-completion: akinél a Tab billenty■r■l már lekopott a festék (mint
+nálam :-) ), annak kötelez■ elem. Konfigur■lni eselect-tel lehet, hogy mely
+kiegészítések legyenek engedélyezve. Figyeljünk, hogy alapértelmezés
+szerint per-user állítgatjuk ezeket, globális engedélyezéshez használjuk a
+<code>--global</code> kapcsolót.</li>
+<li>mc: kell-e bemutatni a Midnight Commandert? Szerintem nem. Figyeljünk, hogy
+kapjon <code>samba</code> és <code>sftp</code> flageket valahonnan, különben félkarú óriás. A
+<code>slang</code> flag pedig a szép magyar felülethez segít hozzá minket.</li>
+<li>nano: Ha mcedit pártiak vagyunk, akkor nem érdekes, ha vim/emacs pártiak,
+nézzünk rá erre a kis editorra, amíg kedvencünk fordul. Syntax coloring,
+keresés, vágólap... és egyszer■ használat. Része az alaprenszernek.</li>
+<li>sudo: sajnos nem része az alaprendszernek ez a kötelez■ kis program. Tegyük
+fel, alig van függ■sége.</li>
+<li>layman: a küls■ csomagtárólók kezel■je. Okosan paraméterezve rögtön
+feldobja a 3 legnépszer■bb verziókezel■t is, függ■ségként.</li>
+</ul>
+
+
+<p>Ezután jön a grafikus rendszer. GNOME pártiként én a gnome-light csomaggal
+indítok, ez egy metacsomag, semmit nem telepít, csak függ■ségei vannak, mint
+egy rossz drogosnak. Viszont mindent felrak, ami egy alap GNOME desktophoz
+kell. Emellé érdemes beütemezni a xorg-x11 csomagot is, ami a grafikus
+felület megjelenítését szolgáló X11 szervert rakja fel.</p>
+
+<p>Ezután jön a grafikus rendszer. GNOME pártiként én a gnome-light csomaggal
+indítok, ez egy metacsomag, semmit nem telepít, csak függ■ségei vannak, mint
+egy rossz drogosnak. Viszont mindent felrak, ami egy alap GNOME desktophoz
+kell. Emellé érdemes beütemezni a xorg-x11 csomagot is, ami a grafikus
+felület megjelenítését szolgáló X11 szervert rakja fel.
+Figyeljünk arra, hogy ha sehol másutt nem is, de itt mindenképpen használjuk
+az emerge <code>--ask</code> vagy <code>--pretend</code> kapcsolóinak egyikét,
+hogy kiírja, mit telepítene. Azért fontos, mert els■ körben be
+kell l■ni a videókártya és a beviteli eszközök típusát a make.conf -ban, és
+itt egész jó tippeket kapunk a lehetséges értékekr■l a xorg-drivers sorában.
+Ne feledjük, hogy a minusz jel mindig kivonást jelöl, vagyis az nincs
+kiválasztva. Beviteli eszköznek általában a <code>keyboard</code>-ot, a <code>mouse</code>-t és az
+<code>evdev</code>-et szoktam választani (ez utóbbi mindenképp kell), tapipad mániákusok
+ne feledjék a <code>synaptics</code>-ot is kérni az eladótól a meglepetések elkerülése
+okán.
+Kell egy jó login manager is, GNOME esetében ez a GDN, bár én most LightDM-et
+raktam fel, csak úgy próbából. Nem rossz, de a GDM jobb.</p>
+
+<p>Most jövök rá, hogy KDE  fanok is vannak itt. Nekik rossz hírem van: nem
+nagyon tudok mit ajánlani, mert ritkán vetemedek KDE használatra, mostanság
+ez a
+gyakoriság a sohához tendál. Asszem a kdebase-startkde csomag visz el az
+alaprendszerig, kdm csomag van, és a kde-l10n csomagtól lehet várni
+lokalizációt. A xorg-x11 pedig itt is kötelez■ elem.</p>
+
+<p>Figyeljünk arra, hogy amennyiben nem KDE desktop a cél, els■ két körben
+tiltsuk a <code>qt4</code> USE flaget, mert ez magával hozná a Qt grafikus könyvtár
+telepítését, ami elég hosszadalmas móka. KDE-s álmok esetében viszont épp
+ellenkez■leg: engedélyezzük, méghozzá minél koraibb szakaszban, a KDE-s
+cuccok nagy része le fogja fikázni a rendszerünket, ha nincs mindenütt Qt
+támogatás.</p>
+
+<p>Grafikus cuccokra ajánlatok:</p>
+
+<ul>
+<li>Porthole: Gtk alapú csomagkezel■, Debianon Synaptic-nak hivnak egy ehhez
+nagyon hasonló cuccot. Az USE flag kezel■jének használatát lehet■leg
+mell■zzük, a Ctrl+R megnyomására feljöv■ parancssorból használjuk a
+flaggie-t. Igy nem érnek meglepetések egy frissítésnél. KDE rendszerhez a
+Kuroo jobb, de a Kuroo4 fejlesztése még igen aktívan tart, nem tudom,
+mennyire stabil a cucc. USE flageket itt is inkább flaggie-vel, bár a régi
+Kuroo (a KDE 3-as) rendesen kezelte a package.use fájlt.</li>
+<li>Gitg: Roppant hasznos cucc, ha Git-tel dolgozunk. Soronként stage-elhet■
+commit és history tallózó segíti a munkát.</li>
+<li>NetworkManager: furcsa, de nem alapértelmezett a telepítése. Desktopon,
+wifi-mentes környezetben nincs is rá szükség, laptopon viszont
+kötelez■ elem, a hálózati konfigokat másképp nem fogjuk tudni kényelmesen
+managelni. A hasonló nev■ (csak végig kisbet■s) USE flag beállítása
+szintén fontos. Régebben volt valami PolicyKites para, de úgy tudom, az
+már megoldódott, mert más disztróban is volt, és azokban már meg van
+oldva.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Frissítés</h2>
+
+<p>Ide jön az, amit els■ körben válaszoltam a kérdez■nek: ha mindig csak stabil
+cuccokkal dolgozol, akkor nincs para, a Gentoo fejleszt■knél elég szigorú a QA,
+ha nincs elég community visszajelzés a csomagr■l, akkor nem is lesz stabil.
+Viszont amíg van komoly hiba vele, szintén nem lesz az. Vagyis stabil csomag
+általában csak stabil dologból lesz. Néha el■fordulnak csomagolói melléfogások,
+véletlen stabilnak jelölések, de ez szimpla emberi mulasztás, és nagyon-nagyon
+ritka, mindenesetre érdemes hetente ellátogatni a Gentoo f■oldalára, és
+csekkolni a híreket.</p>
+
+<p>Azért arra mindenképp figyeljünk, hogy <strong>legalább hetente egyszer futtassuk meg
+a frissít■ parancsot</strong> (ez az <code>emerge -DuNa world</code>), célszer■en hétvégén, vagy
+lefekvés el■tt. Reggelre tuti végez. Ha nagyon nincs id■nk, havinál ritkább
+frissítést akkor se ütemezzünk, különben nagyon sokat kell várnunk.</p>
+
+<p>Para akkor szokott lenni, ha küls■ csomagtárolókbol (layman) teszel fel
+testinges (~ arch-os, ez egy tilde jellel prefixelt architektúra nevet, pl.
+~amd64 jelent) csomagokat. Nagy para meg akkor, ha nagyon bevállalós vagy, és
+kipróbálsz pl. live ebuildeket (közvetlenül verziókezel■b■l forduló csomagokat),
+vagy két csillaggal megjel■lt unstable cuccokat (a live ebuildek egyébként ez
+utóbbiak részhalmazát képezik). Kezd■knek és középhaladóknak nagy ívben
+kerülend■ terület ez.</p>
+
+<p>A fenti parancsot használva néha megjelennek sárga USE flagek is a csomagok
+mellett. Ez azért van, mert a <code>-N</code> kapcsoló a USE flag frissülésekre is rámegy,
+ez ugyanis sokszor valamilyen plusz támogatást is jelent, verzióváltás nélkül.
+Bekapcsolt <em>ccache</em> mellett, ha csak kikapcsolt flag került be, a csomagok
+secc-pecc lefordulnak, ha van, akkor pedig gazdagabbak leszünk egy, az
+igényeinknek jobban megfelel■ csomagnak (amennyiben az USE flageket a saját, és
+nem a szomszéd igényei alapján állítottuk be).</p>
+
+<p>A frissítéseknél lehet azért trükközni. A <code>-DuNa</code> mindent felsorol, ami épp
+frissülni akar, de ha mondjuk nem akarunk egy Firefox forgatásba belekezdeni,
+akkor csinálhatjuk úgy is, hogy kézzel felsoroljuk a frissítend■ csomagokat egy
+<code>emerge -u1</code> parancs argumentumaiként, verziószám nélkül, kihagyva a Firefoxot,
+egy kés■bbi id■pontban frissítve azt.</p>
+
+<p>Nagyjából ennyi lenne. Elég hosszúra nyúlt ez az írás is, nem véletlenül mondtam
+az elején, hogy könyvtárakat lehet megtölteni a Gentoo-ról szóló
+ismeretanyagokkal.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[VMware billentyűzet probléma]]></title>
