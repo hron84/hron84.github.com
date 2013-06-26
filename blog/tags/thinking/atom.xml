@@ -4,7 +4,7 @@
   <title><![CDATA[Category: thinking | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/thinking/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-06-25T20:11:03+02:00</updated>
+  <updated>2013-06-26T11:47:44+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -180,12 +180,6 @@ fel, alig van függősége.</li>
 feldobja a 3 legnépszerűbb verziókezelt is, függőségként.</li>
 </ul>
 
-
-<p>Ezután jön a grafikus rendszer. GNOME pártiként én a gnome-light csomaggal
-indítok, ez egy metacsomag, semmit nem telepít, csak függőségei vannak, mint
-egy rossz drogosnak. Viszont mindent felrak, ami egy alap GNOME desktophoz
-kell. E mellé érdemes beütemezni a xorg-x11 csomagot is, ami a grafikus
-felület megjelenítését szolgáló X11 szervert rakja fel.</p>
 
 <p>Ezután jön a grafikus rendszer. GNOME pártiként én a gnome-light csomaggal
 indítok, ez egy metacsomag, semmit nem telepít, csak függőségei vannak, mint
