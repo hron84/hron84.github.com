@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: howto | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/howto/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2013-07-28T02:10:12+02:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title "Mac &amp; Linux"
+But I didn't know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer's
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it's a dumb printer without PCL or PS knowledge,
+so I had to install 'raster' driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn't guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane's backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<p>```plain /etc/xinetd.d/sane-port
+service sane-port
+{</p>
+
+<pre><code>disable     = no
+socket_type = stream
+protocol    = tcp
+user        = root
+group       = root
+wait        = no
+server      = /usr/sbin/saned
+only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it's running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it's good for start.</p>
+
+<p><div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>

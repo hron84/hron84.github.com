@@ -4,7 +4,7 @@
   <title><![CDATA[Category: en | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/en/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-06-26T11:47:44+02:00</updated>
+  <updated>2013-07-28T02:10:12+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title "Mac &amp; Linux"
+But I didn't know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer's
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it's a dumb printer without PCL or PS knowledge,
+so I had to install 'raster' driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn't guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane's backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<p>```plain /etc/xinetd.d/sane-port
+service sane-port
+{</p>
+
+<pre><code>disable     = no
+socket_type = stream
+protocol    = tcp
+user        = root
+group       = root
+wait        = no
+server      = /usr/sbin/saned
+only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it's running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it's good for start.</p>
+
+<p><div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rename Windows 8 Profile dir]]></title>
@@ -442,31 +521,6 @@ really very lovely.</p>
 your log messages or you want to distribute logs to multiple destinations. I think LogStash is a little
 overkill if you just want a central syslog server, however - this is working as expected. So I took my
 two cent on LogStash and not on Graylog - even if I would like to prefer Graylog.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Brno - A very different place]]></title>
-    <link href="http://hron.me/blog/2012/03/brno-a-very-different-place/"/>
-    <updated>2012-03-15T03:10:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/brno-a-very-different-place</id>
-    <content type="html"><![CDATA[<p>I am arrived from Brno. This is a very beautiful town and a very good place. If I need to compare with Budapest, the whole Brno looks like the centre of Budapest but not at now but in 30-40 years ago.</p>
-
-<p>The mass transit is a surprise. Before I started I read the main vehicle is a tram but I didn't expect how it looks like in the reality. If you take a look for the city you understand: if there is a wider road, they place tramway and expand an existing line to it or start a new line. There are some buses but as I think they goes where the terrain is too step and the tram cannot climb up on it. During the two days while I was in the town, I saw only one bus. Not one bus line but one vehicle (this wear number 84 btw :-) ).</p>
-
-<p>This system is interesting from other aspects too. The town is splitted to zones (z&oacute;ny) and the tickets are contains some time for travel and permission to cross some zone-borders. The most expensive ticket is valid in 5 zone and few hours. But, if you want to buy some tickets, especially if you want to buy them from a small shops (all newspaper-stand sells tickets, and all place where you see "J&Iacute;ZDENKA"), you need ask it by it's price. I choosen this even if there is a ticket machine in every stop, because as I saw most machines do not know about other languages but Czech. And the buttons are not titled except the ticket selection button. So, there wasn't a help to handle them if you do not know the language (I think there are some machines what can say in foreign languages and there are some machines what titled correctly, but I didn't meet with them). I used machines to write down the price of the tickets, to ask them correctly from the sellers (ticket is a fixed-price stuff, so do not matter where you buy it).</p>
-
-<p>I choosen the Hotel Brno because it offered a cheapest room in booking.com (where is a correct description about places and the services). The hotel had a very good transport possibilities and placed at a silent, nice place. The room wasn't too big but for two people when they woulnd't like stay in the room for a whole day is absolute correct. Because I was alone this was more than enough for me.</p>
-
-<p>The terrain under the city is quite hilly. I never saw a too fat people under the two days and I think I understand why :-)</p>
-
-<p>As @kozka told me the office of RedHat is placed near the universities. Currently RedHat occupies a whole building but the next building is under construction so they growing fast. As I saw some levels are equipped recently (I smelled the fresh painting) so they are growing really fast.</p>
-
-<p>The people are very nice and they help you even if you do not understand what they tell you.</p>
-
-<p>The other thing what surprised me is the moral on the roads. If you stop at the pedestrian crossing, the cars are stops even if there is a rush hour. It seems like a reflex. I will need condition me back to the hungarian moral to not start crossing the road because the cars are not stop every time for you.</p>
-
-<p>Btw the interview was good I think I passed on it, but I didn't got a reply from RH, but they informed me I will got a result today. And I collected two business card too :-)</p>
 ]]></content>
   </entry>
   

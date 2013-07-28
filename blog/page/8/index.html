@@ -9,7 +9,13 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Ez megint egy erdekes allatfajta lesz, elore szolok. A pelda rendszer ketto gepet fog tartalmazni, dc es dns, a tartomany pedig a szeretett &hellip;" />
+  <meta name="description" content="Csak kod: 1
+2
+3
+4
+5
+#!/bin/sh
+mencoder -ovc lavc -oac lavc -lavcopts vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=18: &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -108,6 +114,42 @@
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/12/quicknote-divx-dvd-konverzio/">Quicknote: DivX -> DVD konverzio</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Csak kod:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
+</span><span class='line'>mencoder -ovc lavc -oac lavc -lavcopts <span class="nv">vcodec</span><span class="o">=</span>mpeg2video:vrc_buf_size<span class="o">=</span>1835:vrc_maxrate<span class="o">=</span>9800:vbitrate<span class="o">=</span>5000:keyint<span class="o">=</span>18:acodec<span class="o">=</span>ac3:abitrate<span class="o">=</span>192:aspect<span class="o">=</span>4/3:trell:mbd<span class="o">=</span>2
+</span><span class='line'> -of mpeg -mpegopts <span class="nv">format</span><span class="o">=</span>dvd -vf <span class="nv">scale</span><span class="o">=</span>720:480,harddup -srate 48000 -af <span class="nv">lavcresample</span><span class="o">=</span>48000 -ofps 30000/1001 -o <span class="s2">&quot;$2&quot;</span> <span class="s2">&quot;$1&quot;</span>
+</span><span class='line'>dvdauthor -o dvd -v pal,4:3,720x576 <span class="nv">$2</span>
+</span><span class='line'>mkisofs -dvd-video -v -o <span class="k">${</span><span class="nv">2</span><span class="p">/.mpg/.iso</span><span class="k">}</span> dvd
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -571,38 +613,6 @@ chcon -R -t httpd_sys_script_exec_t
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2008/11/nagios-status-monitor/">Nagios status monitor</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Van egy nagyon jo cucc, a Nagios status monitor. Ez egy olyan feature-t ad a nagios-hoz, amit tulajdonkeppen mar regota vartunk: tudniillik kepes az ora melle ulve figyelni a nagios adatait, es ha valami gond van, akkor azt szinvaltozassal jelezni. <br />
-<a href="http://nagstamon.wiki.sourceforge.net/" class="bb-url">Itt</a> van az oldala, es <a href="http://sourceforge.net/project/platformdownload.php?group_id=236865&amp;sel_platform=10148" class="bb-url">innen</a> szerezheto be.</p>
-
-
-<p>Tamogatott OS: Linux, Windows<br />
-Fugg: dev-python/lxml dev-python/gnome-python-extras.</p>
-
-
-<p>Gentoosok orulhetnek, az ebuild elvileg mar a CVS-ben van.</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -620,6 +630,10 @@ Fugg: dev-python/lxml dev-python/gnome-python-extras.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/new-scanner-added-successfully/">New scanner added successfully</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/gento-para-vagy-nem-para/">Gento - Para vagy nem para</a>
       </li>
     
@@ -635,15 +649,11 @@ Fugg: dev-python/lxml dev-python/gnome-python-extras.</p>
         <a href="/blog/2013/03/hazi/">Házi, magam sütöttem</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (8)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (2)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (83)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (16)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (3)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (9)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (2)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/howto'>howto (1)</a></li><li><a href='/blog/tags/hu'>hu (83)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (17)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (3)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 <section>
     <h1>StackOverflow Profile</h1>

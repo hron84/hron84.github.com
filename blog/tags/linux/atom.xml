@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/linux/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-06-26T11:47:44+02:00</updated>
+  <updated>2013-07-28T02:10:12+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title "Mac &amp; Linux"
+But I didn't know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer's
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it's a dumb printer without PCL or PS knowledge,
+so I had to install 'raster' driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn't guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane's backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<p>```plain /etc/xinetd.d/sane-port
+service sane-port
+{</p>
+
+<pre><code>disable     = no
+socket_type = stream
+protocol    = tcp
+user        = root
+group       = root
+wait        = no
+server      = /usr/sbin/saned
+only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it's running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it's good for start.</p>
+
+<p><div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gento - Para vagy nem para]]></title>
@@ -392,70 +471,6 @@ A végső megoldás természetesen az /etc/mailname értékének az átfaragása
 
 <p>
 És hogy mi a tanulság? Az, hogy ilyen neveket nem rakunk le apró pici fájlokba, hanem bevéssük rendesen a konfigba. Egyfelől a dolog jobban parsolhatóvá válik (nem kell külön ellenőrizni, hogy akkor ez most fájl vagy sem), másfelől pedig egy esetleges probléma felmerülésekor eggyel kevesebb nyomon kell elindulni. No és persze a névváltásokat meg kell alaposan tervezni, és a végén vissza kell ellenőrizni, hogy valami hülye spion nem ragaszkodik-e foggal-körömmel a régi névhez.
-</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[KDE4 SVN-ből 2 - Az asztal]]></title>
-    <link href="http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal/"/>
-    <updated>2009-01-19T16:11:21+01:00</updated>
-    <id>http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal</id>
-    <content type="html"><![CDATA[<p><a name="plasmoid"><h3>Plazma az asztalon</h3></a></p>
-
-<p>
-Nem, ez nem plazmatévé, nem is <a href="http://hu.wikipedia.org/wiki/Plazma" title="Wikipédia - Plazma">plazma</a>, ez valami teljesen más. <br />
-Ugye emlékszünk még mindenki kedvenceire, a SuperKaramba kisalkalmazásokra? Ezeket az asztalra lehetett szétszórni, és időjárás és a gazdasági helyzet figyelésétől az iWiW-es értesítésekig nagyon sok mindenre lehetett felhasználni őket. A KDE fejlesztői úgy gondolták, ez elég hasznos dolog ahhoz, hogy még integránsabb részévé tegyék a KDE-s asztaloknak, mint amennyire eddig lehetőség nyílt rá.</p>
-
-
-<!--more-->
-
-
-<p>
-A KDE 4-es verziójában újraimplementálták az ezen kisalkalmazásokat futtató engine-t, és Plasma  névre keresztelték. Mielőtt továbbmennénk, kis fogalommagyarázat:
-<ul>
-<li>Plasma (plazma): az engine neve, mely a kisalkalmazásokat futtatja. Többféle kliense lehet, például a Kicker (mindjárt), és az asztal maga.</li>
-<li>Plasmoid (plazmoid): a kisalkalmazások neve, megfelel a SuperKaramba widgetjeinek</li>
-</ul>
-<a href="http://hron.me/uploads/2009/01/plasmoid-add.png"><img src="http://hron.me/uploads/2009/01/plasmoid-add-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="Plazmoid hozzáadása" class="alignright size-full wp-image-237" /></a>
-Noha a KDE alapcsomagjait eleve nagyon megszórták plazmoidokkal, (kevés kivétellel) <a href="http://techbase.kde.org/Development/Tutorials/SuperKaramba#SuperKaramba_on_KDE4" title="KDE TechBase: SuperKaramba on KDE 4">lehetőség van</a> a saját magunk által fejlesztett SuperKaramba cuccokat is tovább  használni Plasma alatt. <br />
-Ízelítőül itt jobbra láthatóak az alaptelepítéssel jövő plasmoidok listájának egy része (nem fért ki több :-) ).
-</p>
-
-
-<p>
-A telepített plazmoidokat az asztal jobb felső sarkában található sárga amorf "dologgal" megjelölt területére kattintva adhatjuk hozzá asztalunkhoz. A hozzáadott kisalkalmazás ezek után mozgatható, átméretezhető vagy elforgatható. Ha elidőzünk rajta, valamelyik függőleges oldal mentén megjelenik egy eszköztár, melyen a hely és helyzetváltoztatásra szolgáló gombokon kívül helyet kapott még egy csavarkulcs is, mellyel szokás szerint a beállítások ablaka hívható elő (ha az adott plasmoidnak van ilyenje), illetve egy bezárás gomb is, mellyel a plasmoid eltűntethető asztalunkról.
-</p>
-
-
-<p><a name="kicked-kicker"><h3>Plazma plazmatálcán kínálva</h3></a></p>
-
-<p>
-Egy nagyon furát mondok: a Kicker az általunk ismert formájában megszűnt létezni, nincs többé. A KDE 4-ben ezt is teljesen újragondolták. Mert mi is a tálca? Az asztal része. Mik vannak rajta? különböző kisalkalmazások. Hohó, hiszen ezeknek már egy rendszer ki van találva, a fent tárgyalt Plasma! Miért ne lehetne a rendszertálca is egy (speciális) plazmoid? Semmi akadálya. S lőn.</p>
-
-
-<p>
-A rendszertálca tehát mostmár csak egy plasmoid az asztalon. Annyiban azonban speciális, hogy képes más Plasmoid-okat megjeleníteni illetve néhánynak egy kissé megváltoztatja a viselkedését.<br />
-Ha nem akarnánk elhinni, tekintsük meg a tálca jobb oldalán megbúvó amorf kis ikont, mely nagyon hasonlít asztali társára. A működése is hasonló, egy kis eltéréssel: egy csík jelenik meg, melyen a kisalkalmazások hozzáadására szolgáló műveleteken kívül magának a tálcának a beállítását szolgáló műveletek is helyet kaptak.
-</p>
-
-
-<p><a name="apperance"><h3>Kinézet és effektek</h3></a></p>
-
-<p>
-A legnagyobb újítás kétségkívül az ablakok és ikonok általános kinézetében történt. Az előző verziókban megszokott, látványosan 3 dimenziós Plastik kinézetet leváltotta a letisztult vonalakból álló, nyugodt és szolíd kinézetű Oxygen. Ehhez az új témához tartozik ikon- és kurzorkészlet, ablakdesign és színséma, valamint egy rakat (stílusban illeszkedő) háttér. A KDE 4.2-ben debütál ez utóbbiak legfiatalabb tagja, az <a href="http://pinheiro-kde.blogspot.com/2008/12/air-we-breath.html">Air</a>. Egyedül talán az indítómenü őrzi még a régi KDE-s kinézetet, és emlékeztet a régi időkre.
-</p>
-
-
-<p><a href="http://nuno-icons.com/images/wall/snapshot3.jpg"><img src="http://1.bp.blogspot.com/__JNFVYfijS4/SUgy1wMzXII/AAAAAAAAAVc/4vlwNlxE5Fw/s400/snapshot5.png" width="400" height="250" title="Katt ide a nagyobb képért" alt="Air háttérkép" class="size-full wp-image-237" /></a></p>
-
-<p>
-Ám az asztal kinézete nem csak megújult, hanem - az idők szavának megfelelően - jónéhány effekttel is gazdagodott. Ezek egy jó része csak megfelelő beállítások és hardvertámogatás mellett érhető el, egy másik részükhöz azonban nem szükséges a gépünk részéről semmilyen extra. Ilyen például a tálcán ablakváltó gombjain való végighúzás közbeni simított egérkövetés a tooltip által, illetve a Konsole beállítópanelének kinézetváltója.
-<br />
-Ezen felül egy csomó olyan grafikai effekt került be a konkurrens Compiz ötleteit felhasználva, mellyel inkábba a prezentációhoz színesíthetjük asztalunkat, a folyamatos használatot bizony igencsak hátráltatja az illető megoldás, valamint hardveres támogatás is szükségeltetik hozzá.<br />
-A már divatnak számító asztalkocka mellett hóesésben és esőben dolgozhatunk, lehetőség van arra, hogy ablakainkat a bezárógombbal elégessük, valamint sok egyéb dologra is.<br />
-Van azonban egy effekt, mely különösen hasznos tud lenni, és érdemes elgondolkodni az engedélyezésén, ha lehetőségünk van rá: élő előnézeti képet tud biztosítani az ablakainkról azok gombja felett elidőzvén. Ez a fent említett standard simított tooltip-effektbe nagyon szépen belesimul, és a váltások nem annyira élesek, mint a Compiz esetében (valamint sokkal gyorsabbak is).
 </p>
 
 ]]></content>

@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2013-06-26T11:47:44+02:00</updated>
+  <updated>2013-07-28T02:10:12+02:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title &#8220;Mac &amp; Linux&#8221;
+But I didn&#8217;t know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer&#8217;s
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it&#8217;s a dumb printer without PCL or PS knowledge,
+so I had to install &#8216;raster&#8217; driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn&#8217;t guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane&#8217;s backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<figure class='code'><figcaption><span>/etc/xinetd.d/sane-port</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service sane-port 
+</span><span class='line'>{
+</span><span class='line'>  disable     = no
+</span><span class='line'>  socket_type = stream
+</span><span class='line'>  protocol    = tcp
+</span><span class='line'>  user        = root
+</span><span class='line'>  group       = root
+</span><span class='line'>  wait        = no
+</span><span class='line'>  server      = /usr/sbin/saned
+</span><span class='line'>  only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it&#8217;s running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it&#8217;s good for start.</p>
+
+<div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gento - Para vagy nem para]]></title>
@@ -2003,23 +2091,6 @@ Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet b
 <p>The other thing what surprised me is the moral on the roads. If you stop at the pedestrian crossing, the cars are stops even if there is a rush hour. It seems like a reflex. I will need condition me back to the hungarian moral to not start crossing the road because the cars are not stop every time for you.</p>
 
 <p>Btw the interview was good I think I passed on it, but I didn&#8217;t got a reply from RH, but they informed me I will got a result today. And I collected two business card too :-)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Travelling to Brno]]></title>
-    <link href="http://hron.me/blog/2012/03/travelling-to-brno/"/>
-    <updated>2012-03-11T14:30:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/travelling-to-brno</id>
-    <content type="html"><![CDATA[<p>The next Tuesday (2012.03.13) will be the day when I leave Hungary again. This will be the second travel to abroad in my life. I am very excited because I not just go to abroad but go alone into the country where I do not know the main language too.</p>
-
-<p>This travel will not be just for fun, I will participate in a job interview for RedHat CZ, and if I will be applied, I will be a part of the QA team behind RedHat Linux (if I know correclty). I would like say many-many thanks to @kozka who help me in a lot of thing before and he promised he will help me to reach the head office to not late from the interview.</p>
-
-<p>But, because I never been in Bohemia before, after testing my knowledge against RedHat requirements, I will become a simple tourist and enjoy beautifulness of Brno (RedHat CZ is located at this town). I heard and read a lot of good things about this city, so I am very curious about them.</p>
-
-<p>When I come back at Wednesday, I will post here about my experiences and - of course - the result of the interview too.</p>
-
-<p>Stay tooned, seriously :-)</p>
 ]]></content>
   </entry>
   

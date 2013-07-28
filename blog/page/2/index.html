@@ -9,8 +9,7 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Már régóta keresek egy olyan IDE-t, ami képes nem csak projektszinten kezelni és szintaxis-kiemelést adni a Ruby/Rails projektjeimnek,
-de magát a &hellip;" />
+  <meta name="description" content="I started to understand how [Redis] is working and how can I use it in my projects. In my current project I collect some informations with background &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,6 +108,36 @@ de magát a &hellip;" />
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/redishash-this-hash-is-a-db/">RedisHash - this hash is a db!</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I started to understand how [Redis] is working and how can I use it in my projects. In my current project I collect some informations with background jobs, and store these informations in Redis. I choosen this way because these data should not be really persistent (that&#8217;s why I not decided to use MySQL as storage) because it can be collected quickly again if vanishes (it collected periodically) but I would like to access it quickly.</p>
+
+<p>Redis has a beautiful interface to handle data. However, I usually like if the data storing logic is separated from my business logic. After some thinking I decided to store object in a easiest way I can: I store them in a &#8220;smart&#8221; hash. Basically, all hashes are key-value store, and Redis is a key-value store too. So, I extended ruby&#8217;s <code>Hash</code> class, and overriden some methods&#8230;</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2012/11/redishash-this-hash-is-a-db/">More &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -696,37 +725,6 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/travelling-to-brno/">Travelling to Brno</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The next Tuesday (2012.03.13) will be the day when I leave Hungary again. This will be the second travel to abroad in my life. I am very excited because I not just go to abroad but go alone into the country where I do not know the main language too.</p>
-
-<p>This travel will not be just for fun, I will participate in a job interview for RedHat CZ, and if I will be applied, I will be a part of the QA team behind RedHat Linux (if I know correclty). I would like say many-many thanks to @kozka who help me in a lot of thing before and he promised he will help me to reach the head office to not late from the interview.</p>
-
-<p>But, because I never been in Bohemia before, after testing my knowledge against RedHat requirements, I will become a simple tourist and enjoy beautifulness of Brno (RedHat CZ is located at this town). I heard and read a lot of good things about this city, so I am very curious about them.</p>
-
-<p>When I come back at Wednesday, I will post here about my experiences and - of course - the result of the interview too.</p>
-
-<p>Stay tooned, seriously :-)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -744,6 +742,10 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/new-scanner-added-successfully/">New scanner added successfully</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/gento-para-vagy-nem-para/">Gento - Para vagy nem para</a>
       </li>
     
@@ -759,15 +761,11 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
         <a href="/blog/2013/03/hazi/">Házi, magam sütöttem</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (8)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (2)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/hu'>hu (83)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (16)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (3)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (9)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (2)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/howto'>howto (1)</a></li><li><a href='/blog/tags/hu'>hu (83)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (17)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (3)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
 </section>
 <section>
     <h1>StackOverflow Profile</h1>
