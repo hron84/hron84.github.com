@@ -9,7 +9,8 @@
   <meta name="author" content="Gábor Garami" />
 
   
-  <meta name="description" content="Van egy rossz szokásom, nevezetesen hogy hétvégenként lejárok bekukucskálni a postaládánkba. Általába véve hülyeség, mert ugye a Magyar Posta az &hellip;" />
+  <meta name="description" content="Avagy hogyan biztositsuk magunkat be. Hozzavalok - ket szerverre: Szerver 1 (DNS1) Microsoft Windows 200x Server DNS service MMC
+Szerver 2 (DNS2) &hellip;" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -108,6 +109,117 @@
     <div id="content" class="columns container">
       <div class="blog-index first">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2008/11/dns-server-ms-master-bind-slave/">DNS server: MS master - Bind slave</a></h1>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Avagy hogyan biztositsuk magunkat be.</p>
+
+<p>Hozzavalok - ket szerverre:</p>
+
+<ul>
+<li>Szerver 1 (DNS1)</li>
+<li> Microsoft Windows 200x Server</li>
+<li> DNS service</li>
+<li><p> MMC</p></li>
+<li><p>Szerver 2 (DNS2)</p>
+
+<ul>
+<li>Linux (BSD?)</li>
+<li>Bind 9.x</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Elokeszulet:</p>
+
+<ul>
+<li>Ha meg nem lenne installalva a megfelelo Microsoft Windows Server cucc, azt itt tegyuk meg. Nem kell semmilyen extra dolog hozza.</li>
+<li>Ha mar egy meglevo DNS szervernek akarunk masodlagos szervert beloni, akkor nincs egyeb teendo</li>
+<li>Nagyon fontos, hogy a DNS2 a megfelelo DNS vegzodest ismerje. Ezt legegyszerubben a /etc/hosts fajlban adhatjuk meg ilytenkeppen:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>127.0.0.1    dns2.mittudomain.com dns2 localhost</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Szinten fontos, hogy amig nincs meg a zonatranszfer, addig a resolv.conf-ban a Microsoft-os DNS szerverre mutassunk.</li>
+<li>Egyertelmu, hogy a DNS2 gepnek rendelkeznie kell bejegyzessel a DNS1 adatbazisaban.</li>
+</ul>
+
+
+<p>Elkeszites:</p>
+
+
+<p>DNS1-en inditsuk el az MMC konzolt, es eloszor is ellenorizzuk, hogy a DNS2 gep informacioi tenyleg megvannak-e. Ha nem, akkor surgosen potoljuk.<br />
+Menjunk ra a Forward-lookup Zones mappan belul a mittudomain.com mappara, es jobbklikk/Tulajdonsagok muvelettel hozzuk be a tulajdonsagait.<br />
+Itt a Nameservers fulon adjuk hozza kedves dns2 gepunket (ha igaz, akkor DNS adminoknak kell lennunk ehhez a muvelethez). Nagyon fontos, hogy a nevet irjuk be legfelulre, es nyomjunk Resolve gombot. Ha csak az ip-t irjuk be az IP-cim mezobe, akkor az ablak nem fogja engedni leokezni magat.<br />
+Az utolso elotti fulon engedelyezzuk a zonatranszfert, kattintsunk a masodik radiogombra, majd a Notify fulon is tegyunk hasonlokepp, itt azonban az elso radiogombra tenyereljunk ra. Ezzel a Windows fel van keszitve a hozza fordulo zonatranszfer keresek kiszolgalasara.</p>
+
+
+<p>DNS2-re eloszor is tegyuk fel a bind-et. Ha elinditotta volna a csomagkezelo, akkor most allitsuk le.<br />
+Vagy a named.conf-ban, vagy a named.conf.options-ban tegyunk ilyen beallitasokat:</p>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>listen-on {
+</span><span class='line'>   10.0.20.4;
+</span><span class='line'>   127.0.0.1; 
+</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+A named.conf-ba vagy a named.conf.local-ba vegyuk fel az uj zonankat:</p>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zone "mittudomain.com" {
+</span><span class='line'>   type slave;
+</span><span class='line'>   file "mittudomain.com";
+</span><span class='line'>   masters { 10.0.20.3; };
+</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+Megjegyzes: a listen-on szekcioban a DNS2 IP-cime legyen, a zone szekcioba pedig a DNS1 IP-cime keruljon. </p>
+
+
+<p>Ezutan inditsuk el a bind-et, es figyeljuk erosen a syslogot.<br />
+Ha szerencsenk van, akkor lathatjuk, hogy a zona transzfer sikeres volt. Errol meggyozodhetunk DNS1 -en az esemenynaplot elinditva a DNS szerver naplojaban levo riportbol is, illetve belenezhetunk a leszinkronizalt zonafajlba is.</p>
+
+
+<p>A fenti modszer mukodik AD-integralt zonak eseteben is.</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -499,49 +611,6 @@ Az új gépet  Július 11 és 14 között tesztelték az ISS fedélzetén, siker
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2007/07/a-pluto-elvesztette-bolygoi-statuszat/">A Plútó elvesztette bolygói státuszát</a></h1>
-    
-    
-      <p class="meta">
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Tavalyi a hír, de csak most értesültem róla: a Plútó többé nem tartozik a Naprendszer bolygói közé. Na nem ugrott ki az űrbe, feledve otthonát, mindössze arról van szó, hogy többé csillagászati értelemben nem minősül bolygónak.
-</p>
-
-
-<p>
-Ez azért van így mert túl sok dolgot találtak a viselkedésében, ami nem méltó egy bolygóhoz. Például van mersze keresztezni a nagy Neptunusz pályáját.  Ezek olyan égbekiáltó különcségek, hogy új kategóriát nyitottak neki: törpebolygó lett. Szerencsére nem egyes-egyedüli tagja a törpebolygók társaságának: vele együtt több más - eddig mindenféle egyéb kategóriákban levő - objektumot soroltak ide.
-</p>
-
-
-<p>
-Egyes csillagászok megsajnálták, és követelik, hogy a Plutót továbbra is illesse meg a bolygói rang. Ha találok netes aláírásgyűjtést, majd felírom magam a listára.
-</p>
-
-
-<p>
-Ya a hír:  <a href="http://www.mindentudas.hu/magazin2/20060829lefokoztak.html" title="Origo">Origo</a>
-</p>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -559,6 +628,10 @@ Ya a hír:  <a href="http://www.mindentudas.hu/magazin2/20060829lefokoztak.html"
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/kapcsolok-es-utvalasztok/">Kapcsolok es utvalasztok</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/04/rename-windows-8-profile-dir/">Rename Windows 8 Profile dir</a>
       </li>
     
@@ -572,10 +645,6 @@ Ya a hír:  <a href="http://www.mindentudas.hu/magazin2/20060829lefokoztak.html"
     
       <li class="post">
         <a href="/blog/2013/02/rails-pre-commit-hook/">Rails pre-commit hook</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/gitiles-install-howto/">Gitiles Install Howto</a>
       </li>
     
   </ul>
@@ -650,7 +719,7 @@ Ya a hír:  <a href="http://www.mindentudas.hu/magazin2/20060829lefokoztak.html"
   <div class="site">
     <div class="copy">
       
-      Copyright &copy; 2013 - Gábor Garami &mdash; Some rights reserved<br/>
+      Copyright &copy; 2014 - Gábor Garami &mdash; Some rights reserved<br/>
       <small class="license">
         Contents and design are licensed under the terms of <br/>
         <a href="http://creativecommons.org/licenses/by-sa/3.0/">
