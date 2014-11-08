@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/linux/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2014-04-03T07:24:12+02:00</updated>
+  <updated>2014-11-08T15:11:04+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,353 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title "Mac &amp; Linux"
+But I didn't know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer's
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it's a dumb printer without PCL or PS knowledge,
+so I had to install 'raster' driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn't guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane's backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<p>```plain /etc/xinetd.d/sane-port
+service sane-port
+{</p>
+
+<pre><code>disable     = no
+socket_type = stream
+protocol    = tcp
+user        = root
+group       = root
+wait        = no
+server      = /usr/sbin/saned
+only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it's running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it's good for start.</p>
+
+<p><div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gento - Para vagy nem para]]></title>
+    <link href="http://hron.me/blog/2013/06/gento-para-vagy-nem-para/"/>
+    <updated>2013-06-25T19:48:00+02:00</updated>
+    <id>http://hron.me/blog/2013/06/gento-para-vagy-nem-para</id>
+    <content type="html"><![CDATA[<p>Twitteren volt egy ilyen üzenetváltás:</p>
+
+<blockquote><p>@hron84: Kiprobaltam megint a #gentoo -t. Mar elfelejtettem, hogy mennyit kell
+varni egy firefoxra. [...]</p>
+
+<p>@team4world: @hron84 lehet én is kipróbálom. Mennyire parás egy frissítés?</p>
+
+<p>@hron84: @team4world Ha mindenbol csak stabil verziot hasznalsz, akkor abszolut
+nem para. Ha elkezdesz a testing arch-csal ismerkedni, figyelni kell.</p>
+
+<p>@hron84: @team4world Lehet este osszeszedek egy cikket az ajanlott konfigrol.</p>
+
+<p>@team4world: @hron84 az nagyon jó lenne!</p></blockquote>
+
+<p>Itt tartunk tehát most. Nem aznap este lett ugyan összeszedve, de hát az "aznap"
+szó nem is szerepelt a twittben :-). Na jó, evezzünk komolyabb vizekre.</p>
+
+<p>Előrebocsátom, hogy ez nem egy Gentoo tutorial lesz, nem fogok minden fogalmat
+elmagyarázni, csak a legszükségesebbeket. Ha nem értesz valamit, ott a <a href="ihttp://www.gentoo.org/doc/en/handbook/">Gentoo
+Handbook</a>, ott a
+<a href="http://wiki.gentoo.org/">Gentoo Wiki</a>, olvass utána.  Ennek elsősorban
+terjedelmi okai vannak, a Gentoo-ról szóló irományokkal egy könyvtárat meg lehet
+tölteni (sőt, bizonyos értelemben ez már
+<a href="http://www.gentoo.org/doc/index.xml">megtörtént</a>), ez meg itt csak egy blog.</p>
+
+<h2>Para vagy nem para?</h2>
+
+<p>Nehéz kérdés, mert mindenkinek mást jelent a "parás". Én, aki cirka 3-3.5 évet
+tuti lehúzott Gentoo desktop mellett, mást érzek parásnak, mint az, aki most
+adja ki élete első emerge parancsát. Szóval az első körös válaszom kicsit
+sántít, mert valójában nincs egzakt válasz a dologra.</p>
+
+<p>Van, akinek para az, hogy egy Firefoxra - géptől függően - fél és két óra között
+kell várni. Nekem nem volt az, mert én ezzel már tisztában voltam, így a
+telepítés során előbb a Google Chrome-t tettem fel, és csak részben azért,
+mert az elmúlt két évben ez vált az elsődleges böngészőmmé, jobban belejátszott,
+hogy ez csak bináris formában van jelen (elérhető a Chromium is, forrásból
+fordul, de ezt még binárisan se szeretem, néha ugyanis bugosabb, mint a Chrome,
+nem tudom, miért).</p>
+
+<p>Van, akinek para az, hogy több, ún. <strong>slot</strong> van, ami annyit takar, hogy egy
+adott nevű csomagból többféle verzió is lehet a gépünkön (gondoljunk a PHP-re,
+az 5.3 és az 5.4 az két különböző PHP-nak számít), és ha nem az alapértelmezett
+slot verziót szeretnénk, akkor célzottan kell telepíteni és maszkolni azt, amit
+nem szeretnénk (esetünkben én nem vagyok olyan nagy PHP 5.4 fan, akkor sem, ha a
+hardcore PHP-sok ezért megszólnak, szóval én hanyagolom azt a verziót).</p>
+
+<p>Szóval hogy mi para és mi nem, az egyénfüggő. Nagyon fontos dolog, hogy a Gentoo
+egy teljesen más hozzáállást igényel, mint a legtöbb disztribúció. Ez elsősorban
+arra irányul, hogy pontosan tisztában kell lenned azzal, hogy mit és hogyan
+szeretnéd, valamint nagyon oda kell figyelned arra, hogy mit csinálsz. Ha
+valamit nem értesz, nem lehet elbliccelni, utána kell olvasni, át kell gondolni,
+sokszor. De cserébe egy végletekig testreszabható rendszert kapsz, és ez nagyon
+sokszor megéri.</p>
+
+<h2>Ajánlott hardverek</h2>
+
+<p>Töprengtem, hogy ne az legyen az alcím, hogy "Milyen hardvert ne vegyek", de
+aztán arra gondoltam, hogy nem leszek ennyire destruktív.</p>
+
+<p>Szóval, Gentoo esetében legyen egy jó procid, lehetőleg sok maggal,
+HyperThreading kiemelten jó, ha van és be is van kapcsolva. Minél több
+processzort listáz a <code>/proc/cpuinfo</code>, annál hamarább végzel a telepítéssel.</p>
+
+<p>Legyen továbbá sok RAM-od. 2G RAM alatt eszünkbe se jusson Gentoo-t telepíteni!
+Tapasztalataim szerint 3-4G RAM az, amivel már tűrhető (pontosabban kivárható)
+idő alatt összeáll valami rendszernek már nevezhető tárgy.</p>
+
+<p>A winyó kiemelten fontos. Nem csak a tárhely (a gyökérre lehet nyugodtan 30G-t
+szánni, meghálálja a rendszer, a home legyen külön partíció) fontos, de a
+merevlemez pörgési sebessége is. Ha 5400 RPM-es merevlemezünk van, ne egy bödön,
+hanem két bödön kávét készítsünk be. Ezt az infót szokás elrejteni a merevlemez
+címkéjén, vagy akár le is hagyni, így telepítés előtt mindenképp nézzünk el a
+Google felé, a merevlemez típusszámával, az első három találat a gyártó
+datasheetjére fog vinni, ha nem, tegyük hozzá, hogy 'speed'. SSD felhasználók
+itt komoly előnnyel indulnak.</p>
+
+<h2>Mit rakjak fel?</h2>
+
+<p>Kezdőknél ez nagyon gyakori kérdés, és a kellemetlen élmények nagy része az ezen
+kérdésre adott rossz válaszokból adódik. Tisztában kell lennünk azzal, hogy a
+Gentoo egy <em>forrásalapú</em> rendszer, vagyis a <em>bináris</em> rendszerekkel ellentétben
+itt a legtöbb csomag a <strong>gépünkön, forrásból fordul</strong>, legyen szó a GCC-ről vagy
+a Gitről. Van néhány olyan csomag, ami elérhető binárisban is, vagy épp
+kizárólag abban mert a gyártó nem tette elérhetővé a szoftver forrását. Ez
+utóbbira példa az Adobe Flash playere, az előbbire pedig a LibreOffice, mert
+erről köztudott, hogy még erős gépen is fél nap egy fordítás.</p>
+
+<p>Én az alábbi metodikát követem:</p>
+
+<ul>
+<li>Először összerakok egy alaprendszert. Legyen konzolom, legyen egy friss és
+jól mőködő kernelem, Grub (1-es mert én azt szeretem), hálózatom, meg más
+effélék, egyszóval álljon meg a saját lábán a rendszer, ne kelljen hozzá
+LiveCD. Szerencsés esetben ez olyan 2 óra alatt abszolválható feladat,
+kezdőknek se sokkal több.</li>
+<li>Következő lépés: Legyen egy alap grafikus felületem. Itt általában már
+felteszem a kérdést: most rögtön akarok a rendszerrel dolgozni, vagy van időm
+hogy mindent klappoljon? Ha az első a válasz, akkor mindenféle preferenciát
+figyelmen kívül hagyva, komolyabb USE flag állítgatások nélkül felszórok egy
+IceWM-et, egy Google Chrome-t, meg valami terminált, mondjuk XTerm-et. Ez
+<strong>nem</strong> eredményez összkomfortos rendszert, ennek csak az a célja, hogy
+miközben a ház épül-szépül, legyen hol dolgozni meg aludni. Amennyiben
+ráérek, átugrom ezt a pontot.</li>
+<li><p>Ezután rá lehet térni a preferenciáknak megfelelő rendszer telepítésére.
+Először mindig az USE flag állítgatásokat kezdem el. Mivel én GNOME-fan
+vagyok, így a make.conf -ba mindenképpen bekerülnek a <code>gnome</code>, <code>gtk</code>, <code>avahi</code>
+flagek, ezen felül PulseAudio-ellenes vagyok, így a <code>alsa</code> és <code>-pulseaudio</code>
+is. Elég jó alapbeállításokat lehet szerezni az <code>eseletc profile list</code>
+kimenete alapján kiadott <code>eselect profile set &lt;szám&gt;</code> paranccsal is, ahol a
+<code>&lt;szám&gt;</code> a lista elemei mellett látható számot jelenti, kockás zárójelek
+nélkül.
+Sorrendileg először mindig a konzolos cuccokat szoktam felszórni, nem csak
+azért, mert ezek hamar fordulnak, hanem mert ezeket utána már tudom
+használni, amíg a grafikus cuccok születnek. A teljesség igénye nélkül egy
+kis lista:</p>
+
+<ul>
+<li>flaggie: hasznos cucc a csomagonkénti USE flag es keyword állításra. Ezen
+felül tud licenceket is elfogadni, de én általában minden licencre
+rábólintok, mert így könnyebb az életem. A /usr/portage/licenses alatt
+lehet kultúrálódni egyébként.</li>
+<li>portage-utils: újabban része a stage3 alaprendszernek. Hasznos kis utilityk
+győjteménye, a <code>q --help</code> parancs nagyon szolgálatkészen mutatja be őket
+egyenként.</li>
+<li>eix: A Google helyi megfelelője :-). Alapvetően csomagkeresgélésre
+használható, részletes információkkal szolgál arról, hogy milyen csomagok
+érhetőek el a rendszerben. A kézikönyvekben ajánlott <code>emerge --sync</code>
+parancs helyett (ha már fenn van az eix<code>mindig az</code>eix-sync` parancsot
+használjuk, mert ez frissíti az eix adatbázisát is a sync végén, plusz ad
+egy kedves listát az új/frissült/törölt csomagokról. Ezt gondosan
+tanulmányozzuk.</li>
+<li>gentoolkit: Szintén hasznos csomagkezelő gyűjtemény. Én egy parancsot
+használok belőle permanensen, a többit csak szükség esetén, ez pedig a
+glsa-check. Mind desktopon, mind pedig szerveren kiemelten fontosnak tartom
+ugyanis, hogy ne legyen fenn olyan csomag, melyben ismert sebezhetőség van.
+Egy idő után hajlamos az ember rászokni arra, hogy ha egy frissebb verzió
+bugos lenne egy adott csomagból, akkor a bugos verziót és afelettieket
+kimaszkolja, majd az egészet elfelejtse. Ilyenkor jó a glsa-check, ami
+figyelmeztet, hogy bizony-bizony abba a verzióba már találtak egy komoly
+bugot, és talán érdemes lehet megfontolni a frissítést.</li>
+<li>eselect és pluginjei: maga az eselect szintén az alaprendszer része, a
+pluginjei pedig a legtöbb esetben a hozzátartozó csomaggal kerülnek fel. Az
+update-alternatives-nek felel meg, csak kissé okosabb és színesebb. Érdemes
+ismerkedni vele.</li>
+<li>bash-completion: akinél a Tab billentyűről már lekopott a festék (mint
+nálam :-) ), annak kötelező elem. Konfigurőlni eselect-tel lehet, hogy mely
+kiegészítések legyenek engedélyezve. Figyeljünk, hogy alapértelmezés
+szerint per-user állítgatjuk ezeket, globális engedélyezéshez használjuk a
+<code>--global</code> kapcsolót.</li>
+<li>mc: kell-e bemutatni a Midnight Commandert? Szerintem nem. Figyeljünk, hogy
+kapjon <code>samba</code> és <code>sftp</code> flageket valahonnan, különben félkarú óriás. A
+<code>slang</code> flag pedig a szép magyar felülethez segít hozzá minket.</li>
+<li>nano: Ha mcedit pártiak vagyunk, akkor nem érdekes, ha vim/emacs pártiak,
+nézzünk rá erre a kis editorra, amíg kedvencünk fordul. Syntax coloring,
+keresés, vágólap... és egyszerő használat. Része az alaprenszernek.</li>
+<li>sudo: sajnos nem része az alaprendszernek ez a kötelező kis program. Tegyük
+fel, alig van függősége.</li>
+<li>layman: a külső csomagtárólók kezelője. Okosan paraméterezve rögtön
+feldobja a 3 legnépszerűbb verziókezelt is, függőségként.</li>
+</ul>
+
+
+<p>Ezután jön a grafikus rendszer. GNOME pártiként én a gnome-light csomaggal
+indítok, ez egy metacsomag, semmit nem telepít, csak függőségei vannak, mint
+egy rossz drogosnak. Viszont mindent felrak, ami egy alap GNOME desktophoz
+kell. Emellé érdemes beütemezni a xorg-x11 csomagot is, ami a grafikus
+felület megjelenítését szolgáló X11 szervert rakja fel.
+Figyeljünk arra, hogy ha sehol másutt nem is, de itt mindenképpen használjuk
+az emerge <code>--ask</code> vagy <code>--pretend</code> kapcsolóinak egyikét,
+hogy kiírja, mit telepítene. Azért fontos, mert első körben be
+kell lőni a videókártya és a beviteli eszközök típusát a make.conf -ban, és
+itt egész jó tippeket kapunk a lehetséges értékekről a xorg-drivers sorában.
+Ne feledjük, hogy a mínusz jel mindig kivonást jelöl, vagyis az nincs
+kiválasztva. Beviteli eszköznek általában a <code>keyboard</code>-ot, a <code>mouse</code>-t és az
+<code>evdev</code>-et szoktam választani (ez utóbbi mindenképp kell), tapipad mániákusok
+ne feledjék a <code>synaptics</code>-ot is kérni az eladótól a meglepetések elkerülése
+okán.
+Kell egy jó login manager is, GNOME esetében ez a GDN, bár én most LightDM-et
+raktam fel, csak úgy próbából. Nem rossz, de a GDM jobb.</p>
+
+<p>Most jövök rá, hogy KDE  fanok is vannak itt. Nekik rossz hírem van: nem
+nagyon tudok mit ajánlani, mert ritkán vetemedek KDE használatra, mostanság
+ez a
+gyakoriság a sohához tendál. Asszem a kdebase-startkde csomag visz el az
+alaprendszerig, kdm csomag van, és a kde-l10n csomagtól lehet várni
+lokalizációt. A xorg-x11 pedig itt is kötelező elem.</p>
+
+<p>Figyeljünk arra, hogy amennyiben nem KDE desktop a cél, első két körben
+tiltsuk a <code>qt4</code> USE flaget, mert ez magával hozná a Qt grafikus könyvtár
+telepítését, ami elég hosszadalmas móka. KDE-s álmok esetében viszont épp
+ellenkezőleg: engedélyezzük, méghozzá minél koraibb szakaszban, a KDE-s
+cuccok nagy része le fogja fikázni a rendszerünket, ha nincs mindenütt Qt
+támogatás.</p>
+
+<p>Grafikus cuccokra ajánlatok:</p>
+
+<ul>
+<li>Porthole: Gtk alapú csomagkezelő, Debianon Synaptic-nak hívnak egy ehhez
+nagyon hasonló cuccot. Az USE flag kezelőjének használatát lehetőleg
+mellőzzük, a Ctrl+R megnyomására feljövő parancssorból használjuk a
+flaggie-t. Igy nem érnek meglepetések egy frissítésnél. KDE rendszerhez a
+Kuroo jobb, de a Kuroo4 fejlesztése még igen aktívan tart, nem tudom,
+mennyire stabil a cucc. USE flageket itt is inkább flaggie-vel, bár a régi
+Kuroo (a KDE 3-as) rendesen kezelte a package.use fájlt.</li>
+<li>Gitg: Roppant hasznos cucc, ha Git-tel dolgozunk. Soronként stage-elhető
+commit és history tallózó segíti a munkát.</li>
+<li>NetworkManager: furcsa, de nem alapértelmezett a telepítése. Desktopon,
+wifi-mentes környezetben nincs is rá szükség, laptopon viszont
+kötelező elem, a hálózati konfigokat másképp nem fogjuk tudni kényelmesen
+managelni. A hasonló nevő (csak végig kisbetős) USE flag beállítása
+szintén fontos. Régebben volt valami PolicyKites para, de úgy tudom, az
+már megoldódott, mert más disztróban is volt, és azokban már meg van
+oldva.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Frissítés</h2>
+
+<p>Ide jön az, amit első körben válaszoltam a kérdezőnek: ha mindig csak stabil
+cuccokkal dolgozol, akkor nincs para, a Gentoo fejlesztőknél elég szigorú a QA,
+ha nincs elég community visszajelzés a csomagről, akkor nem is lesz stabil.
+Viszont amíg van komoly hiba vele, szintén nem lesz az. Vagyis stabil csomag
+általában csak stabil dologból lesz. Néha előfordulnak csomagolói melléfogások,
+véletlen stabilnak jelölések, de ez szimpla emberi mulasztás, és nagyon-nagyon
+ritka, mindenesetre érdemes hetente ellátogatni a Gentoo főoldalára, és
+csekkolni a híreket.</p>
+
+<p>Azért arra mindenképp figyeljünk, hogy <strong>legalább hetente egyszer futtassuk meg
+a frissítő parancsot</strong> (ez az <code>emerge -DuNa world</code>), célszerően hétvégén, vagy
+lefekvés előtt. Reggelre tuti végez. Ha nagyon nincs időnk, havinál ritkább
+frissítést akkor se ütemezzünk, különben nagyon sokat kell várnunk.</p>
+
+<p>Para akkor szokott lenni, ha külső csomagtárolókból (layman) teszel fel
+testinges (~ arch-os, ez egy tilde jellel prefixelt architektúra nevet, pl.
+~amd64 jelent) csomagokat. Nagy para meg akkor, ha nagyon bevállalós vagy, és
+kipróbálsz pl. live ebuildeket (közvetlenül verziókezelőből forduló csomagokat),
+vagy két csillaggal megjelölt unstable cuccokat (a live ebuildek egyébként ez
+utóbbiak részhalmazát képezik). Kezdőknek és középhaladóknak nagy ívben
+kerülendő terület ez.</p>
+
+<p>A fenti parancsot használva néha megjelennek sárga USE flagek is a csomagok
+mellett. Ez azért van, mert a <code>-N</code> kapcsoló a USE flag frissülésekre is rámegy,
+ez ugyanis sokszor valamilyen plusz támogatást is jelent, verzióváltás nélkül.
+Bekapcsolt <em>ccache</em> mellett, ha csak kikapcsolt flag került be, a csomagok
+secc-pecc lefordulnak, ha van, akkor pedig gazdagabbak leszünk egy, az
+igényeinknek jobban megfelelő csomagnak (amennyiben az USE flageket a saját, és
+nem a szomszéd igényei alapján állítottuk be).</p>
+
+<p>A frissítéseknél lehet azért trükközni. A <code>-DuNa</code> mindent felsorol, ami épp
+frissülni akar, de ha mondjuk nem akarunk egy Firefox forgatásba belekezdeni,
+akkor csinálhatjuk úgy is, hogy kézzel felsoroljuk a frissítendő csomagokat egy
+<code>emerge -u1</code> parancs argumentumaiként, verziószám nélkül, kihagyva a Firefox-ot,
+egy későbbi időpontban frissítve azt.</p>
+
+<p>Nagyjából ennyi lenne. Elég hosszúra nyúlt ez az írás is, nem véletlenül mondtam
+az elején, hogy könyvtárakat lehet megtölteni a Gentoo-ról szóló ismeret
+anyagokkal.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[VMware billentyűzet probléma]]></title>
@@ -125,142 +472,6 @@ A végső megoldás természetesen az /etc/mailname értékének az átfaragása
 <p>
 És hogy mi a tanulság? Az, hogy ilyen neveket nem rakunk le apró pici fájlokba, hanem bevéssük rendesen a konfigba. Egyfelől a dolog jobban parsolhatóvá válik (nem kell külön ellenőrizni, hogy akkor ez most fájl vagy sem), másfelől pedig egy esetleges probléma felmerülésekor eggyel kevesebb nyomon kell elindulni. No és persze a névváltásokat meg kell alaposan tervezni, és a végén vissza kell ellenőrizni, hogy valami hülye spion nem ragaszkodik-e foggal-körömmel a régi névhez.
 </p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[KDE4 SVN-ből 2 - Az asztal]]></title>
-    <link href="http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal/"/>
-    <updated>2009-01-19T16:11:21+01:00</updated>
-    <id>http://hron.me/blog/2009/01/kde4-svn-bol-2-az-asztal</id>
-    <content type="html"><![CDATA[<p><a name="plasmoid"><h3>Plazma az asztalon</h3></a></p>
-
-<p>
-Nem, ez nem plazmatévé, nem is <a href="http://hu.wikipedia.org/wiki/Plazma" title="Wikipédia - Plazma">plazma</a>, ez valami teljesen más. <br />
-Ugye emlékszünk még mindenki kedvenceire, a SuperKaramba kisalkalmazásokra? Ezeket az asztalra lehetett szétszórni, és időjárás és a gazdasági helyzet figyelésétől az iWiW-es értesítésekig nagyon sok mindenre lehetett felhasználni őket. A KDE fejlesztői úgy gondolták, ez elég hasznos dolog ahhoz, hogy még integránsabb részévé tegyék a KDE-s asztaloknak, mint amennyire eddig lehetőség nyílt rá.</p>
-
-
-<!--more-->
-
-
-<p>
-A KDE 4-es verziójában újraimplementálták az ezen kisalkalmazásokat futtató engine-t, és Plasma  névre keresztelték. Mielőtt továbbmennénk, kis fogalommagyarázat:
-<ul>
-<li>Plasma (plazma): az engine neve, mely a kisalkalmazásokat futtatja. Többféle kliense lehet, például a Kicker (mindjárt), és az asztal maga.</li>
-<li>Plasmoid (plazmoid): a kisalkalmazások neve, megfelel a SuperKaramba widgetjeinek</li>
-</ul>
-<a href="http://hron.me/uploads/2009/01/plasmoid-add.png"><img src="http://hron.me/uploads/2009/01/plasmoid-add-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="Plazmoid hozzáadása" class="alignright size-full wp-image-237" /></a>
-Noha a KDE alapcsomagjait eleve nagyon megszórták plazmoidokkal, (kevés kivétellel) <a href="http://techbase.kde.org/Development/Tutorials/SuperKaramba#SuperKaramba_on_KDE4" title="KDE TechBase: SuperKaramba on KDE 4">lehetőség van</a> a saját magunk által fejlesztett SuperKaramba cuccokat is tovább  használni Plasma alatt. <br />
-Ízelítőül itt jobbra láthatóak az alaptelepítéssel jövő plasmoidok listájának egy része (nem fért ki több :-) ).
-</p>
-
-
-<p>
-A telepített plazmoidokat az asztal jobb felső sarkában található sárga amorf "dologgal" megjelölt területére kattintva adhatjuk hozzá asztalunkhoz. A hozzáadott kisalkalmazás ezek után mozgatható, átméretezhető vagy elforgatható. Ha elidőzünk rajta, valamelyik függőleges oldal mentén megjelenik egy eszköztár, melyen a hely és helyzetváltoztatásra szolgáló gombokon kívül helyet kapott még egy csavarkulcs is, mellyel szokás szerint a beállítások ablaka hívható elő (ha az adott plasmoidnak van ilyenje), illetve egy bezárás gomb is, mellyel a plasmoid eltűntethető asztalunkról.
-</p>
-
-
-<p><a name="kicked-kicker"><h3>Plazma plazmatálcán kínálva</h3></a></p>
-
-<p>
-Egy nagyon furát mondok: a Kicker az általunk ismert formájában megszűnt létezni, nincs többé. A KDE 4-ben ezt is teljesen újragondolták. Mert mi is a tálca? Az asztal része. Mik vannak rajta? különböző kisalkalmazások. Hohó, hiszen ezeknek már egy rendszer ki van találva, a fent tárgyalt Plasma! Miért ne lehetne a rendszertálca is egy (speciális) plazmoid? Semmi akadálya. S lőn.</p>
-
-
-<p>
-A rendszertálca tehát mostmár csak egy plasmoid az asztalon. Annyiban azonban speciális, hogy képes más Plasmoid-okat megjeleníteni illetve néhánynak egy kissé megváltoztatja a viselkedését.<br />
-Ha nem akarnánk elhinni, tekintsük meg a tálca jobb oldalán megbúvó amorf kis ikont, mely nagyon hasonlít asztali társára. A működése is hasonló, egy kis eltéréssel: egy csík jelenik meg, melyen a kisalkalmazások hozzáadására szolgáló műveleteken kívül magának a tálcának a beállítását szolgáló műveletek is helyet kaptak.
-</p>
-
-
-<p><a name="apperance"><h3>Kinézet és effektek</h3></a></p>
-
-<p>
-A legnagyobb újítás kétségkívül az ablakok és ikonok általános kinézetében történt. Az előző verziókban megszokott, látványosan 3 dimenziós Plastik kinézetet leváltotta a letisztult vonalakból álló, nyugodt és szolíd kinézetű Oxygen. Ehhez az új témához tartozik ikon- és kurzorkészlet, ablakdesign és színséma, valamint egy rakat (stílusban illeszkedő) háttér. A KDE 4.2-ben debütál ez utóbbiak legfiatalabb tagja, az <a href="http://pinheiro-kde.blogspot.com/2008/12/air-we-breath.html">Air</a>. Egyedül talán az indítómenü őrzi még a régi KDE-s kinézetet, és emlékeztet a régi időkre.
-</p>
-
-
-<p><a href="http://nuno-icons.com/images/wall/snapshot3.jpg"><img src="http://1.bp.blogspot.com/__JNFVYfijS4/SUgy1wMzXII/AAAAAAAAAVc/4vlwNlxE5Fw/s400/snapshot5.png" width="400" height="250" title="Katt ide a nagyobb képért" alt="Air háttérkép" class="size-full wp-image-237" /></a></p>
-
-<p>
-Ám az asztal kinézete nem csak megújult, hanem - az idők szavának megfelelően - jónéhány effekttel is gazdagodott. Ezek egy jó része csak megfelelő beállítások és hardvertámogatás mellett érhető el, egy másik részükhöz azonban nem szükséges a gépünk részéről semmilyen extra. Ilyen például a tálcán ablakváltó gombjain való végighúzás közbeni simított egérkövetés a tooltip által, illetve a Konsole beállítópanelének kinézetváltója.
-<br />
-Ezen felül egy csomó olyan grafikai effekt került be a konkurrens Compiz ötleteit felhasználva, mellyel inkábba a prezentációhoz színesíthetjük asztalunkat, a folyamatos használatot bizony igencsak hátráltatja az illető megoldás, valamint hardveres támogatás is szükségeltetik hozzá.<br />
-A már divatnak számító asztalkocka mellett hóesésben és esőben dolgozhatunk, lehetőség van arra, hogy ablakainkat a bezárógombbal elégessük, valamint sok egyéb dologra is.<br />
-Van azonban egy effekt, mely különösen hasznos tud lenni, és érdemes elgondolkodni az engedélyezésén, ha lehetőségünk van rá: élő előnézeti képet tud biztosítani az ablakainkról azok gombja felett elidőzvén. Ez a fent említett standard simított tooltip-effektbe nagyon szépen belesimul, és a váltások nem annyira élesek, mint a Compiz esetében (valamint sokkal gyorsabbak is).
-</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[KDE4 SVN-ből 1 - Alaprendszer]]></title>
-    <link href="http://hron.me/blog/2009/01/kde4-svn-bol-1-alaprendszer/"/>
-    <updated>2009-01-13T16:47:28+01:00</updated>
-    <id>http://hron.me/blog/2009/01/kde4-svn-bol-1-alaprendszer</id>
-    <content type="html"><![CDATA[<p><a name="systemsettings"><h3>Vezérlőpult</h3></a></p>
-
-<p>Kezdjük ott, ahol minden valamirevaló rendszergazda kezdi: a beállításoknál. Előbb egy kis történelem, majd jönnek a részletek. </p>
-
-
-<p><a href="http://hron.me/uploads/2009/01/kcontrol3.png"><img src="http://hron.me/uploads/2009/01/kcontrol3-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="KDE3 vezérlőpult" class="alignright size-full wp-image-237" /></a>
-KDE3-ban elég egyszerűen volt intézve a vezérlőpult, balra volt fa szerkezeben a beállítások listája, jobbra az épp kijelölt beállításhoz tartozó panel. A minőség változó volt, hol a bőség zavarával kellett megküzdeni, hol a beállítások hiányos voltával. <br />Maguk a beállítópanelek amúgy egész pofásak voltak, noha egyik-másiknak az elrendezése nem volt egészen a legoptimálisabb, volt pár nehezen kezelhető, bonyolult eszköz. De ennek most vége. </p>
-
-
-<p>A KDE 4-ben ugyanis a KControlCenter mint olyan megszűnt létezni, helyét a SystemSettings (igen, nincsen benne 'K' :-) ) vette át, és kinézetre is teljesen más lett.</p>
-
-
-<!--more-->
-
-
-<p>
-<a href="http://hron.me/uploads/2009/01/systemsettings.png"><img src="http://hron.me/uploads/2009/01/systemsettings-150x150.png" width="150" height="150" title="Katt ide a nagyobb képért" alt="KDE4 vezérlőpult" class="alignright size-full wp-image-237" /></a>
-Eltűnt a jól ismert fa-nézet a bal oldalról és eltűnt a panelek helye is, a helyüket egy, a Mac OS X vezérlőpultjához igen-igen hasonlító dolog vette át. Kategóriákra osztott lehetőségek közül válaszhatunk, sőt a "Speciális" fülön mélyen is belemászhatunk kedvenc KDE-nk lelkivilágába, kezdve az energiakezeléssel, a hardverek kezelésén át egészen az asztali téma testreszabásáig, szóval beállítófelületekben nincs hiány.</p>
-
-
-<p>Egy elemre szimplán vagy duplán kattintva (az Egér beállításánál lehet ezt neki megmondani, ti. hogy hogyan szoktunk ikont inditani, csak rábökünk, vagy ráduplázunk) a felület átvált a lényegi beállítórészre, ahol a különféle opciók tárulnak elénk. Most nem mennék végig a beállításokon, mert sok van, és egyre több. Ha végeztünk az adott modullal, és az alkalmazás gombra való kattintás után még vissza szeretnénk lépni a főablakba, keressük meg a bal felső sarokban a Vissza gombot :-) .</p>
-
-
-<p><a name="dolphin"><h3>Fájlkezelés</h3></a></p>
-
-<p>A következő dolog, amit jobban szemügyre kell venni, az a fájlkezelés témaköre, ugyanis itt elég nagy változások voltak</p>
-
-
-<p>Az előző KDE verzióban a fájlkezelést csak és kizárólag a Konqueror felületén át lehetett elvégezni, ez volt a fájlkezelő és a böngésző egyszemélyben. Voltak hozzá különböző pluginek, midnight commander nézet, meg hasonló okosságok, de a lényegen ez nem sokat változtatott.</p>
-
-
-<p>
-<a href="http://hron.me/uploads/2009/01/dolphin.png" target="_blank">
-<img src="http://hron.me/uploads/2009/01/dolphin-150x150.png"
-  alt="Dolphin fájlkezelő"
-  title="Katt ide a nagyobb képért"
-  width="150" height="150"
-  class="alignleft size-full wp-image-237"
-/>
-</a>
-Az új KDE-ben a Konqueror megtartotta ugyan fájlkezelési képességeit, ám bekerült egy kimondottan fájlokra specializálódott program, Dolphin néven. A Dolphin kiválóan alkalmas a feladatának elvégzésére, ugyanakkor egyszerűbben kezelhető mint a Konqueror, a felülete is jobban alkalmazkodott a célhoz.</p>
-
-
-<p>Balra a meghajtóink listája látható, pontosabban azok a meghajtók, amiket a KDE ismer. Mivel a legtöbb modern disztribúcióban már engedélyezve van a Hal (egyfajta eszközmenedzser), így valószínű, hogy nincs olyan meghajtónk, amiről a KDE ne tudna. <br />
-Jobbfelől egy nagy panel látható, rajta minden olyan információval, ami a kijelölt fájlról elérhető, illetve kijelölés híján az aktuális mappa adatai láthatók e helyütt. Középen a fájlok böngészésére szolgáló felület terpeszkedik, alul pedig a státuszsoron egy zanzát láthatunk a jobboldali panel adataiból (általába fájlnév és méret).
-</p>
-
-
-<p>
-A státuszsoron szerénykedik egy csúszka, mely a böngészőfelületen levő ikonok méretét hivatott szabályozni az extra nagytól a kis méretig. Őt akkor érdemes piszkálni főképp, ha a fájlok előnézete engedélyezve van (ez az eszköztár megfelelő parancsával elintézhető).
-</p>
-
-
-<p>
-Az eszköztár legvégén van egy ártatlannak tűnő gomb, mely azonban hatalmas lehetőséget rejt: kétpaneles böngészővé tudja alakítani a dolphin-t, így sokkal könnyebb a munka vele, mintha két ablak közt kellene mozogni.
-</p>
-
-
-<p>A nézet menü Panelek menüjébe belenézve két hasznos dolgot is találunk: az egyik egy terminál behívása, mely alapértelmezetten alul jelenik meg, és híven követi a dolphin-ban való mozgásunkat, a másik pedig egy, a meghajtólista lecserélésére alkalmas mappaböngésző, melyben fastruktúrában mozoghatunk gépünk mappái között.</p>
-
-
-<p>Érdekességképpen meg kell hogy említsem, hogy az SVN fájlrendszermodult feltéve úgy a Dolphin mint a Konqueror lehetőséget ad a munkakönyvtár böngészése közben annak frissítésére (svn up), és az aktuális változások beküldésére (svn commit). Ez egy nagyon hasznos dolog.<br />
-Szomorú hír viszont, hogy a többi verziókezelő rendszer felhasználói semmiféle ilyen lehetőségnek nem örvendhetnek, ugyanis nincsen fájlrendszer modul az ő programjuk formátumához - még.</p>
 
 ]]></content>
   </entry>

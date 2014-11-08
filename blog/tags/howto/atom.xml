@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: howto | Hron's blog]]></title>
+  <link href="http://hron.me/blog/tags/howto/atom.xml" rel="self"/>
+  <link href="http://hron.me/"/>
+  <updated>2014-11-08T15:11:04+01:00</updated>
+  <id>http://hron.me/</id>
+  <author>
+    <name><![CDATA[Gábor Garami]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[DIY Modded Skyblock]]></title>
+    <link href="http://hron.me/blog/2014/11/diy-modded-skyblock/"/>
+    <updated>2014-11-08T11:49:00+01:00</updated>
+    <id>http://hron.me/blog/2014/11/diy-modded-skyblock</id>
+    <content type="html"><![CDATA[<p>In this post, I will give some pointers how you can make a skyblock modpack/game
+yourself.</p>
+
+<p>I will use the classical <a href="http://www.minecraftforum.net/forums/mapping-and-modding/maps/1473433-surv-skyblock">SkyBlock</a> map for basics, it is a very basic map with
+few dirt and few sand block, two chest, and one bedrock. It sounds great, well?
+Also this article tells you about playing under Minecraft 1.7.10 and only with
+that. I will describe some mechanics too what is mostly works with older/newer
+versions of the game but mods that I describe is choosed from 1.7.10 modpacks.</p>
+
+<h2>Anatomy of the skyblock</h2>
+
+<p>The first thing what we have to consider is SkyBlock is not prepared to provide
+a modded Minecraft experience. It is a vanilla skyblock survival map without any
+support for creating non-vanilla items or blocks. Both Overworld and Nether are
+an empty dimensions, Nether will spawn a Nether portal if you reach it, but that's
+all. What does it means?</p>
+
+<ul>
+<li>We do not have any worldgen. And under worldgen I not only mention just ores,
+minerals and special soil blocks (podzol, mycelium, etc.) but flowers, trees,
+dungeons, and some other things.</li>
+<li>We do not have any mobs. Nor hostile, nor passive mobs. Vanilla mobs are mostly
+spawnable, they can spawn automatically if neccessary environment is provided
+or they're "craftable", so you can spawn them manually (like wither).</li>
+<li>Because the points above, we have a very limited possibility to access
+mod-provided things. Mods that using vanilla metals and minerals are usable
+(except valuable things like diamond, emerald, glowstone and redstone) but
+nothing else. Also we have a very limited access to mod-provided mobs,
+especially if they're not spawn naturally but generated during the world generation
+(like Witchery's Coven Witches, villagers, etc.)</li>
+</ul>
+
+
+<p>In the following points, I will describe how can we break out from these
+restrictions with few, well-choiced mods.</p>
+
+<h2>Enhanced vanilla experience</h2>
+
+<p>Some people does not want much more than vanilla can provide. They're happy with
+killing zombies and creepers, growing plants for food, growing trees for building.</p>
+
+<p>However, skyblock maps have some limits what can affect the fun of the game.
+First thing is the old respawning bug with SkyBlock map.</p>
+
+<p>If you do not play under Hardcore, and die on the SkyBlock, the respawning
+could be tricky, because you have a big chance to spawn above the void as the
+starting dirt island is very-very small and game may or may not able to find it.</p>
+
+<p>The mod I recommend you to solve it is the <a href="http://www.curse.com/mc-mods/minecraft/221584-admin-commands-toolbox">AdminCommandsToolbox</a>.
+It provides a small set of commands to help you in working with normal maps but
+we install it only for one command: /setspawn. We can pass a block-based coordinate
+for this command (that you can see in F3 screen) to set your spawn point regardless you
+have or do not have a bed. With this command you can avoid the "falling loop" and
+you can spawn exactly where you set your spawnpoint. As I know it does not override
+the mechanic how beds are working but if your bed is vanishes/breaks, you'll spawn
+on the specified point.</p>
+
+<p>The second thing can frustrate you is the very basic abilities of vanilla to work with
+inventories. If you already played with some modpacks you may love how you can collect
+things from crafting tables, how to pick/put items one-by-one from/into
+inventories or just sorting the content of your chests.</p>
+
+<p>The mod what is powerful enough to provide these functions is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288184-inventory-tweaks-1-58-july-25">InventoryTweaks</a>.
+In skyblock maps, I recommend you to turn on the function what provides items
+automatically to your hand, for example replaces broken pickaxes with a new one.
+The config file is describes how you can do it but as I know the default setting is 'on'.</p>
+
+<p>The last thing is the recipes. There is a very few people who can remember all
+recipes, including vanilla ones if they're not used in everyday. For example, can
+you recite how boosted tracks or dropper can be made without checking it in the
+wiki?</p>
+
+<p>There is two mods what can provide a help you, the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1279956-chickenbones-mods">NotEnoughItems</a> and
+the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1272385-toomanyitems-the-inventory-editor-and-more-1-8-is">TooManyItems</a>. These mods provides a sidebar at right side of the inventory
+screens there you can browse all existing items/blocks in the game and you can
+check their recipes (NEI also provides a way to check usage of the item in other
+recipes).</p>
+
+<p>If you want a vanilla experience, you can choose any of them. Both NEI and TMI
+can serve the vanilla recipes effectively, so the choice is depends only on your
+taste.</p>
+
+<p>However, if you want include other mods into the game, I strongly recommend you
+to use NEI. It became an industrial standard in modded Minecraft world, most mods
+(if not all) provides multiple different integration with NEI.</p>
+
+<p>Keep in your mind, NEI requires CodeChickenCore mod, do not try use NEI without
+that.</p>
+
+<h2>Semi-vanilla experience</h2>
+
+<p>In this section I recommend mods that mostly do not require materials which is
+not obtainable in the vanilla skyblock.</p>
+
+<p>If you want more foods than available in vanilla Minecraft, I recommend you to
+try out <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Pam's Harvestcraft</a>, especially with <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Spice of Life</a>.
+The former provides a much more plantable food sources (seeds are obtainable via
+bonemealing grass block and punching tall grass) with some enhanced processing
+mechanic, the latter one enforces you to eat different foods via drastically
+decreasing the saturation of the overused foods.</p>
+
+<p>The only thing you can not use in skyblock is the soybean because it requires a
+presser for getting tofu, and presser is built from two pistons. The redstone dust
+is unobtainable or very hard to obtain in skyblock (witches can drop it, but there
+is a very small chance to spawn witch in a non-swamp and non-magical biome).
+However, all other tools are made from iron, wood and stone, so it's very easy
+to craft/use them. It also does not use gold, so you do not enforced to travel to
+the Nether if you do not like it.</p>
+
+<p>The last mod in this section I recommend is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288400-chisel">Chisel</a> mod. One stick and
+one iron and you can make very beatiful buildings from cobblestone and oak planks.
+Definitely worth it!</p>
+
+<h2>Modded experience</h2>
+
+<p>For modded experience the first problem we face with is lacking modded metals
+and minerals. In vanilla skyblock you can obtain iron (from zombies) and gold
+(from zombie pigmen) and some coal (from wither skeletons), but nothing else.
+No redstone, no diamond, no emerald. And nothing modded metal, like copper or
+lead.</p>
+
+<p>There is only one mod to help us: the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1291850-ex-nihilo-the-skyblock-companion-mod">Ex Nihilo</a> mod. If you played
+with <a href="http://ftbwiki.org/Agrarian_Skies">Agrarian Skies</a> or just watched a video from it, you can remember
+to the sieve that you can use from obtain ore-like stuffs from sand or gravel, a
+hammer to make gravel/sand/dust from cobblestone and the small silkworms that
+can infect leaves to make string obtainable more easier than killing spiders.</p>
+
+<p>Unfortunatly, there is no Ex-Aliquo for 1.7.10 yet, so Thaumcraft integration is
+really missing, there is no shards available and as I know quicksilver cannot
+obtained via sifting sand.</p>
+
+<p>As I wrote in the introducion, there is no worldgen in the skyblock. You can now
+spawn some things manually (mobs, seeds, metals and minerals) but for example
+Botania flowers are missing, Witchery witches does not spawn naturally, and
+dungeon loot chests - where you can obtain some uncraftable resources - are
+completely missing. I encourage you to add some mods that provide Overworld-like
+dimensions, for example Twilight Forest or some mining worlds, so the mods become
+able to spawn their worldgen-based stuffs. The best two mod for this task is the
+<a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1276258-the-twilight-forest-v2-3-2-snow-queen-troll">Twilight Forest</a> and the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1280070-mystcraft-0-11-0">Mystcraft</a>. Twilight Forest adds some adventures
+too, so if you're bored in harvesting cobblestone or sifting sand, you can jump
+over to that dimension and kill a Naga or just fight with kobolds for a bite of
+wheat.</p>
+
+<h2>Final words</h2>
+
+<p>I think nobody assumes how SkyBlock map powerful is and how much possibility are
+hidden in that. It can keep your interest up with providing different ways to
+obtain resources than usual. In a void world, you have to plan how you want to
+build your base, how you can organize your stuffs. It helps you to think out of
+the boxes where you always close yourself.</p>
+
+<p>Missing quests and quest rewards makes obtaining rare or uncraftable resources
+very hard, but with good balancing you can get not only additional dimensions but
+additional fun too. Twilight Forest makes it hard enough to provide a way to
+enjoy finding valuable resources and keeps you out the boring<br/>
+"explore mineshaft/kill/loot" cycle. MystCraft worlds are usually hard to live,
+and if you're unlucky enough to get some decay in the world, you can run for
+your life to avoid getting closed in an endless falling cycle.</p>
+
+<p>If you want to try out something really different, try out skyblock worlds.
+Modded or vanilla - it depends on your taste but I recommend you to give a chance
+for both. Modded skblock is fun, and most modpacks can run a skyblock map (you
+only need Ex Nihilo to get additional ores) so you can try out your favorite
+modpack with a skyblock map.</p>
+
+<p>Only one warning: keep in your mind, most mods and most modpacks are not balanced
+to live on a skyblock map. If you find it too hard, or do not enjoy finding a way
+to build things from a limited resources, keep away from skyblock maps because
+they require strong problem solving abilities.</p>
+
+<p>The most importan thing is enjoy the game and not to suffer from it.</p>
+
+<p>Have a nice game!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title "Mac &amp; Linux"
+But I didn't know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer's
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it's a dumb printer without PCL or PS knowledge,
+so I had to install 'raster' driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn't guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane's backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<p>```plain /etc/xinetd.d/sane-port
+service sane-port
+{</p>
+
+<pre><code>disable     = no
+socket_type = stream
+protocol    = tcp
+user        = root
+group       = root
+wait        = no
+server      = /usr/sbin/saned
+only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it's running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it's good for start.</p>
+
+<p><div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>

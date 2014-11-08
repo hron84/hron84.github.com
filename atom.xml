@@ -4,7 +4,7 @@
   <title><![CDATA[Hron's blog]]></title>
   <link href="http://hron.me/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2014-04-03T07:24:12+02:00</updated>
+  <updated>2014-11-08T15:11:04+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -14,11 +14,539 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Kapcsolok es utvalasztok]]></title>
-    <link href="http://hron.me/blog/2013/10/kapcsolok-es-utvalasztok/"/>
-    <updated>2013-10-14T00:35:00+02:00</updated>
-    <id>http://hron.me/blog/2013/10/kapcsolok-es-utvalasztok</id>
-    <content type="html"><![CDATA[
+    <title type="html"><![CDATA[DIY Modded Skyblock]]></title>
+    <link href="http://hron.me/blog/2014/11/diy-modded-skyblock/"/>
+    <updated>2014-11-08T11:49:00+01:00</updated>
+    <id>http://hron.me/blog/2014/11/diy-modded-skyblock</id>
+    <content type="html"><![CDATA[<p>In this post, I will give some pointers how you can make a skyblock modpack/game
+yourself.</p>
+
+<p>I will use the classical <a href="http://www.minecraftforum.net/forums/mapping-and-modding/maps/1473433-surv-skyblock">SkyBlock</a> map for basics, it is a very basic map with
+few dirt and few sand block, two chest, and one bedrock. It sounds great, well?
+Also this article tells you about playing under Minecraft 1.7.10 and only with
+that. I will describe some mechanics too what is mostly works with older/newer
+versions of the game but mods that I describe is choosed from 1.7.10 modpacks.</p>
+
+<h2>Anatomy of the skyblock</h2>
+
+<p>The first thing what we have to consider is SkyBlock is not prepared to provide
+a modded Minecraft experience. It is a vanilla skyblock survival map without any
+support for creating non-vanilla items or blocks. Both Overworld and Nether are
+an empty dimensions, Nether will spawn a Nether portal if you reach it, but that&#8217;s
+all. What does it means?</p>
+
+<ul>
+<li>We do not have any worldgen. And under worldgen I not only mention just ores,
+minerals and special soil blocks (podzol, mycelium, etc.) but flowers, trees,
+dungeons, and some other things.</li>
+<li>We do not have any mobs. Nor hostile, nor passive mobs. Vanilla mobs are mostly
+spawnable, they can spawn automatically if neccessary environment is provided
+or they&#8217;re &#8220;craftable&#8221;, so you can spawn them manually (like wither).</li>
+<li>Because the points above, we have a very limited possibility to access
+mod-provided things. Mods that using vanilla metals and minerals are usable
+(except valuable things like diamond, emerald, glowstone and redstone) but
+nothing else. Also we have a very limited access to mod-provided mobs,
+especially if they&#8217;re not spawn naturally but generated during the world generation
+(like Witchery&#8217;s Coven Witches, villagers, etc.)</li>
+</ul>
+
+
+<p>In the following points, I will describe how can we break out from these
+restrictions with few, well-choiced mods.</p>
+
+<h2>Enhanced vanilla experience</h2>
+
+<p>Some people does not want much more than vanilla can provide. They&#8217;re happy with
+killing zombies and creepers, growing plants for food, growing trees for building.</p>
+
+<p>However, skyblock maps have some limits what can affect the fun of the game.
+First thing is the old respawning bug with SkyBlock map.</p>
+
+<p>If you do not play under Hardcore, and die on the SkyBlock, the respawning
+could be tricky, because you have a big chance to spawn above the void as the
+starting dirt island is very-very small and game may or may not able to find it.</p>
+
+<p>The mod I recommend you to solve it is the <a href="http://www.curse.com/mc-mods/minecraft/221584-admin-commands-toolbox">AdminCommandsToolbox</a>.
+It provides a small set of commands to help you in working with normal maps but
+we install it only for one command: /setspawn. We can pass a block-based coordinate
+for this command (that you can see in F3 screen) to set your spawn point regardless you
+have or do not have a bed. With this command you can avoid the &#8220;falling loop&#8221; and
+you can spawn exactly where you set your spawnpoint. As I know it does not override
+the mechanic how beds are working but if your bed is vanishes/breaks, you&#8217;ll spawn
+on the specified point.</p>
+
+<p>The second thing can frustrate you is the very basic abilities of vanilla to work with
+inventories. If you already played with some modpacks you may love how you can collect
+things from crafting tables, how to pick/put items one-by-one from/into
+inventories or just sorting the content of your chests.</p>
+
+<p>The mod what is powerful enough to provide these functions is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288184-inventory-tweaks-1-58-july-25">InventoryTweaks</a>.
+In skyblock maps, I recommend you to turn on the function what provides items
+automatically to your hand, for example replaces broken pickaxes with a new one.
+The config file is describes how you can do it but as I know the default setting is &#8216;on&#8217;.</p>
+
+<p>The last thing is the recipes. There is a very few people who can remember all
+recipes, including vanilla ones if they&#8217;re not used in everyday. For example, can
+you recite how boosted tracks or dropper can be made without checking it in the
+wiki?</p>
+
+<p>There is two mods what can provide a help you, the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1279956-chickenbones-mods">NotEnoughItems</a> and
+the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1272385-toomanyitems-the-inventory-editor-and-more-1-8-is">TooManyItems</a>. These mods provides a sidebar at right side of the inventory
+screens there you can browse all existing items/blocks in the game and you can
+check their recipes (NEI also provides a way to check usage of the item in other
+recipes).</p>
+
+<p>If you want a vanilla experience, you can choose any of them. Both NEI and TMI
+can serve the vanilla recipes effectively, so the choice is depends only on your
+taste.</p>
+
+<p>However, if you want include other mods into the game, I strongly recommend you
+to use NEI. It became an industrial standard in modded Minecraft world, most mods
+(if not all) provides multiple different integration with NEI.</p>
+
+<p>Keep in your mind, NEI requires CodeChickenCore mod, do not try use NEI without
+that.</p>
+
+<h2>Semi-vanilla experience</h2>
+
+<p>In this section I recommend mods that mostly do not require materials which is
+not obtainable in the vanilla skyblock.</p>
+
+<p>If you want more foods than available in vanilla Minecraft, I recommend you to
+try out <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Pam&#8217;s Harvestcraft</a>, especially with <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Spice of Life</a>.
+The former provides a much more plantable food sources (seeds are obtainable via
+bonemealing grass block and punching tall grass) with some enhanced processing
+mechanic, the latter one enforces you to eat different foods via drastically
+decreasing the saturation of the overused foods.</p>
+
+<p>The only thing you can not use in skyblock is the soybean because it requires a
+presser for getting tofu, and presser is built from two pistons. The redstone dust
+is unobtainable or very hard to obtain in skyblock (witches can drop it, but there
+is a very small chance to spawn witch in a non-swamp and non-magical biome).
+However, all other tools are made from iron, wood and stone, so it&#8217;s very easy
+to craft/use them. It also does not use gold, so you do not enforced to travel to
+the Nether if you do not like it.</p>
+
+<p>The last mod in this section I recommend is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288400-chisel">Chisel</a> mod. One stick and
+one iron and you can make very beatiful buildings from cobblestone and oak planks.
+Definitely worth it!</p>
+
+<h2>Modded experience</h2>
+
+<p>For modded experience the first problem we face with is lacking modded metals
+and minerals. In vanilla skyblock you can obtain iron (from zombies) and gold
+(from zombie pigmen) and some coal (from wither skeletons), but nothing else.
+No redstone, no diamond, no emerald. And nothing modded metal, like copper or
+lead.</p>
+
+<p>There is only one mod to help us: the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1291850-ex-nihilo-the-skyblock-companion-mod">Ex Nihilo</a> mod. If you played
+with <a href="http://ftbwiki.org/Agrarian_Skies">Agrarian Skies</a> or just watched a video from it, you can remember
+to the sieve that you can use from obtain ore-like stuffs from sand or gravel, a
+hammer to make gravel/sand/dust from cobblestone and the small silkworms that
+can infect leaves to make string obtainable more easier than killing spiders.</p>
+
+<p>Unfortunatly, there is no Ex-Aliquo for 1.7.10 yet, so Thaumcraft integration is
+really missing, there is no shards available and as I know quicksilver cannot
+obtained via sifting sand.</p>
+
+<p>As I wrote in the introducion, there is no worldgen in the skyblock. You can now
+spawn some things manually (mobs, seeds, metals and minerals) but for example
+Botania flowers are missing, Witchery witches does not spawn naturally, and
+dungeon loot chests - where you can obtain some uncraftable resources - are
+completely missing. I encourage you to add some mods that provide Overworld-like
+dimensions, for example Twilight Forest or some mining worlds, so the mods become
+able to spawn their worldgen-based stuffs. The best two mod for this task is the
+<a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1276258-the-twilight-forest-v2-3-2-snow-queen-troll">Twilight Forest</a> and the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1280070-mystcraft-0-11-0">Mystcraft</a>. Twilight Forest adds some adventures
+too, so if you&#8217;re bored in harvesting cobblestone or sifting sand, you can jump
+over to that dimension and kill a Naga or just fight with kobolds for a bite of
+wheat.</p>
+
+<h2>Final words</h2>
+
+<p>I think nobody assumes how SkyBlock map powerful is and how much possibility are
+hidden in that. It can keep your interest up with providing different ways to
+obtain resources than usual. In a void world, you have to plan how you want to
+build your base, how you can organize your stuffs. It helps you to think out of
+the boxes where you always close yourself.</p>
+
+<p>Missing quests and quest rewards makes obtaining rare or uncraftable resources
+very hard, but with good balancing you can get not only additional dimensions but
+additional fun too. Twilight Forest makes it hard enough to provide a way to
+enjoy finding valuable resources and keeps you out the boring<br/>
+&#8220;explore mineshaft/kill/loot&#8221; cycle. MystCraft worlds are usually hard to live,
+and if you&#8217;re unlucky enough to get some decay in the world, you can run for
+your life to avoid getting closed in an endless falling cycle.</p>
+
+<p>If you want to try out something really different, try out skyblock worlds.
+Modded or vanilla - it depends on your taste but I recommend you to give a chance
+for both. Modded skblock is fun, and most modpacks can run a skyblock map (you
+only need Ex Nihilo to get additional ores) so you can try out your favorite
+modpack with a skyblock map.</p>
+
+<p>Only one warning: keep in your mind, most mods and most modpacks are not balanced
+to live on a skyblock map. If you find it too hard, or do not enjoy finding a way
+to build things from a limited resources, keep away from skyblock maps because
+they require strong problem solving abilities.</p>
+
+<p>The most importan thing is enjoy the game and not to suffer from it.</p>
+
+<p>Have a nice game!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title &#8220;Mac &amp; Linux&#8221;
+But I didn&#8217;t know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer&#8217;s
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it&#8217;s a dumb printer without PCL or PS knowledge,
+so I had to install &#8216;raster&#8217; driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn&#8217;t guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane&#8217;s backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<figure class='code'><figcaption><span>/etc/xinetd.d/sane-port</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service sane-port 
+</span><span class='line'>{
+</span><span class='line'>  disable     = no
+</span><span class='line'>  socket_type = stream
+</span><span class='line'>  protocol    = tcp
+</span><span class='line'>  user        = root
+</span><span class='line'>  group       = root
+</span><span class='line'>  wait        = no
+</span><span class='line'>  server      = /usr/sbin/saned
+</span><span class='line'>  only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it&#8217;s running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it&#8217;s good for start.</p>
+
+<div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Gento - Para vagy nem para]]></title>
+    <link href="http://hron.me/blog/2013/06/gento-para-vagy-nem-para/"/>
+    <updated>2013-06-25T19:48:00+02:00</updated>
+    <id>http://hron.me/blog/2013/06/gento-para-vagy-nem-para</id>
+    <content type="html"><![CDATA[<p>Twitteren volt egy ilyen üzenetváltás:</p>
+
+<blockquote><p>@hron84: Kiprobaltam megint a #gentoo -t. Mar elfelejtettem, hogy mennyit kell
+varni egy firefoxra. [&#8230;]</p>
+
+<p>@team4world: @hron84 lehet én is kipróbálom. Mennyire parás egy frissítés?</p>
+
+<p>@hron84: @team4world Ha mindenbol csak stabil verziot hasznalsz, akkor abszolut
+nem para. Ha elkezdesz a testing arch-csal ismerkedni, figyelni kell.</p>
+
+<p>@hron84: @team4world Lehet este osszeszedek egy cikket az ajanlott konfigrol.</p>
+
+<p>@team4world: @hron84 az nagyon jó lenne!</p></blockquote>
+
+<p>Itt tartunk tehát most. Nem aznap este lett ugyan összeszedve, de hát az &#8220;aznap&#8221;
+szó nem is szerepelt a twittben :-). Na jó, evezzünk komolyabb vizekre.</p>
+
+<p>Előrebocsátom, hogy ez nem egy Gentoo tutorial lesz, nem fogok minden fogalmat
+elmagyarázni, csak a legszükségesebbeket. Ha nem értesz valamit, ott a <a href="ihttp://www.gentoo.org/doc/en/handbook/">Gentoo
+Handbook</a>, ott a
+<a href="http://wiki.gentoo.org/">Gentoo Wiki</a>, olvass utána.  Ennek elsősorban
+terjedelmi okai vannak, a Gentoo-ról szóló irományokkal egy könyvtárat meg lehet
+tölteni (sőt, bizonyos értelemben ez már
+<a href="http://www.gentoo.org/doc/index.xml">megtörtént</a>), ez meg itt csak egy blog.</p>
+
+<h2>Para vagy nem para?</h2>
+
+<p>Nehéz kérdés, mert mindenkinek mást jelent a &#8220;parás&#8221;. Én, aki cirka 3-3.5 évet
+tuti lehúzott Gentoo desktop mellett, mást érzek parásnak, mint az, aki most
+adja ki élete első emerge parancsát. Szóval az első körös válaszom kicsit
+sántít, mert valójában nincs egzakt válasz a dologra.</p>
+
+<p>Van, akinek para az, hogy egy Firefoxra - géptől függően - fél és két óra között
+kell várni. Nekem nem volt az, mert én ezzel már tisztában voltam, így a
+telepítés során előbb a Google Chrome-t tettem fel, és csak részben azért,
+mert az elmúlt két évben ez vált az elsődleges böngészőmmé, jobban belejátszott,
+hogy ez csak bináris formában van jelen (elérhető a Chromium is, forrásból
+fordul, de ezt még binárisan se szeretem, néha ugyanis bugosabb, mint a Chrome,
+nem tudom, miért).</p>
+
+<p>Van, akinek para az, hogy több, ún. <strong>slot</strong> van, ami annyit takar, hogy egy
+adott nevű csomagból többféle verzió is lehet a gépünkön (gondoljunk a PHP-re,
+az 5.3 és az 5.4 az két különböző PHP-nak számít), és ha nem az alapértelmezett
+slot verziót szeretnénk, akkor célzottan kell telepíteni és maszkolni azt, amit
+nem szeretnénk (esetünkben én nem vagyok olyan nagy PHP 5.4 fan, akkor sem, ha a
+hardcore PHP-sok ezért megszólnak, szóval én hanyagolom azt a verziót).</p>
+
+<p>Szóval hogy mi para és mi nem, az egyénfüggő. Nagyon fontos dolog, hogy a Gentoo
+egy teljesen más hozzáállást igényel, mint a legtöbb disztribúció. Ez elsősorban
+arra irányul, hogy pontosan tisztában kell lenned azzal, hogy mit és hogyan
+szeretnéd, valamint nagyon oda kell figyelned arra, hogy mit csinálsz. Ha
+valamit nem értesz, nem lehet elbliccelni, utána kell olvasni, át kell gondolni,
+sokszor. De cserébe egy végletekig testreszabható rendszert kapsz, és ez nagyon
+sokszor megéri.</p>
+
+<h2>Ajánlott hardverek</h2>
+
+<p>Töprengtem, hogy ne az legyen az alcím, hogy &#8220;Milyen hardvert ne vegyek&#8221;, de
+aztán arra gondoltam, hogy nem leszek ennyire destruktív.</p>
+
+<p>Szóval, Gentoo esetében legyen egy jó procid, lehetőleg sok maggal,
+HyperThreading kiemelten jó, ha van és be is van kapcsolva. Minél több
+processzort listáz a <code>/proc/cpuinfo</code>, annál hamarább végzel a telepítéssel.</p>
+
+<p>Legyen továbbá sok RAM-od. 2G RAM alatt eszünkbe se jusson Gentoo-t telepíteni!
+Tapasztalataim szerint 3-4G RAM az, amivel már tűrhető (pontosabban kivárható)
+idő alatt összeáll valami rendszernek már nevezhető tárgy.</p>
+
+<p>A winyó kiemelten fontos. Nem csak a tárhely (a gyökérre lehet nyugodtan 30G-t
+szánni, meghálálja a rendszer, a home legyen külön partíció) fontos, de a
+merevlemez pörgési sebessége is. Ha 5400 RPM-es merevlemezünk van, ne egy bödön,
+hanem két bödön kávét készítsünk be. Ezt az infót szokás elrejteni a merevlemez
+címkéjén, vagy akár le is hagyni, így telepítés előtt mindenképp nézzünk el a
+Google felé, a merevlemez típusszámával, az első három találat a gyártó
+datasheetjére fog vinni, ha nem, tegyük hozzá, hogy &#8216;speed&#8217;. SSD felhasználók
+itt komoly előnnyel indulnak.</p>
+
+<h2>Mit rakjak fel?</h2>
+
+<p>Kezdőknél ez nagyon gyakori kérdés, és a kellemetlen élmények nagy része az ezen
+kérdésre adott rossz válaszokból adódik. Tisztában kell lennünk azzal, hogy a
+Gentoo egy <em>forrásalapú</em> rendszer, vagyis a <em>bináris</em> rendszerekkel ellentétben
+itt a legtöbb csomag a <strong>gépünkön, forrásból fordul</strong>, legyen szó a GCC-ről vagy
+a Gitről. Van néhány olyan csomag, ami elérhető binárisban is, vagy épp
+kizárólag abban mert a gyártó nem tette elérhetővé a szoftver forrását. Ez
+utóbbira példa az Adobe Flash playere, az előbbire pedig a LibreOffice, mert
+erről köztudott, hogy még erős gépen is fél nap egy fordítás.</p>
+
+<p>Én az alábbi metodikát követem:</p>
+
+<ul>
+<li>Először összerakok egy alaprendszert. Legyen konzolom, legyen egy friss és
+jól mőködő kernelem, Grub (1-es mert én azt szeretem), hálózatom, meg más
+effélék, egyszóval álljon meg a saját lábán a rendszer, ne kelljen hozzá
+LiveCD. Szerencsés esetben ez olyan 2 óra alatt abszolválható feladat,
+kezdőknek se sokkal több.</li>
+<li>Következő lépés: Legyen egy alap grafikus felületem. Itt általában már
+felteszem a kérdést: most rögtön akarok a rendszerrel dolgozni, vagy van időm
+hogy mindent klappoljon? Ha az első a válasz, akkor mindenféle preferenciát
+figyelmen kívül hagyva, komolyabb USE flag állítgatások nélkül felszórok egy
+IceWM-et, egy Google Chrome-t, meg valami terminált, mondjuk XTerm-et. Ez
+<strong>nem</strong> eredményez összkomfortos rendszert, ennek csak az a célja, hogy
+miközben a ház épül-szépül, legyen hol dolgozni meg aludni. Amennyiben
+ráérek, átugrom ezt a pontot.</li>
+<li><p>Ezután rá lehet térni a preferenciáknak megfelelő rendszer telepítésére.
+Először mindig az USE flag állítgatásokat kezdem el. Mivel én GNOME-fan
+vagyok, így a make.conf -ba mindenképpen bekerülnek a <code>gnome</code>, <code>gtk</code>, <code>avahi</code>
+flagek, ezen felül PulseAudio-ellenes vagyok, így a <code>alsa</code> és <code>-pulseaudio</code>
+is. Elég jó alapbeállításokat lehet szerezni az <code>eseletc profile list</code>
+kimenete alapján kiadott <code>eselect profile set &lt;szám&gt;</code> paranccsal is, ahol a
+<code>&lt;szám&gt;</code> a lista elemei mellett látható számot jelenti, kockás zárójelek
+nélkül.
+Sorrendileg először mindig a konzolos cuccokat szoktam felszórni, nem csak
+azért, mert ezek hamar fordulnak, hanem mert ezeket utána már tudom
+használni, amíg a grafikus cuccok születnek. A teljesség igénye nélkül egy
+kis lista:</p>
+
+<ul>
+<li>flaggie: hasznos cucc a csomagonkénti USE flag es keyword állításra. Ezen
+felül tud licenceket is elfogadni, de én általában minden licencre
+rábólintok, mert így könnyebb az életem. A /usr/portage/licenses alatt
+lehet kultúrálódni egyébként.</li>
+<li>portage-utils: újabban része a stage3 alaprendszernek. Hasznos kis utilityk
+győjteménye, a <code>q --help</code> parancs nagyon szolgálatkészen mutatja be őket
+egyenként.</li>
+<li>eix: A Google helyi megfelelője :-). Alapvetően csomagkeresgélésre
+használható, részletes információkkal szolgál arról, hogy milyen csomagok
+érhetőek el a rendszerben. A kézikönyvekben ajánlott <code>emerge --sync</code>
+parancs helyett (ha már fenn van az eix<code>mindig az</code>eix-sync` parancsot
+használjuk, mert ez frissíti az eix adatbázisát is a sync végén, plusz ad
+egy kedves listát az új/frissült/törölt csomagokról. Ezt gondosan
+tanulmányozzuk.</li>
+<li>gentoolkit: Szintén hasznos csomagkezelő gyűjtemény. Én egy parancsot
+használok belőle permanensen, a többit csak szükség esetén, ez pedig a
+glsa-check. Mind desktopon, mind pedig szerveren kiemelten fontosnak tartom
+ugyanis, hogy ne legyen fenn olyan csomag, melyben ismert sebezhetőség van.
+Egy idő után hajlamos az ember rászokni arra, hogy ha egy frissebb verzió
+bugos lenne egy adott csomagból, akkor a bugos verziót és afelettieket
+kimaszkolja, majd az egészet elfelejtse. Ilyenkor jó a glsa-check, ami
+figyelmeztet, hogy bizony-bizony abba a verzióba már találtak egy komoly
+bugot, és talán érdemes lehet megfontolni a frissítést.</li>
+<li>eselect és pluginjei: maga az eselect szintén az alaprendszer része, a
+pluginjei pedig a legtöbb esetben a hozzátartozó csomaggal kerülnek fel. Az
+update-alternatives-nek felel meg, csak kissé okosabb és színesebb. Érdemes
+ismerkedni vele.</li>
+<li>bash-completion: akinél a Tab billentyűről már lekopott a festék (mint
+nálam :-) ), annak kötelező elem. Konfigurőlni eselect-tel lehet, hogy mely
+kiegészítések legyenek engedélyezve. Figyeljünk, hogy alapértelmezés
+szerint per-user állítgatjuk ezeket, globális engedélyezéshez használjuk a
+<code>--global</code> kapcsolót.</li>
+<li>mc: kell-e bemutatni a Midnight Commandert? Szerintem nem. Figyeljünk, hogy
+kapjon <code>samba</code> és <code>sftp</code> flageket valahonnan, különben félkarú óriás. A
+<code>slang</code> flag pedig a szép magyar felülethez segít hozzá minket.</li>
+<li>nano: Ha mcedit pártiak vagyunk, akkor nem érdekes, ha vim/emacs pártiak,
+nézzünk rá erre a kis editorra, amíg kedvencünk fordul. Syntax coloring,
+keresés, vágólap&#8230; és egyszerő használat. Része az alaprenszernek.</li>
+<li>sudo: sajnos nem része az alaprendszernek ez a kötelező kis program. Tegyük
+fel, alig van függősége.</li>
+<li>layman: a külső csomagtárólók kezelője. Okosan paraméterezve rögtön
+feldobja a 3 legnépszerűbb verziókezelt is, függőségként.</li>
+</ul>
+
+
+<p>Ezután jön a grafikus rendszer. GNOME pártiként én a gnome-light csomaggal
+indítok, ez egy metacsomag, semmit nem telepít, csak függőségei vannak, mint
+egy rossz drogosnak. Viszont mindent felrak, ami egy alap GNOME desktophoz
+kell. Emellé érdemes beütemezni a xorg-x11 csomagot is, ami a grafikus
+felület megjelenítését szolgáló X11 szervert rakja fel.
+Figyeljünk arra, hogy ha sehol másutt nem is, de itt mindenképpen használjuk
+az emerge <code>--ask</code> vagy <code>--pretend</code> kapcsolóinak egyikét,
+hogy kiírja, mit telepítene. Azért fontos, mert első körben be
+kell lőni a videókártya és a beviteli eszközök típusát a make.conf -ban, és
+itt egész jó tippeket kapunk a lehetséges értékekről a xorg-drivers sorában.
+Ne feledjük, hogy a mínusz jel mindig kivonást jelöl, vagyis az nincs
+kiválasztva. Beviteli eszköznek általában a <code>keyboard</code>-ot, a <code>mouse</code>-t és az
+<code>evdev</code>-et szoktam választani (ez utóbbi mindenképp kell), tapipad mániákusok
+ne feledjék a <code>synaptics</code>-ot is kérni az eladótól a meglepetések elkerülése
+okán.
+Kell egy jó login manager is, GNOME esetében ez a GDN, bár én most LightDM-et
+raktam fel, csak úgy próbából. Nem rossz, de a GDM jobb.</p>
+
+<p>Most jövök rá, hogy KDE  fanok is vannak itt. Nekik rossz hírem van: nem
+nagyon tudok mit ajánlani, mert ritkán vetemedek KDE használatra, mostanság
+ez a
+gyakoriság a sohához tendál. Asszem a kdebase-startkde csomag visz el az
+alaprendszerig, kdm csomag van, és a kde-l10n csomagtól lehet várni
+lokalizációt. A xorg-x11 pedig itt is kötelező elem.</p>
+
+<p>Figyeljünk arra, hogy amennyiben nem KDE desktop a cél, első két körben
+tiltsuk a <code>qt4</code> USE flaget, mert ez magával hozná a Qt grafikus könyvtár
+telepítését, ami elég hosszadalmas móka. KDE-s álmok esetében viszont épp
+ellenkezőleg: engedélyezzük, méghozzá minél koraibb szakaszban, a KDE-s
+cuccok nagy része le fogja fikázni a rendszerünket, ha nincs mindenütt Qt
+támogatás.</p>
+
+<p>Grafikus cuccokra ajánlatok:</p>
+
+<ul>
+<li>Porthole: Gtk alapú csomagkezelő, Debianon Synaptic-nak hívnak egy ehhez
+nagyon hasonló cuccot. Az USE flag kezelőjének használatát lehetőleg
+mellőzzük, a Ctrl+R megnyomására feljövő parancssorból használjuk a
+flaggie-t. Igy nem érnek meglepetések egy frissítésnél. KDE rendszerhez a
+Kuroo jobb, de a Kuroo4 fejlesztése még igen aktívan tart, nem tudom,
+mennyire stabil a cucc. USE flageket itt is inkább flaggie-vel, bár a régi
+Kuroo (a KDE 3-as) rendesen kezelte a package.use fájlt.</li>
+<li>Gitg: Roppant hasznos cucc, ha Git-tel dolgozunk. Soronként stage-elhető
+commit és history tallózó segíti a munkát.</li>
+<li>NetworkManager: furcsa, de nem alapértelmezett a telepítése. Desktopon,
+wifi-mentes környezetben nincs is rá szükség, laptopon viszont
+kötelező elem, a hálózati konfigokat másképp nem fogjuk tudni kényelmesen
+managelni. A hasonló nevő (csak végig kisbetős) USE flag beállítása
+szintén fontos. Régebben volt valami PolicyKites para, de úgy tudom, az
+már megoldódott, mert más disztróban is volt, és azokban már meg van
+oldva.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Frissítés</h2>
+
+<p>Ide jön az, amit első körben válaszoltam a kérdezőnek: ha mindig csak stabil
+cuccokkal dolgozol, akkor nincs para, a Gentoo fejlesztőknél elég szigorú a QA,
+ha nincs elég community visszajelzés a csomagről, akkor nem is lesz stabil.
+Viszont amíg van komoly hiba vele, szintén nem lesz az. Vagyis stabil csomag
+általában csak stabil dologból lesz. Néha előfordulnak csomagolói melléfogások,
+véletlen stabilnak jelölések, de ez szimpla emberi mulasztás, és nagyon-nagyon
+ritka, mindenesetre érdemes hetente ellátogatni a Gentoo főoldalára, és
+csekkolni a híreket.</p>
+
+<p>Azért arra mindenképp figyeljünk, hogy <strong>legalább hetente egyszer futtassuk meg
+a frissítő parancsot</strong> (ez az <code>emerge -DuNa world</code>), célszerően hétvégén, vagy
+lefekvés előtt. Reggelre tuti végez. Ha nagyon nincs időnk, havinál ritkább
+frissítést akkor se ütemezzünk, különben nagyon sokat kell várnunk.</p>
+
+<p>Para akkor szokott lenni, ha külső csomagtárolókból (layman) teszel fel
+testinges (~ arch-os, ez egy tilde jellel prefixelt architektúra nevet, pl.
+~amd64 jelent) csomagokat. Nagy para meg akkor, ha nagyon bevállalós vagy, és
+kipróbálsz pl. live ebuildeket (közvetlenül verziókezelőből forduló csomagokat),
+vagy két csillaggal megjelölt unstable cuccokat (a live ebuildek egyébként ez
+utóbbiak részhalmazát képezik). Kezdőknek és középhaladóknak nagy ívben
+kerülendő terület ez.</p>
+
+<p>A fenti parancsot használva néha megjelennek sárga USE flagek is a csomagok
+mellett. Ez azért van, mert a <code>-N</code> kapcsoló a USE flag frissülésekre is rámegy,
+ez ugyanis sokszor valamilyen plusz támogatást is jelent, verzióváltás nélkül.
+Bekapcsolt <em>ccache</em> mellett, ha csak kikapcsolt flag került be, a csomagok
+secc-pecc lefordulnak, ha van, akkor pedig gazdagabbak leszünk egy, az
+igényeinknek jobban megfelelő csomagnak (amennyiben az USE flageket a saját, és
+nem a szomszéd igényei alapján állítottuk be).</p>
+
+<p>A frissítéseknél lehet azért trükközni. A <code>-DuNa</code> mindent felsorol, ami épp
+frissülni akar, de ha mondjuk nem akarunk egy Firefox forgatásba belekezdeni,
+akkor csinálhatjuk úgy is, hogy kézzel felsoroljuk a frissítendő csomagokat egy
+<code>emerge -u1</code> parancs argumentumaiként, verziószám nélkül, kihagyva a Firefox-ot,
+egy későbbi időpontban frissítve azt.</p>
+
+<p>Nagyjából ennyi lenne. Elég hosszúra nyúlt ez az írás is, nem véletlenül mondtam
+az elején, hogy könyvtárakat lehet megtölteni a Gentoo-ról szóló ismeret
+anyagokkal.</p>
 ]]></content>
   </entry>
   
@@ -1652,30 +2180,30 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
     <link href="http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve/"/>
     <updated>2012-04-18T23:06:00+02:00</updated>
     <id>http://hron.me/blog/2012/04/a-legjobb-git-workflow-tovabbfejlesztve</id>
-    <content type="html"><![CDATA[<p>Közönségkérésre, most bevezetem az olvasóimat abba a Git repo kezelési módszertanba, amit a saját projektjeimnél használok.</p>
+    <content type="html"><![CDATA[<p>K&ouml;z&ouml;ns&eacute;gk&eacute;r&eacute;sre, most bevezetem az olvas&oacute;imat abba a Git repo kezel&eacute;si m&oacute;dszertanba, amit a saj&aacute;t projektjeimn&eacute;l haszn&aacute;lok.</p>
 
-<p>Alapul az egyik talán legnépszerűbb Git workflow szolgált, melynek leírása <a href="http://nvie.com/posts/a-successful-git-branching-model/" title="A successful git branching model">itt tekinthető meg</a>.</p>
+<p>Alapul az egyik tal&aacute;n legn&eacute;pszerűbb Git workflow szolg&aacute;lt, melynek le&iacute;r&aacute;sa <a href="http://nvie.com/posts/a-successful-git-branching-model/" title="A successful git branching model">itt tekinthető meg</a>.</p>
 
 <!-- more -->
 
 
-<p>Lássuk az alapfogalmakat, amiket a leírásban használni fogok, ez az én terminológiám:</p>
+<p>L&aacute;ssuk az alapfogalmakat, amiket a le&iacute;r&aacute;sban haszn&aacute;lni fogok, ez az &eacute;n terminol&oacute;gi&aacute;m:</p>
 
 <ul>
-<li><strong>Master branch</strong>: A repo alapértelmezett branche. A frissen létrehozott git repo-nál ez a &#8220;master&#8221; nevű branch, de akárhogy is lehet hívni.</li>
-<li><strong>Develop branch</strong>: Ezen az ágon folyik a fejlesztés, de közvetlenül ide általában nem commitolunk (lsd. később)</li>
-<li><strong>Feature branch</strong>: egy új feature fejlesztése zajlik  rajta. Ez lehet egy új gomb és a mögöttes kód, lehet a tesztek írására  szolgáló branch, a lényeg, hogy az itt zajló változások vagy új  funkcionalitást adnak a projekthez, vagy annyira jelentősen módosítanak  egy meglevő funkcionalitást, ami már nem fér bele a hotfix branchekbe.</li>
-<li><strong>Hotfix branch</strong>: Ide elsősorban hibajavítások jönnek,  amelyek jöhetnek valamilyen bugtrackerből, vagy akár bemondásra is, ez  már egyéni metodika kérdése. A lényeg: ide olyan változtatás nem  küldhető be, mely nagy mértékben változtat a funkcionalitáson.</li>
+<li><strong>Master branch</strong>: A repo alap&eacute;rtelmezett branche. A frissen l&eacute;trehozott git repo-n&aacute;l ez a &#8220;master&#8221; nevű branch, de ak&aacute;rhogy is lehet h&iacute;vni.</li>
+<li><strong>Develop branch</strong>: Ezen az &aacute;gon folyik a fejleszt&eacute;s, de k&ouml;zvetlen&uuml;l ide nem commitolunk (lsd. k&eacute;sőbb)</li>
+<li><strong>Feature branch</strong>: egy &uacute;j feature fejleszt&eacute;se zajlik  rajta. Ez lehet egy &uacute;j gomb &eacute;s a m&ouml;g&ouml;ttes k&oacute;d, lehet a tesztek &iacute;r&aacute;s&aacute;ra  szolg&aacute;l&oacute; branch, a l&eacute;nyeg, hogy az itt zajl&oacute; v&aacute;ltoz&aacute;sok vagy &uacute;j  funkcionalit&aacute;st adnak a projekthez, vagy annyira jelentősen m&oacute;dos&iacute;tanak  egy meglevő funkcionalit&aacute;st, ami m&aacute;r nem f&eacute;r bele a hotfix branchekbe.</li>
+<li><strong>Hotfix branch</strong>: Ide elsősorban hibajav&iacute;t&aacute;sok j&ouml;nnek,  amelyek j&ouml;hetnek valamilyen bugtrackerből, vagy ak&aacute;r bemond&aacute;sra is, ez  m&aacute;r egy&eacute;ni metodika k&eacute;rd&eacute;se. A l&eacute;nyeg: ide olyan v&aacute;ltoztat&aacute;s nem  k&uuml;ldhető be, mely nagy m&eacute;rt&eacute;kben v&aacute;ltoztat a funkcionalit&aacute;son.</li>
 </ul>
 
 
-<p>Szóval. amikor indul a repo életciklusa, akkor létrejön a master  branch. A kezdő commit általában vagy egy .gitignore fájl beküldéséből  áll (ez a legtöbb esetben hasznos, ha megvan), vagy valami hasonló,  jelentéktelen változtatásból. Rails projekt esetében én azt szoktam  csinálni, hogy a legenerált és kitisztított projektfát küldöm be, amiben  még semmi nincsen, csak a mappák vannak létrehozva, illetve pár dolog  felkonfigurálva (pl. rspec, cucumber, meg hasonlók). Mindenesetre az  alkalmazás itt kezdi meg életciklusát.</p>
+<p>Sz&oacute;val. amikor indul a repo &eacute;letciklusa, akkor l&eacute;trej&ouml;n a master  branch. A kezdő commit &aacute;ltal&aacute;ban vagy egy .gitignore f&aacute;jl bek&uuml;ld&eacute;s&eacute;ből  &aacute;ll (ez a legt&ouml;bb esetben hasznos, ha megvan), vagy valami hasonl&oacute;,  jelent&eacute;ktelen v&aacute;ltoztat&aacute;sb&oacute;l. Rails projekt eset&eacute;ben &eacute;n azt szoktam  csin&aacute;lni, hogy a legener&aacute;lt &eacute;s kitiszt&iacute;tott projektf&aacute;t k&uuml;ld&ouml;m be, amiben  m&eacute;g semmi nincsen, csak a mapp&aacute;k vannak l&eacute;trehozva, illetve p&aacute;r dolog  felkonfigur&aacute;lva (pl. rspec, cucumber, meg hasonl&oacute;k). Mindenesetre az  alkalmaz&aacute;s itt kezdi meg &eacute;letciklus&aacute;t.</p>
 
-<p>Ez után rögtön le is ágaztatom a develop branchet, majd a develop  branchből az első feature branchet. Fontos, hogy minden feature és  hotfix branch a develop ágból származik.</p>
+<p>Ez ut&aacute;n r&ouml;gt&ouml;n le is &aacute;gaztatom a develop branchet, majd a develop  branchből az első feature branchet. Fontos, hogy minden feature &eacute;s  hotfix branch a develop &aacute;gb&oacute;l sz&aacute;rmazik.</p>
 
-<p>A feature branchen elkezdem az első dolgokat implementálni, majd  amikor az első feature kész (pl. van egy belépő felület), akkor azt  rámergelem a develop branchre. A mergelések mindig szigorúan &#8211;no-ff  kapcsolóval történnek, mert ez biztosítja számunkra azt, hogy a későbbi  grafikus megjelenítéseknél jól elkülöníthetően látszódjon, hogy honnét  származik a változtatás.</p>
+<p>A feature branchen elkezdem az első dolgokat implement&aacute;lni, majd  amikor az első feature k&eacute;sz (pl. van egy bel&eacute;pő fel&uuml;let), akkor azt  r&aacute;mergelem a develop branchre. A mergel&eacute;sek mindig szigor&uacute;an &#8211;no-ff  kapcsol&oacute;val t&ouml;rt&eacute;nnek, mert ez biztos&iacute;tja sz&aacute;munkra azt, hogy a k&eacute;sőbbi  grafikus megjelen&iacute;t&eacute;sekn&eacute;l j&oacute;l elk&uuml;l&ouml;n&iacute;thetően l&aacute;tsz&oacute;djon, hogy honn&eacute;t  sz&aacute;rmazik a v&aacute;ltoztat&aacute;s.</p>
 
-<p>Példa:</p>
+<p>P&eacute;lda:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1683,86 +2211,42 @@ Annyit m&eacute;g egyszer&uuml;s&iacute;tettem a dolgon, hogy egyik tesztn&eacut
 </span><span class='line'>myproject (develop) $ git merge --no-ff feature-add-loginform</span></code></pre></td></tr></table></div></figure>
 
 
-<p>A hotfix branchekkel ugyanígy járok el.</p>
+<p>A hotfix branchekkel ugyan&iacute;gy j&aacute;rok el.</p>
 
-<p>Hogy ne legyen  konfliktus merge-léskor, a feature/hotfix brancheket időnként rebase-lem  a develop-hoz (csak ahhoz), hogy meglegyenek azok a változások is,  amelyeket más branchen követtem el. Ez ugye pl. webalkalmazásnál fontos,  hogy ha a dizájnon változás van, vagy a js-hez új funkcionalitás  került, akkor azt egy, ettől függelten feature fejlesztése során is  tudjam használni (tipikus példa erre az a pont, amikor az átmeneti  combobox-okat leváltja egy automatikus kiegészítés alapú megoldás). Ez  egyrészt kényelmi okokból fontos, másrészt pedig azért, mert ilyenkor  már zajlik a <em>dogfooding</em>, vagyis a saját kód felhasználói  szempontból történő tesztelése. Volt már, hogy itt jöttek elő olyan  hibák, melyeket sem a tesztek, sem az első kattintgatások nem hoztak ki.</p>
+<p>Hogy ne legyen  konfliktus merge-l&eacute;skor, a feature/hotfix brancheket időnk&eacute;nt rebase-lem  a develop-hoz (csak ahhoz), hogy meglegyenek azok a v&aacute;ltoz&aacute;sok is,  amelyeket m&aacute;s branchen k&ouml;vettem el. Ez ugye pl. webalkalmaz&aacute;sn&aacute;l fontos,  hogy ha a diz&aacute;jnon v&aacute;ltoz&aacute;s van, vagy a js-hez &uacute;j funkcionalit&aacute;s  ker&uuml;lt, akkor azt egy, ettől f&uuml;ggelten feature fejleszt&eacute;se sor&aacute;n is  tudjam haszn&aacute;lni (tipikus p&eacute;lda erre az a pont, amikor az &aacute;tmeneti  combobox-okat lev&aacute;ltja egy automatikus kieg&eacute;sz&iacute;t&eacute;s alap&uacute; megold&aacute;s). Ez  egyr&eacute;szt k&eacute;nyelmi okokb&oacute;l fontos, m&aacute;sr&eacute;szt pedig az&eacute;rt, mert ilyenkor  m&aacute;r zajlik a <em>dogfooding</em>, vagyis a saj&aacute;t k&oacute;d felhaszn&aacute;l&oacute;i  szempontb&oacute;l t&ouml;rt&eacute;nő tesztel&eacute;se. Volt m&aacute;r, hogy itt j&ouml;ttek elő olyan  hib&aacute;k, melyeket sem a tesztek, sem az első kattintgat&aacute;sok nem hoztak ki.</p>
 
-<p>Van néhány olyan eset, amikor közvetlenül a develop ágra commitolok. A legfőbb szempont ilyenkor, hogy ez csak olyan változás lehet, ami nagyon kevés fájlt érint, illetőleg a branchek nagy részének fontos változtatás. Ilyen lehet például a .gitignore fájl felbővítése, ha valaki hirtelen boldog Mac tulajdonos lesz, és a Mac fájlrendszer csodáit (.DS_Store) ki szeretnénk zárni a projektből. De ilyen lehet az is, amikor egy általunk elkövetett elütést javítunk ki egy nyelvi fájlban, mert erre pl. felesleges lehet egy új branchet szülni. Persze ez a fejlesztő/fejlesztők által követett módszertantól is erősen függhet.
-Ilyenkor viszont fontos, hogy minden branch értesüljön a változásokról, és rebase-zel maga alá tegye azokat.</p>
+<p>Van n&eacute;h&aacute;ny olyan eset, amikor k&ouml;zvetlen&uuml;l a develop &aacute;gra commitolok. A legfőbb szempont ilyenkor, hogy ez csak olyan v&aacute;ltoz&aacute;s lehet, ami nagyon kev&eacute;s f&aacute;jlt &eacute;rint, illetőleg a branchek nagy r&eacute;sz&eacute;nek fontos v&aacute;ltoztat&aacute;s. Ilyen lehet p&eacute;ld&aacute;ul a .gitignore f&aacute;jl felbőv&iacute;t&eacute;se, ha valaki hirtelen boldog Mac tulajdonos lesz, &eacute;s a Mac f&aacute;jlrendszer csod&aacute;it (.DS_Store) ki szeretn&eacute;nk z&aacute;rni a projektből. De ilyen lehet az is, amikor egy &aacute;ltalunk el&uuml;t&eacute;st jav&iacute;tunk ki egy nyelvi f&aacute;jlban, mert erre pl. felesleges lehet egy &uacute;j branchet sz&uuml;lni. Persze ez a fejlesztő/fejlesztők &aacute;ltal k&ouml;vetett m&oacute;dszertant&oacute;l is erősen f&uuml;gghet.
+Ilyenkor viszont fontos, hogy minden branch &eacute;rtes&uuml;lj&ouml;n a v&aacute;ltoz&aacute;sokr&oacute;l, &eacute;s rebase-zel maga al&aacute; tegye azokat.</p>
 
-<p>Amikor a projekt elérkezett egy <em>milestone</em>-hoz,  akkor történik a master branchre mergelés, közvetlenül a develop  branch-ről. Ha a projekt olyan, hogy ez szükséges, ilyenkor a master  branchen tagelek is (ez főleg azért érdekes, mert pl. a GitHub minden  tagelt branch-ből létrehoz egy letölthető forrás csomagot, így ezzel  nekem nem kell törődnöm).</p>
+<p>Amikor a projekt el&eacute;rkezett egy <em>milestone</em>-hoz,  akkor t&ouml;rt&eacute;nik a master branchre mergel&eacute;s, k&ouml;zvetlen&uuml;l a develop  branch-ről. Ha a projekt olyan, hogy ez sz&uuml;ks&eacute;ges, ilyenkor a master  branchen tagelek is (ez főleg az&eacute;rt &eacute;rdekes, mert pl. a GitHub minden  tagelt branch-ből l&eacute;trehoz egy let&ouml;lthető forr&aacute;s csomagot, &iacute;gy ezzel  nekem nem kell t&ouml;rődn&ouml;m).</p>
 
-<p>A fő szempont a master-nél, hogy itt  mindig stabil, minden változtatástól mentes kód legyen, amely bármikor  bárhova deployolható, és azonnal működőképes.</p>
+<p>A fő szempont a master-n&eacute;l, hogy itt  mindig stabil, minden v&aacute;ltoztat&aacute;st&oacute;l mentes k&oacute;d legyen, amely b&aacute;rmikor  b&aacute;rhova deployolhat&oacute;, &eacute;s azonnal műk&ouml;dők&eacute;pes.</p>
 
-<pre><code>Érdekes kérdés,  hogy mi legyen azokkal a hotfix típusú változtatásokkal, amelyek a  master branchez kellene hogy menjenek, hiszen az éles alkalmazásban van a  hiba, ugynakkor a develop ágon már mergelve van egy feature, amit nem  szívesen mergelnénk rá a master ágra. Nos, én általában megpróbálok a  helyzethez igazodni. Először is, meg kell nézni, hogy az adott hiba  előjött-e már a develop ágon, és fixálva lett-e. Ha nem, akkor ez az  első lépés, plusz a megfelelő tesztesetek legyártása, hogy a  továbbiakban ilyen probléma elő ne fordulhasson.
-</code></pre>
+<p>&Eacute;rdekes k&eacute;rd&eacute;s,  hogy mi legyen azokkal a hotfix t&iacute;pus&uacute; v&aacute;ltoztat&aacute;sokkal, amelyek a  master branchez kellene hogy menjenek, hiszen az &eacute;les alkalmaz&aacute;sban van a  hiba, ugynakkor a develop &aacute;gon m&aacute;r mergelve van egy feature, amit nem  sz&iacute;vesen mergeln&eacute;nk r&aacute; a master &aacute;gra. Nos, &eacute;n &aacute;ltal&aacute;ban megpr&oacute;b&aacute;lok a  helyzethez igazodni. Elősz&ouml;r is, meg kell n&eacute;zni, hogy az adott hiba  előj&ouml;tt-e m&aacute;r a develop &aacute;gon, &eacute;s fix&aacute;lva lett-e. Ha nem, akkor ez az  első l&eacute;p&eacute;s, plusz a megfelelő tesztesetek legy&aacute;rt&aacute;sa, hogy a  tov&aacute;bbiakban ilyen probl&eacute;ma elő ne fordulhasson.
+Ha a hiba nem kritikus, a legegyszerűbb megold&aacute;s a hiba jav&iacute;t&aacute;s&aacute;t a k&ouml;vetkező <em>milestone</em>-ig eltolni. De nyilv&aacute;n vannak kritkus hib&aacute;k is, l&aacute;ssuk mi a teendő ezekkel.</p>
 
-<p>Ha a hiba nem kritikus, a legegyszerűbb megoldás a hiba javítását a következő <em>milestone</em>-ig eltolni. De nyilván vannak kritkus hibák is, lássuk mi a teendő ezekkel.</p>
+<p>A  legegyszerűbb eset, amikor m&eacute;g nem t&ouml;rt&eacute;nt mergel&eacute;s a develop-ra a  master &aacute;gra t&ouml;rt&eacute;nt mergel&eacute;s &oacute;ta, ilyenkor sim&aacute;n &aacute;t lehet venni a hotfix  branch jav&iacute;t&aacute;s&aacute;t.</p>
 
-<p>A  legegyszerűbb eset, amikor még nem történt mergelés a develop-ra a  master ágra történt mergelés óta, ilyenkor simán át lehet venni a hotfix  branch javítását.</p>
+<p>M&aacute;s esetekben meg kell n&eacute;zni, hogy a  hotfix &aacute;ltal &eacute;rintett f&aacute;jlok milyen m&eacute;rt&eacute;kben v&aacute;ltoztak a master-hez  k&eacute;pest. Erre a git diff parancs ad lehetős&eacute;get. Ha a f&aacute;jl ettől a  v&aacute;ltoztat&aacute;st&oacute;l eltekintve nem v&aacute;ltozott, akkor a bek&uuml;ld&ouml;tt commit-nak  veszem a diff-j&eacute;t (git diff HEAD<sup>..HEAD),</sup> majd alkalmazom csak ezt a  jav&iacute;t&aacute;st a master branchre. Ilyenkor a k&ouml;vetkező mergel&eacute;sn&eacute;l figyelni  kell, mert konfliktus l&eacute;phet fel, ezt sajnos egyedileg le kell kezelni.</p>
 
-<p>Más esetekben meg kell nézni, hogy a  hotfix által érintett fájlok milyen mértékben változtak a master-hez  képest. Erre a git diff parancs ad lehetőséget. Ha a fájl ettől a  változtatástól eltekintve nem változott, akkor a beküldött commit-nak  veszem a diff-jét (<code>git diff HEAD^..HEAD</code>), majd alkalmazom csak ezt a  javítást a master branchre. Ilyenkor a következő mergelésnél figyelni  kell, mert konfliktus léphet fel, ezt sajnos egyedileg le kell kezelni.</p>
+<p>Egy m&aacute;sik megold&aacute;sa a probl&eacute;m&aacute;nak, hogy mivel a master &aacute;g az gyakorlatilag a develop &aacute;g egy <em>snapshot</em>-ja,  &iacute;gy abb&oacute;l ind&iacute;tom a hotfix branchet, &eacute;s mind a k&eacute;t &aacute;gra visszamergelem.  Ez tal&aacute;n a legegyszerűbb megold&aacute;sa a probl&eacute;m&aacute;nak - csakhogy  tapasztalatom szerint ez az, ami a legritk&aacute;bban is műk&ouml;dik. Ugyanis  nincs &eacute;rtelme &aacute;lmodozni, a master-ről ind&iacute;tott hotfix branchek az esetek  nagy r&eacute;sz&eacute;ben nem illeszkednek a develop &aacute;gra, conflict alakul ki, &eacute;s  el&eacute;g sok nyűg van, mire oda beilleszkedik, plusz ut&aacute;na a master-ra  t&ouml;rt&eacute;nő mergel&eacute;skor megint kialakulhat conflict. Mindenesetre van, ahol  ez a megold&aacute;s is műk&ouml;dik.</p>
 
-<p>Egy másik megoldása a problémának, hogy mivel a master ág az gyakorlatilag a develop ág egy <em>snapshot</em>-ja,  így abból indítom a hotfix branchet, és mind a két ágra visszamergelem.  Ez talán a legegyszerűbb megoldása a problémának - csakhogy  tapasztalatom szerint ez az, ami a legritkábban is működik. Ugyanis  nincs értelme álmodozni, a master-ről indított hotfix branchek az esetek  nagy részében nem illeszkednek a develop ágra, conflict alakul ki, és  elég sok nyűg van, mire oda beilleszkedik, plusz utána a master-ra  történő mergeléskor megint kialakulhat conflict. Mindenesetre van, ahol  ez a megoldás is működik.</p>
+<p>Alternat&iacute;v megold&aacute;s lehet m&eacute;g a  cherry-pick haszn&aacute;lata, mellyel egy darab commit-ot tudunk a develop  branchből &aacute;tvenni a masterre, a mergel&eacute;s kock&aacute;zata n&eacute;lk&uuml;l. Erről m&eacute;g  csak hallottam, nincs gyakorlatom vele, hogy milyen sz&aacute;zal&eacute;kban okozhat  conflict-ot, illetve hogy a &#8211;no-ff merge k&eacute;pes-e elkezelni az &aacute;tvett  commit-ot. Illetve ez is csak akkor műk&ouml;dik, ha nincsenek gy&ouml;keres  v&aacute;ltoz&aacute;sok a develop &aacute;gban erre a f&aacute;jlra n&eacute;zve.</p>
 
-<p>Alternatív megoldás lehet még a  cherry-pick használata, mellyel egy darab commit-ot tudunk a develop  branchből átvenni a masterre, a mergelés kockázata nélkül. Erről még  csak hallottam, nincs gyakorlatom vele, hogy milyen százalékban okozhat  conflict-ot, illetve hogy a &#8211;no-ff merge képes-e elkezelni az átvett  commit-ot. Illetve ez is csak akkor működik, ha nincsenek gyökeres  változások a develop ágban erre a fájlra nézve.</p>
+<p>Amit a  commit-okr&oacute;l m&eacute;g &eacute;rdemes elmondani: &eacute;n mindig &uacute;n. topic commit-okat  haszn&aacute;lok. Ez azt jelenti, hogy mindig igyekszem olyan commit-okat  gy&aacute;rtani, amelyek &ouml;n&aacute;ll&oacute;ak, &eacute;s pontosan egy dolgot csin&aacute;ljanak. Teh&aacute;t ha  pl. teszteket &iacute;rok, &eacute;s k&ouml;zben sz&uuml;letnek jav&iacute;t&aacute;sok is, amelyek a tesztek  lefut&aacute;s&aacute;hoz kellenek, nem nyitok mindig &uacute;j hotfix branchet (mert egy  lusta diszn&oacute; vagyok), hanem a tesztek &aacute;g&aacute;ba belerakom a v&aacute;ltoz&aacute;st is.  Mivel a tesztek az appra n&eacute;zve nem jelentenek funkcion&aacute;lis v&aacute;ltoz&aacute;st, a  jav&iacute;t&aacute;s viszont igen, &iacute;gy &eacute;n nem &eacute;rzem azt, hogy ennek kock&aacute;zata lenne.  Ellenben nagyon fontos &uuml;gyelni arra, hogy ilyenkor mindig pontosan  azokat a v&aacute;ltoztat&aacute;sokat k&uuml;ldj&uuml;k be, amelyeket azzal a committ-tal  jav&iacute;tunk. Ha kell, <em>hunk</em> (ez a v&aacute;ltoztat&aacute;sok egys&eacute;ge, a diff  kimenet&eacute;ben egy, h&aacute;rom kukaccal kezdődő sorral szepar&aacute;lt blokk) szinten  bontom sz&eacute;t a v&aacute;ltoz&aacute;sokat. Erre nagyon j&oacute; lehetős&eacute;get ad a git add  parancs -p kapcsol&oacute;ja.
+Ennek a megold&aacute;snak a legfőbb haszna az, hogy  b&aacute;rhol meg lehet bontani a develop branchet, b&aacute;rhol le lehet &aacute;gaztatni r&oacute;la egy &uacute;j branchet, mindig viszonylag konzisztens &aacute;llapotot fogunk kapni.</p>
 
-<p>Amit a  commit-okról még érdemes elmondani: én mindig ún. topic commit-okat  használok. Ez azt jelenti, hogy mindig igyekszem olyan commit-okat  gyártani, amelyek önállóak, és pontosan egy dolgot csináljanak. Tehát ha  pl. teszteket írok, és közben születnek javítások is, amelyek a tesztek  lefutásához kellenek, nem nyitok mindig új hotfix branchet (mert egy  lusta disznó vagyok), hanem a tesztek ágába belerakom a változást is.  Mivel a tesztek az appra nézve nem jelentenek funkcionális változást, a  javítás viszont igen, így én nem érzem azt, hogy ennek kockázata lenne.  Ellenben nagyon fontos ügyelni arra, hogy ilyenkor mindig pontosan  azokat a változtatásokat küldjük be, amelyeket azzal a committ-tal  javítunk. Ha kell, <em>hunk</em> (ez a változtatások egysége, a diff  kimenetében egy, három kukaccal kezdődő sorral szeparált blokk) szinten  bontom szét a változásokat. Erre nagyon jó lehetőséget ad a git add  parancs -p kapcsolója.
-Ennek a megoldásnak a legfőbb haszna az, hogy  bárhol meg lehet bontani a develop branchet, bárhol le lehet ágaztatni róla egy új branchet, mindig viszonylag konzisztens állapotot fogunk kapni.</p>
-
-<p>Összességében tehát a legfőbb alapelvek:</p>
+<p>&Ouml;sszess&eacute;g&eacute;ben teh&aacute;t a legfőbb alapelvek:</p>
 
 <ul>
-<li>A master branchre lehetőleg csak mergelés történjen, ide közvetlenül (a kezdő commit-tól eltekintve) ne küldjünk semmit.</li>
-<li>A develop branch-en lehet játszani, de érdemes figyelni a konzisztenciájára</li>
-<li>Hotfix branchen a működést alapjaiban érintő változtatás nem történhet</li>
-<li>Mind a hotfix mind a feature brancheket érdemes frissen tartani a develop-hoz képest, hogy ne érjenek minket nagy meglepetések</li>
+<li>A master branchre lehetőleg csak mergel&eacute;s t&ouml;rt&eacute;njen, ide k&ouml;zvetlen&uuml;l (a kezdő commit-t&oacute;l eltekintve) ne k&uuml;ldj&uuml;nk semmit.</li>
+<li>A develop branch-en lehet j&aacute;tszani, de &eacute;rdemes figyelni a konzisztenci&aacute;j&aacute;ra</li>
+<li>Hotfix branchen a műk&ouml;d&eacute;st alapjaiban &eacute;rintő v&aacute;ltoztat&aacute;s nem t&ouml;rt&eacute;nhet</li>
+<li>Mind a hotfix mind a feature brancheket &eacute;rdemes frissen tartani a develop-hoz k&eacute;pest, hogy ne &eacute;rjenek minket nagy meglepet&eacute;sek</li>
 </ul>
 
 
-<p>Véleményeket itt alul lehet írni, ahogy időm engedi reagálni fogok rájuk.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Brno - A very different place]]></title>
-    <link href="http://hron.me/blog/2012/03/brno-a-very-different-place/"/>
-    <updated>2012-03-15T03:10:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/brno-a-very-different-place</id>
-    <content type="html"><![CDATA[<p>I am arrived from Brno. This is a very beautiful town and a very good place. If I need to compare with Budapest, the whole Brno looks like the centre of Budapest but not at now but in 30-40 years ago.</p>
-
-<p>The mass transit is a surprise. Before I started I read the main vehicle is a tram but I didn&#8217;t expect how it looks like in the reality. If you take a look for the city you understand: if there is a wider road, they place tramway and expand an existing line to it or start a new line. There are some buses but as I think they goes where the terrain is too step and the tram cannot climb up on it. During the two days while I was in the town, I saw only one bus. Not one bus line but one vehicle (this wear number 84 btw :-) ).</p>
-
-<p>This system is interesting from other aspects too. The town is splitted to zones (z&oacute;ny) and the tickets are contains some time for travel and permission to cross some zone-borders. The most expensive ticket is valid in 5 zone and few hours. But, if you want to buy some tickets, especially if you want to buy them from a small shops (all newspaper-stand sells tickets, and all place where you see &#8220;J&Iacute;ZDENKA&#8221;), you need ask it by it&#8217;s price. I choosen this even if there is a ticket machine in every stop, because as I saw most machines do not know about other languages but Czech. And the buttons are not titled except the ticket selection button. So, there wasn&#8217;t a help to handle them if you do not know the language (I think there are some machines what can say in foreign languages and there are some machines what titled correctly, but I didn&#8217;t meet with them). I used machines to write down the price of the tickets, to ask them correctly from the sellers (ticket is a fixed-price stuff, so do not matter where you buy it).</p>
-
-<p>I choosen the Hotel Brno because it offered a cheapest room in booking.com (where is a correct description about places and the services). The hotel had a very good transport possibilities and placed at a silent, nice place. The room wasn&#8217;t too big but for two people when they woulnd&#8217;t like stay in the room for a whole day is absolute correct. Because I was alone this was more than enough for me.</p>
-
-<p>The terrain under the city is quite hilly. I never saw a too fat people under the two days and I think I understand why :-)</p>
-
-<p>As @kozka told me the office of RedHat is placed near the universities. Currently RedHat occupies a whole building but the next building is under construction so they growing fast. As I saw some levels are equipped recently (I smelled the fresh painting) so they are growing really fast.</p>
-
-<p>The people are very nice and they help you even if you do not understand what they tell you.</p>
-
-<p>The other thing what surprised me is the moral on the roads. If you stop at the pedestrian crossing, the cars are stops even if there is a rush hour. It seems like a reflex. I will need condition me back to the hungarian moral to not start crossing the road because the cars are not stop every time for you.</p>
-
-<p>Btw the interview was good I think I passed on it, but I didn&#8217;t got a reply from RH, but they informed me I will got a result today. And I collected two business card too :-)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Travelling to Brno]]></title>
-    <link href="http://hron.me/blog/2012/03/travelling-to-brno/"/>
-    <updated>2012-03-11T14:30:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/travelling-to-brno</id>
-    <content type="html"><![CDATA[<p>The next Tuesday (2012.03.13) will be the day when I leave Hungary again. This will be the second travel to abroad in my life. I am very excited because I not just go to abroad but go alone into the country where I do not know the main language too.</p>
-
-<p>This travel will not be just for fun, I will participate in a job interview for RedHat CZ, and if I will be applied, I will be a part of the QA team behind RedHat Linux (if I know correclty). I would like say many-many thanks to @kozka who help me in a lot of thing before and he promised he will help me to reach the head office to not late from the interview.</p>
-
-<p>But, because I never been in Bohemia before, after testing my knowledge against RedHat requirements, I will become a simple tourist and enjoy beautifulness of Brno (RedHat CZ is located at this town). I heard and read a lot of good things about this city, so I am very curious about them.</p>
-
-<p>When I come back at Wednesday, I will post here about my experiences and - of course - the result of the interview too.</p>
-
-<p>Stay tooned, seriously :-)</p>
+<p>V&eacute;lem&eacute;nyeket itt alul lehet &iacute;rni, ahogy időm engedi reag&aacute;lni fogok r&aacute;juk.</p>
 ]]></content>
   </entry>
   

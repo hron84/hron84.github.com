@@ -4,7 +4,7 @@
   <title><![CDATA[Category: en | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/en/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2014-04-03T07:24:12+02:00</updated>
+  <updated>2014-11-08T15:11:04+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -12,6 +12,266 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[DIY Modded Skyblock]]></title>
+    <link href="http://hron.me/blog/2014/11/diy-modded-skyblock/"/>
+    <updated>2014-11-08T11:49:00+01:00</updated>
+    <id>http://hron.me/blog/2014/11/diy-modded-skyblock</id>
+    <content type="html"><![CDATA[<p>In this post, I will give some pointers how you can make a skyblock modpack/game
+yourself.</p>
+
+<p>I will use the classical <a href="http://www.minecraftforum.net/forums/mapping-and-modding/maps/1473433-surv-skyblock">SkyBlock</a> map for basics, it is a very basic map with
+few dirt and few sand block, two chest, and one bedrock. It sounds great, well?
+Also this article tells you about playing under Minecraft 1.7.10 and only with
+that. I will describe some mechanics too what is mostly works with older/newer
+versions of the game but mods that I describe is choosed from 1.7.10 modpacks.</p>
+
+<h2>Anatomy of the skyblock</h2>
+
+<p>The first thing what we have to consider is SkyBlock is not prepared to provide
+a modded Minecraft experience. It is a vanilla skyblock survival map without any
+support for creating non-vanilla items or blocks. Both Overworld and Nether are
+an empty dimensions, Nether will spawn a Nether portal if you reach it, but that's
+all. What does it means?</p>
+
+<ul>
+<li>We do not have any worldgen. And under worldgen I not only mention just ores,
+minerals and special soil blocks (podzol, mycelium, etc.) but flowers, trees,
+dungeons, and some other things.</li>
+<li>We do not have any mobs. Nor hostile, nor passive mobs. Vanilla mobs are mostly
+spawnable, they can spawn automatically if neccessary environment is provided
+or they're "craftable", so you can spawn them manually (like wither).</li>
+<li>Because the points above, we have a very limited possibility to access
+mod-provided things. Mods that using vanilla metals and minerals are usable
+(except valuable things like diamond, emerald, glowstone and redstone) but
+nothing else. Also we have a very limited access to mod-provided mobs,
+especially if they're not spawn naturally but generated during the world generation
+(like Witchery's Coven Witches, villagers, etc.)</li>
+</ul>
+
+
+<p>In the following points, I will describe how can we break out from these
+restrictions with few, well-choiced mods.</p>
+
+<h2>Enhanced vanilla experience</h2>
+
+<p>Some people does not want much more than vanilla can provide. They're happy with
+killing zombies and creepers, growing plants for food, growing trees for building.</p>
+
+<p>However, skyblock maps have some limits what can affect the fun of the game.
+First thing is the old respawning bug with SkyBlock map.</p>
+
+<p>If you do not play under Hardcore, and die on the SkyBlock, the respawning
+could be tricky, because you have a big chance to spawn above the void as the
+starting dirt island is very-very small and game may or may not able to find it.</p>
+
+<p>The mod I recommend you to solve it is the <a href="http://www.curse.com/mc-mods/minecraft/221584-admin-commands-toolbox">AdminCommandsToolbox</a>.
+It provides a small set of commands to help you in working with normal maps but
+we install it only for one command: /setspawn. We can pass a block-based coordinate
+for this command (that you can see in F3 screen) to set your spawn point regardless you
+have or do not have a bed. With this command you can avoid the "falling loop" and
+you can spawn exactly where you set your spawnpoint. As I know it does not override
+the mechanic how beds are working but if your bed is vanishes/breaks, you'll spawn
+on the specified point.</p>
+
+<p>The second thing can frustrate you is the very basic abilities of vanilla to work with
+inventories. If you already played with some modpacks you may love how you can collect
+things from crafting tables, how to pick/put items one-by-one from/into
+inventories or just sorting the content of your chests.</p>
+
+<p>The mod what is powerful enough to provide these functions is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288184-inventory-tweaks-1-58-july-25">InventoryTweaks</a>.
+In skyblock maps, I recommend you to turn on the function what provides items
+automatically to your hand, for example replaces broken pickaxes with a new one.
+The config file is describes how you can do it but as I know the default setting is 'on'.</p>
+
+<p>The last thing is the recipes. There is a very few people who can remember all
+recipes, including vanilla ones if they're not used in everyday. For example, can
+you recite how boosted tracks or dropper can be made without checking it in the
+wiki?</p>
+
+<p>There is two mods what can provide a help you, the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1279956-chickenbones-mods">NotEnoughItems</a> and
+the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1272385-toomanyitems-the-inventory-editor-and-more-1-8-is">TooManyItems</a>. These mods provides a sidebar at right side of the inventory
+screens there you can browse all existing items/blocks in the game and you can
+check their recipes (NEI also provides a way to check usage of the item in other
+recipes).</p>
+
+<p>If you want a vanilla experience, you can choose any of them. Both NEI and TMI
+can serve the vanilla recipes effectively, so the choice is depends only on your
+taste.</p>
+
+<p>However, if you want include other mods into the game, I strongly recommend you
+to use NEI. It became an industrial standard in modded Minecraft world, most mods
+(if not all) provides multiple different integration with NEI.</p>
+
+<p>Keep in your mind, NEI requires CodeChickenCore mod, do not try use NEI without
+that.</p>
+
+<h2>Semi-vanilla experience</h2>
+
+<p>In this section I recommend mods that mostly do not require materials which is
+not obtainable in the vanilla skyblock.</p>
+
+<p>If you want more foods than available in vanilla Minecraft, I recommend you to
+try out <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Pam's Harvestcraft</a>, especially with <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Spice of Life</a>.
+The former provides a much more plantable food sources (seeds are obtainable via
+bonemealing grass block and punching tall grass) with some enhanced processing
+mechanic, the latter one enforces you to eat different foods via drastically
+decreasing the saturation of the overused foods.</p>
+
+<p>The only thing you can not use in skyblock is the soybean because it requires a
+presser for getting tofu, and presser is built from two pistons. The redstone dust
+is unobtainable or very hard to obtain in skyblock (witches can drop it, but there
+is a very small chance to spawn witch in a non-swamp and non-magical biome).
+However, all other tools are made from iron, wood and stone, so it's very easy
+to craft/use them. It also does not use gold, so you do not enforced to travel to
+the Nether if you do not like it.</p>
+
+<p>The last mod in this section I recommend is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288400-chisel">Chisel</a> mod. One stick and
+one iron and you can make very beatiful buildings from cobblestone and oak planks.
+Definitely worth it!</p>
+
+<h2>Modded experience</h2>
+
+<p>For modded experience the first problem we face with is lacking modded metals
+and minerals. In vanilla skyblock you can obtain iron (from zombies) and gold
+(from zombie pigmen) and some coal (from wither skeletons), but nothing else.
+No redstone, no diamond, no emerald. And nothing modded metal, like copper or
+lead.</p>
+
+<p>There is only one mod to help us: the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1291850-ex-nihilo-the-skyblock-companion-mod">Ex Nihilo</a> mod. If you played
+with <a href="http://ftbwiki.org/Agrarian_Skies">Agrarian Skies</a> or just watched a video from it, you can remember
+to the sieve that you can use from obtain ore-like stuffs from sand or gravel, a
+hammer to make gravel/sand/dust from cobblestone and the small silkworms that
+can infect leaves to make string obtainable more easier than killing spiders.</p>
+
+<p>Unfortunatly, there is no Ex-Aliquo for 1.7.10 yet, so Thaumcraft integration is
+really missing, there is no shards available and as I know quicksilver cannot
+obtained via sifting sand.</p>
+
+<p>As I wrote in the introducion, there is no worldgen in the skyblock. You can now
+spawn some things manually (mobs, seeds, metals and minerals) but for example
+Botania flowers are missing, Witchery witches does not spawn naturally, and
+dungeon loot chests - where you can obtain some uncraftable resources - are
+completely missing. I encourage you to add some mods that provide Overworld-like
+dimensions, for example Twilight Forest or some mining worlds, so the mods become
+able to spawn their worldgen-based stuffs. The best two mod for this task is the
+<a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1276258-the-twilight-forest-v2-3-2-snow-queen-troll">Twilight Forest</a> and the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1280070-mystcraft-0-11-0">Mystcraft</a>. Twilight Forest adds some adventures
+too, so if you're bored in harvesting cobblestone or sifting sand, you can jump
+over to that dimension and kill a Naga or just fight with kobolds for a bite of
+wheat.</p>
+
+<h2>Final words</h2>
+
+<p>I think nobody assumes how SkyBlock map powerful is and how much possibility are
+hidden in that. It can keep your interest up with providing different ways to
+obtain resources than usual. In a void world, you have to plan how you want to
+build your base, how you can organize your stuffs. It helps you to think out of
+the boxes where you always close yourself.</p>
+
+<p>Missing quests and quest rewards makes obtaining rare or uncraftable resources
+very hard, but with good balancing you can get not only additional dimensions but
+additional fun too. Twilight Forest makes it hard enough to provide a way to
+enjoy finding valuable resources and keeps you out the boring<br/>
+"explore mineshaft/kill/loot" cycle. MystCraft worlds are usually hard to live,
+and if you're unlucky enough to get some decay in the world, you can run for
+your life to avoid getting closed in an endless falling cycle.</p>
+
+<p>If you want to try out something really different, try out skyblock worlds.
+Modded or vanilla - it depends on your taste but I recommend you to give a chance
+for both. Modded skblock is fun, and most modpacks can run a skyblock map (you
+only need Ex Nihilo to get additional ores) so you can try out your favorite
+modpack with a skyblock map.</p>
+
+<p>Only one warning: keep in your mind, most mods and most modpacks are not balanced
+to live on a skyblock map. If you find it too hard, or do not enjoy finding a way
+to build things from a limited resources, keep away from skyblock maps because
+they require strong problem solving abilities.</p>
+
+<p>The most importan thing is enjoy the game and not to suffer from it.</p>
+
+<p>Have a nice game!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New scanner added successfully]]></title>
+    <link href="http://hron.me/blog/2013/07/new-scanner-added-successfully/"/>
+    <updated>2013-07-28T01:25:00+02:00</updated>
+    <id>http://hron.me/blog/2013/07/new-scanner-added-successfully</id>
+    <content type="html"><![CDATA[<p>I had to buy a new printer because my old Xerox Phaser stopped working and I got
+a horrible price for repairing it. After browsing the possible applicants, I found
+the Philips LaserMFD 6050 what have an automatic document feeder addon too.
+After unpacking it, I was happy because I found a driver CD with title "Mac &amp; Linux"
+But I didn't know the afternoon-long sucking will start.</p>
+
+<p>At first place I want to make printer part working. After printing one of printer's
+own test pages, I sat down behind my Gentoo box, and started figure out how can
+I introduce my new printer to Cups. The first step was easy, because it found a
+new printer-like device at USB port, but it had absolute no idea about the type.</p>
+
+<p>After a lot of googling, i found it's a dumb printer without PCL or PS knowledge,
+so I had to install 'raster' driver. The funny part is all Linux driver was 32 bit.</p>
+
+<p>Fortunately, cups invokes parts of the driver via command-line (not via shared
+libraries like sane - see later), so I have very little debugging task with it.
+Ohh, and I have to patch it because Gentoo uses /usr/libexec for cups drivers,
+not /usr/lib what assumed by <code>rastertoprinter</code> script.</p>
+
+<p>However, sometimes cups does not print the job at first try, I have to reprint it
+from the web interface - I didn't guessed it why. This is a very small issue, so
+I marked this task completed.</p>
+
+<p>Scanner part was more tricky. As I said, all drivers on the CD (and in the
+driver package what I downloaded from the internet) was for 32bit not for 64 bit
+systems. Sane's backends are dynamic libraries, so there was no quick and
+painless way to add proprietary backend to my existing Sane install. As i browsed
+hopeless on the internet, I found a topic what said the drivers on the CD are for
+Ubuntu Gutsy (and works with Hardy too). This gave me an idea: what happens if I
+install a 32bit Ubuntu Hardy chroot?</p>
+
+<p>To understand my idea you have to know Sane has a small inetd/xinetd daemon named
+<code>saned</code> and it can provide your scanner on the network. So you can connect from
+any (permitted) client to your server and scan even if your box is not connected
+to the scanner directly (e.g. via USB cable).</p>
+
+<p>After emerging <code>debootstrap</code>, I installed Hardy into a simple /chroot32 folder,
+and added sane stuffs for it. I unpacked the provided sane backend into this
+chroot and sane finally recognized my scanner correctly. After some testing I
+configured saned with this xinetd config:</p>
+
+<p>```plain /etc/xinetd.d/sane-port
+service sane-port
+{</p>
+
+<pre><code>disable     = no
+socket_type = stream
+protocol    = tcp
+user        = root
+group       = root
+wait        = no
+server      = /usr/sbin/saned
+only_from   = 127.0.0.1 ::1 192.168.2.0/24
+</code></pre>
+
+<p>}
+```</p>
+
+<p>I had to run saned as root because saned got permission denied otherwise. As
+it's running in chroot and restricted to the local network, it has a very low
+risk.</p>
+
+<p>Finally I can scan via XSane. Gimp is not allow me to scan from this device, but
+XSane is smart enough for me.</p>
+
+<p>For bulk scanning i wrote a small bash script. It needs some love because it
+creates a pdf in the current working directory - but it's good for start.</p>
+
+<p><div><script src='https://gist.github.com/6096805.js?file='></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rename Windows 8 Profile dir]]></title>
@@ -210,263 +470,6 @@ canonicalHostName = kingmax.hron.me
 </code></pre>
 
 <p>```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Logging with Logstash]]></title>
-    <link href="http://hron.me/blog/2012/10/logging-with-logstash/"/>
-    <updated>2012-10-27T22:33:00+02:00</updated>
-    <id>http://hron.me/blog/2012/10/logging-with-logstash</id>
-    <content type="html"><![CDATA[<p>In these days I started looking up for an opensource, easy-to-use central logging system.
-I read a lot of articles on the internet, and I found two good solution,
-<a href="http://www.graylog2.org">Graylog2</a> and <a href="http://logstash.net/">LogStash</a>. Both system can
-operate as syslog server and store our logs in database. I tried both system, and I
-experienced both have small problems - but some of these problems are different.</p>
-
-<h2>Graylog2</h2>
-
-<p>Graylog has a very good-looking interface and a relative easy configuration file. It has
-a lot of parameters, but the default configuraiton file is well-documented and easy to read.</p>
-
-<p>Graylog uses a MongoDB for store some small stuffs and ElasticSearch for store and search logs.
-The main advantage of this solution is the separated web interface. It can be installed anywhere,
-it just need a some small configurations to connect to same ES/Mongo instances as Graylog server uses.</p>
-
-<p>The web ui makes easy to search and filter logs, backlist some entries, and create a "channels" what is
-a named filter setting, where you can follow what happening in a simple context.</p>
-
-<p>But as I started use web interface and the server itself in everyday tasks, I found two problems:</p>
-
-<ul>
-<li>Web interface is does not make easy to write filters, because nor the interface, nor the documentation
-not describe how filters will be matched against messages. Because these filters are simple regular
-expressions, it is needed to know how to search some specific things. I sucked with it a lot of time
-until I found a method to find something. It is need a lot of improvement.</li>
-<li>Graylog seems does not take care about its input. After a week I found logging is stopped working. After
-some investigation, I discovered the ElasticSearch eaten a lot of resources and generating a huge log.
-After reading log I found the ElasticSearch is broken on some invalid characters in index files. I
-tried to restart ES server and leave to recover itself for a hour but no luck, it stuck in recovering state.
-Because I am not know well ES and graylog I started ask Google about these problems, but I did not find a
-good solution for me. So I decided to move on from Graylog.</li>
-</ul>
-
-
-<h2>LogStash</h2>
-
-<p>LogStash is a more robust logging solution. It is similar as syslog-ng but it does not restrict itself to working
-as Syslog server (with other words: get infos from input like syslog server) but it can chew anything what is a text
-stuff. It can use a lot of things as a log source, e.g.:</p>
-
-<ul>
-<li>Syslog server (it can act as syslog server, but see below)</li>
-<li>Plain file</li>
-<li>Raw TCP/UDP socket</li>
-<li>Output of any executable</li>
-<li>IRC/Jabber channels</li>
-<li>Twitter</li>
-<li>Stdin</li>
-<li>Windows Eventlog</li>
-<li>and so on...</li>
-</ul>
-
-
-<p>And it has a numerous output format too. What is important for me is it can use ElasticSearch and some No-SQL
-databases as log-storing backend.</p>
-
-<p>It has a built-in web interface for searching in log records, but <a href="https://github.com/rashidkpc/Kibana/">Kibana</a>
-is a little better Web interface to search against ElasticSearch, it makes searching/filtering easier.</p>
-
-<p>My current configuration is very easy:</p>
-
-<ul>
-<li>There is a central syslog server, provided by LogStash</li>
-<li>All my server is logging here via RSyslog (default syslog server of Debian Linux)</li>
-<li>LogStash is configured to store log messages in ElasticSearch after some parsing</li>
-</ul>
-
-
-<p>Basically, I followed the <a href="http://cookbook.logstash.net/recipes/syslog-pri/">official recipe</a> for this setup except
-one thing: somehow I couldn't get working the date parser in the way what recipe says. So I tricked it out.</p>
-
-<p>First, I created an Rsyslog config part, what I uploaded to /etc/rsyslog.d on every server:</p>
-
-<p><code>text /etc/rsyslog.d/to-logstash.conf
-$template LOGSTASH,"&lt;%PRI%&gt;%timegenerated:::date-rfc3164-buggyday% %HOSTNAME% %APP-NAME%: %msg:::drop-last-lf%\n"
-$ActionForwardDefaultTemplate LOGSTASH
-*.*   @1.2.3.4:514
-</code></p>
-
-<p>Note the <code>%timegenerated:::date-rfc3164-buggyday%</code> directive. The documentation of Rsyslog says it is basically
-pads a day number with zero if it is smaller than 10. It is introduced to emulate a syslog-ng 'bug'.</p>
-
-<p>After it I created a following configuration for logstash:</p>
-
-<p>```text LogStash configuration
-input {
-  tcp {</p>
-
-<pre><code>port =&gt; 514
-type =&gt; syslog
-</code></pre>
-
-<p>  }</p>
-
-<p>  udp {</p>
-
-<pre><code>port =&gt; 514
-type =&gt; syslog
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>filter {
-  grok {</p>
-
-<pre><code>  type =&gt; "syslog"
-  pattern =&gt; [ "&lt;%{POSINT:syslog_pri}&gt;%{SYSLOGTIMESTAMP:syslog_timestamp} %{SYSLOGHOST:syslog_hostname} %{PROG:syslog_program}(?:\[%{POSINT:syslog_pid}\])?: %{GREEDYDATA:syslog_message}" ]
-  add_field =&gt; [ "received_at", "%{@timestamp}" ]
-  add_field =&gt; [ "received_from", "%{@source_host}" ]
-</code></pre>
-
-<p>  }
-  syslog_pri {</p>
-
-<pre><code>  type =&gt; "syslog"
-</code></pre>
-
-<p>  }</p>
-
-<p>  date {</p>
-
-<pre><code>  type =&gt; "syslog"
-</code></pre>
-
-<p>  #    syslog_timestamp => [ "MMM  d HH:mm:ss", "MMM dd HH:mm:ss" ]</p>
-
-<pre><code>  syslog_timestamp =&gt; [ "MMM dd HH:mm:ss" ]
-</code></pre>
-
-<p>  }</p>
-
-<p>  mutate {</p>
-
-<pre><code>  type =&gt; "syslog"
-  exclude_tags =&gt; "_grokparsefailure"
-  replace =&gt; [ "@source_host", "%{syslog_hostname}" ]
-  replace =&gt; [ "@message", "%{syslog_message}" ]
-</code></pre>
-
-<p>  }
-  mutate {</p>
-
-<pre><code>  type =&gt; "syslog"
-  remove =&gt; [ "syslog_hostname", "syslog_message", "syslog_timestamp" ]
-</code></pre>
-
-<p>  }
-}</p>
-
-<p>output {
-  elasticsearch {</p>
-
-<pre><code>index =&gt; "syslog-%{+YYYY.MM.dd}"
-embedded =&gt; false
-</code></pre>
-
-<p>  }</p>
-
-<p>  #stdout { debug => true debug_format => json }
-}</p>
-
-<h1>vim: ts=2 sw=2 et</h1>
-
-<p>```</p>
-
-<p>Note the commented out date mapping. This is what original recipe says but I always got an exception
-related to parser and DateFormat what complaining about invalid data in the date. With buggyday hack
-on Rsyslog side I made dates 2-digit long, so it will always be parsed, I hope. It will reveals at least
-Nov 1.</p>
-
-<p>The last output stuff is just for debugging, it displays the parsed object in JSON format, this is a way
-how can you check your all filter working correctly.</p>
-
-<p>I sucked with parsing the message because my old rsyslog template has a typo and I could not imagine, what
-failing.
-After some digging, I found jls-grok RubyGem is contains a same parser what LogStash uses, so you can
-check your filters via IRB. Just make sure you using 1.9.3 ruby, because Ruby 1.8 throws a SyntaxError
-when you try <code>require 'grok-pure'</code> (what is recommended, because the simple 'grok' is searching a C lib).</p>
-
-<p>```ruby Simple example for testing Grok filter
-require 'rubygems'
-require 'grok-pure'</p>
-
-<p>grok = Grok.new</p>
-
-<h1>I extracted patterns dir from jar package</h1>
-
-<p>Dir.glob('patterns/*').each { |f| grok.add_patterns_from_file f }
-s="Oct 27 19:01:09"
-pattern = '%{SYSLOGTIMESTAMP:syslog_timestamp}'
-grok.compile(pattern)
-p grok.match(s).match.to_a # => ["Oct 27 19:01:09", "Oct 27 19:01:09", "Oct", "27", "19:01:09", "19", "01", "09"]
-```</p>
-
-<p>You can use exactly same pattern as you use in LogStash configuration file.</p>
-
-<p><strong>Note:</strong> If you see a <code>_grokparsefailure</code> tag in your tag list, then you do something wrong. This means
-the filter what you using in first filter does not match correctly on your syslog message from Rsyslog.
-The good news is LogStash stop evaluating filters on the first failing in debug mode, and leave @message
-untouched (if you see the second mutate from end, you can see we replace @message with the content of
-syslog_message, and remove unneccessary fields in the last mutate filter). If somehow it falls through
-the grok filter and removes the original (raw) message, then simply comment out the last two filter by
-prefixing lines with a hashmark.</p>
-
-<p>As you see in the config  use an external ES server, not the embedded one, because I currently have a
-working and configured ES instance, and I would like to use that. No other reason to not use embedded
-ES server: if you currently not have an ES instance, then simply use what shipped with LogStash.</p>
-
-<p>The embedded web interface of LogStash is a bit tricky thing, because I could not start as documentation says
-via the java command, I had to extract the jar file and run standalone to check its user interface.
-Don't expect something cool: It is just a textfield with a button and contains a link with a basic
-query string what filters messages generated today.</p>
-
-<h2>Conclusion</h2>
-
-<p>I think Graylog is a great logging solution, but it needs some love for prevent crashing ES server with
-invalid characters in the stored data. But the web interface and easy configuration makes it very,
-really very lovely.</p>
-
-<p>LogStash is a good solution if you want to handle multiple log sources or you want to validate/manipulate
-your log messages or you want to distribute logs to multiple destinations. I think LogStash is a little
-overkill if you just want a central syslog server, however - this is working as expected. So I took my
-two cent on LogStash and not on Graylog - even if I would like to prefer Graylog.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Brno - A very different place]]></title>
-    <link href="http://hron.me/blog/2012/03/brno-a-very-different-place/"/>
-    <updated>2012-03-15T03:10:00+01:00</updated>
-    <id>http://hron.me/blog/2012/03/brno-a-very-different-place</id>
-    <content type="html"><![CDATA[<p>I am arrived from Brno. This is a very beautiful town and a very good place. If I need to compare with Budapest, the whole Brno looks like the centre of Budapest but not at now but in 30-40 years ago.</p>
-
-<p>The mass transit is a surprise. Before I started I read the main vehicle is a tram but I didn't expect how it looks like in the reality. If you take a look for the city you understand: if there is a wider road, they place tramway and expand an existing line to it or start a new line. There are some buses but as I think they goes where the terrain is too step and the tram cannot climb up on it. During the two days while I was in the town, I saw only one bus. Not one bus line but one vehicle (this wear number 84 btw :-) ).</p>
-
-<p>This system is interesting from other aspects too. The town is splitted to zones (z&oacute;ny) and the tickets are contains some time for travel and permission to cross some zone-borders. The most expensive ticket is valid in 5 zone and few hours. But, if you want to buy some tickets, especially if you want to buy them from a small shops (all newspaper-stand sells tickets, and all place where you see "J&Iacute;ZDENKA"), you need ask it by it's price. I choosen this even if there is a ticket machine in every stop, because as I saw most machines do not know about other languages but Czech. And the buttons are not titled except the ticket selection button. So, there wasn't a help to handle them if you do not know the language (I think there are some machines what can say in foreign languages and there are some machines what titled correctly, but I didn't meet with them). I used machines to write down the price of the tickets, to ask them correctly from the sellers (ticket is a fixed-price stuff, so do not matter where you buy it).</p>
-
-<p>I choosen the Hotel Brno because it offered a cheapest room in booking.com (where is a correct description about places and the services). The hotel had a very good transport possibilities and placed at a silent, nice place. The room wasn't too big but for two people when they woulnd't like stay in the room for a whole day is absolute correct. Because I was alone this was more than enough for me.</p>
-
-<p>The terrain under the city is quite hilly. I never saw a too fat people under the two days and I think I understand why :-)</p>
-
-<p>As @kozka told me the office of RedHat is placed near the universities. Currently RedHat occupies a whole building but the next building is under construction so they growing fast. As I saw some levels are equipped recently (I smelled the fresh painting) so they are growing really fast.</p>
-
-<p>The people are very nice and they help you even if you do not understand what they tell you.</p>
-
-<p>The other thing what surprised me is the moral on the roads. If you stop at the pedestrian crossing, the cars are stops even if there is a rush hour. It seems like a reflex. I will need condition me back to the hungarian moral to not start crossing the road because the cars are not stop every time for you.</p>
-
-<p>Btw the interview was good I think I passed on it, but I didn't got a reply from RH, but they informed me I will got a result today. And I collected two business card too :-)</p>
 ]]></content>
   </entry>
   

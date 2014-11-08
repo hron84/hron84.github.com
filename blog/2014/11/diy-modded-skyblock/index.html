@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DIY Modded Skyblock - Hron's blog</title>
+  <meta name="author" content="Gábor Garami" />
+
+  
+  <meta name="description" content="In this post, I will give some pointers how you can make a skyblock modpack/game
+yourself. I will use the classical SkyBlock map for basics, it is a &hellip;" />
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <link rel="canonical" href="http://hron.me/blog/2014/11/diy-modded-skyblock/" />
+  <link href="/favicon.ico" rel="icon" type="image/x-icon" />
+  <link href="/stylesheets/blueprint/reset.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/blueprint/typography.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/code.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hron's blog" type="application/atom+xml" />
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', "UA-20858841-1"]);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <div id="header"><!-- <hgroup>
+  <h1><a href="/">Hron's blog</a></h1>
+  
+    <h2>Who want to fly with doves loses the treasure down here</h2>
+  
+</hgroup> -->
+<a class="logo" href="http://hron.me/"><img src="/images/bear-logo.png" alt="bear with earphone"></a>
+<div class="userbox">
+
+
+
+  
+  <form action="http://google.com/search" method="get" class="search">
+    <!-- <fieldset role="search"> -->
+      <input type="hidden" name="q" value="site:hron.me" />
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+    <!-- </fieldset> -->
+  </form>
+  
+  <div class="avatar"><a href="/" class="name">Hron's blog</a></div>
+  <ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+
+</div>
+
+</div>
+  <!-- <nav role="navigation"><ul class="subscription usernav" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+  
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+
+</ul>
+
+
+</nav> -->
+  <div id="main" class="site dashboard">
+    <div class="pagehead">
+      <nav rel="navigation">
+        <ul class="actions">
+             <li><a href="/">Kezdőlap</a></li>
+             <li><a href="/about/">Bemutatkozás</a></li>
+         </ul>
+      </nav>
+      
+      <header>
+        <h1 class="entry-title">DIY Modded Skyblock</h1>
+        <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-08T11:49:00+01:00" class="pubdate" pubdate data-updated="true">2014. Nov.  8.</time></p>
+      </header>
+    
+    </div>
+
+    <div id="content" class="columns container">
+      <div class="first">
+<article class="hentry" role="article">
+  
+  <header>
+    
+    
+      <p class="meta">
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In this post, I will give some pointers how you can make a skyblock modpack/game
+yourself.</p>
+
+<p>I will use the classical <a href="http://www.minecraftforum.net/forums/mapping-and-modding/maps/1473433-surv-skyblock">SkyBlock</a> map for basics, it is a very basic map with
+few dirt and few sand block, two chest, and one bedrock. It sounds great, well?
+Also this article tells you about playing under Minecraft 1.7.10 and only with
+that. I will describe some mechanics too what is mostly works with older/newer
+versions of the game but mods that I describe is choosed from 1.7.10 modpacks.</p>
+
+<h2>Anatomy of the skyblock</h2>
+
+<p>The first thing what we have to consider is SkyBlock is not prepared to provide
+a modded Minecraft experience. It is a vanilla skyblock survival map without any
+support for creating non-vanilla items or blocks. Both Overworld and Nether are
+an empty dimensions, Nether will spawn a Nether portal if you reach it, but that&#8217;s
+all. What does it means?</p>
+
+<ul>
+<li>We do not have any worldgen. And under worldgen I not only mention just ores,
+minerals and special soil blocks (podzol, mycelium, etc.) but flowers, trees,
+dungeons, and some other things.</li>
+<li>We do not have any mobs. Nor hostile, nor passive mobs. Vanilla mobs are mostly
+spawnable, they can spawn automatically if neccessary environment is provided
+or they&#8217;re &#8220;craftable&#8221;, so you can spawn them manually (like wither).</li>
+<li>Because the points above, we have a very limited possibility to access
+mod-provided things. Mods that using vanilla metals and minerals are usable
+(except valuable things like diamond, emerald, glowstone and redstone) but
+nothing else. Also we have a very limited access to mod-provided mobs,
+especially if they&#8217;re not spawn naturally but generated during the world generation
+(like Witchery&#8217;s Coven Witches, villagers, etc.)</li>
+</ul>
+
+
+<p>In the following points, I will describe how can we break out from these
+restrictions with few, well-choiced mods.</p>
+
+<h2>Enhanced vanilla experience</h2>
+
+<p>Some people does not want much more than vanilla can provide. They&#8217;re happy with
+killing zombies and creepers, growing plants for food, growing trees for building.</p>
+
+<p>However, skyblock maps have some limits what can affect the fun of the game.
+First thing is the old respawning bug with SkyBlock map.</p>
+
+<p>If you do not play under Hardcore, and die on the SkyBlock, the respawning
+could be tricky, because you have a big chance to spawn above the void as the
+starting dirt island is very-very small and game may or may not able to find it.</p>
+
+<p>The mod I recommend you to solve it is the <a href="http://www.curse.com/mc-mods/minecraft/221584-admin-commands-toolbox">AdminCommandsToolbox</a>.
+It provides a small set of commands to help you in working with normal maps but
+we install it only for one command: /setspawn. We can pass a block-based coordinate
+for this command (that you can see in F3 screen) to set your spawn point regardless you
+have or do not have a bed. With this command you can avoid the &#8220;falling loop&#8221; and
+you can spawn exactly where you set your spawnpoint. As I know it does not override
+the mechanic how beds are working but if your bed is vanishes/breaks, you&#8217;ll spawn
+on the specified point.</p>
+
+<p>The second thing can frustrate you is the very basic abilities of vanilla to work with
+inventories. If you already played with some modpacks you may love how you can collect
+things from crafting tables, how to pick/put items one-by-one from/into
+inventories or just sorting the content of your chests.</p>
+
+<p>The mod what is powerful enough to provide these functions is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288184-inventory-tweaks-1-58-july-25">InventoryTweaks</a>.
+In skyblock maps, I recommend you to turn on the function what provides items
+automatically to your hand, for example replaces broken pickaxes with a new one.
+The config file is describes how you can do it but as I know the default setting is &#8216;on&#8217;.</p>
+
+<p>The last thing is the recipes. There is a very few people who can remember all
+recipes, including vanilla ones if they&#8217;re not used in everyday. For example, can
+you recite how boosted tracks or dropper can be made without checking it in the
+wiki?</p>
+
+<p>There is two mods what can provide a help you, the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1279956-chickenbones-mods">NotEnoughItems</a> and
+the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1272385-toomanyitems-the-inventory-editor-and-more-1-8-is">TooManyItems</a>. These mods provides a sidebar at right side of the inventory
+screens there you can browse all existing items/blocks in the game and you can
+check their recipes (NEI also provides a way to check usage of the item in other
+recipes).</p>
+
+<p>If you want a vanilla experience, you can choose any of them. Both NEI and TMI
+can serve the vanilla recipes effectively, so the choice is depends only on your
+taste.</p>
+
+<p>However, if you want include other mods into the game, I strongly recommend you
+to use NEI. It became an industrial standard in modded Minecraft world, most mods
+(if not all) provides multiple different integration with NEI.</p>
+
+<p>Keep in your mind, NEI requires CodeChickenCore mod, do not try use NEI without
+that.</p>
+
+<h2>Semi-vanilla experience</h2>
+
+<p>In this section I recommend mods that mostly do not require materials which is
+not obtainable in the vanilla skyblock.</p>
+
+<p>If you want more foods than available in vanilla Minecraft, I recommend you to
+try out <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Pam&#8217;s Harvestcraft</a>, especially with <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1274678-1-6-x-1-5-2-others-pams-mods-feb-9th-im-back">Spice of Life</a>.
+The former provides a much more plantable food sources (seeds are obtainable via
+bonemealing grass block and punching tall grass) with some enhanced processing
+mechanic, the latter one enforces you to eat different foods via drastically
+decreasing the saturation of the overused foods.</p>
+
+<p>The only thing you can not use in skyblock is the soybean because it requires a
+presser for getting tofu, and presser is built from two pistons. The redstone dust
+is unobtainable or very hard to obtain in skyblock (witches can drop it, but there
+is a very small chance to spawn witch in a non-swamp and non-magical biome).
+However, all other tools are made from iron, wood and stone, so it&#8217;s very easy
+to craft/use them. It also does not use gold, so you do not enforced to travel to
+the Nether if you do not like it.</p>
+
+<p>The last mod in this section I recommend is the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1288400-chisel">Chisel</a> mod. One stick and
+one iron and you can make very beatiful buildings from cobblestone and oak planks.
+Definitely worth it!</p>
+
+<h2>Modded experience</h2>
+
+<p>For modded experience the first problem we face with is lacking modded metals
+and minerals. In vanilla skyblock you can obtain iron (from zombies) and gold
+(from zombie pigmen) and some coal (from wither skeletons), but nothing else.
+No redstone, no diamond, no emerald. And nothing modded metal, like copper or
+lead.</p>
+
+<p>There is only one mod to help us: the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1291850-ex-nihilo-the-skyblock-companion-mod">Ex Nihilo</a> mod. If you played
+with <a href="http://ftbwiki.org/Agrarian_Skies">Agrarian Skies</a> or just watched a video from it, you can remember
+to the sieve that you can use from obtain ore-like stuffs from sand or gravel, a
+hammer to make gravel/sand/dust from cobblestone and the small silkworms that
+can infect leaves to make string obtainable more easier than killing spiders.</p>
+
+<p>Unfortunatly, there is no Ex-Aliquo for 1.7.10 yet, so Thaumcraft integration is
+really missing, there is no shards available and as I know quicksilver cannot
+obtained via sifting sand.</p>
+
+<p>As I wrote in the introducion, there is no worldgen in the skyblock. You can now
+spawn some things manually (mobs, seeds, metals and minerals) but for example
+Botania flowers are missing, Witchery witches does not spawn naturally, and
+dungeon loot chests - where you can obtain some uncraftable resources - are
+completely missing. I encourage you to add some mods that provide Overworld-like
+dimensions, for example Twilight Forest or some mining worlds, so the mods become
+able to spawn their worldgen-based stuffs. The best two mod for this task is the
+<a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1276258-the-twilight-forest-v2-3-2-snow-queen-troll">Twilight Forest</a> and the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1280070-mystcraft-0-11-0">Mystcraft</a>. Twilight Forest adds some adventures
+too, so if you&#8217;re bored in harvesting cobblestone or sifting sand, you can jump
+over to that dimension and kill a Naga or just fight with kobolds for a bite of
+wheat.</p>
+
+<h2>Final words</h2>
+
+<p>I think nobody assumes how SkyBlock map powerful is and how much possibility are
+hidden in that. It can keep your interest up with providing different ways to
+obtain resources than usual. In a void world, you have to plan how you want to
+build your base, how you can organize your stuffs. It helps you to think out of
+the boxes where you always close yourself.</p>
+
+<p>Missing quests and quest rewards makes obtaining rare or uncraftable resources
+very hard, but with good balancing you can get not only additional dimensions but
+additional fun too. Twilight Forest makes it hard enough to provide a way to
+enjoy finding valuable resources and keeps you out the boring<br/>
+&#8220;explore mineshaft/kill/loot&#8221; cycle. MystCraft worlds are usually hard to live,
+and if you&#8217;re unlucky enough to get some decay in the world, you can run for
+your life to avoid getting closed in an endless falling cycle.</p>
+
+<p>If you want to try out something really different, try out skyblock worlds.
+Modded or vanilla - it depends on your taste but I recommend you to give a chance
+for both. Modded skblock is fun, and most modpacks can run a skyblock map (you
+only need Ex Nihilo to get additional ores) so you can try out your favorite
+modpack with a skyblock map.</p>
+
+<p>Only one warning: keep in your mind, most mods and most modpacks are not balanced
+to live on a skyblock map. If you find it too hard, or do not enjoy finding a way
+to build things from a limited resources, keep away from skyblock maps because
+they require strong problem solving abilities.</p>
+
+<p>The most importan thing is enjoy the game and not to suffer from it.</p>
+
+<p>Have a nice game!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Gábor Garami</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-08T11:49:00+01:00" class="pubdate" pubdate data-updated="true">2014. Nov.  8.</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/tags/en/'>en</a>, <a class='category' href='/blog/tags/howto/'>howto</a>, <a class='category' href='/blog/tags/minecraft/'>minecraft</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hron.me/blog/2014/11/diy-modded-skyblock/" data-via="hron84" data-counturl="http://hron.me/blog/2014/11/diy-modded-skyblock/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="small"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/new-scanner-added-successfully/" title="Previous Post: New scanner added successfully">&laquo; New scanner added successfully</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section id="comments">
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar last">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/diy-modded-skyblock/">DIY Modded Skyblock</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/new-scanner-added-successfully/">New scanner added successfully</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/gento-para-vagy-nem-para/">Gento - Para vagy nem para</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/rename-windows-8-profile-dir/">Rename Windows 8 Profile dir</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/nginx-es-php/">Nginx és PHP</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/tags/android'>android (1)</a></li><li><a href='/blog/tags/bear'>bear (3)</a></li><li><a href='/blog/tags/blog'>blog (1)</a></li><li><a href='/blog/tags/brno'>brno (2)</a></li><li><a href='/blog/tags/centos'>centos (1)</a></li><li><a href='/blog/tags/continous-deployment'>continous deployment (1)</a></li><li><a href='/blog/tags/cooking'>cooking (1)</a></li><li><a href='/blog/tags/cookinig'>cookinig (1)</a></li><li><a href='/blog/tags/drupal'>drupal (2)</a></li><li><a href='/blog/tags/en'>en (10)</a></li><li><a href='/blog/tags/fantasy'>fantasy (1)</a></li><li><a href='/blog/tags/gentoo'>gentoo (2)</a></li><li><a href='/blog/tags/git'>git (2)</a></li><li><a href='/blog/tags/google-authenticator'>google authenticator (1)</a></li><li><a href='/blog/tags/hetkoznapok'>hetkoznapok (14)</a></li><li><a href='/blog/tags/hirek'>hirek (1)</a></li><li><a href='/blog/tags/hogyan'>hogyan (5)</a></li><li><a href='/blog/tags/howto'>howto (2)</a></li><li><a href='/blog/tags/hu'>hu (83)</a></li><li><a href='/blog/tags/humor'>humor (1)</a></li><li><a href='/blog/tags/humour'>humour (1)</a></li><li><a href='/blog/tags/it'>it (33)</a></li><li><a href='/blog/tags/java'>java (2)</a></li><li><a href='/blog/tags/jenkins'>jenkins (2)</a></li><li><a href='/blog/tags/jetty'>jetty (1)</a></li><li><a href='/blog/tags/konyha'>konyha (3)</a></li><li><a href='/blog/tags/linux'>linux (17)</a></li><li><a href='/blog/tags/mac'>mac (2)</a></li><li><a href='/blog/tags/minecraft'>minecraft (1)</a></li><li><a href='/blog/tags/nem-kategorizalt'>nem-kategorizalt (7)</a></li><li><a href='/blog/tags/nginx'>nginx (2)</a></li><li><a href='/blog/tags/openid'>openid (1)</a></li><li><a href='/blog/tags/php'>php (2)</a></li><li><a href='/blog/tags/pic'>pic (3)</a></li><li><a href='/blog/tags/posterous'>posterous (1)</a></li><li><a href='/blog/tags/programozas'>programozas (6)</a></li><li><a href='/blog/tags/qt'>qt (1)</a></li><li><a href='/blog/tags/rails'>rails (7)</a></li><li><a href='/blog/tags/recipe'>recipe (1)</a></li><li><a href='/blog/tags/repository'>repository (1)</a></li><li><a href='/blog/tags/ruby'>ruby (7)</a></li><li><a href='/blog/tags/rvm'>rvm (1)</a></li><li><a href='/blog/tags/ssh'>ssh (1)</a></li><li><a href='/blog/tags/sysadmin'>sysadmin (1)</a></li><li><a href='/blog/tags/tech'>tech (2)</a></li><li><a href='/blog/tags/testing'>testing (1)</a></li><li><a href='/blog/tags/teszt'>teszt (1)</a></li><li><a href='/blog/tags/thinking'>thinking (3)</a></li><li><a href='/blog/tags/travel'>travel (2)</a></li><li><a href='/blog/tags/tudomany'>tudomany (6)</a></li><li><a href='/blog/tags/tutorial'>tutorial (6)</a></li><li><a href='/blog/tags/utazas'>utazas (1)</a></li><li><a href='/blog/tags/windows'>windows (5)</a></li><li><a href='/blog/tags/windows-8'>windows-8 (1)</a></li><li><a href='/blog/tags/wordpress'>wordpress (1)</a></li></ul>
+</section>
+<section>
+    <h1>StackOverflow Profile</h1>
+    <p>
+        <a href="http://stackoverflow.com/users/182474/gabor-garami">
+            <img src="http://stackoverflow.com/users/flair/182474.png" width="208" height="58" alt="profile for Gabor Garami at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for Gabor Garami at Stack Overflow, Q&amp;A for professional and enthusiast programmers">
+        </a>
+    </p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/hron84">@hron84</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'hron84',
+            count: 4,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("hron84", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/hron84" class="twitter-follow-button" data-show-count="false">Follow @hron84</a>
+  
+</section>
+
+
+  
+</aside>
+
+<div class="rule">&nbsp;</div>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><div id="footer" class="clearfix">
+  <div class="site">
+    <div class="copy">
+      
+      Copyright &copy; 2014 - Gábor Garami &mdash; Some rights reserved<br/>
+      <small class="license">
+        Contents and design are licensed under the terms of <br/>
+        <a href="http://creativecommons.org/licenses/by-sa/3.0/">
+          <img src="/images/cc.png" alt="creativecommons" />
+          &nbsp;CreativeCommons BY-SA 3.0 Unported License</a>
+      </small>
+    </div>
+    <div class="powa">
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span><br/>
+      <span class="credit">Hosted by <a href="https://github.com/">GitHub Pages</a></span>
+    </div>
+  </div>
+</div>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'hron84';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hron.me/blog/2014/11/diy-modded-skyblock/';
+        var disqus_url = 'http://hron.me/blog/2014/11/diy-modded-skyblock/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
