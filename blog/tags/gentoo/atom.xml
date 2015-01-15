@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gentoo | Hron's blog]]></title>
   <link href="http://hron.me/blog/tags/gentoo/atom.xml" rel="self"/>
   <link href="http://hron.me/"/>
-  <updated>2014-11-08T15:11:04+01:00</updated>
+  <updated>2015-01-15T10:51:50+01:00</updated>
   <id>http://hron.me/</id>
   <author>
     <name><![CDATA[Gábor Garami]]></name>
@@ -146,9 +146,9 @@ egyenként.</li>
 <li>eix: A Google helyi megfelelője :-). Alapvetően csomagkeresgélésre
 használható, részletes információkkal szolgál arról, hogy milyen csomagok
 érhetőek el a rendszerben. A kézikönyvekben ajánlott <code>emerge --sync</code>
-parancs helyett (ha már fenn van az eix<code>mindig az</code>eix-sync` parancsot
+parancs helyett (ha már fenn van az eix) lehetőleg mindig az <code>eix-sync</code> parancsot
 használjuk, mert ez frissíti az eix adatbázisát is a sync végén, plusz ad
-egy kedves listát az új/frissült/törölt csomagokról. Ezt gondosan
+egy kedves listát az új/frissült/törölt csomagokról. Ez utóbbitt gondosan
 tanulmányozzuk.</li>
 <li>gentoolkit: Szintén hasznos csomagkezelő gyűjtemény. Én egy parancsot
 használok belőle permanensen, a többit csak szükség esetén, ez pedig a
@@ -158,7 +158,7 @@ Egy idő után hajlamos az ember rászokni arra, hogy ha egy frissebb verzió
 bugos lenne egy adott csomagból, akkor a bugos verziót és afelettieket
 kimaszkolja, majd az egészet elfelejtse. Ilyenkor jó a glsa-check, ami
 figyelmeztet, hogy bizony-bizony abba a verzióba már találtak egy komoly
-bugot, és talán érdemes lehet megfontolni a frissítést.</li>
+bugot, és tán érdemes lehet megfontolni a frissítést.</li>
 <li>eselect és pluginjei: maga az eselect szintén az alaprendszer része, a
 pluginjei pedig a legtöbb esetben a hozzátartozó csomaggal kerülnek fel. Az
 update-alternatives-nek felel meg, csak kissé okosabb és színesebb. Érdemes
@@ -173,11 +173,11 @@ kapjon <code>samba</code> és <code>sftp</code> flageket valahonnan, különben 
 <code>slang</code> flag pedig a szép magyar felülethez segít hozzá minket.</li>
 <li>nano: Ha mcedit pártiak vagyunk, akkor nem érdekes, ha vim/emacs pártiak,
 nézzünk rá erre a kis editorra, amíg kedvencünk fordul. Syntax coloring,
-keresés, vágólap... és egyszerő használat. Része az alaprenszernek.</li>
+keresés, vágólap... és egyszerű használat. Része az alaprenszernek.</li>
 <li>sudo: sajnos nem része az alaprendszernek ez a kötelező kis program. Tegyük
 fel, alig van függősége.</li>
 <li>layman: a külső csomagtárólók kezelője. Okosan paraméterezve rögtön
-feldobja a 3 legnépszerűbb verziókezelt is, függőségként.</li>
+feldobja a 3 legnépszerűbb verziókezelőt is, függőségként.</li>
 </ul>
 
 
@@ -196,13 +196,12 @@ kiválasztva. Beviteli eszköznek általában a <code>keyboard</code>-ot, a <cod
 <code>evdev</code>-et szoktam választani (ez utóbbi mindenképp kell), tapipad mániákusok
 ne feledjék a <code>synaptics</code>-ot is kérni az eladótól a meglepetések elkerülése
 okán.
-Kell egy jó login manager is, GNOME esetében ez a GDN, bár én most LightDM-et
+Kell egy jó login manager is, GNOME esetében ez a GDM, bár én most LightDM-et
 raktam fel, csak úgy próbából. Nem rossz, de a GDM jobb.</p>
 
 <p>Most jövök rá, hogy KDE  fanok is vannak itt. Nekik rossz hírem van: nem
 nagyon tudok mit ajánlani, mert ritkán vetemedek KDE használatra, mostanság
-ez a
-gyakoriság a sohához tendál. Asszem a kdebase-startkde csomag visz el az
+ez a gyakoriság a sohához tendál. Asszem a kdebase-startkde csomag visz el az
 alaprendszerig, kdm csomag van, és a kde-l10n csomagtól lehet várni
 lokalizációt. A xorg-x11 pedig itt is kötelező elem.</p>
 
@@ -211,7 +210,9 @@ tiltsuk a <code>qt4</code> USE flaget, mert ez magával hozná a Qt grafikus kö
 telepítését, ami elég hosszadalmas móka. KDE-s álmok esetében viszont épp
 ellenkezőleg: engedélyezzük, méghozzá minél koraibb szakaszban, a KDE-s
 cuccok nagy része le fogja fikázni a rendszerünket, ha nincs mindenütt Qt
-támogatás.</p>
+támogatás. Ha már feltelepült a szívünknek tetsző rendszer, ki lehet venni a
+Qt4-re vonatkozó tiltást, ugyanis van néhány program, aminek a Qt-s felülete
+egyszerűen csak szebb, mint a Gtk-s.</p>
 
 <p>Grafikus cuccokra ajánlatok:</p>
 
@@ -228,7 +229,7 @@ commit és history tallózó segíti a munkát.</li>
 <li>NetworkManager: furcsa, de nem alapértelmezett a telepítése. Desktopon,
 wifi-mentes környezetben nincs is rá szükség, laptopon viszont
 kötelező elem, a hálózati konfigokat másképp nem fogjuk tudni kényelmesen
-managelni. A hasonló nevő (csak végig kisbetős) USE flag beállítása
+managelni. A hasonló nevű (csak végig kisbetűs) USE flag beállítása
 szintén fontos. Régebben volt valami PolicyKites para, de úgy tudom, az
 már megoldódott, mert más disztróban is volt, és azokban már meg van
 oldva.</li>
@@ -265,9 +266,9 @@ kerülendő terület ez.</p>
 mellett. Ez azért van, mert a <code>-N</code> kapcsoló a USE flag frissülésekre is rámegy,
 ez ugyanis sokszor valamilyen plusz támogatást is jelent, verzióváltás nélkül.
 Bekapcsolt <em>ccache</em> mellett, ha csak kikapcsolt flag került be, a csomagok
-secc-pecc lefordulnak, ha van, akkor pedig gazdagabbak leszünk egy, az
-igényeinknek jobban megfelelő csomagnak (amennyiben az USE flageket a saját, és
-nem a szomszéd igényei alapján állítottuk be).</p>
+secc-pecc lefordulnak, ha van bekapcsolt is, akkor pedig gazdagabbak leszünk egy,
+az igényeinknek jobban megfelelő csomagnak (amennyiben az USE flageket a saját,
+és nem a szomszéd ízlése alapján állítottuk be).</p>
 
 <p>A frissítéseknél lehet azért trükközni. A <code>-DuNa</code> mindent felsorol, ami épp
 frissülni akar, de ha mondjuk nem akarunk egy Firefox forgatásba belekezdeni,
